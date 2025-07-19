@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Law Offices of Pritpal Singh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    body {
+      justify-content: space-between;
+    }
+    .logo-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 48px;
+      margin-bottom: 40px;
+    }
+    .logo-container img {
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    footer {
+      width: 100%;
+      text-align: center;
+      color: #aaa;
+      padding: 24px 0 18px 0;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      background: none;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="/whitenobg.svg" width="200" height="auto" alt="Pritpal Singh Law Logo">
+  </div>
+
+  <!-- Zapier Chatbot Embed -->
+  <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+  <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmdaghc8a001fpjfn22yceqwk'></zapier-interfaces-chatbot-embed>
+  
+  <footer>
+    © 2025, Law Offices of Pritpal Singh
+  </footer>
+</body>
+</html>
