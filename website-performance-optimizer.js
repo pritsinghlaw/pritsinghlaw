@@ -249,7 +249,7 @@ class WebsiteOptimizer {
     preloadCriticalResources() {
         const criticalResources = [
             // Add your critical resources here
-            '/css/style.css',
+            '/style.css',
             '/js/main.js',
             // Web fonts
             'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
