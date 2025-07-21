@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Intake Form – Law Offices of Pritpal Singh</title>
+  <link rel="stylesheet" href="/client-area/style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <!-- Step 1: Client Info -->
+    <div class="step step-1 active">
+      <div class="step-header">
+        <span class="icon">📝</span>
+        <h2>Your Contact Info</h2>
+        <p>Please provide the following details.</p>
+      </div>
+      <form id="client-info-form">
+        <label>
+          Full Name
+          <input type="text" name="fullName" required />
+        </label>
+        <label>
+          Email Address
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Phone Number
+          <input type="tel" name="phone" required />
+        </label>
+        <label>
+          Location (City, State)
+          <input type="text" name="location" required />
+        </label>
+        <button type="submit">Next →</button>
+      </form>
+    </div>
+
+    <!-- Step 2: Service Selection -->
+    <div class="step step-2">
+      <div class="step-header">
+        <span class="icon">🏢</span>
+        <h2>Select Your Service</h2>
+        <p>Choose the service you need assistance with.</p>
+      </div>
+      <div class="options" id="service-options">
+        <!-- populated by JS -->
+      </div>
+      <button class="back-btn" onclick="prevStep()">← Back</button>
+    </div>
+
+    <!-- Step 3: Case Info -->
+    <div class="step step-3">
+      <div class="step-header">
+        <span class="icon">⚖️</span>
+        <h2>Tell Us About Your Case</h2>
+        <p>Provide brief details.</p>
+      </div>
+      <form id="case-info-form">
+        <textarea name="caseDetails" rows="5" placeholder="Your case details..." required></textarea>
+        <button type="submit">Next →</button>
+      </form>
+      <button class="back-btn" onclick="prevStep()">← Back</button>
+    </div>
+
+    <!-- Step 4: Consultation Option -->
+    <div class="step step-4">
+      <div class="step-header">
+        <span class="icon">📅</span>
+        <h2>Book a Consultation</h2>
+        <p>Please choose a consultation option:</p>
+      </div>
+      <div class="options">
+        <div class="option-card" data-type="free">
+          <h3>15-Minute Free Consultation</h3>
+        </div>
+        <div class="option-card" data-type="paid">
+          <h3>1‑Hour Deep Dive – $300</h3>
+        </div>
+      </div>
+      <button class="back-btn" onclick="prevStep()">← Back</button>
+    </div>
+
+    <!-- Step 5: Redirecting -->
+    <div class="step step-5">
+      <div class="step-header">
+        <span class="icon">⏳</span>
+        <h2>Redirecting…</h2>
+        <p>Please wait while we send you to the booking page.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/client-area/script.js"></script>
+</body>
+</html>
