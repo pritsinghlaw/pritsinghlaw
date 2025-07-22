@@ -20,7 +20,7 @@ button:hover, .save-btn:hover{background:#d53900}
 .option-card:hover{border-color:#FF4900;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
 .option-card.selected{border-color:#FF4900;background:#fff5f0}
 footer{text-align:center;margin-top:1rem;font-size:.85rem;color:#777}
-.spinner-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.2);display:flex;justify-content:center;align-items:center}
-.spinner{border:6px solid #f3f3f3;border-top:6px solid #FF4900;border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0)}}/* DARK MODE */@media(prefers-color-scheme:dark){body{background:#121212;color:#ddd}.form-container{background:#1e1e1e;box-shadow:none}input,textarea{background:#2c2c2c;color:#ddd;border-color:#444}button, .save-btn{background:#FF4900;color:#fff}.back-btn{color:#ccc}option-card{background:#2c2c2c;border-color:#444}.option-card.selected{background:#3a1a0a}}
-@media (max-width:600px){.form-container{padding:1rem;margin:0.5rem}}
+
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0)}}
+
+
