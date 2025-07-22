@@ -56,21 +56,47 @@ visibility:hidden!important;
 
 #preloader {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
 }
-
-#preloader-logo {
-  width: 250px; /* Adjust as needed */
-  height: auto;
+#preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+#preloader-logo {
+  width: 250px;
+  height: auto;
+  margin-bottom: 30px;
+}
+.loading-text span {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  opacity: 0.2;
+  animation: blink 1s linear infinite;
+}
+.loading-text span:nth-child(1) { animation-delay: 0s; }
+.loading-text span:nth-child(2) { animation-delay: 0.1s; }
+.loading-text span:nth-child(3) { animation-delay: 0.2s; }
+.loading-text span:nth-child(4) { animation-delay: 0.3s; }
+.loading-text span:nth-child(5) { animation-delay: 0.4s; }
+.loading-text span:nth-child(6) { animation-delay: 0.5s; }
+.loading-text span:nth-child(7) { animation-delay: 0.6s; }
+.loading-text span:nth-child(8) { animation-delay: 0.7s; }
+.loading-text span:nth-child(9) { animation-delay: 0.8s; }
+.loading-text span:nth-child(10){ animation-delay: 0.9s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
   </style>
   
  <style>
@@ -237,13 +263,18 @@ visibility:hidden!important;
   <div class="page-wrapper">
     
     <!-- Preloader Start -->
-<div  id="preloader">
-  <img class="fade-in-up" src="/whitenobg.svg" alt="Pritpal Singh Logo" id="preloader-logo" />
+<div id="preloader">
+  <div id="preloader-content">
+    <img class="fade-in-up" src="/whitenobg.svg" alt="Law Offices of Pritpal Singh Logo" id="preloader-logo" />
+    <div class="loading-text">
+      <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
+    </div>
+  </div>
 </div>
 <!-- Preloader End -->
     
     
-    <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
+    <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img class="fade-in-up" src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
   
  <nav role="navigation" id="w-node-b62916c8-25c1-48a4-c0e8-4b5699b25d14-99b25d10" class="navbar-menu page-height-tablet w-nav-menu"><a href="/" class="navbar-link w-nav-link" style="">Home</a><a href="/about" class="navbar-link w-nav-link">About</a><a href="/services" aria-current="page" class="navbar-link w-nav-link w--current">Services</a><a href="/assistant" class="navbar-link w-nav-link">Support</a>
   
@@ -550,13 +581,14 @@ visibility:hidden!important;
 
 
 <script>
-  window.addEventListener('load', function() {
+  // Hide preloader after 10 seconds (regardless of load)
+  setTimeout(function() {
     var preloader = document.getElementById('preloader');
     preloader.style.opacity = '0';
     setTimeout(function() {
       preloader.style.display = 'none';
-    }, 500);
-  });
+    }, 500); // allow fade out
+  }, 10000);
 </script>
 
 
