@@ -5,8 +5,16 @@ const progress = document.querySelector('.progress');
 const totalSteps = steps.length;
 
 // Spinner toggle
-const spinnerOverlay = document.querySelector('.spinner-overlay');
-function showSpinner(show) { spinnerOverlay.hidden = !show; }
+function showSpinner(show) {
+  const overlay = document.querySelector('.spinner-overlay');
+  if (show) {
+    overlay.hidden = false;
+    overlay.style.display = 'flex';
+  } else {
+    overlay.hidden = true;
+    overlay.style.display = 'none';
+  }
+}
 
 // Progress update
 function updateProgress() {
