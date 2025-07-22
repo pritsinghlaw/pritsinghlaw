@@ -11,6 +11,31 @@
   margin: 0 auto 1.5rem !important;
   height: 60px !important;
 }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #121212; color: #f0f0f0; }
+  .form-container { background: #1e1e1e; box-shadow: none; }
+  input, textarea {
+    background: #2c2c2c;
+    color: #fff;
+    border-color: #555;
+  }
+  button, .save-btn {
+    background: #FF4900;
+    color: #fff;
+  }
+  .option-card {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  .option-card.selected {
+    background: #3a1a0a;
+  }
+  .logo {
+    content: url('whitenobg.svg'); /* DARK MODE LOGO */
+  }
+}
+
 </style>
 
 </head>
