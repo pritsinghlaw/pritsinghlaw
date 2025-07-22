@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Intake Fork – Law Offices of Pritpal Singh</title>
+  <title>Client Intake Form – Law Offices of Pritpal Singh</title>
   <link rel="stylesheet" href="/client-area/style.css" />
 </head>
 <body>
   <div class="form-container">
-    <img src="colornobg.svg" alt="Law Offices of Pritpal Singh logo" class="logo" />
+    <img src="/colornobg.svg" alt="Law Offices of Pritpal Singh" class="logo" />
 
     <div class="progress-bar">
-      <div class="progress" style="width: 0%;"></div>
+      <div class="progress"></div>
     </div>
 
     <!-- Step 1: Contact Info -->
@@ -20,11 +20,20 @@
         <h2>Hello! What’s your full name?</h2>
       </div>
       <form id="client-info-form">
-        <label>Full Name<input name="fullName" type="text" required /></label>
-        <label>Email<input name="email" type="email" required /></label>
-        <label>Phone<input name="phone" type="tel" required /></label>
-        <label>City, State<input name="location" type="text" required /></label>
+        <label>Full Name
+          <input name="fullName" type="text" autocomplete="name" inputmode="text" enterkeyhint="next" required />
+        </label>
+        <label>Email
+          <input name="email" type="email" autocomplete="email" inputmode="email" enterkeyhint="next" required />
+        </label>
+        <label>Phone
+          <input name="phone" type="tel" autocomplete="tel" inputmode="tel" enterkeyhint="next" required />
+        </label>
+        <label>City, State
+          <input name="location" type="text" autocomplete="address-level2" inputmode="text" enterkeyhint="go" required />
+        </label>
         <button type="submit">Next →</button>
+        <button type="button" class="save-btn">Save Progress</button>
       </form>
     </div>
 
@@ -33,10 +42,10 @@
       <div class="step-header">
         <span class="icon">🏢</span>
         <h2 id="step2-title">Nice to meet you, <span class="fname-placeholder"></span>! Which service do you need?</h2>
-        <p>Select one to proceed.</p>
       </div>
       <div class="options" id="service-options"></div>
       <button class="back-btn" onclick="prevStep()">← Back</button>
+      <button type="button" class="save-btn">Save Progress</button>
     </div>
 
     <!-- Step 3: Case Info -->
@@ -46,10 +55,11 @@
         <h2>Tell us more about your case, <span class="fname-placeholder"></span>:</h2>
       </div>
       <form id="case-info-form">
-        <textarea name="caseDetails" rows="5" placeholder="Describe what's going on..." required></textarea>
+        <textarea name="caseDetails" rows="5" x-webkit-speech placeholder="Describe what's going on..." required></textarea>
         <button type="submit">Next →</button>
       </form>
       <button class="back-btn" onclick="prevStep()">← Back</button>
+      <button type="button" class="save-btn">Save Progress</button>
     </div>
 
     <!-- Step 4: Consultation Booking -->
@@ -63,6 +73,7 @@
         <div class="option-card" data-type="paid"><h3>1‑Hour Deep Dive – $300</h3></div>
       </div>
       <button class="back-btn" onclick="prevStep()">← Back</button>
+      <button type="button" class="save-btn">Save Progress</button>
     </div>
 
     <!-- Step 5: Redirecting -->
@@ -75,6 +86,8 @@
 
     <footer>© 2025, Law Offices of Pritpal Singh</footer>
   </div>
+
+  <div class="spinner-overlay" hidden><div class="spinner"></div></div>
 
   <script src="/client-area/script.js"></script>
 </body>
