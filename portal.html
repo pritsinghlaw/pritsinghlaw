@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Offices of Pritpal Singh - Client Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Application Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <!-- Logo Section -->
+            <div class="sidebar-header">
+                <div class="firm-logo">
+                    <img src="https://via.placeholder.com/40x40/1e3a8a/ffffff?text=LPS" alt="Law Offices of Pritpal Singh" class="logo-img">
+                    <div class="logo-text">
+                        <h1>Law Offices of</h1>
+                        <h2>Pritpal Singh</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <button class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="cases">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Cases</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="documents">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Documents</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="messages">
+                        <i class="fas fa-envelope"></i>
+                        <span>Messages</span>
+                        <span class="nav-badge">12</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="payments">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Payments</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="calendar">
+                        <i class="fas fa-calendar"></i>
+                        <span>Calendar</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="profile">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- User Profile Section -->
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/40x40/1e3a8a/ffffff?text=SJ" alt="Sarah Johnson" class="avatar-img">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Sarah Johnson</span>
+                        <span class="user-role">Client</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="header-title">
+                        <h1 id="sectionTitle">Dashboard</h1>
+                        <p class="header-date">Sunday, July 27, 2025</p>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="btn btn--primary" id="createTaskBtn">
+                        <i class="fas fa-plus"></i>
+                        Create Task
+                    </button>
+                    <button class="notification-btn" id="notificationBtn" aria-label="View notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <!-- Metrics Cards -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon navy">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Active Cases</h3>
+                            <div class="metric-value">3</div>
+                            <div class="metric-change positive">+1 this month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon orange">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Documents Pending</h3>
+                            <div class="metric-value">7</div>
+                            <div class="metric-change negative">-2 since last week</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon navy">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Messages</h3>
+                            <div class="metric-value">12</div>
+                            <div class="metric-change positive">+5 new</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon orange">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Upcoming Deadlines</h3>
+                            <div class="metric-value">2</div>
+                            <div class="metric-change neutral">No change</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Content Grid -->
+                <div class="dashboard-grid">
+                    <!-- Cases Overview -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3>Active Cases</h3>
+                            <button class="btn btn--outline btn--sm">View All</button>
+                        </div>
+                        <div class="widget-content">
+                            <div class="case-list">
+                                <div class="case-item">
+                                    <div class="case-info">
+                                        <h4>Property Purchase - 123 Main St</h4>
+                                        <p class="case-id">RE-2024-001</p>
+                                        <span class="case-type">Real Estate Purchase</span>
+                                    </div>
+                                    <div class="case-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 75%"></div>
+                                        </div>
+                                        <span class="progress-text">75%</span>
+                                        <span class="status status--success">In Progress</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-item">
+                                    <div class="case-info">
+                                        <h4>Commercial Lease Agreement</h4>
+                                        <p class="case-id">RE-2024-002</p>
+                                        <span class="case-type">Commercial Real Estate</span>
+                                    </div>
+                                    <div class="case-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 45%"></div>
+                                        </div>
+                                        <span class="progress-text">45%</span>
+                                        <span class="status status--warning">Under Review</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-item">
+                                    <div class="case-info">
+                                        <h4>Property Sale - 456 Oak Ave</h4>
+                                        <p class="case-id">RE-2024-003</p>
+                                        <span class="case-type">Real Estate Sale</span>
+                                    </div>
+                                    <div class="case-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 90%"></div>
+                                        </div>
+                                        <span class="progress-text">90%</span>
+                                        <span class="status status--info">Closing Scheduled</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Messages -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3>Recent Messages</h3>
+                            <button class="btn btn--outline btn--sm">View All</button>
+                        </div>
+                        <div class="widget-content">
+                            <div class="message-list">
+                                <div class="message-item unread">
+                                    <div class="message-sender">
+                                        <div class="sender-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="sender-info">
+                                            <h5>Pritpal Singh</h5>
+                                            <span class="message-time">July 27, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="message-preview">
+                                        <h6>Closing Date Confirmation</h6>
+                                        <p>The closing for 123 Main St has been confirmed for July 30th at 2:00 PM...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="message-item">
+                                    <div class="message-sender">
+                                        <div class="sender-avatar system">
+                                            <i class="fas fa-bell"></i>
+                                        </div>
+                                        <div class="sender-info">
+                                            <h5>Sarah Johnson</h5>
+                                            <span class="message-time">July 26, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="message-preview">
+                                        <h6>Document Question</h6>
+                                        <p>I have a question about the property disclosure form...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="message-item">
+                                    <div class="message-sender">
+                                        <div class="sender-avatar">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                        <div class="sender-info">
+                                            <h5>Title Company</h5>
+                                            <span class="message-time">July 25, 2025</span>
+                                        </div>
+                                    </div>
+                                    <div class="message-preview">
+                                        <h6>Title Insurance Update</h6>
+                                        <p>Your title insurance policy has been updated with the latest information...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Tasks -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3>Upcoming Tasks</h3>
+                            <button class="btn btn--outline btn--sm">View All</button>
+                        </div>
+                        <div class="widget-content">
+                            <div class="task-list">
+                                <div class="task-item priority-high">
+                                    <div class="task-checkbox">
+                                        <input type="checkbox" id="task1">
+                                    </div>
+                                    <div class="task-content">
+                                        <h5>Sign final closing documents</h5>
+                                        <span class="task-deadline">Due: July 30, 2025</span>
+                                    </div>
+                                    <span class="priority-badge high">High</span>
+                                </div>
+                                
+                                <div class="task-item priority-medium">
+                                    <div class="task-checkbox">
+                                        <input type="checkbox" id="task2">
+                                    </div>
+                                    <div class="task-content">
+                                        <h5>Complete property walkthrough</h5>
+                                        <span class="task-deadline">Due: July 29, 2025</span>
+                                    </div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                
+                                <div class="task-item priority-medium">
+                                    <div class="task-checkbox">
+                                        <input type="checkbox" id="task3">
+                                    </div>
+                                    <div class="task-content">
+                                        <h5>Submit financing documents</h5>
+                                        <span class="task-deadline">Due: August 5, 2025</span>
+                                    </div>
+                                    <span class="priority-badge medium">Medium</span>
+                                </div>
+                                
+                                <div class="task-item priority-low">
+                                    <div class="task-checkbox">
+                                        <input type="checkbox" id="task4">
+                                    </div>
+                                    <div class="task-content">
+                                        <h5>Review lease agreement</h5>
+                                        <span class="task-deadline">Due: August 10, 2025</span>
+                                    </div>
+                                    <span class="priority-badge low">Low</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment History -->
+                    <div class="dashboard-widget">
+                        <div class="widget-header">
+                            <h3>Payment History</h3>
+                            <button class="btn btn--outline btn--sm">View All</button>
+                        </div>
+                        <div class="widget-content">
+                            <div class="payment-list">
+                                <div class="payment-item paid">
+                                    <div class="payment-info">
+                                        <h5>INV-2024-001</h5>
+                                        <p>Legal Services - Property Purchase</p>
+                                    </div>
+                                    <div class="payment-details">
+                                        <span class="payment-amount">$2,500.00</span>
+                                        <span class="payment-date">July 15, 2025</span>
+                                        <span class="status status--success">Paid</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-item paid">
+                                    <div class="payment-info">
+                                        <h5>INV-2024-002</h5>
+                                        <p>Document Review and Preparation</p>
+                                    </div>
+                                    <div class="payment-details">
+                                        <span class="payment-amount">$1,200.00</span>
+                                        <span class="payment-date">June 30, 2025</span>
+                                        <span class="status status--success">Paid</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-item pending">
+                                    <div class="payment-info">
+                                        <h5>INV-2024-003</h5>
+                                        <p>Closing Services</p>
+                                    </div>
+                                    <div class="payment-details">
+                                        <span class="payment-amount">$800.00</span>
+                                        <span class="payment-date">August 1, 2025</span>
+                                        <span class="status status--warning">Pending</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections (cases, documents, messages, payments, calendar, profile, settings) -->
+            <!-- These will be dynamically loaded via JavaScript -->
+            <section id="cases" class="content-section"></section>
+            <section id="documents" class="content-section"></section>
+            <section id="messages" class="content-section"></section>
+            <section id="payments" class="content-section"></section>
+            <section id="calendar" class="content-section"></section>
+            <section id="profile" class="content-section"></section>
+            <section id="settings" class="content-section"></section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="taskModal" class="modal hidden" role="dialog" aria-labelledby="taskModalTitle">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">Create New Task</h3>
+                <button class="modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle" class="form-label">Task Title</label>
+                        <input type="text" id="taskTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription" class="form-label">Description</label>
+                        <textarea id="taskDescription" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskDueDate" class="form-label">Due Date</label>
+                            <input type="date" id="taskDueDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskPriority" class="form-label">Priority</label>
+                            <select id="taskPriority" class="form-control" required>
+                                <option value="">Select Priority</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--outline modal-cancel">Cancel</button>
+                <button type="submit" form="taskForm" class="btn btn--primary">Create Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>© 2025, Law Offices of Pritpal Singh</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
