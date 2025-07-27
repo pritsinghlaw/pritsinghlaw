@@ -100,73 +100,7 @@ class WebsiteOptimizer {
             }
         });
 
-        // Add smooth scroll to top functionality
-        this.addScrollToTop();
-    }
-
-    smoothScrollTo(targetPosition, duration = 500) {
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        let startTime = null;
-
-        const animation = (currentTime) => {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const run = this.easeInOutQuad(timeElapsed, startPosition, distance, duration);
-            window.scrollTo(0, run);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        };
-
-        requestAnimationFrame(animation);
-    }
-
-    easeInOutQuad(t, b, c, d) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-    }
-
-    addScrollToTop() {
-        // Create scroll to top button
-        const scrollButton = document.createElement('button');
-        scrollButton.innerHTML = '↑';
-        scrollButton.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: #333;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            z-index: 1000;
-        `;
-
-        document.body.appendChild(scrollButton);
-
-        // Show/hide button based on scroll position
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollButton.style.opacity = '1';
-                scrollButton.style.visibility = 'visible';
-            } else {
-                scrollButton.style.opacity = '0';
-                scrollButton.style.visibility = 'hidden';
-            }
-        });
-
-        // Scroll to top on click
-        scrollButton.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+        
 
     // 2. LAZY LOADING WITH INTERSECTION OBSERVER
     initLazyLoading() {
