@@ -279,9 +279,49 @@ visibility:hidden!important;
 .header-image, .image-contact-us, .image-about-us, .blog-image {
     opacity: 1 !important;
 }
+
+
 </style>
 
 
+
+<!---DROPDOWN MENU STYLESHEET UPDATE--->
+<style>
+/* ---------- GENERIC RESETS ---------- */
+.navbar-dropdown-list-container{
+  width:100% !important;           /* let it span parent */
+  padding:0 !important;            /* remove extra gap */
+}
+
+/* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
+@media (min-width:768px){
+  .menu-item-container{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important; /* two equal columns */
+    gap:0.75rem 1.25rem !important;                 /* row/col gap */
+  }
+}
+
+/* ---------- ONE-COLUMN STACK (PHONES) ---------- */
+@media (max-width:767px){
+  .menu-item-container{                 /* override grid */
+    display:block !important;
+  }
+  .navbar-dropdown-link{
+    display:block !important;
+    padding:0.5rem 1rem !important;
+  }
+}
+
+/* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
+.navbar-dropdown-list-container{
+  max-height:70vh !important;       /* never exceed 70 % of screen height   */
+  overflow-y:auto !important;       /* internal scroll if list is very long */
+}
+</style>
+
+
+  
 <script>
   // Set your password here
   const PASSWORD = "IronHorse1901!";
@@ -328,8 +368,47 @@ visibility:hidden!important;
 <nav role="navigation" id="w-node-b62916c8-25c1-48a4-c0e8-4b5699b25d14-99b25d10" class="navbar-menu page-height-tablet w-nav-menu">
   <a href="/" class="navbar-link w-nav-link">Home</a>
 
-  <a href="/about" class="navbar-link w-nav-link">About</a>
+<!---  <a href="/about" class="navbar-link w-nav-link">About</a> --->
 
+<!---ABOUT---->
+  
+   <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" class="navbar-menu-dropdown w-dropdown">
+    <div class="navbar-dropdwn-toggle w-dropdown-toggle">
+      <div class="dropdown-icon w-embed">
+        <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <div>About</div>
+    </div>
+
+   <!-- ✅ 2-column wrapper gets the new grid rules -->
+    <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
+      <div class="navbar-dropdown-list-wrapper flex-horizontal">
+        <div class="navbar-dropdown-list">
+          <div class="menu-title-wrapper">
+            <div class="heading-style-h6 text-color-navy">Overview</div>
+          </div>
+
+          <!-- ✅ Grid parent -->
+          <div class="menu-item-container flex-horizontal">
+            <div class="menu-item-wrapper">
+              <a href="/about" class="navbar-dropdown-link w-dropdown-link">What We Do</a>
+              <a href="/team" class="navbar-dropdown-link w-dropdown-link">Meet The Team</a>
+              <a href="/knowledge-center" target="_blank" class="navbar-dropdown-link w-dropdown-link">Knowledge Base</a>
+              <a href="https://blog.pritsinghlaw.com" target="_blank" class="navbar-dropdown-link w-dropdown-link">News & Insights</a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+
+  
+
+  <!---SERVICES--->
   <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" class="navbar-menu-dropdown w-dropdown">
     <div class="navbar-dropdwn-toggle w-dropdown-toggle">
       <div class="dropdown-icon w-embed">
@@ -340,12 +419,15 @@ visibility:hidden!important;
       <div>Services</div>
     </div>
 
+   <!-- ✅ 2-column wrapper gets the new grid rules -->
     <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
       <div class="navbar-dropdown-list-wrapper flex-horizontal">
         <div class="navbar-dropdown-list">
           <div class="menu-title-wrapper">
             <div class="heading-style-h6 text-color-navy">Practice Areas</div>
           </div>
+
+          <!-- ✅ Grid parent -->
           <div class="menu-item-container flex-horizontal">
             <div class="menu-item-wrapper">
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Real Estate Litigation</a>
@@ -354,15 +436,15 @@ visibility:hidden!important;
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Boundary Disputes</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Quiet Title Actions</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Adverse Possession Claims</a>
-              <a href="#" class="navbar-dropdown-link w-dropdown-link">Easements & Encroachments</a>
-              <a href="#" class="navbar-dropdown-link w-dropdown-link w--current">Mortgage Fraud</a>
+              <a href="#" class="navbar-dropdown-link w-dropdown-link">Easements &amp; Encroachments</a>
+              <a href="#" class="navbar-dropdown-link w-dropdown-link">Mortgage Fraud</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Foreclosure Defense</a>
-              <a href="#" class="navbar-dropdown-link w-dropdown-link">Contract Drafting & Review</a>
+              <a href="#" class="navbar-dropdown-link w-dropdown-link">Contract Drafting &amp; Review</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Purchase Agreements</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Real Estate Closings</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Property Broker Disputes</a>
               <a href="#" class="navbar-dropdown-link w-dropdown-link">Property Financing Documents</a>
-              <a href="#" class="navbar-dropdown-link w-dropdown-link">Title & Escrow Disputes</a>
+              <a href="#" class="navbar-dropdown-link w-dropdown-link">Title &amp; Escrow Disputes</a>
             </div>
           </div>
         </div>
@@ -370,7 +452,8 @@ visibility:hidden!important;
     </nav>
   </div>
 
-  <a href="/services" aria-current="page" class="navbar-link w-nav-link w--current">Services</a>
+  <!---<a href="/services" aria-current="page" class="navbar-link w-nav-link w--current">Services</a>---> 
+  
   <a href="/assistant" class="navbar-link w-nav-link">Support</a>
   <a href="/contact" class="navbar-link w-nav-link">Contact</a>
 </nav>
