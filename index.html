@@ -318,6 +318,56 @@ visibility:hidden!important;
 </style>
 
 
+
+
+ <!-- — NAV / HERO / CARD TWEAKS — -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-SzlrxWNL6+qg1P5+5N1R6N1M4bKCvRLVGVN4uP6Y5XUyxUK85+CbERgqZFsxF0i5fLkW2G4qURy1ovw6aToF3g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+/* ---------- NAVIGATION ---------- */
+/* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
+.navbar-dropdown-list-container{
+  width:100vw!important; left:0; right:0;           /* full screen width */
+  max-height:none!important;                        /* no internal scroll */
+}
+@media (max-width:767px){                           /* phones only */
+  .navbar-dropdown-link{font-size:.875rem;}         /* slightly smaller text */
+}
+/* 2) Prevent long labels from wrapping */
+.navbar-dropdown-link{white-space:nowrap;}
+
+/* ---------- BUTTONS ---------- */
+.navbar-button-wrapper{display:flex;gap:.75rem;}
+.call-btn{
+  background:#15803d;           /* emerald */
+  color:#fff!important; padding:.75rem 1.25rem;
+  border-radius:15px; display:flex;align-items:center;gap:.5rem;
+  font-weight:600; transition:background .25s;
+}
+.call-btn:hover{background:#176e35;}
+/* CLIENT PORTAL gets a user icon */
+.btn-primary .fa-user{margin-right:.5rem;}
+
+/* ---------- HERO SPACING ---------- */
+.header-component{padding-top:2rem!important;}      /* was huge; now tighter */
+
+/* ---------- PRACTICE-AREA CARDS ---------- */
+.link-card-practice-areas{
+  flex:1 1 260px;                                   /* equal basis */
+  display:flex; flex-direction:column;
+}
+.link-card-practice-areas .card-background{
+  flex:1; display:flex; flex-direction:column;      /* equal height */
+}
+/* smooth hover already present; ensure shadow always identical height */
+.link-card-practice-areas:hover{transform:translateY(-4px) scale(1.03);}
+</style>
+ 
+
+  
+
   
 <script>
   // Set your password here
@@ -343,20 +393,6 @@ visibility:hidden!important;
    <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 
 
-  <script>
-    const listElement = $0.querySelector('#w-dropdown-list-0');
-const listStyles = listElement ? window.getComputedStyle(listElement) : null;
-
-const data = {
-  listStyles: listStyles ? {
-    display: listStyles.getPropertyValue('display'),
-    visibility: listStyles.getPropertyValue('visibility'),
-  } : null,
-  dropdownElementClassName: $0.className,
-  listElementClassName: listElement ? listElement.className : null,
-  toggleElementClassName: $0.querySelector('#w-dropdown-toggle-0') ? $0.querySelector('#w-dropdown-toggle-0').className : null,
-};
-  </script>
 
   
 </head>
@@ -472,7 +508,19 @@ const data = {
   <a href="/contact" class="navbar-link w-nav-link">Contact</a>
 </nav>
   
-  <div class="navbar-button-wrapper"><a href="/login" target="_blank" class="btn btn-primary btn-pulse w-button" style="background-color:#ff4900!important;">CLIENT PORTAL</a><div class="navbar-menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false"><div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div></div></div></div></div><div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div></div><main class="main-wrapper">
+  <div class="navbar-button-wrapper"><!-- NEW call button -->
+  <a href="tel:+15102259220" class="call-btn">
+      <i class="fa-solid fa-phone"></i>(510)-225-9220
+  </a>
+
+  <!-- EXISTING portal button, now with a user icon -->
+  <a href="/login" target="_blank" class="btn btn-primary btn-pulse w-button"
+     style="background-color:#ff4900">
+      <i class="fa-solid fa-user"></i>CLIENT PORTAL
+  </a>
+    
+    
+    <div class="navbar-menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false"><div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div></div></div></div></div><div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div></div><main class="main-wrapper">
 
 
 
@@ -778,6 +826,18 @@ const data = {
   }, 10000);
 </script>
 
+
+
+  
+<script>
+/* --- Fix Webflow mobile dropdown bug ----------------------------------
+   On touch devices we change Webflow’s data-hover="true"  to  false,
+   then let Webflow’s own click handler open / close.                 */
+if (window.matchMedia("(max-width: 991px)").matches){      // tablet+mobile
+  document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]')
+          .forEach(el=>el.setAttribute('data-hover','false'));
+}
+</script>
 
 </body>
 </html>
