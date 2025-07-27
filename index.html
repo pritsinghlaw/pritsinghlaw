@@ -302,6 +302,14 @@ visibility:hidden!important;
   }
 }
 
+  @media (min-width: 992px) { /* Adjust the breakpoint as needed */
+  #w-dropdown-list-0 {
+    width: auto !important; /* Set a desired minimum width */
+    /* Or use width: auto; if you want it to fit its content */
+  }
+}
+
+
 /* ---------- ONE-COLUMN STACK (PHONES) ---------- */
 @media (max-width:767px){
   .menu-item-container{                 /* override grid */
@@ -344,6 +352,23 @@ visibility:hidden!important;
 
 
    <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
+
+
+  <script>
+    const listElement = $0.querySelector('#w-dropdown-list-0');
+const listStyles = listElement ? window.getComputedStyle(listElement) : null;
+
+const data = {
+  listStyles: listStyles ? {
+    display: listStyles.getPropertyValue('display'),
+    visibility: listStyles.getPropertyValue('visibility'),
+  } : null,
+  dropdownElementClassName: $0.className,
+  listElementClassName: listElement ? listElement.className : null,
+  toggleElementClassName: $0.querySelector('#w-dropdown-toggle-0') ? $0.querySelector('#w-dropdown-toggle-0').className : null,
+};
+  </script>
+
   
 </head>
 <body>
