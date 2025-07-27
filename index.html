@@ -365,6 +365,40 @@ visibility:hidden!important;
 .link-card-practice-areas:hover{transform:translateY(-4px) scale(1.03);}
 </style>
  
+<style>
+/* Mobile dropdown fixes */
+@media (max-width: 991px) {
+    .w-dropdown-list {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100vw !important;
+        z-index: 9999 !important;
+        display: none !important; /* Hidden by default */
+    }
+    
+    .w-dropdown.w--open .w-dropdown-list {
+        display: block !important;
+    }
+    
+    .navbar-dropdwn-toggle {
+        cursor: pointer;
+        user-select: none;
+    }
+    
+    /* Ensure dropdown links are clickable */
+    .navbar-dropdown-link {
+        display: block !important;
+        padding: 12px 20px !important;
+        text-decoration: none !important;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .navbar-dropdown-link:hover {
+        background-color: #f5f5f5;
+    }
+}
+</style>
 
   
 
@@ -830,14 +864,59 @@ visibility:hidden!important;
 
   
 <script>
-/* --- Fix Webflow mobile dropdown bug ----------------------------------
-   On touch devices we change Webflow’s data-hover="true"  to  false,
-   then let Webflow’s own click handler open / close.                 */
-if (window.matchMedia("(max-width: 991px)").matches){      // tablet+mobile
-  document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]')
-          .forEach(el=>el.setAttribute('data-hover','false'));
-}
+/* --- Complete fix for Webflow mobile dropdown issues --- */
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on mobile/tablet
+    if (window.matchMedia("(max-width: 991px)").matches) {
+        
+        // 1. Disable hover behavior on mobile
+        document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]')
+                .forEach(el => el.setAttribute('data-hover', 'false'));
+        
+        // 2. Add click handlers for dropdown toggles
+        document.querySelectorAll('.navbar-dropdwn-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdown = this.closest('.navbar-menu-dropdown');
+                const dropdownList = dropdown.querySelector('.w-dropdown-list');
+                
+                // Toggle the dropdown
+                if (dropdownList.style.display === 'block') {
+                    dropdownList.style.display = 'none';
+                    dropdown.classList.remove('w--open');
+                } else {
+                    // Close other dropdowns first
+                    document.querySelectorAll('.w-dropdown-list').forEach(list => {
+                        list.style.display = 'none';
+                    });
+                    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
+                        dd.classList.remove('w--open');
+                    });
+                    
+                    // Open this dropdown
+                    dropdownList.style.display = 'block';
+                    dropdown.classList.add('w--open');
+                }
+            });
+        });
+        
+        // 3. Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.navbar-menu-dropdown')) {
+                document.querySelectorAll('.w-dropdown-list').forEach(list => {
+                    list.style.display = 'none';
+                });
+                document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
+                    dd.classList.remove('w--open');
+                });
+            }
+        });
+    }
+});
 </script>
+
 
 </body>
 </html>
