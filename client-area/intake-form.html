@@ -1,321 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Intake Form – Law Offices of Pritpal Singh</title>
-  <link rel="stylesheet" href="/client-area/style.css" />
-
-<style>
-.logo {
-  display: block !important;
-  margin: 0 auto 1.5rem !important;
-  height: 60px !important;
-}
-
-.disclaimer-checkbox {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.disclaimer-checkbox input[type="checkbox"] {
-  width: auto;
-  margin-right: 0.75rem;
-  margin-top: 0.25rem;
-  flex-shrink: 0;
-}
-
-.disclaimer-text {
-  line-height: 1.4;
-  color: #666;
-}
-
-.consultation-details {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-.fee-info {
-  font-weight: bold;
-  color: #FF4900;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.addon-option {
-  margin: 1rem 0;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
-}
-
-.addon-option input[type="checkbox"] {
-  width: auto;
-  margin-right: 0.5rem;
-}
-
-.transcript-option {
-  margin: 1rem 0;
-  padding: 0.75rem;
-  border: 1px solid #28a745;
-  border-radius: 6px;
-  background: #f8fff9;
-}
-
-.transcript-option input[type="checkbox"] {
-  width: auto;
-  margin-right: 0.5rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  body { background: #121212; color: #f0f0f0; }
-  .form-container { background: #1e1e1e; box-shadow: none; }
-  input, textarea {
-    background: #2c2c2c;
-    color: #fff;
-    border-color: #555;
-  }
-  button, .save-btn {
-    background: #FF4900;
-    color: #fff;
-  }
-  .option-card {
-    background: #2a2a2a;
-    border-color: #444;
-  }
-  .option-card.selected {
-    background: #3a1a0a;
-  }
-  .logo {
-    content: url('https://pritsinghlaw.com/whitenobg.svg'); /* DARK MODE LOGO */
-  }
-  .consultation-details {
-    background: #2a2a2a;
-    border-color: #444;
-  }
-  .addon-option {
-    background: #2a2a2a;
-    border-color: #444;
-  }
-  .transcript-option {
-    background: #1a2a1a;
-    border-color: #28a745;
-  }
-  .disclaimer-text {
-    color: #ccc;
-  }
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Intake Form - Law Offices of Pritpal Singh</title>
+    <link rel="stylesheet" href="https://pritsinghlaw.com/client-area/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <div class="form-container">
-    <div class="progress-bar">
-      <div class="progress"></div>
-    </div>
-
-    <img src="/colornobg.svg" width="200" height=auto" alt="Law Offices of Pritpal Singh" class="logo" />
-
-    <!-- Step 1: Contact Info -->
-    <div class="step step-1 active">
-      <div class="step-header">
-        <span class="icon">📝</span>
-        <h2>Hello! Please provide us with your contact information to get started.</h2>
-      </div>
-      <form id="client-info-form" action="https://formspree.io/f/xpwlpapw" method="POST">
-        <label>Full Name
-          <input name="fullName" type="text" autocomplete="name" inputmode="text" enterkeyhint="next" required />
-        </label>
-        <label>Email
-          <input name="email" type="email" autocomplete="email" inputmode="email" enterkeyhint="next" required />
-        </label>
-        <label>Phone
-          <input name="phone" type="tel" autocomplete="tel" inputmode="tel" enterkeyhint="next" required />
-        </label>
-        <label>City, State
-          <input name="location" type="text" autocomplete="address-level2" inputmode="text" enterkeyhint="go" required />
-        </label>
-
-        <!-- Disclaimer Checkbox -->
-        <div class="disclaimer-checkbox">
-          <input type="checkbox" id="disclaimer" name="disclaimer" required />
-          <label for="disclaimer" class="disclaimer-text">
-            I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions.
-          </label>
+    <div class="form-container">
+        <img src="/colornobg.svg" width="200" height="auto" alt="Law Offices of Pritpal Singh" class="logo">
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
         </div>
 
-        <button type="submit">Next →</button>
-        <button type="button" class="save-btn">Save Progress</button>
-      </form>
-    </div>
-
-    <!-- Step 2: Referral Source -->
-    <div class="step step-2">
-      <div class="step-header">
-        <span class="icon">🤝</span>
-        <h2>How were you referred to the Law Offices of Pritpal Singh?</h2>
-      </div>
-      <form id="referral-form">
-        <div class="options" id="referral-options">
-          <div class="option-card" data-referral="Google Search">Google Search</div>
-          <div class="option-card" data-referral="Social Media">Social Media</div>
-          <div class="option-card" data-referral="Friend/Family Referral">Friend/Family Referral</div>
-          <div class="option-card" data-referral="Attorney Referral">Attorney Referral</div>
-          <div class="option-card" data-referral="Previous Client">Previous Client</div>
-          <div class="option-card" data-referral="Online Reviews">Online Reviews</div>
-          <div class="option-card" data-referral="Yellow Pages/Directory">Yellow Pages/Directory</div>
-          <div class="option-card" data-referral="Other">Other</div>
-        </div>
-        <input type="text" id="referral-other" name="referralOther" placeholder="Please specify..." style="display:none; margin-top: 1rem;" />
-      </form>
-      <button class="back-btn" onclick="prevStep()">← Back</button>
-      <button type="button" class="save-btn">Save Progress</button>
-    </div>
-
-    <!-- Step 3: Service Selection -->
-    <div class="step step-3">
-      <div class="step-header">
-        <span class="icon">🏢</span>
-        <h2 id="step3-title">Which service do you need?</h2>
-      </div>
-      <div class="options" id="service-options"></div>
-      <button class="back-btn" onclick="prevStep()">← Back</button>
-      <button type="button" class="save-btn">Save Progress</button>
-    </div>
-
-    <!-- Step 4: Case Info -->
-    <div class="step step-4">
-      <div class="step-header">
-        <span class="icon">⚖️</span>
-        <h2>Tell us more about your case<span class="fname-placeholder"></span>:</h2>
-      </div>
-      <form id="case-info-form">
-        <textarea name="caseDetails" rows="5" x-webkit-speech placeholder="Describe what's going on..." required></textarea>
-        <button type="submit">Next →</button>
-      </form>
-      <button class="back-btn" onclick="prevStep()">← Back</button>
-      <button type="button" class="save-btn">Save Progress</button>
-    </div>
-
-    <!-- Step 5: Consultation Type Selection -->
-    <div class="step step-5">
-      <div class="step-header">
-        <span class="icon">📅</span>
-        <h2>Do you want to book a full 60-minute consultation or a brief introductory call?</h2>
-      </div>
-      <div class="options">
-        <div class="option-card" data-consultation-type="brief">
-          <h3>Option 2: Brief Introductory Phone Call</h3>
-          <p>15-minute phone call - <strong>FREE</strong></p>
-        </div>
-        <div class="option-card" data-consultation-type="full">
-          <h3>Option 1: Full Consultation (Recommended)</h3>
-          <p>60-minute detailed consultation - <strong>$350</strong></p>
-        </div>
-      </div>
-      <button class="back-btn" onclick="prevStep()">← Back</button>
-      <button type="button" class="save-btn">Save Progress</button>
-    </div>
-
-    <!-- Step 6: Full Consultation Options (only shown for full consultation) -->
-    <div class="step step-6">
-      <div class="step-header">
-        <span class="icon">💼</span>
-        <h2>Consultation Options</h2>
-      </div>
-      <div class="consultation-details">
-        <div class="fee-info">60-Minute Consultation: $350</div>
-
-        <div class="addon-option">
-          <input type="checkbox" id="document-review" name="documentReview" />
-          <label for="document-review">
-            <strong>Add Document Review/Analysis Services</strong> (+$150)<br>
-            <small>Have our team review relevant documents prior to your consultation</small>
-          </label>
+        <!-- Step 1: Contact Information -->
+        <div class="step active">
+            <div class="step-header">
+                <div class="icon">👋</div>
+                <h2>Hello! Please provide us with your contact information to get started.</h2>
+            </div>
+            <form id="client-info-form">
+                <label>
+                    Full Name *
+                    <input type="text" name="fullName" required>
+                </label>
+                <label>
+                    Email *
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    Phone *
+                    <input type="tel" name="phone" required>
+                </label>
+                <label>
+                    City, State *
+                    <input type="text" name="location" required>
+                </label>
+                <button type="submit">Next →</button>
+                <button type="button" class="save-btn">Save Progress</button>
+            </form>
         </div>
 
-        <div class="transcript-option">
-          <input type="checkbox" id="transcript-optout" name="transcriptOptout" />
-          <label for="transcript-optout">
-            <strong>Opt out of free consultation transcript</strong><br>
-            <small>By default, you will receive a detailed PDF transcript of your consultation at no additional cost. Check this box if you prefer not to receive the transcript.</small>
-          </label>
+        <!-- Step 2: Referral Source -->
+        <div class="step">
+            <div class="step-header">
+                <div class="icon">🤝</div>
+                <h2>How were you referred to the Law Offices of Pritpal Singh?</h2>
+            </div>
+            <div class="options" id="referral-options">
+                <div class="option-card" data-referral="google">Google Search</div>
+                <div class="option-card" data-referral="social-media">Social Media</div>
+                <div class="option-card" data-referral="friend-family">Friend/Family Referral</div>
+                <div class="option-card" data-referral="attorney-referral">Attorney Referral</div>
+                <div class="option-card" data-referral="previous-client">Previous Client</div>
+                <div class="option-card" data-referral="online-reviews">Online Reviews</div>
+                <div class="option-card" data-referral="yellow-pages">Yellow Pages</div>
+                <div class="option-card" data-referral="other">Other</div>
+            </div>
+            <div id="other-referral-input" class="hidden">
+                <label>
+                    Please specify:
+                    <input type="text" name="otherReferral" placeholder="Please describe how you found us">
+                </label>
+            </div>
+            <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+            <button type="button" class="save-btn">Save Progress</button>
         </div>
 
-        <div style="margin-top: 1rem;">
-          <strong>Total Fee: <span id="total-fee">$350</span></strong>
+        <!-- Step 3: Service Selection -->
+        <div class="step">
+            <div class="step-header">
+                <div class="icon">⚖️</div>
+                <h2>Which service do you need?</h2>
+            </div>
+            <div class="options" id="service-options">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+            <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+            <button type="button" class="save-btn">Save Progress</button>
         </div>
-      </div>
 
-      <button type="button" onclick="nextStep()" style="margin-top: 1rem;">Continue to Scheduling →</button>
-      <button class="back-btn" onclick="prevStep()">← Back</button>
-      <button type="button" class="save-btn">Save Progress</button>
+        <!-- Step 4: Case Details -->
+        <div class="step">
+            <div class="step-header">
+                <div class="icon">📝</div>
+                <h2>Tell us more about your case:</h2>
+            </div>
+            <form id="case-info-form">
+                <label>
+                    Case Details *
+                    <textarea name="caseDetails" rows="6" placeholder="Please provide a detailed description of your legal matter, including key facts, dates, and any relevant background information..." required></textarea>
+                </label>
+                <button type="submit">Next →</button>
+                <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+                <button type="button" class="save-btn">Save Progress</button>
+            </form>
+        </div>
+
+        <!-- Step 5: Consultation Type -->
+        <div class="step">
+            <div class="step-header">
+                <div class="icon">📞</div>
+                <h2>How would you like to proceed?</h2>
+                <p>Do you want to book a full 60-minute consultation to discuss your matter in detail (Option 1 - Recommended) or would you prefer a brief introductory phone call for 15 minutes (Option 2)?</p>
+            </div>
+            <div class="options">
+                <div class="option-card consultation-option" data-type="paid" data-price="350">
+                    <div class="option-title">Option 1: Full 60-Minute Consultation</div>
+                    <div class="option-price">$350</div>
+                    <div class="option-description">Comprehensive discussion of your case with detailed legal analysis</div>
+                    <div class="recommended-badge">Recommended</div>
+                </div>
+                <div class="option-card consultation-option" data-type="free" data-price="0">
+                    <div class="option-title">Option 2: Brief 15-Minute Call</div>
+                    <div class="option-price">FREE</div>
+                    <div class="option-description">Quick introductory call to understand your basic needs</div>
+                </div>
+            </div>
+            <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+            <button type="button" class="save-btn">Save Progress</button>
+        </div>
+
+        <!-- Step 6: Full Consultation Add-ons (Only shown for paid consultation) -->
+        <div class="step" id="addon-step">
+            <div class="step-header">
+                <div class="icon">📄</div>
+                <h2>Additional Services</h2>
+                <p>Enhance your consultation with these optional services:</p>
+            </div>
+            <div class="addon-options">
+                <div class="addon-card">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="document-review" name="documentReview" value="150">
+                        <span class="checkmark"></span>
+                        <div class="addon-content">
+                            <div class="addon-title">Document Review/Analysis Service</div>
+                            <div class="addon-price">+ $150</div>
+                            <div class="addon-description">Professional review and analysis of your legal documents prior to consultation</div>
+                        </div>
+                    </label>
+                </div>
+                <div class="addon-card">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consultation-transcript" name="consultationTranscript" value="0" checked>
+                        <span class="checkmark"></span>
+                        <div class="addon-content">
+                            <div class="addon-title">Free Detailed Consultation Transcript</div>
+                            <div class="addon-price">FREE</div>
+                            <div class="addon-description">Receive a comprehensive PDF transcript of your entire consultation (included by default - uncheck to opt out)</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="total-cost">
+                <div class="cost-breakdown">
+                    <div class="cost-line">
+                        <span>Base Consultation:</span>
+                        <span>$350</span>
+                    </div>
+                    <div class="cost-line addon-cost" id="document-cost" style="display: none;">
+                        <span>Document Review:</span>
+                        <span>$150</span>
+                    </div>
+                    <div class="cost-total">
+                        <span>Total:</span>
+                        <span id="total-amount">$350</span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="nextStep()" class="next-btn">Continue →</button>
+            <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+            <button type="button" class="save-btn">Save Progress</button>
+        </div>
+
+        <!-- Step 7: Scheduling -->
+        <div class="step">
+            <div class="step-header">
+                <div class="icon">📅</div>
+                <h2>Schedule Your <span class="consultation-type-text">Consultation</span></h2>
+                <p>Please provide your preferred date and time (Pacific Standard Time):</p>
+            </div>
+            <form id="scheduling-form">
+                <label>
+                    Preferred Date and Time (PST) *
+                    <input type="datetime-local" name="preferredDateTime" required>
+                </label>
+                <label>
+                    Alternative Date and Time (PST)
+                    <input type="datetime-local" name="alternativeDateTime">
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" name="zoomPreference" value="yes">
+                    <span class="checkmark"></span>
+                    I prefer to conduct this consultation via Zoom video call
+                </label>
+                <label>
+                    Additional Notes or Special Requirements
+                    <textarea name="additionalNotes" rows="3" placeholder="Any specific requirements or information we should know about..."></textarea>
+                </label>
+                <button type="submit">Continue to Confirmation →</button>
+                <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+                <button type="button" class="save-btn">Save Progress</button>
+            </form>
+        </div>
+
+        <!-- Step 8: Legal Disclaimer and Final Submission -->
+        <div class="step">
+            <div class="step-header">
+                <div class="icon">📋</div>
+                <h2>Review and Confirm</h2>
+                <p>Please review your information and accept the terms below:</p>
+            </div>
+            
+            <div class="summary-section">
+                <h3>Consultation Summary</h3>
+                <div id="consultation-summary">
+                    <!-- Summary will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="disclaimer-section">
+                <div class="disclaimer-box">
+                    <h4>Important Legal Disclaimer</h4>
+                    <p>I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions.</p>
+                </div>
+                
+                <label class="checkbox-label disclaimer-checkbox">
+                    <input type="checkbox" id="disclaimer-agreement" name="disclaimerAgreement" required>
+                    <span class="checkmark"></span>
+                    <strong>I acknowledge and agree to the terms and conditions stated above *</strong>
+                </label>
+            </div>
+
+            <form id="final-submission-form">
+                <button type="submit" id="final-submit-btn" disabled>
+                    <span class="submit-text">Submit Application</span>
+                    <span class="loading-spinner" style="display: none;">Processing...</span>
+                </button>
+                <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+            </form>
+        </div>
+
+        <!-- Success Step -->
+        <div class="step" id="success-step">
+            <div class="step-header">
+                <div class="icon">✅</div>
+                <h2>Thank you, <span class="fname-placeholder">there</span>!</h2>
+                <p id="success-message">Your consultation request has been submitted successfully.</p>
+            </div>
+            <div class="next-steps">
+                <h3>What happens next?</h3>
+                <ul id="next-steps-list">
+                    <!-- Next steps will be populated based on consultation type -->
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <!-- Step 7: Scheduling Details -->
-    <div class="step step-7">
-      <div class="step-header">
-        <span class="icon">📅</span>
-        <h2>Schedule Your <span id="consultation-type-display">Consultation</span></h2>
-      </div>
-      <form id="scheduling-form">
-        <label>Preferred Date
-          <input name="preferredDate" type="date" required />
-        </label>
-        <label>Preferred Time (Pacific Standard Time)
-          <input name="preferredTime" type="time" required />
-        </label>
-        <label>Alternative Date (Optional)
-          <input name="alternativeDate" type="date" />
-        </label>
-        <label>Alternative Time (Optional)
-          <input name="alternativeTime" type="time" />
-        </label>
-        <label>
-          <input type="checkbox" id="zoom-meeting" name="zoomMeeting" style="width: auto; margin-right: 0.5rem;" />
-          I prefer to conduct this consultation via Zoom
-        </label>
-        <label>Additional Notes (Optional)
-          <textarea name="schedulingNotes" rows="3" placeholder="Any specific requirements or notes for the consultation..."></textarea>
-        </label>
-        <button type="submit">Complete Booking →</button>
-      </form>
-      <button class="back-btn" onclick="prevStep()">← Back</button>
-      <button type="button" class="save-btn">Save Progress</button>
-    </div>
+    <footer>
+        <p>&copy; 2025 Law Offices of Pritpal Singh. All rights reserved.</p>
+    </footer>
 
-    <!-- Step 8: Final Confirmation -->
-    <div class="step step-8">
-      <div class="step-header">
-        <span class="icon">✅</span>
-        <h2>Booking Confirmed!</h2>
-      </div>
-      <div id="confirmation-details">
-        <p>Thank you <span class="fname-placeholder"></span>! Your consultation request has been submitted.</p>
-        <div id="payment-required" style="display:none;">
-          <p><strong>Next Step: Complete Payment</strong></p>
-          <p>You will be redirected to complete payment for your consultation.</p>
-        </div>
-        <div id="free-consultation" style="display:none;">
-          <p>You will receive a calendar invitation shortly to confirm your 15-minute consultation.</p>
-        </div>
-      </div>
-    </div>
-
-    <footer>© 2025, Law Offices of Pritpal Singh</footer>
-  </div>
-
-  <div class="spinner-overlay" hidden style="display: none;">
-    <div class="spinner"></div>
-  </div>
-
-  <script src="/client-area/intake.js"></script>
+    <script src="https://pritsinghlaw.com/client-area/script.js"></script>
 </body>
 </html>
