@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="form-container">
-        <img src="/colornobg.svg" width="200" height="auto" alt="Law Offices of Pritpal Singh" class="logo">
+        <img src="logo.png" alt="Law Offices of Pritpal Singh" class="logo" id="main-logo">
         
         <div class="progress-bar">
             <div class="progress"></div>
@@ -58,7 +58,7 @@
                 <div class="option-card" data-referral="attorney-referral">Attorney Referral</div>
                 <div class="option-card" data-referral="previous-client">Previous Client</div>
                 <div class="option-card" data-referral="online-reviews">Online Reviews</div>
-                <div class="option-card" data-referral="yellow-pages">Yelp</div>
+                <div class="option-card" data-referral="yellow-pages">Yellow Pages</div>
                 <div class="option-card" data-referral="other">Other</div>
             </div>
             <div id="other-referral-input" class="hidden">
@@ -68,6 +68,7 @@
                 </label>
             </div>
             <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
+            <button type="button" class="next-btn" onclick="nextStep()">Next →</button>
             <button type="button" class="save-btn">Save Progress</button>
         </div>
 
