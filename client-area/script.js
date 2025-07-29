@@ -1,4 +1,4 @@
-// Step control
+// Step control 
 let currentStep = 1;
 let selectedConsultationType = '';
 let selectedReferral = '';
