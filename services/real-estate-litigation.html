@@ -3,44 +3,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Real Estate Litigation - Practice Areas | Law Offices of Pritpal Singh</title>
+  <title>Real Estate Litigation | Law Offices of Pritpal Singh</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --navy: #11294c;
+      --accent: #ff4900;
+      --white: #fff;
+      --gray: #f5f5f7;
+      --shadow: 0 2px 12px rgba(17,41,76,0.05);
+    }
 
-  <!-- ====== CORE STYLESHEET ======
-       Keep this link unchanged if you were already importing a global CSS file.
-  -->
-  <link rel="stylesheet" href="https://pritsinghlaw.com/style.css" />
+    body {
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-bar {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+    }
+    .logo {
+      height: 48px;
+      margin-left: 2rem;
+      margin-right: 1.5rem;
+    }
+    .breadcrumbs {
+      font-size: 1rem;
+      color: #5a6982;
+      margin: 0;
+    }
+    .breadcrumbs a {
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    .hero__title {
+      font-size: 2.75rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    .hero__subtitle {
+      font-size: 1.2rem;
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+    }
+    .btn {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 0.85em 1.7em;
+      border-radius: 3px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0.2em 0;
+    }
+    .btn--secondary {
+      background: var(--navy);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn--secondary:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn:hover {
+      background: #d13e00;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section.section {
+      padding: 2.5rem 0;
+    }
+    .section__title {
+      color: var(--navy);
+      font-size: 2rem;
+      margin-bottom: 0.6em;
+      position: relative;
+    }
+    .section__title:after {
+      content: "";
+      display: block;
+      width: 36px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+    .section--intro p {
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: var(--gray);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.3rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card__title {
+      color: var(--accent);
+      font-size: 1.23rem;
+      font-weight: bold;
+      margin-bottom: 0.65em;
+    }
+    .card__text {
+      color: #23395d;
+      flex-grow: 1;
+      font-size: 1.05rem;
+      margin-bottom: 1em;
+    }
+    .list--bullets {
+      padding-left: 1.25em;
+      margin-bottom: 0;
+      color: #23395d;
+    }
+    .list--bullets li {
+      margin-bottom: 0.5em;
+      font-size: 1.1rem;
+    }
+    .section--why-us {
+      background: var(--gray);
+      border-radius: 8px;
+    }
+    .footer-main {
+      background: var(--navy);
+      color: var(--white);
+      padding: 2.5rem 0 1.75rem;
+      text-align: center;
+      margin-top: 2.25rem;
+    }
+    .footer-main .footer__title {
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .footer-main p {
+      margin-bottom: 2em;
+    }
+    .contact-form {
+      max-width: 450px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1em;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75em;
+      font-size: 1em;
+      border-radius: 4px;
+      border: 1px solid #ccd8ed;
+      outline: none;
+      width: 100%;
+      background: var(--white);
+      color: var(--navy);
+    }
+    .contact-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .footer-copy {
+      font-size: 0.98em;
+      color: #bbc9df;
+      padding: 1em 0 0.3em;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      margin: 2em 0 0;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 0 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .header-bar { flex-direction: column; }
+      .hero__title { font-size: 2rem; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- ==== TOP HEADER WITH LOGO & BREADCRUMBS ==== -->
+  <div class="header-bar">
+    <img class="logo" src="logo.png" alt="Law Offices of Pritpal Singh logo" />
+    <nav aria-label="breadcrumb">
+      <span class="breadcrumbs">
+        <a href="https://pritsinghlaw.com/">Home</a> &gt;
+        <a href="https://pritsinghlaw.com/">Services</a> &gt;
+        <span style="color:var(--accent);font-weight:600;">Real Estate Litigation</span>
+      </span>
+    </nav>
+  </div>
+
   <!-- ========== HERO / HEADER ========== -->
   <header class="hero">
     <div class="container">
       <h1 class="hero__title">Real Estate Litigation</h1>
       <p class="hero__subtitle">
-        Real estate disputes in California can be as unpredictable as the Bay
-        Area weather—and just as messy if you’re not prepared. Whether you’re
-        facing a property line dispute, a breach of contract, a foreclosure, or
-        a seller who failed to disclose critical defects, our California real
-        estate litigation attorneys are here to protect your rights and your
-        investment.
+        Real estate disputes in California can be as unpredictable as the Bay Area weather—and just as messy if you’re not prepared. Whether you’re facing a property line dispute, a breach of contract, a foreclosure, or a seller who failed to disclose critical defects, our California real estate litigation attorneys are here to protect your rights and your investment.
       </p>
-      <a href="/client-area/intake-form" class="btn btn--primary">Schedule a Consultation</a>
+      <a href="#contact" class="btn">Book a Consultation</a>
     </div>
   </header>
 
-  <!-- ========== INTRO PARAGRAPH ========== -->
+  <!-- ========= INTRO PARAGRAPH ========= -->
   <section class="section section--intro">
     <div class="container">
       <p>
-        We don’t just “go to court”—we craft strategic, results-driven solutions
-        to resolve your case as efficiently and cost-effectively as possible.
-        From quiet title actions and HOA disputes to premises liability defense,
-        we know how to navigate California’s complex real estate laws to achieve
-        favorable outcomes.
+        We don’t just “go to court”—we craft strategic, results-driven solutions to resolve your case as efficiently and cost-effectively as possible. From quiet title actions and HOA disputes to premises liability defense, we know how to navigate California’s complex real estate laws to achieve favorable outcomes.
       </p>
       <p>
-        Schedule a consultation today to discuss your real estate dispute with
-        an experienced attorney who knows how to fight—and win—on your behalf.
+        Schedule a consultation today to discuss your real estate dispute with an experienced attorney who knows how to fight—and win—on your behalf.
       </p>
     </div>
   </section>
@@ -49,139 +252,66 @@
   <section class="section section--services">
     <div class="container">
       <h2 class="section__title">Types of Real Estate Litigation We Handle</h2>
-
-      <!-- ====== SERVICE CARD GRID ====== -->
       <div class="card-grid">
 
-        <!-- Quiet Title Actions -->
         <article class="card">
           <h3 class="card__title">Quiet Title Actions</h3>
           <p class="card__text">
-            Unclear ownership or competing claims to a property can stop sales,
-            refinancing, or development in their tracks. Our team brings quiet
-            title lawsuits under California Code of Civil Procedure § 760.010
-            et seq. to eliminate disputes and ensure you have a clear,
-            marketable title.
+            Unclear ownership or competing claims to a property can stop sales, refinancing, or development in their tracks. Our team brings quiet title lawsuits under California Code of Civil Procedure § 760.010 et seq. to eliminate disputes and ensure you have a clear, marketable title.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Need to clear your property title? Book a consultation now
-          </a>
+          <a href="#contact" class="btn btn--secondary">Need to clear your property title? Book a consultation now</a>
         </article>
-
-        <!-- Adverse Possession -->
         <article class="card">
           <h3 class="card__title">Adverse Possession Claims</h3>
           <p class="card__text">
-            If someone has been using your property as if it’s their own for
-            years, they may attempt to gain legal ownership through adverse
-            possession. California law (Cal. Code Civ. Proc. § 325) requires
-            continuous, open, and hostile possession for five years, plus
-            payment of property taxes. We aggressively defend property owners
-            against adverse possession claims—or assert ownership when the facts
-            are on your side.
+            If someone has been using your property as if it’s their own for years, they may attempt to gain legal ownership through adverse possession. California law (Cal. Code Civ. Proc. § 325) requires continuous, open, and hostile possession for five years, plus payment of property taxes. We aggressively defend property owners against adverse possession claims—or assert ownership when the facts are on your side.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Protect your property rights—schedule your case review
-          </a>
+          <a href="#contact" class="btn btn--secondary">Protect your property rights—schedule your case review</a>
         </article>
-
-        <!-- Easement & Encroachment -->
         <article class="card">
           <h3 class="card__title">Easement &amp; Encroachment Disputes</h3>
           <p class="card__text">
-            Easement litigation and boundary disputes often arise when neighbors
-            disagree about shared driveways, access roads, or fences. We
-            litigate easement rights, encroachments, and prescriptive easement
-            claims to protect your property value and ensure fair usage rights.
+            Easement litigation and boundary disputes often arise when neighbors disagree about shared driveways, access roads, or fences. We litigate easement rights, encroachments, and prescriptive easement claims to protect your property value and ensure fair usage rights.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Don’t let a boundary dispute spiral—contact us today
-          </a>
+          <a href="#contact" class="btn btn--secondary">Don’t let a boundary dispute spiral—contact us today</a>
         </article>
-
-        <!-- Premises Liability Defense -->
         <article class="card">
-          <h3 class="card__title">
-            Premises Liability Defense for Property Owners &amp; Landlords
-          </h3>
+          <h3 class="card__title">Premises Liability Defense for Property Owners &amp; Landlords</h3>
           <p class="card__text">
-            Landlords often face premises liability lawsuits, such as
-            slip-and-fall or property-related injury claims. California law (see
-            <em>Rowland v. Christian</em> (1968) 69 Cal.2d 108) holds property
-            owners to a duty of care, but that doesn’t mean every accident is
-            the landlord’s fault. We defend landlords against fraudulent or
-            exaggerated claims, protecting your reputation and financial
-            interests.
+            Landlords often face premises liability lawsuits, such as slip-and-fall or property-related injury claims. California law (see <em>Rowland v. Christian</em> (1968) 69 Cal.2d 108) holds property owners to a duty of care, but that doesn’t mean every accident is the landlord’s fault. We defend landlords against fraudulent or exaggerated claims, protecting your reputation and financial interests.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Are you a landlord facing a lawsuit? Talk to our defense team
-          </a>
+          <a href="#contact" class="btn btn--secondary">Are you a landlord facing a lawsuit? Talk to our defense team</a>
         </article>
-
-        <!-- Foreclosure Defense -->
         <article class="card">
-          <h3 class="card__title">
-            Foreclosure Defense &amp; Temporary Restraining Orders (TROs)
-          </h3>
+          <h3 class="card__title">Foreclosure Defense &amp; Temporary Restraining Orders (TROs)</h3>
           <p class="card__text">
-            When banks or lenders move to foreclose on your property, time is
-            critical. We file temporary restraining orders (TROs) and injunctions
-            to stop wrongful foreclosures and give you time to assert your legal
-            rights. California’s Homeowner Bill of Rights (Civ. Code §§ 2923.5,
-            2924.11) provides powerful protections we can use in your favor.
+            When banks or lenders move to foreclose on your property, time is critical. We file temporary restraining orders (TROs) and injunctions to stop wrongful foreclosures and give you time to assert your legal rights. California’s Homeowner Bill of Rights (Civ. Code §§ 2923.5, 2924.11) provides powerful protections we can use in your favor.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Act fast—schedule an emergency foreclosure defense consultation
-          </a>
+          <a href="#contact" class="btn btn--secondary">Act fast—schedule an emergency foreclosure defense consultation</a>
         </article>
-
-        <!-- Breach of Contract -->
         <article class="card">
           <h3 class="card__title">Breach of Real Estate Contract Actions</h3>
           <p class="card__text">
-            Real estate contracts—whether for purchase, sale, or leasing—are
-            legally binding. If the other party fails to perform, you may be
-            entitled to damages, rescission, or specific performance under
-            California Civil Code §§ 3300–3302. We represent buyers, sellers,
-            and investors in disputes over failed closings, missed deadlines,
-            or misrepresentations.
+            Real estate contracts—whether for purchase, sale, or leasing—are legally binding. If the other party fails to perform, you may be entitled to damages, rescission, or specific performance under California Civil Code §§ 3300–3302. We represent buyers, sellers, and investors in disputes over failed closings, missed deadlines, or misrepresentations.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Facing a contract dispute? Book your consultation today
-          </a>
+          <a href="#contact" class="btn btn--secondary">Facing a contract dispute? Book your consultation today</a>
         </article>
-
-        <!-- HOA Disputes -->
         <article class="card">
           <h3 class="card__title">HOA Disputes &amp; CC&amp;Rs</h3>
           <p class="card__text">
-            Homeowners’ associations (HOAs) often enforce Covenants, Conditions
-            &amp; Restrictions (CC&amp;Rs), which can lead to conflict over
-            repairs, assessments, or alleged violations. We represent homeowners
-            and associations in disputes involving enforcement of CC&amp;Rs
-            under California Civil Code §§ 1350 et seq. (Davis-Stirling Act).
+            Homeowners’ associations (HOAs) often enforce Covenants, Conditions &amp; Restrictions (CC&amp;Rs), which can lead to conflict over repairs, assessments, or alleged violations. We represent homeowners and associations in disputes involving enforcement of CC&amp;Rs under California Civil Code §§ 1350 et seq. (Davis-Stirling Act).
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Resolve your HOA dispute—schedule a strategy session
-          </a>
+          <a href="#contact" class="btn btn--secondary">Resolve your HOA dispute—schedule a strategy session</a>
         </article>
-
-        <!-- Chain of Title -->
         <article class="card">
           <h3 class="card__title">Chain of Title Litigation</h3>
           <p class="card__text">
-            Clouds on title, recording errors, or fraudulent deeds can derail a
-            property sale or refinance. We handle chain of title litigation to
-            correct records, remove fraudulent claims, and restore proper
-            ownership documentation under Cal. Code Civ. Proc. § 760.010 et seq.
+            Clouds on title, recording errors, or fraudulent deeds can derail a property sale or refinance. We handle chain of title litigation to correct records, remove fraudulent claims, and restore proper ownership documentation under Cal. Code Civ. Proc. § 760.010 et seq.
           </p>
-          <a href="#contact" class="btn btn--secondary">
-            Need to clear title issues? Contact us for a consultation
-          </a>
+          <a href="#contact" class="btn btn--secondary">Need to clear title issues? Contact us for a consultation</a>
         </article>
-
-      </div><!-- /.card-grid -->
-    </div><!-- /.container -->
+      </div>
+    </div>
   </section>
 
   <!-- ========== OTHER LITIGATION SERVICES ========== -->
@@ -189,9 +319,9 @@
     <div class="container">
       <h2 class="section__title">Other Real Estate Litigation Services</h2>
       <ul class="list list--bullets">
-        <li>Disputes between buyers, sellers, and brokers</li>
-        <li>Title and escrow disputes</li>
-        <li>Fraud, misrepresentation, and non-disclosure cases</li>
+        <li>Disputes between buyers, sellers, and brokers.</li>
+        <li>Title and escrow disputes.</li>
+        <li>Fraud, misrepresentation, and non-disclosure cases.</li>
       </ul>
     </div>
   </section>
@@ -201,15 +331,9 @@
     <div class="container">
       <h2 class="section__title">Why Choose Us for Your Real Estate Dispute?</h2>
       <p>
-        Real estate is often your biggest investment, and California’s real
-        estate laws are complex. You deserve attorneys who not only understand
-        the law but also know how to win tough real estate cases. We combine
-        deep legal knowledge with sharp litigation strategies to protect your
-        interests.
+        Real estate is often your biggest investment, and California’s real estate laws are complex. You deserve attorneys who not only understand the law but also know how to win tough real estate cases. We combine deep legal knowledge with sharp litigation strategies to protect your interests.
       </p>
-      <a href="/" class="btn btn--primary">
-        Schedule a Consultation Now
-      </a>
+      <a href="#contact" class="btn">Call Now or Schedule a Free Consultation Online</a>
     </div>
   </section>
 
@@ -218,37 +342,30 @@
     <div class="container">
       <h2 class="section__title">California Law on Real Estate Litigation</h2>
       <p>
-        Real estate disputes often involve California Civil Code § 1102, which
-        requires sellers to disclose known property defects, and California Code
-        of Civil Procedure § 760.020, which governs quiet title actions. Cases
-        such as <em>Lingsch v. Savage</em> (1963) 213 Cal.App.2d 729 have set
-        critical standards for misrepresentation and non-disclosure, guiding
-        how these disputes are resolved.
+        Real estate disputes often involve California Civil Code § 1102, which requires sellers to disclose known property defects, and California Code of Civil Procedure § 760.020, which governs quiet title actions. Cases such as <em>Lingsch v. Savage</em> (1963) 213 Cal.App.2d 729 have set critical standards for misrepresentation and non-disclosure, guiding how these disputes are resolved.
       </p>
     </div>
   </section>
 
-  <!-- ========== CONTACT / CTA FOOTER ========== -->
-  <footer id="contact" class="footer">
+  <!-- ==== FOOTER CALL TO ACTION ==== -->
+  <footer id="contact" class="footer-main">
     <div class="container">
       <h2 class="footer__title">Schedule Your Consultation</h2>
       <p>
-        Ready to resolve your real estate dispute? Complete the form below or
-        call us directly to get started.
+        Ready to resolve your real estate dispute? Complete the form below or call us directly to get started.
       </p>
-      <!-- You can keep your existing contact form markup
-           or embed a form service here -->
       <form class="contact-form">
         <input type="text" name="name" placeholder="Name" required />
         <input type="email" name="email" placeholder="Email" required />
         <input type="tel" name="phone" placeholder="Phone" />
         <textarea name="message" placeholder="Tell us about your dispute"></textarea>
-        <button type="submit" class="btn btn--primary">Submit</button>
+        <button type="submit" class="btn">Submit</button>
       </form>
     </div>
+    <div class="footer-copy">
+      &copy; 2025 Law Offices of Pritpal Singh. All rights reserved.
+    </div>
   </footer>
-
-  <!-- ====== OPTIONAL: EXISTING JS BUNDLE ====== -->
-  <script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js" type="text/javascript"></script>
+  <script src="main.js"></script>
 </body>
 </html>
