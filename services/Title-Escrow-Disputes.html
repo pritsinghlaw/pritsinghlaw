@@ -1,47 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title &amp; Escrow Disputes | Bay Area Real Estate Law</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Title & Escrow Disputes | California Real Estate Attorneys</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --navy: #11294c; --accent: #ff4900; --white: #fff; --gray: #f5f5f7; --shadow: 0 2px 12px rgba(17,41,76,0.05);}
+    body { background: var(--white); color: var(--navy); font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;}
+    .header-bar { background: var(--white); display: flex; align-items: center; box-shadow: var(--shadow); padding: 1rem 0;}
+    .logo { height: 48px; margin-left: 2rem; margin-right: 1.5rem;}
+    .breadcrumbs { font-size: 1rem; color: #5a6982; margin: 0;}
+    .breadcrumbs a { color: var(--navy); text-decoration: none;}
+    .breadcrumbs a:hover { text-decoration: underline; color: var(--accent);}
+    .hero { background: var(--navy); color: var(--white); padding: 3rem 0 2rem; text-align: center;}
+    .hero__title { font-size: 2.75rem; margin-bottom: 0.75rem; font-weight: 700;}
+    .hero__subtitle { font-size: 1.2rem; max-width: 680px; margin: 0 auto 1.5rem;}
+    .btn { background: var(--accent); color: var(--white); border: none; padding: 0.85em 1.7em; border-radius: 3px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; margin: 0.2em 0;}
+    .btn--secondary { background: var(--navy); border: 1px solid var(--accent); color: var(--accent);}
+    .btn--secondary:hover { background: var(--accent); color: var(--white);}
+    .btn:hover { background: #d13e00;}
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem;}
+    section.section { padding: 2.5rem 0;}
+    .section__title { color: var(--navy); font-size: 2rem; margin-bottom: 0.6em; position: relative;}
+    .section__title:after { content: ""; display: block; width: 36px; height: 3px; background: var(--accent); margin-top: 10px; border-radius: 2px;}
+    .section--intro p { font-size: 1.15rem; margin-bottom: 1rem; line-height: 1.5;}
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;}
+    .card { background: var(--gray); border-radius: 8px; box-shadow: var(--shadow); padding: 1.5rem 1.3rem 1.1rem; display: flex; flex-direction: column; justify-content: space-between;}
+    .card__title { color: var(--accent); font-size: 1.23rem; font-weight: bold; margin-bottom: 0.65em;}
+    .card__text { color: #23395d; flex-grow: 1; font-size: 1.05rem; margin-bottom: 1em;}
+    .list--bullets { padding-left: 1.25em; margin-bottom: 0; color: #23395d;}
+    .list--bullets li { margin-bottom: 0.5em; font-size: 1.1rem;}
+    .section--why-us { background: var(--gray); border-radius: 8px;}
+    .footer-main { background: var(--navy); color: var(--white); padding: 2.5rem 0 1.75rem; text-align: center; margin-top: 2.25rem;}
+    .footer-main .footer__title { margin-bottom: 0.5em; font-weight: 700; font-size: 1.5rem;}
+    .footer-main p { margin-bottom: 2em;}
+    .contact-form { max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.1em;}
+    .contact-form input, .contact-form textarea { padding: 0.75em; font-size: 1em; border-radius: 4px; border: 1px solid #ccd8ed; outline: none; width: 100%; background: var(--white); color: var(--navy);}
+    .contact-form textarea { min-height: 100px; resize: vertical;}
+    .footer-copy { font-size: 0.98em; color: #bbc9df; padding: 1em 0 0.3em; border-top: 1px solid rgba(255,255,255,0.09); margin: 2em 0 0;}
+    @media (max-width: 700px) { .container { padding: 0 1rem; } .card-grid { grid-template-columns: 1fr; } .header-bar { flex-direction: column; } .hero__title { font-size: 2rem; } }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Title &amp; Escrow Disputes</h1>
+  <div class="header-bar">
+    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="California Real Estate Attorneys logo" />
+    <nav aria-label="breadcrumb">
+      <span class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href="/services">Services</a> &gt;
+        <span style="color:var(--accent);font-weight:600;">Title & Escrow Disputes</span>
+      </span>
+    </nav>
+  </div>
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero__title">Title & Escrow Disputes</h1>
+      <p class="hero__subtitle">
+        When title or escrow problems strike, they can derail your closing, threaten your ownership, or trigger expensive lawsuits. Our attorneys resolve liens, correct title defects, enforce escrow instructions, and make sure your rights are protected—before and after closing.
+      </p>
+      <a href="#contact" class="btn">Book a Title & Escrow Consultation</a>
+    </div>
   </header>
-  <main>
-<p>Title and escrow are supposed to make real estate transactions smooth, but when something goes wrong, it can stop a closing in its tracks or create costly legal battles after the deal is done. Unresolved liens, title defects, or escrow errors can threaten your property rights and even trigger lawsuits.</p>
-<p>We help homeowners, landlords, buyers, and investors across San Francisco, Oakland, Berkeley, Richmond, and the greater Bay Area resolve title and escrow disputes, ensuring your property is clear, your closing is secure, and your rights are fully protected.</p>
-<p><strong>Schedule a Title &amp; Escrow Consultation to prevent surprises that could derail your transaction.</strong></p>
-<p>What Causes Title &amp; Escrow Disputes?</p>
-<p>Title disputes often arise when ownership isn’t clear or there are hidden claims on the property. Escrow disputes occur when funds or documents aren’t handled properly. Common issues include:</p>
-<ul>
-<li>Liens or Judgments: Unpaid debts, contractor liens, or tax liens that cloud title.</li>
-<li>Errors in Deeds: Mistakes in legal descriptions or prior transfers.</li>
-<li>Fraudulent Documents: Forged deeds or improper transfers recorded on title.</li>
-<li>Escrow Mismanagement: Funds held incorrectly, missed instructions, or misapplied payments.</li>
-<li>Title Insurance Claims: Denials or disputes with your title insurer when defects are discovered.</li>
-</ul>
-<p>What We Will Do for You</p>
-<p>We take a hands-on, strategic approach to resolving title and escrow problems. When you hire us, we will:</p>
-<ul>
-<li>Conduct a full title review to identify liens, encumbrances, or errors.</li>
-<li>Communicate with title companies and escrow officers to correct or resolve issues before closing.</li>
-<li>File quiet title actions (under CCP § 760.010) when ownership disputes arise.</li>
-<li>Pursue claims against title insurers if they fail to cover valid title defects.</li>
-</ul>
-<p>Negotiate settlements or releases of liens so that your property is free and clear.</p>
-<p>Title Insurance Disputes</p>
-<p>Title insurance is supposed to protect you from hidden ownership problems, but insurers often push back on coverage. We know how to challenge title insurance denials and make sure your coverage is enforced when it matters most—especially when a defect is discovered after closing.</p>
-<p>Escrow Problems – How We Step In</p>
-<p>Escrow companies are meant to be neutral, but errors in escrow can create major legal headaches. We step in to correct misapplied funds, enforce escrow instructions, or pursue claims when escrow agents fail to perform their duties.</p>
-<p>Why Choose Us?</p>
-<p>Because we know where real estate transactions go wrong and how to fix them fast. We’ve handled everything from chain-of-title disputes to fraudulent deed claims, and we work closely with title companies and escrow agents to protect your ownership rights and prevent delays.</p>
-<p><strong>Contact us now for help with title and escrow disputes in the Bay Area.</strong></p>
-  </main>
-  <footer>
-    <p>&copy; 2025 Bay Area Real Estate Law Firm</p>
+  <section class="section section--intro">
+    <div class="container">
+      <p>
+        Unresolved liens, title defects, or escrow errors can stop your transaction in its tracks. We help homeowners, landlords, buyers, and investors fix title and escrow disputes fast, so your property is secure and your deal can close.
+      </p>
+      <p>
+        Don’t let hidden problems become costly surprises. Schedule a review and protect your investment.
+      </p>
+    </div>
+  </section>
+  <section class="section section--services">
+    <div class="container">
+      <h2 class="section__title">Common Title & Escrow Disputes We Handle</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3 class="card__title">Liens, Judgments & Defects</h3>
+          <p class="card__text">
+            We resolve unpaid debts, contractor liens, tax liens, and correct errors in deeds or prior transfers—restoring clear title to your property.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Clear a title issue</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Escrow & Funds Mismanagement</h3>
+          <p class="card__text">
+            We fix escrow errors, enforce escrow instructions, and recover funds when agents fail to follow the rules or misapply payments.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Resolve an escrow dispute</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Title Insurance Claims</h3>
+          <p class="card__text">
+            If your title insurer denies a valid claim, we fight to enforce your coverage and restore your rights, even if defects are discovered after closing.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Get help with title insurance</a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--why-us">
+    <div class="container">
+      <h2 class="section__title">Why Choose Us for Title & Escrow?</h2>
+      <p>
+        We know where real estate deals go wrong—and how to fix them quickly. Our attorneys have handled everything from chain-of-title disputes to fraudulent deed claims and work closely with title companies and escrow agents to resolve issues before they escalate.
+      </p>
+      <a href="#contact" class="btn">Protect Your Ownership Rights</a>
+    </div>
+  </section>
+  <footer id="contact" class="footer-main">
+    <div class="container">
+      <h2 class="footer__title">Schedule Your Consultation</h2>
+      <p>
+        Don’t let a title or escrow problem derail your deal. Fill out the form or call for fast help.
+      </p>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" />
+        <textarea name="message" placeholder="Describe your dispute"></textarea>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 California Real Estate Attorneys. All rights reserved.
+    </div>
   </footer>
+  <script src="main.js"></script>
 </body>
 </html>
