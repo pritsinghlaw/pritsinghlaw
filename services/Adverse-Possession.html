@@ -1,57 +1,322 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adverse Possession Defense | Bay Area Real Estate Attorneys</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;line-height:1.6;margin:0;padding:0;color:#222}
-    header,section{padding:1.5rem 10%;}
-    .hero{background:#f3e5f5;text-align:center;padding:3rem 10%;}
-    h1{margin-top:0;font-size:2.25rem}
-    h2{color:#6a1b9a;margin-top:2rem}
-    ul{margin:1rem 0 1rem 1.5rem}
-    .btn{display:inline-block;margin-top:1rem;padding:.75rem 1.25rem;background:#6a1b9a;color:#fff;text-decoration:none;border-radius:4px}
-    .cta{background:#e1bee7;text-align:center;padding:2.5rem 10%}
+    :root {
+      --navy: #11294c;
+      --accent: #ff4900;
+      --white: #fff;
+      --gray: #f5f5f7;
+      --shadow: 0 2px 12px rgba(17,41,76,0.05);
+    }
+
+    body {
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-bar {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+    }
+    .logo {
+      height: 48px;
+      margin-left: 2rem;
+      margin-right: 1.5rem;
+    }
+    .breadcrumbs {
+      font-size: 1rem;
+      color: #5a6982;
+      margin: 0;
+    }
+    .breadcrumbs a {
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    .hero__title {
+      font-size: 2.75rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    .hero__subtitle {
+      font-size: 1.2rem;
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+    }
+    .btn {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 0.85em 1.7em;
+      border-radius: 3px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      margin: 0.2em 0;
+    }
+    .btn--secondary {
+      background: var(--navy);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn--secondary:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn:hover {
+      background: #d13e00;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section.section {
+      padding: 2.5rem 0;
+    }
+    .section__title {
+      color: var(--navy);
+      font-size: 2rem;
+      margin-bottom: 0.6em;
+      position: relative;
+    }
+    .section__title:after {
+      content: "";
+      display: block;
+      width: 36px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+    .section--intro p {
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: var(--gray);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.3rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card__title {
+      color: var(--accent);
+      font-size: 1.23rem;
+      font-weight: bold;
+      margin-bottom: 0.65em;
+    }
+    .card__text {
+      color: #23395d;
+      flex-grow: 1;
+      font-size: 1.05rem;
+      margin-bottom: 1em;
+    }
+    .list--bullets {
+      padding-left: 1.25em;
+      margin-bottom: 0;
+      color: #23395d;
+    }
+    .list--bullets li {
+      margin-bottom: 0.5em;
+      font-size: 1.1rem;
+    }
+    .section--why-us {
+      background: var(--gray);
+      border-radius: 8px;
+    }
+    .footer-main {
+      background: var(--navy);
+      color: var(--white);
+      padding: 2.5rem 0 1.75rem;
+      text-align: center;
+      margin-top: 2.25rem;
+    }
+    .footer-main .footer__title {
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .footer-main p {
+      margin-bottom: 2em;
+    }
+    .contact-form {
+      max-width: 450px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1em;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75em;
+      font-size: 1em;
+      border-radius: 4px;
+      border: 1px solid #ccd8ed;
+      outline: none;
+      width: 100%;
+      background: var(--white);
+      color: var(--navy);
+    }
+    .contact-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .footer-copy {
+      font-size: 0.98em;
+      color: #bbc9df;
+      padding: 1em 0 0.3em;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      margin: 2em 0 0;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 0 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .header-bar { flex-direction: column; }
+      .hero__title { font-size: 2rem; }
+    }
   </style>
 </head>
 <body>
+  <!-- ==== TOP HEADER WITH LOGO & BREADCRUMBS ==== -->
+  <div class="header-bar">
+    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="Bay Area Real Estate Attorneys logo" />
+    <nav aria-label="breadcrumb">
+      <span class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href="/services">Services</a> &gt;
+        <span style="color:var(--accent);font-weight:600;">Adverse Possession</span>
+      </span>
+    </nav>
+  </div>
+
+  <!-- ========== HERO / HEADER ========== -->
   <header class="hero">
-    <h1>Adverse Possession Claims</h1>
-    <p>When a neighbor treats your land like their own, California’s adverse-possession doctrine can threaten true ownership. We defend property owners and, when justified, assert valid claims.</p>
-    <a href="#contact" class="btn">Schedule a Property Rights Consultation</a>
+    <div class="container">
+      <h1 class="hero__title">Adverse Possession Defense</h1>
+      <p class="hero__subtitle">
+        When a neighbor treats your land like their own, California’s adverse possession laws can put your property rights at serious risk. Our team defends owners facing adverse possession claims and, when justified, asserts valid claims for rightful ownership. Protect your investment with attorneys who know the nuances of California property law.
+      </p>
+      <a href="#contact" class="btn">Schedule a Property Rights Consultation</a>
+    </div>
   </header>
 
-  <section>
-    <h2>Adverse Possession in California</h2>
-    <p>Under CCP § 325, a claimant must prove five strict elements—open, hostile, continuous, exclusive possession for five years, plus payment of property taxes.</p>
+  <!-- ========= INTRO PARAGRAPH ========= -->
+  <section class="section section--intro">
+    <div class="container">
+      <p>
+        Adverse possession isn’t just a legal technicality—it’s a serious threat to property ownership across California. Whether it’s a misplaced fence, a neighbor using your land without permission, or a co-owner claiming rights, we craft aggressive, results-driven strategies to defend your interests and secure clear title.
+      </p>
+      <p>
+        Don’t wait until your land is at risk. Consult with our experienced attorneys and safeguard your property today.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <h2>Typical Scenarios We Litigate</h2>
-    <ul>
-      <li>Misplaced fences or structures</li>
-      <li>Vacant land occupied and improved without permission</li>
-      <li>Shared driveways and access paths used as private property</li>
-      <li>Co-owner disputes in inherited real estate</li>
-    </ul>
+  <!-- ========== ADVERSITY ELEMENTS ========== -->
+  <section class="section section--services">
+    <div class="container">
+      <h2 class="section__title">Adverse Possession in California</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3 class="card__title">Strict Legal Requirements</h3>
+          <p class="card__text">
+            Under California Code of Civil Procedure § 325, a successful adverse possession claim must prove: open, notorious, hostile, continuous, and exclusive use for five years, <strong>plus</strong> payment of property taxes. We know how to challenge (or establish) every element.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Ask about defending your title</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Common Disputes We Litigate</h3>
+          <p class="card__text">
+            Our firm handles cases involving misplaced fences or structures, occupation of vacant land, disputed shared driveways, and conflicts among co-owners or heirs. We use expert surveys and historical records to prove your case.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Schedule a case review</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Strategic Legal Tools</h3>
+          <p class="card__text">
+            We employ quiet title actions, deed/tax-roll investigations, evidence of permissive use, and counter-claims for damages or injunctions—using every legal tool to secure your property.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Protect your property now</a>
+        </article>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>Our Legal Toolkit</h2>
-    <ul>
-      <li>Historical deed, survey, and tax-roll investigations</li>
-      <li>Quiet title actions to confirm rightful ownership</li>
-      <li>Evidence that use was permissive or not exclusive</li>
-      <li>Counter-claims for damages or injunctions</li>
-    </ul>
+  <!-- ========== WHY CHOOSE US ========== -->
+  <section class="section section--why-us">
+    <div class="container">
+      <h2 class="section__title">Why Choose Us for Adverse Possession Cases?</h2>
+      <p>
+        Losing land through adverse possession is a real risk—don’t leave your case to chance. Our attorneys combine aggressive courtroom tactics with negotiation skill and deep expertise in California property law to safeguard your investment.
+      </p>
+      <a href="#contact" class="btn">Call Now or Schedule Your Free Consultation</a>
+    </div>
   </section>
 
-  <section class="cta" id="contact">
-    <h2>Don’t let your land slip away.</h2>
-    <p>Book a consultation and defend your property rights today.</p>
-    <a href="mailto:info@firm.com" class="btn">Protect Your Property</a>
+  <!-- ========== LEGAL BACKGROUND ========== -->
+  <section class="section section--legal">
+    <div class="container">
+      <h2 class="section__title">California Law: Adverse Possession</h2>
+      <p>
+        The law requires more than mere use—every element must be strictly proven, from open and hostile use to payment of property taxes. We navigate the complexities of CCP § 325 and related statutes to assert or defend your property rights.
+      </p>
+    </div>
   </section>
+
+  <!-- ==== FOOTER CALL TO ACTION ==== -->
+  <footer id="contact" class="footer-main">
+    <div class="container">
+      <h2 class="footer__title">Schedule Your Consultation</h2>
+      <p>
+        Worried about losing your land? Complete the form below or call us to get started with a proven property rights attorney.
+      </p>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" />
+        <textarea name="message" placeholder="Tell us about your dispute"></textarea>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Bay Area Real Estate Attorneys. All rights reserved.
+    </div>
+  </footer>
+  <script src="main.js"></script>
 </body>
 </html>
