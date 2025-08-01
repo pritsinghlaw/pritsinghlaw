@@ -1,57 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Landlord-Tenant Matters | Bay Area Real Estate Law</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landlord-Tenant Matters | Bay Area Real Estate Attorneys</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --navy: #11294c; --accent: #ff4900; --white: #fff; --gray: #f5f5f7; --shadow: 0 2px 12px rgba(17,41,76,0.05);}
+    body { background: var(--white); color: var(--navy); font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;}
+    .header-bar { background: var(--white); display: flex; align-items: center; box-shadow: var(--shadow); padding: 1rem 0;}
+    .logo { height: 48px; margin-left: 2rem; margin-right: 1.5rem;}
+    .breadcrumbs { font-size: 1rem; color: #5a6982; margin: 0;}
+    .breadcrumbs a { color: var(--navy); text-decoration: none;}
+    .breadcrumbs a:hover { text-decoration: underline; color: var(--accent);}
+    .hero { background: var(--navy); color: var(--white); padding: 3rem 0 2rem; text-align: center;}
+    .hero__title { font-size: 2.75rem; margin-bottom: 0.75rem; font-weight: 700;}
+    .hero__subtitle { font-size: 1.2rem; max-width: 680px; margin: 0 auto 1.5rem;}
+    .btn { background: var(--accent); color: var(--white); border: none; padding: 0.85em 1.7em; border-radius: 3px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; margin: 0.2em 0;}
+    .btn--secondary { background: var(--navy); border: 1px solid var(--accent); color: var(--accent);}
+    .btn--secondary:hover { background: var(--accent); color: var(--white);}
+    .btn:hover { background: #d13e00;}
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem;}
+    section.section { padding: 2.5rem 0;}
+    .section__title { color: var(--navy); font-size: 2rem; margin-bottom: 0.6em; position: relative;}
+    .section__title:after { content: ""; display: block; width: 36px; height: 3px; background: var(--accent); margin-top: 10px; border-radius: 2px;}
+    .section--intro p { font-size: 1.15rem; margin-bottom: 1rem; line-height: 1.5;}
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;}
+    .card { background: var(--gray); border-radius: 8px; box-shadow: var(--shadow); padding: 1.5rem 1.3rem 1.1rem; display: flex; flex-direction: column; justify-content: space-between;}
+    .card__title { color: var(--accent); font-size: 1.23rem; font-weight: bold; margin-bottom: 0.65em;}
+    .card__text { color: #23395d; flex-grow: 1; font-size: 1.05rem; margin-bottom: 1em;}
+    .list--bullets { padding-left: 1.25em; margin-bottom: 0; color: #23395d;}
+    .list--bullets li { margin-bottom: 0.5em; font-size: 1.1rem;}
+    .section--why-us { background: var(--gray); border-radius: 8px;}
+    .footer-main { background: var(--navy); color: var(--white); padding: 2.5rem 0 1.75rem; text-align: center; margin-top: 2.25rem;}
+    .footer-main .footer__title { margin-bottom: 0.5em; font-weight: 700; font-size: 1.5rem;}
+    .footer-main p { margin-bottom: 2em;}
+    .contact-form { max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.1em;}
+    .contact-form input, .contact-form textarea { padding: 0.75em; font-size: 1em; border-radius: 4px; border: 1px solid #ccd8ed; outline: none; width: 100%; background: var(--white); color: var(--navy);}
+    .contact-form textarea { min-height: 100px; resize: vertical;}
+    .footer-copy { font-size: 0.98em; color: #bbc9df; padding: 1em 0 0.3em; border-top: 1px solid rgba(255,255,255,0.09); margin: 2em 0 0;}
+    @media (max-width: 700px) { .container { padding: 0 1rem; } .card-grid { grid-template-columns: 1fr; } .header-bar { flex-direction: column; } .hero__title { font-size: 2rem; } }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Landlord-Tenant Matters</h1>
+  <div class="header-bar">
+    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="Bay Area Real Estate Attorneys logo" />
+    <nav aria-label="breadcrumb">
+      <span class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href="/services">Services</a> &gt;
+        <span style="color:var(--accent);font-weight:600;">Landlord-Tenant Matters</span>
+      </span>
+    </nav>
+  </div>
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero__title">Landlord-Tenant Matters</h1>
+      <p class="hero__subtitle">
+        Bay Area landlords operate in the nation’s toughest legal climate. Evictions, rent control, and habitability disputes can threaten your property and profits. Our firm represents landlords exclusively, ensuring strict legal compliance and providing strategic, results-driven solutions for every issue you face.
+      </p>
+      <a href="#contact" class="btn">Book a Landlord Consultation</a>
+    </div>
   </header>
-  <main>
-<p>Being a landlord in the Bay Area is not for the faint of heart. With some of the toughest tenant protection laws in California, landlords face an uphill battle when it comes to evictions, rent control, and habitability disputes. Our firm represents Bay Area landlords exclusively, guiding you through a system that often feels built to favor tenants. We fight for your property rights, ensure strict compliance with every ordinance and statute, and develop smart, strategic approaches to achieve results.</p>
-<p>From San Francisco to Oakland, Berkeley to Richmond, every city has its own rent control and just cause eviction ordinances—each with unique timelines, notice requirements, and procedures that landlords must follow perfectly. A single mistake on a notice can result in your entire unlawful detainer case being dismissed. In cities like Fremont or Alamo, where state law governs landlord-tenant matters, the rules are less complicated, but the process still demands precision.</p>
-<p><strong>Schedule a Landlord Consultation today and let us build a winning strategy for your property.</strong></p>
-<p>Tenant Protection Act of 2019 (AB 1482)</p>
-<p>The TPA of 2019 introduced statewide rent caps (5% + CPI, or 10%, whichever is less) and just cause eviction protections (Civ. Code §§ 1946.2, 1947.12) for most residential units. Even when your property is exempt, you must provide written exemption notices to tenants. We ensure your leases, notices, and eviction grounds fully comply with this law to avoid tenant challenges.</p>
-<p>Costa-Hawkins Rental Housing Act</p>
-<p>The Costa-Hawkins Act (Civ. Code § 1954.50) exempts single-family homes, condos, and post-1995 construction from local rent control—and allows landlords to set market rent when tenants move out (vacancy decontrol). We leverage Costa-Hawkins protections to help landlords maintain profitability in rent-controlled cities.</p>
-<p>The Bay Area Ordinance Patchwork</p>
-<p>San Francisco: The SF Rent Ordinance (Admin. Code § 37.1 et seq.) limits rent increases and tightly controls evictions. We assist landlords with rent board petitions, buyouts, and just cause evictions, while defending against wrongful eviction claims.</p>
-<p>Oakland: With its Rent Adjustment Program (RAP) and Measure EE (Just Cause Ordinance), Oakland landlords must navigate tenant relocation payments, rent increase caps, and a rent board process. We represent landlords at RAP hearings and defend against tenant petitions.</p>
-<p>Berkeley: The Berkeley Rent Stabilization Ordinance (BMC Ch. 13.76) imposes strict controls on rent, evictions, and registration. We guide landlords through compliance, defend landlords in rent board disputes, and pursue lawful evictions with precision.</p>
-<p>Richmond: Richmond’s Fair Rent, Just Cause for Eviction, and Homeowner Protection Ordinance (RMC § 11.100) mirrors Oakland and Berkeley in its protections for tenants. We handle relocation disputes, rent adjustments, and eviction defense for landlords.</p>
-<p>State-Law Governed Areas: Fremont, Alamo &amp; Beyond: In cities like Fremont, Alamo, Walnut Creek, and other suburban East Bay areas, California state law governs landlord-tenant disputes. While these areas are less regulated, the California Code of Civil Procedure §§ 1161–1179a requires strict notice timing and content for evictions. We draft flawless 3-day, 30-day, or 60-day notices to ensure your case isn’t derailed by a technicality.</p>
-<p>New Alameda County Ordinance (2025): In early 2025, Alameda County passed a new ordinance for unincorporated areas like Castro Valley and Ashland. It imposes rent registration requirements, relocation payments, and just cause rules, similar to Oakland’s RAP. We track these changes in real-time to keep landlords compliant and ready for disputes.</p>
-<p>Why Precision Matters in Bay Area Evictions</p>
-<p>Landlord-tenant law here is stacked in favor of tenants. The courts scrutinize every eviction notice, timeline, and filing. A single clerical mistake can reset your entire case, costing you weeks or months of lost rent.</p>
-<p>We take care of everything:</p>
-<ul>
-<li>Drafting legally airtight notices that comply with state and local laws.</li>
-<li>Ensuring timelines are strictly followed to prevent dismissal.</li>
-<li>Preparing for tenant defenses under rent ordinances, TPA, or habitability laws.</li>
-<li>Defending landlords at rent board hearings or court proceedings.</li>
-</ul>
-<p><strong>Book your consultation now—don’t risk going it alone in such a tenant-friendly environment.</strong></p>
-<p>The New Trend: Tenants Removing UD Cases to Federal Court</p>
-<p>A growing trend in Bay Area unlawful detainer (UD) cases is pro per tenants attempting to “remove” eviction cases from state court to federal court. Tenants often claim federal jurisdiction based on constitutional defenses or federal housing statutes.</p>
-<p>While these removals are almost always improper, they delay eviction proceedings significantly, forcing landlords to respond in federal court. We immediately file motions to remand (return the case to state court) and take steps to minimize costly delays.</p>
-<p>If your UD case has been “removed” to federal court, time is critical—schedule a consultation now to get it back on track.</p>
-<p>How We Protect Landlords:</p>
-<p>Our firm is landlord-focused. We:</p>
-<ul>
-<li>Handle unlawful detainer actions from notice to lockout.</li>
-<li>Represent landlords at rent boards, mediations, and hearings.</li>
-<li>Defend against habitability claims and retaliatory tenant defenses.</li>
-<li>Negotiate tenant buyouts that comply with local ordinances.</li>
-<li>Provide ongoing compliance audits of leases, notices, and procedures.</li>
-<li>Your property is your investment—let us protect it. Book your consultation today.</li>
-</ul>
-  </main>
-  <footer>
-    <p>&copy; 2025 Bay Area Real Estate Law Firm</p>
+  <section class="section section--intro">
+    <div class="container">
+      <p>
+        With a patchwork of local ordinances and complex state statutes, even a single error on a notice can cost weeks of lost rent or get your case dismissed. We help you navigate every step—drafting airtight notices, handling rent board disputes, and defending your rights in court.
+      </p>
+      <p>
+        Don’t go it alone. Secure experienced, landlord-focused representation and reclaim control over your property.
+      </p>
+    </div>
+  </section>
+  <section class="section section--services">
+    <div class="container">
+      <h2 class="section__title">Key Landlord-Tenant Issues We Handle</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3 class="card__title">Evictions & Unlawful Detainers</h3>
+          <p class="card__text">
+            From notice to lockout, we manage every aspect of eviction—ensuring strict compliance and minimizing costly delays, including handling federal court removals.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Request eviction help</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Rent Control & Local Ordinance Compliance</h3>
+          <p class="card__text">
+            We guide you through San Francisco, Oakland, Berkeley, Richmond, and new Alameda County rules—drafting leases, handling rent boards, and ensuring your property remains profitable.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Get compliance advice</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Defense Against Tenant Claims</h3>
+          <p class="card__text">
+            We defend landlords against habitability, retaliation, and wrongful eviction claims—using airtight evidence and legal strategy to protect your interests.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Protect your property</a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--why-us">
+    <div class="container">
+      <h2 class="section__title">Why Choose Us for Landlord Representation?</h2>
+      <p>
+        We represent landlords—period. Our deep knowledge of local and state law, plus our courtroom experience, means your property is in the best hands possible. We move fast, minimize risk, and keep your investment secure.
+      </p>
+      <a href="#contact" class="btn">Book Your Landlord Strategy Session</a>
+    </div>
+  </section>
+  <footer id="contact" class="footer-main">
+    <div class="container">
+      <h2 class="footer__title">Schedule Your Consultation</h2>
+      <p>
+        Facing a tough tenant or compliance headache? Fill out the form or call today.
+      </p>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" />
+        <textarea name="message" placeholder="Describe your landlord-tenant issue"></textarea>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Bay Area Real Estate Attorneys. All rights reserved.
+    </div>
   </footer>
+  <script src="main.js"></script>
 </body>
 </html>
