@@ -1,43 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Property Financing Documents | Bay Area Real Estate Law</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Financing Documents | Bay Area Real Estate Attorneys</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --navy: #11294c; --accent: #ff4900; --white: #fff; --gray: #f5f5f7; --shadow: 0 2px 12px rgba(17,41,76,0.05);}
+    body { background: var(--white); color: var(--navy); font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;}
+    .header-bar { background: var(--white); display: flex; align-items: center; box-shadow: var(--shadow); padding: 1rem 0;}
+    .logo { height: 48px; margin-left: 2rem; margin-right: 1.5rem;}
+    .breadcrumbs { font-size: 1rem; color: #5a6982; margin: 0;}
+    .breadcrumbs a { color: var(--navy); text-decoration: none;}
+    .breadcrumbs a:hover { text-decoration: underline; color: var(--accent);}
+    .hero { background: var(--navy); color: var(--white); padding: 3rem 0 2rem; text-align: center;}
+    .hero__title { font-size: 2.75rem; margin-bottom: 0.75rem; font-weight: 700;}
+    .hero__subtitle { font-size: 1.2rem; max-width: 680px; margin: 0 auto 1.5rem;}
+    .btn { background: var(--accent); color: var(--white); border: none; padding: 0.85em 1.7em; border-radius: 3px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; margin: 0.2em 0;}
+    .btn--secondary { background: var(--navy); border: 1px solid var(--accent); color: var(--accent);}
+    .btn--secondary:hover { background: var(--accent); color: var(--white);}
+    .btn:hover { background: #d13e00;}
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem;}
+    section.section { padding: 2.5rem 0;}
+    .section__title { color: var(--navy); font-size: 2rem; margin-bottom: 0.6em; position: relative;}
+    .section__title:after { content: ""; display: block; width: 36px; height: 3px; background: var(--accent); margin-top: 10px; border-radius: 2px;}
+    .section--intro p { font-size: 1.15rem; margin-bottom: 1rem; line-height: 1.5;}
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;}
+    .card { background: var(--gray); border-radius: 8px; box-shadow: var(--shadow); padding: 1.5rem 1.3rem 1.1rem; display: flex; flex-direction: column; justify-content: space-between;}
+    .card__title { color: var(--accent); font-size: 1.23rem; font-weight: bold; margin-bottom: 0.65em;}
+    .card__text { color: #23395d; flex-grow: 1; font-size: 1.05rem; margin-bottom: 1em;}
+    .list--bullets { padding-left: 1.25em; margin-bottom: 0; color: #23395d;}
+    .list--bullets li { margin-bottom: 0.5em; font-size: 1.1rem;}
+    .section--why-us { background: var(--gray); border-radius: 8px;}
+    .footer-main { background: var(--navy); color: var(--white); padding: 2.5rem 0 1.75rem; text-align: center; margin-top: 2.25rem;}
+    .footer-main .footer__title { margin-bottom: 0.5em; font-weight: 700; font-size: 1.5rem;}
+    .footer-main p { margin-bottom: 2em;}
+    .contact-form { max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.1em;}
+    .contact-form input, .contact-form textarea { padding: 0.75em; font-size: 1em; border-radius: 4px; border: 1px solid #ccd8ed; outline: none; width: 100%; background: var(--white); color: var(--navy);}
+    .contact-form textarea { min-height: 100px; resize: vertical;}
+    .footer-copy { font-size: 0.98em; color: #bbc9df; padding: 1em 0 0.3em; border-top: 1px solid rgba(255,255,255,0.09); margin: 2em 0 0;}
+    @media (max-width: 700px) { .container { padding: 0 1rem; } .card-grid { grid-template-columns: 1fr; } .header-bar { flex-direction: column; } .hero__title { font-size: 2rem; } }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Property Financing Documents</h1>
+  <div class="header-bar">
+    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="Bay Area Real Estate Attorneys logo" />
+    <nav aria-label="breadcrumb">
+      <span class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href="/services">Services</a> &gt;
+        <span style="color:var(--accent);font-weight:600;">Property Financing Documents</span>
+      </span>
+    </nav>
+  </div>
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero__title">Property Financing Documents</h1>
+      <p class="hero__subtitle">
+        Securing real estate financing in California means facing a mountain of paperwork—promissory notes, deeds of trust, loan agreements, and more. We draft, review, and troubleshoot financing documents to protect your interests, avoid disputes, and close your deals with confidence.
+      </p>
+      <a href="#contact" class="btn">Schedule a Financing Consultation</a>
+    </div>
   </header>
-  <main>
-<p>Real estate financing in California can be complex, involving promissory notes, deeds of trust, loan agreements, and security instruments that must all work together flawlessly. A single poorly drafted clause can create disputes, threaten your collateral, or even derail your transaction.</p>
-<p>We help homeowners, landlords, and investors across San Francisco, Oakland, Berkeley, Richmond, and the greater Bay Area draft, review, and troubleshoot property financing documents. Whether you’re borrowing, lending, or investing, our job is to ensure your financing agreements are legally enforceable, transparent, and risk-proof.</p>
-<p><strong>Schedule a Financing Document Consultation and let us secure your interests before closing.</strong></p>
-<p>What We Do for You</p>
-<p>Financing documents define your rights, responsibilities, and remedies if something goes wrong. We carefully review every line of your loan agreements, promissory notes, and deeds of trust, identifying risks and ensuring compliance with California Civil Code § 2920 et seq. (governing mortgage and deed of trust laws).</p>
-<p>When we draft or review these documents, we will:</p>
-<ul>
-<li>Ensure interest rate terms, payment schedules, and default provisions are fair and enforceable.</li>
-<li>Confirm that security instruments (like deeds of trust) are properly prepared and recorded.</li>
-<li>Review escrow instructions and payoff statements for accuracy and legal compliance.</li>
-<li>Identify and correct any hidden lender terms or “gotcha” clauses that could harm your financial position.</li>
-</ul>
-<p>Key Financing Documents We Handle</p>
-<ul>
-<li>Promissory Notes: We make sure repayment terms, interest rates, and default remedies are clear and enforceable.</li>
-<li>Deeds of Trust and Mortgages: We review and draft documents that secure your loan while protecting your property rights.</li>
-<li>Loan Agreements: From private lenders to institutional financing, we structure agreements to minimize risk.</li>
-<li>Subordination and Intercreditor Agreements: We ensure priority disputes between multiple lenders are resolved up front.</li>
-</ul>
-<p>Our Approach</p>
-<p>We combine legal precision with real-world experience. We know how lenders, escrow officers, and title companies operate in the Bay Area—and we ensure your financing documents align with both legal requirements and market realities. Our goal is to give you clarity, security, and confidence throughout the financing process.</p>
-<p>Why Choose Us?</p>
-<p>Because property financing is too important to leave to chance. Whether you’re securing funding for an investment property or reviewing loan terms for a personal purchase, we take the time to identify potential disputes before they arise and protect your interests from start to finish.</p>
-<p><strong>Contact us today to have your financing documents reviewed or drafted by an experienced California real estate attorney.</strong></p>
-  </main>
-  <footer>
-    <p>&copy; 2025 Bay Area Real Estate Law Firm</p>
+  <section class="section section--intro">
+    <div class="container">
+      <p>
+        Every word in your financing documents matters. A single poorly drafted clause can create disputes, jeopardize your collateral, or even kill your transaction. We work with homeowners, landlords, and investors to ensure every agreement is legally enforceable, transparent, and tailored to your needs.
+      </p>
+      <p>
+        Don’t risk your investment—book a review with our experienced legal team.
+      </p>
+    </div>
+  </section>
+  <section class="section section--services">
+    <div class="container">
+      <h2 class="section__title">Key Financing Documents We Handle</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3 class="card__title">Promissory Notes & Loan Agreements</h3>
+          <p class="card__text">
+            We ensure your repayment terms, interest rates, and default remedies are clear, fair, and enforceable—minimizing the risk of future disputes.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Review your note or loan now</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Deeds of Trust & Mortgages</h3>
+          <p class="card__text">
+            Our attorneys draft and review all security instruments, ensuring your property rights are fully protected and documents are properly recorded.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Protect your collateral</a>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Escrow, Subordination, and Payoff Docs</h3>
+          <p class="card__text">
+            We scrutinize escrow instructions, payoff statements, and priority agreements—preventing lender tricks and protecting your bottom line.
+          </p>
+          <a href="#contact" class="btn btn--secondary">Get an expert review</a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--why-us">
+    <div class="container">
+      <h2 class="section__title">Why Choose Us for Financing Documents?</h2>
+      <p>
+        Property financing is too important to leave to chance. We combine legal precision, market savvy, and real-world experience to make sure your deal goes through without surprises.
+      </p>
+      <a href="#contact" class="btn">Book Your Financing Review</a>
+    </div>
+  </section>
+  <footer id="contact" class="footer-main">
+    <div class="container">
+      <h2 class="footer__title">Schedule Your Consultation</h2>
+      <p>
+        Secure your investment. Complete the form or call us to get your documents reviewed by a California real estate attorney.
+      </p>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" />
+        <textarea name="message" placeholder="What financing documents do you need help with?"></textarea>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Bay Area Real Estate Attorneys. All rights reserved.
+    </div>
   </footer>
+  <script src="main.js"></script>
 </body>
 </html>
