@@ -58,7 +58,7 @@
                 <div class="option-card" data-referral="attorney-referral">Attorney Referral</div>
                 <div class="option-card" data-referral="previous-client">Previous Client</div>
                 <div class="option-card" data-referral="online-reviews">Online Reviews</div>
-                <div class="option-card" data-referral="yellow-pages">Yellow Pages</div>
+                <div class="option-card" data-referral="yellow-pages">Yelp</div>
                 <div class="option-card" data-referral="other">Other</div>
             </div>
             <div id="other-referral-input" class="hidden">
@@ -107,19 +107,19 @@
             <div class="step-header">
                 <div class="icon">📞</div>
                 <h2>How would you like to proceed?</h2>
-                <p>Do you want to book a full 60-minute consultation to discuss your matter in detail (Option 1 - Recommended) or would you prefer a brief introductory phone call for 15 minutes (Option 2)?</p>
+                <p>Do you want to book a full 60-minute consultation to discuss your matter with an attorney in detail or would you prefer a brief introductory phone call for 15 minutes (free of charge)?</p>
             </div>
             <div class="options">
                 <div class="option-card consultation-option" data-type="paid" data-price="350">
                     <div class="option-title">Option 1: Full 60-Minute Consultation</div>
-                    <div class="option-price">$350</div>
-                    <div class="option-description">Comprehensive discussion of your case with detailed legal analysis</div>
+                    <div class="option-price">$350 <b>[Discounted Offer]</b></div>
+                    <div class="option-description">Comprehensive discussion of your case with detailed legal analysis and advice conducted in-person or via Zoom</div>
                     <div class="recommended-badge">Recommended</div>
                 </div>
                 <div class="option-card consultation-option" data-type="free" data-price="0">
                     <div class="option-title">Option 2: Brief 15-Minute Call</div>
                     <div class="option-price">FREE</div>
-                    <div class="option-description">Quick introductory call to understand your basic needs</div>
+                    <div class="option-description">Quick introductory call with attorney to understand your basic needs</div>
                 </div>
             </div>
             <button type="button" class="back-btn" onclick="prevStep()">← Back</button>
@@ -250,7 +250,7 @@
         <div class="step" id="success-step">
             <div class="step-header">
                 <div class="icon">✅</div>
-                <h2>Thank you, <span class="fname-placeholder">there</span>!</h2>
+                <h2>All done!</h2>
                 <p id="success-message">Your consultation request has been submitted successfully.</p>
             </div>
             <div class="next-steps">
