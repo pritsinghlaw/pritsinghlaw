@@ -410,14 +410,14 @@ function populateNextSteps() {
         nextStepsList.innerHTML = `
             <li>You will receive a payment link via email within 10 minutes</li>
             <li>Complete payment to confirm your consultation booking</li>
-            <li>Once paid, you'll receive a calendar invitation with Zoom details</li>
-            <li>Prepare any relevant documents for your consultation</li>
-            <li>Our office will contact you 24 hours before your appointment</li>
+            <li>Once paid, you'll receive a calendar invitation with Zoom details if you chose that option</li>
+            <li>Prepare any relevant documents for your consultation (if applicable)</li>
+            <li>Our office will contact you for further confirmation before your appointment</li>
         `;
     } else {
         successMessage.textContent = 'Your free consultation request has been submitted successfully.';
         nextStepsList.innerHTML = `
-            <li>You will receive a calendar invitation within 10 minutes</li>
+            <li>You will receive a calendar invitation in your email inbox shortly</li>
             <li>The call will be brief (15 minutes) to understand your basic needs</li>
             <li>We'll discuss if a full consultation would be beneficial</li>
             <li>Our office will contact you if we need to reschedule</li>
