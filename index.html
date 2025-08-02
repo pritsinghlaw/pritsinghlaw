@@ -236,12 +236,13 @@ visibility:hidden!important;
 }
 
 /* Hover Effects */
-.link-card-practice-areas, .team-photo, .link-card {
-  transition:transform .25s ease, box-shadow .25s ease;
+.link-card-practice-areas, .link-card {
+  transition:transform .25s ease, box-shadow .25s ease !important;
 }
-.link-card-practice-areas:hover, .team-photo:hover, .link-card:hover{
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 0.75rem 1.25rem rgba(0,0,0,.15);
+.link-card-practice-areas:hover, .link-card:hover
+ .link-card-practice-areas:focus, .link-card:focus  {
+  transform:translateY(-4px) scale(1.03) !important;
+  box-shadow:0 0.75rem 1.25rem rgba(0,0,0,.15) !important;
 }   
 </style>
 
@@ -278,7 +279,7 @@ visibility:hidden!important;
 }
 
   .text-size-large-1 {
-    line-height: 1.4 !important;
+    line-height: 1.5 !important;
     font-size: 16px !important;
     )
 
@@ -286,7 +287,7 @@ visibility:hidden!important;
 .link-card-practice-areas {
     display: inline-block !important;
     border: none!important;
-    border-radius:15px !important;
+    border-radius:10px !important;
 }
 
 /* Fix image opacity */
@@ -300,6 +301,7 @@ visibility:hidden!important;
 
 
 <!---DROPDOWN MENU STYLESHEET UPDATE--->
+  
 <style>
 /* ---------- GENERIC RESETS ---------- */
 .navbar-dropdown-list-container{
@@ -319,7 +321,7 @@ visibility:hidden!important;
   @media (min-width: 992px) { /* Adjust the breakpoint as needed */
   #w-dropdown-list-0 {
     width: auto !important; /* Set a desired minimum width */
-    /* Or use width: auto; if you want it to fit its content */
+    
   }
 }
 
@@ -339,11 +341,14 @@ visibility:hidden!important;
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       integrity="sha512-SzlrxWNL6+qg1P5+5N1R6N1M4bKCvRLVGVN4uP6Y5XUyxUK85+CbERgqZFsxF0i5fLkW2G4qURy1ovw6aToF3g=="
       crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  
 <style>
 /* ---------- NAVIGATION ---------- */
 /* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
 .navbar-dropdown-list-container{
-  width:auto!important; left:10; right:10;           /* full screen width */
+  width:auto!important; 
+                                               /* full screen width */
   max-height:none!important;                        /* no internal scroll */
 }
 @media (max-width:767px){                           /* phones only */
@@ -365,18 +370,18 @@ visibility:hidden!important;
 .btn-primary .fa-user{margin-right:.5rem;}
 
 /* ---------- HERO SPACING ---------- */
-.header-component{padding-top:2rem!important;}      /* was huge; now tighter */
+.header-component{padding-top:1.25rem !important;}      /* was huge; now tighter */
 
 /* ---------- PRACTICE-AREA CARDS ---------- */
-.link-card-practice-areas{
-  flex:1 1 260px;                                   /* equal basis */
-  display:flex; flex-direction:column;
+.link-card-practice-areas {
+  flex:1 1 260px !important;                                   /* equal basis */
+  display:flex; flex-direction:column !important;
 }
 .link-card-practice-areas .card-background{
-  flex:1; display:flex; flex-direction:column;      /* equal height */
+  flex:1; display:flex; flex-direction:column !important;      /* equal height */
 }
 /* smooth hover already present; ensure shadow always identical height */
-.link-card-practice-areas:hover{transform:translateY(-4px) scale(1.03);}
+.link-card-practice-areas:hover{transform:translateY(-4px) scale(1.03) !important;}
 </style>
  
 <style>
@@ -557,10 +562,6 @@ visibility:hidden!important;
   </div>
 
 
-
-
-  
-  <!---<a href="/services" aria-current="page" class="navbar-link w-nav-link w--current">Services</a>---> 
   
   
   
@@ -585,10 +586,10 @@ visibility:hidden!important;
           <!-- ✅ Grid parent -->
           <div class="menu-item-container flex-horizontal">
             <div class="menu-item-wrapper">
-              <a href="/team/pritpal-singh" class="navbar-dropdown-link w-dropdown-link">Pritpal Singh - Lead Attorney</a>
-              <a href="/ateam/michael-chigbu" class="navbar-dropdown-link w-dropdown-link">Michael Chigbu - Legal Assistant</a>
+              <a href="/team/pritpal-singh" class="navbar-dropdown-link w-dropdown-link">Pritpal Singh, Esq. | Lead Attorney</a>
+              <a href="/ateam/michael-chigbu" class="navbar-dropdown-link w-dropdown-link">Michael E. Chigbu | Legal Assistant</a>
               
-              <a href="/coming-soon" target="_blank" class="navbar-dropdown-link w-dropdown-link">Careers/Vacancies</a>
+              <a href="#" class="navbar-dropdown-link w-dropdown-link">Work With Us | Careers</a>
               
             </div>
           </div>
