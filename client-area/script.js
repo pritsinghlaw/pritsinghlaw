@@ -1,5 +1,5 @@
 // === CONFIG PLACEHOLDERS ===
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpwlpapw'; // e.g. https://formspree.io/f/xyz
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpwlpapw'; 
 const ZAPIER_WEBHOOK_URL = 'YOUR_ZAPIER_WEBHOOK_URL_HERE';
 
 // Debounce helper
@@ -77,11 +77,13 @@ function restoreFormData() {
   try {
     const data = JSON.parse(saved);
     formData = { ...formData, ...data };
+
     if (formData.contactInfo.fullName) document.getElementById('fullName').value = formData.contactInfo.fullName;
     if (formData.contactInfo.email) document.getElementById('email').value = formData.contactInfo.email;
     if (formData.contactInfo.phone) document.getElementById('phone').value = formData.contactInfo.phone;
     if (formData.contactInfo.location) document.getElementById('location').value = formData.contactInfo.location;
     if (formData.caseDetails) document.getElementById('caseDetails').value = formData.caseDetails;
+
     if (formData.referralSource) {
       const card = document.querySelector(`[data-referral="${formData.referralSource}"]`);
       if (card) card.classList.add('selected');
@@ -94,53 +96,80 @@ function restoreFormData() {
       const card = document.querySelector(`.consultation-option[data-type="${formData.consultationType}"]`);
       if (card) card.classList.add('selected');
     }
-    if (formData.scheduling.preferredDateTime) document.getElementById('preferredDateTime').value = formData.scheduling.preferredDateTime;
-    if (formData.disclaimerAccepted) document.getElementById('disclaimer-agreement').checked = true;
-    if (data.step) goToStep(data.step);
+    if (formData.scheduling.preferredDateTime) {
+      document.getElementById('preferredDateTime').value = formData.scheduling.preferredDateTime;
+    }
+    if (formData.disclaimerAccepted) {
+      document.getElementById('disclaimer-agreement').checked = true;
+    }
+    if (formData.step) {
+      goToStep(formData.step);
+    }
   } catch (e) {
     console.warn('Failed restoring saved data', e);
   }
 }
 
+
 function validateStep(step) {
   // Clear existing errors
   document.querySelectorAll('.error').forEach(e => e.textContent = '');
   let valid = true;
+  let firstInvalid = null;
+
   switch (step) {
-    case 1: {
-      ['fullName','email','phone','location'].forEach(name => {
+    case 1:
+      ['fullName', 'email', 'phone', 'location'].forEach(name => {
         const el = document.getElementById(name);
         if (!el || !el.value.trim()) {
           showError(name, 'This field is required.');
+          if (!firstInvalid && el) firstInvalid = el;
           valid = false;
         } else if (name === 'email' && !/^\S+@\S+\.\S+$/.test(el.value)) {
           showError(name, 'Email seems invalid.');
+          if (!firstInvalid && el) firstInvalid = el;
           valid = false;
         }
       });
       break;
-    }
     case 2:
-      if (!formData.referralSource) { valid = false; /* could show a generic message area if desired */ }
+      if (!formData.referralSource) valid = false;
       break;
     case 3:
       if (!formData.serviceType) valid = false;
       break;
     case 4:
-      if (!formData.caseDetails || !formData.caseDetails.trim()) { showError('caseDetails','Provide case details.'); valid = false; }
+      if (!formData.caseDetails || !formData.caseDetails.trim()) {
+        showError('caseDetails', 'Provide case details.');
+        const el = document.getElementById('caseDetails');
+        if (!firstInvalid && el) firstInvalid = el;
+        valid = false;
+      }
       break;
     case 5:
       if (!formData.consultationType) valid = false;
       break;
     case 7:
-      if (!formData.scheduling.preferredDateTime) { showError('preferredDateTime','Pick a preferred date/time.'); valid = false; }
+      if (!formData.scheduling.preferredDateTime) {
+        showError('preferredDateTime', 'Pick a preferred date/time.');
+        const el = document.getElementById('preferredDateTime');
+        if (!firstInvalid && el) firstInvalid = el;
+        valid = false;
+      }
       break;
     case 8:
       if (!formData.disclaimerAccepted) valid = false;
       break;
   }
+
+  if (!valid && firstInvalid) {
+    firstInvalid.focus();
+  }
   return valid;
 }
+
+
+
 
 function showError(fieldName, message) {
   const errEl = document.querySelector(`.error[data-for="${fieldName}"]`);
