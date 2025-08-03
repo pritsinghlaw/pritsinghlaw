@@ -12,9 +12,11 @@ function debounce(fn, delay) {
 }
 
 let currentStep = 1;
-let locked = false; // prevent rapid transitions
+const steps = () => document.querySelectorAll('.step');
+const progressBar = () => document.querySelector('.progress');
+let locked = false; // prevent double transition
 
-// In-memory form data (persisted)
+// In-memory form data (persisted to localStorage)
 let formData = {
   step: 1,
   contactInfo: {},
@@ -31,10 +33,9 @@ let formData = {
 };
 
 function updateProgress() {
-  const total = document.querySelectorAll('.step').length - 1;
-  const pct = Math.min((currentStep - 1) / Math.max(total - 1,1), 1) * 100;
-  const bar = document.querySelector('.progress');
-  if (bar) bar.style.width = pct + '%';
+  const total = document.querySelectorAll('.step').length - 1; // last is success
+  const pct = Math.min((currentStep - 1) / (total - 1), 1) * 100;
+  if (progressBar()) progressBar().style.width = pct + '%';
 }
 
 function goToStep(stepNum) {
@@ -47,10 +48,10 @@ function goToStep(stepNum) {
   updateProgress();
   formData.step = currentStep;
   autoSave();
-  setTimeout(() => { locked = false; }, 250);
+  setTimeout(() => { locked = false; }, 300);
 }
 
-function nextStep() {
+function nextStep() { // guarded
   if (!validateStep(currentStep)) return;
   if (formData.consultationType === 'free' && currentStep === 5) {
     goToStep(7);
@@ -96,12 +97,10 @@ function restoreFormData() {
       if (card) card.classList.add('selected');
     }
     if (formData.scheduling.preferredDateTime) {
-      const el = document.getElementById('preferredDateTime');
-      if (el) el.value = formData.scheduling.preferredDateTime;
+      document.getElementById('preferredDateTime').value = formData.scheduling.preferredDateTime;
     }
     if (formData.disclaimerAccepted) {
-      const chk = document.getElementById('disclaimer-agreement');
-      if (chk) chk.checked = true;
+      document.getElementById('disclaimer-agreement').checked = true;
     }
     if (formData.step) {
       goToStep(formData.step);
@@ -111,12 +110,9 @@ function restoreFormData() {
   }
 }
 
-function showError(fieldName, message) {
-  const errEl = document.querySelector(`.error[data-for="${fieldName}"]`);
-  if (errEl) errEl.textContent = message;
-}
 
 function validateStep(step) {
+  // Clear existing errors
   document.querySelectorAll('.error').forEach(e => e.textContent = '');
   let valid = true;
   let firstInvalid = null;
@@ -166,8 +162,18 @@ function validateStep(step) {
       break;
   }
 
-  if (!valid && firstInvalid) firstInvalid.focus();
+  if (!valid && firstInvalid) {
+    firstInvalid.focus();
+  }
   return valid;
+}
+
+
+
+
+function showError(fieldName, message) {
+  const errEl = document.querySelector(`.error[data-for="${fieldName}"]`);
+  if (errEl) errEl.textContent = message;
 }
 
 function updateTotalCost() {
@@ -177,11 +183,7 @@ function updateTotalCost() {
   const totalElem = document.getElementById('total-amount');
   if (totalElem) totalElem.textContent = `$${total}`;
   const docCost = document.getElementById('document-cost');
-  if (formData.addons.documentReview) {
-    if (docCost) docCost.style.display = 'block';
-  } else {
-    if (docCost) docCost.style.display = 'none';
-  }
+  if (formData.addons.documentReview) docCost.style.display = 'block'; else docCost.style.display = 'none';
 }
 
 function populateConsultationSummary() {
@@ -196,9 +198,7 @@ function populateConsultationSummary() {
     if (addons.length) addonsText = `<br><strong>Add-ons:</strong> ${addons.join(', ')}`;
   }
   const totalCost = formData.consultationType === 'paid' ? `$${formData.totalAmount}` : 'FREE';
-  const pref = formData.scheduling.preferredDateTime
-    ? new Date(formData.scheduling.preferredDateTime).toLocaleString(undefined, { timeZoneName: 'short' })
-    : 'Not selected';
+  const pref = formData.scheduling.preferredDateTime ? new Date(formData.scheduling.preferredDateTime).toLocaleString(undefined, { timeZoneName: 'short' }) : 'Not selected';
   summary.innerHTML = `
     <p><strong>Service:</strong> ${formData.serviceType}</p>
     <p><strong>Consultation Type:</strong> ${consultationText}</p>
@@ -232,44 +232,43 @@ function populateNextSteps() {
 }
 
 function disableDuringTransition(button) {
-  if (button) {
-    button.disabled = true;
-    setTimeout(() => { button.disabled = false; }, 600);
-  }
+  button.disabled = true;
+  setTimeout(() => { button.disabled = false; }, 600);
 }
 
+// Event wiring
 document.addEventListener('DOMContentLoaded', () => {
   updateProgress();
   restoreFormData();
 
+  // Real-time validation on inputs
   ['fullName','email','phone','location','caseDetails','preferredDateTime'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.addEventListener('input', debounce(() => {
         validateStep(currentStep);
-      }, 250));
+      }, 300));
     }
   });
 
+  // Step 1 submission
   document.getElementById('client-info-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validateStep(1)) return;
+    const form = e.target;
     disableDuringTransition(document.getElementById('to-step-2'));
-    const fd = new FormData(e.target);
+    const fd = new FormData(form);
     formData.contactInfo = {
       fullName: fd.get('fullName'),
       email: fd.get('email'),
       phone: fd.get('phone'),
       location: fd.get('location')
     };
-    try {
-      await fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-    } catch (err) {
-      console.warn('Formspree failed', err);
-    }
+    try { await fetch(FORMSPREE_ENDPOINT, { method:'POST', body: fd, headers:{ 'Accept':'application/json' } }); } catch (err) { console.warn('Formspree failed', err); }
     nextStep();
   });
 
+  // Referral selection
   document.getElementById('referral-options')?.addEventListener('click', (e) => {
     const card = e.target.closest('.option-card');
     if (!card) return;
@@ -280,34 +279,31 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('other-referral-input')?.classList.remove('hidden');
     } else {
       document.getElementById('other-referral-input')?.classList.add('hidden');
-      setTimeout(() => nextStep(), 250);
+      setTimeout(() => nextStep(), 300);
     }
   });
+  document.getElementById('otherReferral')?.addEventListener('input', (e) => { formData.otherReferralDetails = e.target.value; });
 
-  document.getElementById('otherReferral')?.addEventListener('input', (e) => {
-    formData.otherReferralDetails = e.target.value;
-  });
-
+  // Populate service options
   const services = ['Real Estate Litigation','Boundary Disputes','Quiet Title Actions','Contract Review','Closings'];
   const container = document.getElementById('service-options');
-  if (container) {
-    services.forEach(svc => {
-      const card = document.createElement('div');
-      card.className = 'option-card';
-      card.textContent = svc;
-      card.dataset.service = svc;
-      container.appendChild(card);
-    });
-    container.addEventListener('click', (e) => {
-      const card = e.target.closest('.option-card');
-      if (!card) return;
-      document.querySelectorAll('#service-options .option-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      formData.serviceType = card.dataset.service;
-      setTimeout(() => nextStep(), 250);
-    });
-  }
+  services.forEach(svc => {
+    const card = document.createElement('div');
+    card.className = 'option-card';
+    card.textContent = svc;
+    card.dataset.service = svc;
+    container.appendChild(card);
+  });
+  container?.addEventListener('click', (e) => {
+    const card = e.target.closest('.option-card');
+    if (!card) return;
+    document.querySelectorAll('#service-options .option-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    formData.serviceType = card.dataset.service;
+    setTimeout(() => nextStep(), 300);
+  });
 
+  // Case details
   document.getElementById('case-info-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!validateStep(4)) return;
@@ -315,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nextStep();
   });
 
+  // Consultation selection
   document.querySelectorAll('.consultation-option').forEach(opt => {
     opt.addEventListener('click', () => {
       document.querySelectorAll('.consultation-option').forEach(o => o.classList.remove('selected'));
@@ -322,18 +319,15 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.consultationType = opt.dataset.type;
       formData.consultationPrice = parseInt(opt.dataset.price, 10) || 0;
       updateTotalCost();
-      setTimeout(() => nextStep(), 250);
+      setTimeout(() => nextStep(), 300);
     });
   });
 
-  document.getElementById('document-review')?.addEventListener('change', (e) => {
-    formData.addons.documentReview = e.target.checked;
-    updateTotalCost();
-  });
-  document.getElementById('consultation-transcript')?.addEventListener('change', (e) => {
-    formData.addons.consultationTranscript = e.target.checked;
-  });
+  // Add-ons
+  document.getElementById('document-review')?.addEventListener('change', (e) => { formData.addons.documentReview = e.target.checked; updateTotalCost(); });
+  document.getElementById('consultation-transcript')?.addEventListener('change', (e) => { formData.addons.consultationTranscript = e.target.checked; });
 
+  // Scheduling
   document.getElementById('scheduling-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!validateStep(7)) return;
@@ -346,29 +340,28 @@ document.addEventListener('DOMContentLoaded', () => {
     nextStep();
   });
 
+  // Disclaimer
   document.getElementById('disclaimer-agreement')?.addEventListener('change', (e) => {
     formData.disclaimerAccepted = e.target.checked;
-    const finalBtn = document.getElementById('final-submit-btn');
-    if (finalBtn) finalBtn.disabled = !e.target.checked;
+    document.getElementById('final-submit-btn').disabled = !e.target.checked;
   });
 
+  // Final submit
   document.getElementById('final-submission-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!formData.disclaimerAccepted) return;
     populateConsultationSummary();
     disableDuringTransition(document.getElementById('final-submit-btn'));
     try {
-      await fetch(ZAPIER_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({...formData,submittedAt:new Date().toISOString()}) });
+      await fetch(ZAPIER_WEBHOOK_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ ...formData, submittedAt: new Date().toISOString() }) });
       populateNextSteps();
       document.getElementById('success-screen')?.classList.remove('hidden');
-      goToStep(9);
+      goToStep(9); // success screen index beyond 8
       localStorage.removeItem('legalFormData');
-    } catch (err) {
-      console.error('Submit failed', err);
-      alert('Submission failed. Please try again.');
-    }
+    } catch (err) { console.error('Submit failed', err); alert('Submission failed.'); }
   });
 
+  // Back buttons
   document.querySelectorAll('[data-action="prev"]').forEach(b => b.addEventListener('click', prevStep));
   document.querySelectorAll('[data-action="next"]').forEach(b => b.addEventListener('click', nextStep));
 });
