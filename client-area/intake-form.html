@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Intake Form - Law Offices of Pritpal Singh</title>
+  <title>Client Intake Form</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://pritsinghlaw.com/client-area/style.css" />
+  <link rel="stylesheet" href="https://pritsinghlaw.com/client-area/style.js" />
 </head>
 <body>
   <div class="form-container">
-    <img src="/colornobg.svg" width="200" height="auto" alt="Law Offices of Pritpal Singh Logo" id="main-logo" class="logo" />
+    <img src="/colornobg.svg" alt="Logo" id="main-logo" class="logo" />
     <div class="progress-bar">
       <div class="progress"></div>
     </div>
@@ -19,7 +19,7 @@
     <!-- Step 1: Contact Info -->
     <div class="step active" data-step="1" id="step-1">
       <h2>Step 1: Contact Information</h2>
-      <form id="client-info-form" data-formspree-placeholder> <!-- TODO: Replace FORMSPREE_ENDPOINT in script.js with your Formspree URL -->
+      <form id="client-info-form" data-formspree-placeholder>
         <div class="field">
           <label for="fullName">Full Name</label>
           <input name="fullName" id="fullName" required />
@@ -161,7 +161,7 @@
       <div class="field">
         <label><input type="checkbox" id="disclaimer-agreement" /> I accept the terms and conditions</label>
       </div>
-      <form id="final-submission-form" data-zapier-placeholder> <!-- TODO: Replace ZAPIER_WEBHOOK_URL in script.js with your webhook/webhook URL -->
+      <form id="final-submission-form" data-zapier-placeholder>
         <button type="submit" id="final-submit-btn" disabled class="next-btn">
           <span class="submit-text">Submit</span>
           <span class="loading-spinner" style="display:none;">Loading...</span>
