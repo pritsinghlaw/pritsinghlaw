@@ -1,5 +1,5 @@
 // === CONFIG PLACEHOLDERS ===
-const FORMSPREE_ENDPOINT = 'YOUR_FORMSPREE_ENDPOINT_HERE'; // e.g. https://formspree.io/f/xyz
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpwlpapw'; // e.g. https://formspree.io/f/xyz
 const ZAPIER_WEBHOOK_URL = 'YOUR_ZAPIER_WEBHOOK_URL_HERE';
 
 // Debounce helper
