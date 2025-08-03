@@ -1,4 +1,4 @@
-/* Base resets and font */ 
+/* Base resets and font */
 * { box-sizing:border-box; }
 body { margin:0; font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,sans-serif; background: radial-gradient(circle at 30% 30%, #e8f0fa 0%, #c3cfe2 60%) fixed; color:#1f2d45; }
 .form-container { max-width:860px; margin:2rem auto; padding:2rem 2.5rem; position:relative; background:rgba(255,255,255,0.95); border-radius:16px; box-shadow:0 40px 90px -10px rgba(0,0,0,0.08); overflow:hidden; }
