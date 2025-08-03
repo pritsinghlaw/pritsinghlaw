@@ -1,367 +1,847 @@
-// === CONFIG PLACEHOLDERS ===
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpwlpapw'; // e.g. https://formspree.io/f/xyz
-const ZAPIER_WEBHOOK_URL = 'YOUR_ZAPIER_WEBHOOK_URL_HERE';
-
-// Debounce helper
-function debounce(fn, delay) {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), delay);
-  };
-}
-
+// Step Management
 let currentStep = 1;
-const steps = () => document.querySelectorAll('.step');
-const progressBar = () => document.querySelector('.progress');
-let locked = false; // prevent double transition
+const steps = document.querySelectorAll('.step');
+const progress = document.querySelector('.progress');
+const totalSteps = steps.length - 1; // Excluding success step
 
-// In-memory form data (persisted to localStorage)
+// Form Data Storage
 let formData = {
-  step: 1,
-  contactInfo: {},
-  referralSource: '',
-  otherReferralDetails: '',
-  serviceType: '',
-  caseDetails: '',
-  consultationType: '',
-  consultationPrice: 0,
-  addons: { documentReview: false, consultationTranscript: true },
-  scheduling: {},
-  disclaimerAccepted: false,
-  totalAmount: 0
+    step: 1,
+    contactInfo: {},
+    referralSource: '',
+    otherReferralDetails: '',
+    serviceType: '',
+    caseDetails: '',
+    consultationType: '',
+    consultationPrice: 0,
+    addons: {
+        documentReview: false,
+        consultationTranscript: true
+    },
+    scheduling: {},
+    disclaimerAccepted: false,
+    totalAmount: 350
 };
 
+// Progress Update
 function updateProgress() {
-  const total = document.querySelectorAll('.step').length - 1; // last is success
-  const pct = Math.min((currentStep - 1) / (total - 1), 1) * 100;
-  if (progressBar()) progressBar().style.width = pct + '%';
+    const progressStep = Math.min(currentStep, totalSteps);
+    const percentage = ((progressStep - 1) / (totalSteps - 1)) * 100;
+    progress.style.width = percentage + '%';
 }
 
-function goToStep(stepNum) {
-  if (locked) return;
-  locked = true;
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  currentStep = stepNum;
-  const target = document.querySelector(`.step[data-step="${stepNum}"]`);
-  if (target) target.classList.add('active');
-  updateProgress();
-  formData.step = currentStep;
-  autoSave();
-  setTimeout(() => { locked = false; }, 300);
-}
-
-function nextStep() { // guarded
-  if (!validateStep(currentStep)) return;
-  if (formData.consultationType === 'free' && currentStep === 5) {
-    goToStep(7);
-  } else if (formData.consultationType === 'paid' && currentStep === 5) {
-    goToStep(6);
-  } else {
-    goToStep(currentStep + 1);
-  }
-}
-
+// Step Navigation Functions
 function prevStep() {
-  if (locked) return;
-  if (currentStep > 1) goToStep(currentStep - 1);
+    if (currentStep > 1) {
+        // Hide current step
+        steps[currentStep - 1].classList.remove('active');
+
+        // Handle special navigation logic
+        if (currentStep === 7 && formData.consultationType === 'free') {
+            // If going back from scheduling and consultation is free, go to step 5
+            currentStep = 5;
+        } else if (currentStep === 6) {
+            // If going back from add-ons, go to consultation type
+            currentStep = 5;
+        } else {
+            currentStep--;
+        }
+
+        // Show new step
+        steps[currentStep - 1].classList.add('active');
+        updateProgress();
+        autoSave();
+    }
 }
 
+function nextStep() {
+    if (currentStep < totalSteps + 1) {
+        // Validate current step before proceeding
+        if (!validateCurrentStep()) {
+            return;
+        }
+
+        // Hide current step
+        steps[currentStep - 1].classList.remove('active');
+
+        // Handle conditional navigation logic
+        if (currentStep === 5) {
+            // From consultation type selection
+            if (formData.consultationType === 'paid') {
+                currentStep = 6; // Go to add-ons
+            } else {
+                currentStep = 7; // Skip add-ons, go to scheduling
+            }
+        } else {
+            currentStep++;
+        }
+
+        // Show new step
+        steps[currentStep - 1].classList.add('active');
+        updateProgress();
+        autoSave();
+
+        // Special handling for different steps
+        if (currentStep === 8) {
+            populateConsultationSummary();
+        }
+    }
+}
+
+function goToStep(stepNumber) {
+    if (stepNumber >= 1 && stepNumber <= totalSteps + 1) {
+        steps[currentStep - 1].classList.remove('active');
+        currentStep = stepNumber;
+        steps[currentStep - 1].classList.add('active');
+        updateProgress();
+        autoSave();
+    }
+}
+
+// Validation function for current step
+function validateCurrentStep() {
+    switch (currentStep) {
+        case 1:
+            return validateContactInfo();
+        case 2:
+            return validateReferralSource();
+        case 3:
+            return validateServiceSelection();
+        case 4:
+            return validateCaseDetails();
+        case 5:
+            return validateConsultationType();
+        case 7:
+            return validateScheduling();
+        case 8:
+            return formData.disclaimerAccepted;
+        default:
+            return true;
+    }
+}
+
+function validateContactInfo() {
+    const requiredFields = ['fullName', 'email', 'phone', 'location'];
+    const form = document.getElementById('client-info-form');
+
+    for (let field of requiredFields) {
+        const input = form.querySelector(`[name="${field}"]`);
+        if (!input || !input.value.trim()) {
+            showValidationError(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}.`);
+            input?.focus();
+            return false;
+        }
+    }
+    return true;
+}
+
+function validateReferralSource() {
+    if (!formData.referralSource) {
+        showValidationError('Please select how you were referred to us.');
+        return false;
+    }
+
+    if (formData.referralSource === 'other' && !formData.otherReferralDetails.trim()) {
+        showValidationError('Please specify how you found us.');
+        document.querySelector('[name="otherReferral"]')?.focus();
+        return false;
+    }
+
+    return true;
+}
+
+function validateServiceSelection() {
+    if (!formData.serviceType) {
+        showValidationError('Please select the service you need.');
+        return false;
+    }
+    return true;
+}
+
+function validateCaseDetails() {
+    if (!formData.caseDetails.trim()) {
+        showValidationError('Please provide details about your case.');
+        document.querySelector('[name="caseDetails"]')?.focus();
+        return false;
+    }
+    return true;
+}
+
+function validateConsultationType() {
+    if (!formData.consultationType) {
+        showValidationError('Please select a consultation type.');
+        return false;
+    }
+    return true;
+}
+
+function validateScheduling() {
+    if (!formData.scheduling.preferredDateTime) {
+        showValidationError('Please select your preferred date and time.');
+        document.querySelector('[name="preferredDateTime"]')?.focus();
+        return false;
+    }
+    return true;
+}
+
+function showValidationError(message) {
+    // Create or update validation message
+    let errorDiv = document.querySelector('.validation-error');
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.className = 'validation-error';
+        errorDiv.style.cssText = `
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            animation: errorSlide 0.3s ease-out;
+        `;
+
+        // Add animation keyframes
+        if (!document.querySelector('#error-animations')) {
+            const style = document.createElement('style');
+            style.id = 'error-animations';
+            style.textContent = `
+                @keyframes errorSlide {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+
+    errorDiv.textContent = message;
+
+    // Insert at the top of current step
+    const currentStepElement = steps[currentStep - 1];
+    const stepHeader = currentStepElement.querySelector('.step-header');
+    stepHeader.parentNode.insertBefore(errorDiv, stepHeader.nextSibling);
+
+    // Remove after 5 seconds
+    setTimeout(() => {
+        errorDiv?.remove();
+    }, 5000);
+}
+
+// Auto-save Functionality
 function autoSave() {
-  localStorage.setItem('legalFormData', JSON.stringify(formData));
+    formData.step = currentStep;
+    localStorage.setItem('legalFormData', JSON.stringify(formData));
 }
 
 function restoreFormData() {
-  const saved = localStorage.getItem('legalFormData');
-  if (!saved) return;
-  try {
-    const data = JSON.parse(saved);
-    formData = { ...formData, ...data };
+    const saved = localStorage.getItem('legalFormData');
+    if (saved) {
+        try {
+            const data = JSON.parse(saved);
+            formData = { ...formData, ...data };
 
-    if (formData.contactInfo.fullName) document.getElementById('fullName').value = formData.contactInfo.fullName;
-    if (formData.contactInfo.email) document.getElementById('email').value = formData.contactInfo.email;
-    if (formData.contactInfo.phone) document.getElementById('phone').value = formData.contactInfo.phone;
-    if (formData.contactInfo.location) document.getElementById('location').value = formData.contactInfo.location;
-    if (formData.caseDetails) document.getElementById('caseDetails').value = formData.caseDetails;
+            // Restore form fields
+            restoreContactInfo();
+            restoreSelections();
 
-    if (formData.referralSource) {
-      const card = document.querySelector(`[data-referral="${formData.referralSource}"]`);
-      if (card) card.classList.add('selected');
-    }
-    if (formData.serviceType) {
-      const card = document.querySelector(`[data-service="${formData.serviceType}"]`);
-      if (card) card.classList.add('selected');
-    }
-    if (formData.consultationType) {
-      const card = document.querySelector(`.consultation-option[data-type="${formData.consultationType}"]`);
-      if (card) card.classList.add('selected');
-    }
-    if (formData.scheduling.preferredDateTime) {
-      document.getElementById('preferredDateTime').value = formData.scheduling.preferredDateTime;
-    }
-    if (formData.disclaimerAccepted) {
-      document.getElementById('disclaimer-agreement').checked = true;
-    }
-    if (formData.step) {
-      goToStep(formData.step);
-    }
-  } catch (e) {
-    console.warn('Failed restoring saved data', e);
-  }
-}
-
-
-function validateStep(step) {
-  // Clear existing errors
-  document.querySelectorAll('.error').forEach(e => e.textContent = '');
-  let valid = true;
-  let firstInvalid = null;
-
-  switch (step) {
-    case 1:
-      ['fullName', 'email', 'phone', 'location'].forEach(name => {
-        const el = document.getElementById(name);
-        if (!el || !el.value.trim()) {
-          showError(name, 'This field is required.');
-          if (!firstInvalid && el) firstInvalid = el;
-          valid = false;
-        } else if (name === 'email' && !/^\S+@\S+\.\S+$/.test(el.value)) {
-          showError(name, 'Email seems invalid.');
-          if (!firstInvalid && el) firstInvalid = el;
-          valid = false;
+            // Restore step if not the first one
+            if (data.step && data.step !== 1) {
+                goToStep(data.step);
+            }
+        } catch (error) {
+            console.error('Error restoring form data:', error);
         }
-      });
-      break;
-    case 2:
-      if (!formData.referralSource) valid = false;
-      break;
-    case 3:
-      if (!formData.serviceType) valid = false;
-      break;
-    case 4:
-      if (!formData.caseDetails || !formData.caseDetails.trim()) {
-        showError('caseDetails', 'Provide case details.');
-        const el = document.getElementById('caseDetails');
-        if (!firstInvalid && el) firstInvalid = el;
-        valid = false;
-      }
-      break;
-    case 5:
-      if (!formData.consultationType) valid = false;
-      break;
-    case 7:
-      if (!formData.scheduling.preferredDateTime) {
-        showError('preferredDateTime', 'Pick a preferred date/time.');
-        const el = document.getElementById('preferredDateTime');
-        if (!firstInvalid && el) firstInvalid = el;
-        valid = false;
-      }
-      break;
-    case 8:
-      if (!formData.disclaimerAccepted) valid = false;
-      break;
-  }
-
-  if (!valid && firstInvalid) {
-    firstInvalid.focus();
-  }
-  return valid;
+    }
 }
 
+function restoreContactInfo() {
+    if (formData.contactInfo.fullName) {
+        const input = document.querySelector('input[name="fullName"]');
+        if (input) input.value = formData.contactInfo.fullName;
+        updateNamePlaceholders(formData.contactInfo.fullName);
+    }
 
+    ['email', 'phone', 'location'].forEach(field => {
+        if (formData.contactInfo[field]) {
+            const input = document.querySelector(`input[name="${field}"]`);
+            if (input) input.value = formData.contactInfo[field];
+        }
+    });
 
+    if (formData.caseDetails) {
+        const textarea = document.querySelector('textarea[name="caseDetails"]');
+        if (textarea) textarea.value = formData.caseDetails;
+    }
+}
 
-function showError(fieldName, message) {
-  const errEl = document.querySelector(`.error[data-for="${fieldName}"]`);
-  if (errEl) errEl.textContent = message;
+function restoreSelections() {
+    // Restore referral selection
+    if (formData.referralSource) {
+        const referralCard = document.querySelector(`[data-referral="${formData.referralSource}"]`);
+        if (referralCard) referralCard.classList.add('selected');
+
+        if (formData.referralSource === 'other' && formData.otherReferralDetails) {
+            const otherInput = document.querySelector('[name="otherReferral"]');
+            if (otherInput) {
+                otherInput.value = formData.otherReferralDetails;
+                document.getElementById('other-referral-input')?.classList.remove('hidden');
+            }
+        }
+    }
+
+    // Restore service selection
+    if (formData.serviceType) {
+        const serviceCard = document.querySelector(`[data-service="${formData.serviceType}"]`);
+        if (serviceCard) serviceCard.classList.add('selected');
+    }
+
+    // Restore consultation type
+    if (formData.consultationType) {
+        const consultationCard = document.querySelector(`[data-type="${formData.consultationType}"]`);
+        if (consultationCard) consultationCard.classList.add('selected');
+
+        updateConsultationTypeText();
+    }
+}
+
+// Name placeholder updates
+function updateNamePlaceholders(fullName) {
+    const firstName = fullName.split(' ')[0];
+    document.querySelectorAll('.fname-placeholder').forEach(el => {
+        el.textContent = firstName;
+    });
+}
+
+// Service Options Population
+function populateServiceOptions() {
+    const services = [
+        'Real Estate Litigation',
+        'Landlord / Tenant Matters',
+        'Premises Liability',
+        'Boundary Disputes',
+        'Quiet Title Actions',
+        'Adverse Possession Claims',
+        'Easements and Encroachments',
+        'Mortgage Fraud',
+        'Foreclosure Defense',
+        'Contract Review and Drafting',
+        'Purchase Agreements',
+        'Real Estate Closings',
+        'Real Estate Broker Disputes',
+        'Real Estate Financing Documents',
+        'Title and Escrow Disputes'
+    ];
+
+    const container = document.getElementById('service-options');
+    if (!container) return;
+
+    container.innerHTML = ''; // Clear existing content
+
+    services.forEach(service => {
+        const card = document.createElement('div');
+        card.className = 'option-card';
+        card.textContent = service;
+        card.dataset.service = service;
+        container.appendChild(card);
+    });
+}
+
+// Event Handlers
+
+// Step 1: Contact Information Form
+function initContactForm() {
+    const form = document.getElementById('client-info-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateContactInfo()) return;
+
+        showSpinner(true);
+
+        const formDataObj = new FormData(e.target);
+        formData.contactInfo = {
+            fullName: formDataObj.get('fullName'),
+            email: formDataObj.get('email'),
+            phone: formDataObj.get('phone'),
+            location: formDataObj.get('location')
+        };
+
+        updateNamePlaceholders(formData.contactInfo.fullName);
+
+        // Send to Formspree (optional)
+        try {
+            await fetch('https://formspree.io/f/xpwlpapw', {
+                method: 'POST',
+                body: formDataObj,
+                headers: { 'Accept': 'application/json' }
+            });
+        } catch (error) {
+            console.log('Formspree submission error:', error);
+        }
+
+        showSpinner(false);
+        nextStep();
+    });
+}
+
+// Step 2: Referral Source Selection
+function initReferralSelection() {
+    const options = document.getElementById('referral-options');
+    if (!options) return;
+
+    options.addEventListener('click', (e) => {
+        const card = e.target.closest('.option-card');
+        if (!card) return;
+
+        // Clear previous selection
+        document.querySelectorAll('#referral-options .option-card').forEach(c => 
+            c.classList.remove('selected')
+        );
+        card.classList.add('selected');
+
+        formData.referralSource = card.dataset.referral;
+
+        // Handle special case for "Other"
+        const otherInput = document.getElementById('other-referral-input');
+        const referralNext = document.getElementById('referral-next');
+
+        if (card.dataset.referral === 'other') {
+            otherInput?.classList.remove('hidden');
+            referralNext?.classList.add('hidden');
+        } else {
+            otherInput?.classList.add('hidden');
+            referralNext?.classList.remove('hidden');
+            formData.otherReferralDetails = '';
+            // Auto-advance after selection
+            setTimeout(() => nextStep(), 500);
+        }
+    });
+
+    // Handle "Other" input
+    const otherInput = document.querySelector('input[name="otherReferral"]');
+    if (otherInput) {
+        otherInput.addEventListener('input', (e) => {
+            formData.otherReferralDetails = e.target.value;
+        });
+    }
+}
+
+// Handle "Other" referral next button
+function handleOtherReferralNext() {
+    if (formData.otherReferralDetails.trim()) {
+        nextStep();
+    } else {
+        showValidationError('Please specify how you found us.');
+    }
+}
+
+// Step 3: Service Selection
+function initServiceSelection() {
+    const container = document.getElementById('service-options');
+    if (!container) return;
+
+    container.addEventListener('click', (e) => {
+        const card = e.target.closest('.option-card');
+        if (!card) return;
+
+        // Clear previous selection
+        document.querySelectorAll('#service-options .option-card').forEach(c => 
+            c.classList.remove('selected')
+        );
+        card.classList.add('selected');
+
+        formData.serviceType = card.dataset.service;
+
+        // Show next button
+        const nextBtn = document.getElementById('service-next');
+        if (nextBtn) nextBtn.classList.remove('hidden');
+
+        // Auto-advance after selection
+        setTimeout(() => nextStep(), 500);
+    });
+}
+
+// Step 4: Case Details Form
+function initCaseForm() {
+    const form = document.getElementById('case-info-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateCaseDetails()) return;
+
+        showSpinner(true);
+
+        const formDataObj = new FormData(e.target);
+        formData.caseDetails = formDataObj.get('caseDetails');
+
+        showSpinner(false);
+        nextStep();
+    });
+}
+
+// Step 5: Consultation Type Selection
+function initConsultationSelection() {
+    const options = document.getElementById('consultation-options');
+    if (!options) return;
+
+    options.addEventListener('click', (e) => {
+        const card = e.target.closest('.option-card');
+        if (!card) return;
+
+        // Clear previous selection
+        document.querySelectorAll('.consultation-option').forEach(c => 
+            c.classList.remove('selected')
+        );
+        card.classList.add('selected');
+
+        formData.consultationType = card.dataset.type;
+        formData.consultationPrice = parseInt(card.dataset.price);
+
+        updateConsultationTypeText();
+
+        // Show next button
+        const nextBtn = document.getElementById('consultation-next');
+        if (nextBtn) nextBtn.classList.remove('hidden');
+
+        // Auto-advance after selection
+        setTimeout(() => nextStep(), 500);
+    });
+}
+
+function updateConsultationTypeText() {
+    const consultationText = formData.consultationType === 'paid' ? 
+        'Full Consultation' : 'Brief Call';
+    document.querySelectorAll('.consultation-type-text').forEach(el => {
+        el.textContent = consultationText;
+    });
+}
+
+function handleConsultationNext() {
+    if (formData.consultationType === 'paid') {
+        nextStep(); // Go to add-ons
+    } else {
+        goToStep(7); // Skip add-ons, go to scheduling
+    }
+}
+
+// Step 6: Add-ons Management
+function initAddonsManagement() {
+    const documentReview = document.getElementById('document-review');
+    const consultationTranscript = document.getElementById('consultation-transcript');
+
+    if (documentReview) {
+        documentReview.addEventListener('change', (e) => {
+            formData.addons.documentReview = e.target.checked;
+            updateTotalCost();
+        });
+    }
+
+    if (consultationTranscript) {
+        consultationTranscript.addEventListener('change', (e) => {
+            formData.addons.consultationTranscript = e.target.checked;
+        });
+    }
 }
 
 function updateTotalCost() {
-  let total = formData.consultationPrice || 0;
-  if (formData.addons.documentReview) total += 150;
-  formData.totalAmount = total;
-  const totalElem = document.getElementById('total-amount');
-  if (totalElem) totalElem.textContent = `$${total}`;
-  const docCost = document.getElementById('document-cost');
-  if (formData.addons.documentReview) docCost.style.display = 'block'; else docCost.style.display = 'none';
+    let total = formData.consultationPrice;
+    const documentCost = document.getElementById('document-cost');
+
+    if (formData.addons.documentReview) {
+        total += 150;
+        if (documentCost) documentCost.style.display = 'flex';
+    } else {
+        if (documentCost) documentCost.style.display = 'none';
+    }
+
+    const totalAmount = document.getElementById('total-amount');
+    if (totalAmount) totalAmount.textContent = `$${total}`;
+    formData.totalAmount = total;
+}
+
+// Step 7: Scheduling Form
+function initSchedulingForm() {
+    const form = document.getElementById('scheduling-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (!validateScheduling()) return;
+
+        const formDataObj = new FormData(e.target);
+        formData.scheduling = {
+            preferredDateTime: formDataObj.get('preferredDateTime'),
+            alternativeDateTime: formDataObj.get('alternativeDateTime'),
+            zoomPreference: formDataObj.get('zoomPreference') === 'yes',
+            additionalNotes: formDataObj.get('additionalNotes')
+        };
+
+        nextStep();
+    });
+}
+
+// Step 8: Disclaimer and Final Submission
+function initFinalSubmission() {
+    const disclaimerCheckbox = document.getElementById('disclaimer-agreement');
+    if (disclaimerCheckbox) {
+        disclaimerCheckbox.addEventListener('change', (e) => {
+            formData.disclaimerAccepted = e.target.checked;
+            const submitBtn = document.getElementById('final-submit-btn');
+            if (submitBtn) {
+                submitBtn.disabled = !e.target.checked;
+            }
+        });
+    }
+
+    const finalForm = document.getElementById('final-submission-form');
+    if (finalForm) {
+        finalForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!formData.disclaimerAccepted) {
+                showValidationError('Please accept the terms and conditions to proceed.');
+                return;
+            }
+
+            showSpinner(true, 'final-submit-btn');
+
+            try {
+                // Send to Zapier webhook
+                await fetch('YOUR_ZAPIER_WEBHOOK_URL', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...formData,
+                        submissionTime: new Date().toISOString(),
+                        userAgent: navigator.userAgent,
+                        referrer: document.referrer
+                    })
+                });
+
+                // Show success step
+                showSpinner(false, 'final-submit-btn');
+                nextStep();
+                populateNextSteps();
+
+                // Clear saved data
+                localStorage.removeItem('legalFormData');
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showSpinner(false, 'final-submit-btn');
+                showValidationError('There was an error submitting your form. Please try again or contact us directly.');
+            }
+        });
+    }
 }
 
 function populateConsultationSummary() {
-  const summary = document.getElementById('consultation-summary');
-  if (!summary) return;
-  const consultationText = formData.consultationType === 'paid' ? 'Full 60-Minute Consultation' : 'Brief 15-Minute Call';
-  let addonsText = '';
-  if (formData.consultationType === 'paid') {
-    const addons = [];
-    if (formData.addons.documentReview) addons.push('Document Review Service (+$150)');
-    if (formData.addons.consultationTranscript) addons.push('Consultation Transcript (free)');
-    if (addons.length) addonsText = `<br><strong>Add-ons:</strong> ${addons.join(', ')}`;
-  }
-  const totalCost = formData.consultationType === 'paid' ? `$${formData.totalAmount}` : 'FREE';
-  const pref = formData.scheduling.preferredDateTime ? new Date(formData.scheduling.preferredDateTime).toLocaleString(undefined, { timeZoneName: 'short' }) : 'Not selected';
-  summary.innerHTML = `
-    <p><strong>Service:</strong> ${formData.serviceType}</p>
-    <p><strong>Consultation Type:</strong> ${consultationText}</p>
-    ${addonsText}
-    <p><strong>Total Cost:</strong> ${totalCost}</p>
-    <p><strong>Preferred:</strong> ${pref}</p>
-    <p><strong>Zoom Preference:</strong> ${formData.scheduling.zoomPreference ? 'Yes' : 'No'}</p>
-  `;
+    const summary = document.getElementById('consultation-summary');
+    if (!summary) return;
+
+    const consultationType = formData.consultationType === 'paid' ? 
+        'Full 60-Minute Consultation' : 'Brief 15-Minute Call';
+
+    let addonsText = '';
+    if (formData.consultationType === 'paid') {
+        const addons = [];
+        if (formData.addons.documentReview) addons.push('Document Review Service (+$150)');
+        if (formData.addons.consultationTranscript) addons.push('Free Consultation Transcript');
+        addonsText = addons.length > 0 ? `<br><strong>Add-ons:</strong> ${addons.join(', ')}` : '';
+    }
+
+    const totalCost = formData.consultationType === 'paid' ? 
+        `<br><strong>Total Cost:</strong> $${formData.totalAmount || formData.consultationPrice}` : 
+        '<br><strong>Cost:</strong> FREE';
+
+    const preferredDateTime = formData.scheduling.preferredDateTime ? 
+        new Date(formData.scheduling.preferredDateTime).toLocaleString() : 'Not selected';
+
+    summary.innerHTML = `
+        <p><strong>Service:</strong> ${formData.serviceType}</p>
+        <p><strong>Consultation Type:</strong> ${consultationType}</p>
+        ${addonsText}
+        ${totalCost}
+        <p><strong>Preferred Date/Time:</strong> ${preferredDateTime} PST</p>
+        <p><strong>Zoom Preference:</strong> ${formData.scheduling.zoomPreference ? 'Yes' : 'No'}</p>
+    `;
 }
 
 function populateNextSteps() {
-  const list = document.getElementById('next-steps-list');
-  const msg = document.getElementById('success-message');
-  if (!list || !msg) return;
-  if (formData.consultationType === 'paid') {
-    msg.textContent = 'Your paid consultation request has been submitted successfully.';
-    list.innerHTML = `
-      <li>Payment link will be emailed within 10 minutes.</li>
-      <li>Confirm payment to lock in the appointment.</li>
-      <li>Calendar invite with Zoom details will follow.</li>
-      <li>Prepare materials ahead of the consultation.</li>
-    `;
-  } else {
-    msg.textContent = 'Your free consultation request has been submitted successfully.';
-    list.innerHTML = `
-      <li>Calendar invite will be emailed shortly.</li>
-      <li>Initial 15-minute call to assess need.</li>
-      <li>We may recommend a full consultation afterward.</li>
-    `;
-  }
-}
+    const nextStepsList = document.getElementById('next-steps-list');
+    const successMessage = document.getElementById('success-message');
 
-function disableDuringTransition(button) {
-  button.disabled = true;
-  setTimeout(() => { button.disabled = false; }, 600);
-}
+    if (!nextStepsList || !successMessage) return;
 
-// Event wiring
-document.addEventListener('DOMContentLoaded', () => {
-  updateProgress();
-  restoreFormData();
-
-  // Real-time validation on inputs
-  ['fullName','email','phone','location','caseDetails','preferredDateTime'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('input', debounce(() => {
-        validateStep(currentStep);
-      }, 300));
-    }
-  });
-
-  // Step 1 submission
-  document.getElementById('client-info-form')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateStep(1)) return;
-    const form = e.target;
-    disableDuringTransition(document.getElementById('to-step-2'));
-    const fd = new FormData(form);
-    formData.contactInfo = {
-      fullName: fd.get('fullName'),
-      email: fd.get('email'),
-      phone: fd.get('phone'),
-      location: fd.get('location')
-    };
-    try { await fetch(FORMSPREE_ENDPOINT, { method:'POST', body: fd, headers:{ 'Accept':'application/json' } }); } catch (err) { console.warn('Formspree failed', err); }
-    nextStep();
-  });
-
-  // Referral selection
-  document.getElementById('referral-options')?.addEventListener('click', (e) => {
-    const card = e.target.closest('.option-card');
-    if (!card) return;
-    document.querySelectorAll('#referral-options .option-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    formData.referralSource = card.dataset.referral;
-    if (formData.referralSource === 'other') {
-      document.getElementById('other-referral-input')?.classList.remove('hidden');
+    if (formData.consultationType === 'paid') {
+        successMessage.textContent = 'Your paid consultation request has been submitted successfully.';
+        nextStepsList.innerHTML = `
+            <li>You will receive a payment link via email within 10 minutes</li>
+            <li>Complete payment to confirm your consultation booking</li>
+            <li>Once paid, you'll receive a calendar invitation with Zoom details</li>
+            <li>Prepare any relevant documents for your consultation</li>
+            <li>Our office will contact you 24 hours before your appointment</li>
+        `;
     } else {
-      document.getElementById('other-referral-input')?.classList.add('hidden');
-      setTimeout(() => nextStep(), 300);
+        successMessage.textContent = 'Your free consultation request has been submitted successfully.';
+        nextStepsList.innerHTML = `
+            <li>You will receive a calendar invitation within 10 minutes</li>
+            <li>The call will be brief (15 minutes) to understand your basic needs</li>
+            <li>We'll discuss if a full consultation would be beneficial</li>
+            <li>Our office will contact you if we need to reschedule</li>
+        `;
     }
-  });
-  document.getElementById('otherReferral')?.addEventListener('input', (e) => { formData.otherReferralDetails = e.target.value; });
+}
 
-  // Populate service options
-  const services = ['Real Estate Litigation','Boundary Disputes','Quiet Title Actions','Contract Review','Closings'];
-  const container = document.getElementById('service-options');
-  services.forEach(svc => {
-    const card = document.createElement('div');
-    card.className = 'option-card';
-    card.textContent = svc;
-    card.dataset.service = svc;
-    container.appendChild(card);
-  });
-  container?.addEventListener('click', (e) => {
-    const card = e.target.closest('.option-card');
-    if (!card) return;
-    document.querySelectorAll('#service-options .option-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    formData.serviceType = card.dataset.service;
-    setTimeout(() => nextStep(), 300);
-  });
+// Utility Functions
+function showSpinner(show, buttonId = null) {
+    if (buttonId) {
+        const button = document.getElementById(buttonId);
+        if (!button) return;
 
-  // Case details
-  document.getElementById('case-info-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!validateStep(4)) return;
-    formData.caseDetails = document.getElementById('caseDetails').value;
-    nextStep();
-  });
+        const submitText = button.querySelector('.submit-text');
+        const spinner = button.querySelector('.loading-spinner');
 
-  // Consultation selection
-  document.querySelectorAll('.consultation-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      document.querySelectorAll('.consultation-option').forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-      formData.consultationType = opt.dataset.type;
-      formData.consultationPrice = parseInt(opt.dataset.price, 10) || 0;
-      updateTotalCost();
-      setTimeout(() => nextStep(), 300);
+        if (show) {
+            if (submitText) submitText.style.display = 'none';
+            if (spinner) spinner.style.display = 'inline-block';
+            button.disabled = true;
+        } else {
+            if (submitText) submitText.style.display = 'inline';
+            if (spinner) spinner.style.display = 'none';
+            button.disabled = false;
+        }
+    }
+}
+
+// Save Progress Buttons
+function initSaveButtons() {
+    document.querySelectorAll('.save-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            autoSave();
+
+            // Show save confirmation
+            const originalText = btn.textContent;
+            btn.textContent = 'Saved! ✓';
+            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 2000);
+        });
     });
-  });
+}
 
-  // Add-ons
-  document.getElementById('document-review')?.addEventListener('change', (e) => { formData.addons.documentReview = e.target.checked; updateTotalCost(); });
-  document.getElementById('consultation-transcript')?.addEventListener('change', (e) => { formData.addons.consultationTranscript = e.target.checked; });
+// Smooth scrolling for focused inputs
+function initInputFocusHandling() {
+    document.querySelectorAll('input, textarea').forEach(el => {
+        el.addEventListener('focus', () => {
+            setTimeout(() => {
+                el.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }, 300);
+        });
+    });
+}
 
-  // Scheduling
-  document.getElementById('scheduling-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!validateStep(7)) return;
-    formData.scheduling = {
-      preferredDateTime: document.getElementById('preferredDateTime').value,
-      alternativeDateTime: document.getElementById('alternativeDateTime').value,
-      zoomPreference: document.querySelector('select[name="zoomPreference"]').value === 'yes',
-      additionalNotes: document.getElementById('additionalNotes').value
-    };
-    nextStep();
-  });
+// Dark mode detection and logo update
+function updateLogoForDarkMode() {
+    const logo = document.getElementById('main-logo');
+    if (!logo) return;
 
-  // Disclaimer
-  document.getElementById('disclaimer-agreement')?.addEventListener('change', (e) => {
-    formData.disclaimerAccepted = e.target.checked;
-    document.getElementById('final-submit-btn').disabled = !e.target.checked;
-  });
+    // Check if dark mode is preferred
+    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  // Final submit
-  document.getElementById('final-submission-form')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!formData.disclaimerAccepted) return;
-    populateConsultationSummary();
-    disableDuringTransition(document.getElementById('final-submit-btn'));
-    try {
-      await fetch(ZAPIER_WEBHOOK_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ ...formData, submittedAt: new Date().toISOString() }) });
-      populateNextSteps();
-      document.getElementById('success-screen')?.classList.remove('hidden');
-      goToStep(9); // success screen index beyond 8
-      localStorage.removeItem('legalFormData');
-    } catch (err) { console.error('Submit failed', err); alert('Submission failed.'); }
-  });
+    if (isDarkMode) {
+        Logo.style.filter = 'brightness(0) invert(1)';
+    } else {
+        logo.style.filter = '';
+    }
+}
 
-  // Back buttons
-  document.querySelectorAll('[data-action="prev"]').forEach(b => b.addEventListener('click', prevStep));
-  document.querySelectorAll('[data-action="next"]').forEach(b => b.addEventListener('click', nextStep));
+// Listen for dark mode changes
+function initDarkModeListener() {
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogoForDarkMode);
+    }
+}
+
+// Initialize Application
+function initializeApp() {
+    // Populate service options
+    populateServiceOptions();
+
+    // Initialize all form handlers
+    initContactForm();
+    initReferralSelection();
+    initServiceSelection();
+    initCaseForm();
+    initConsultationSelection();
+    initAddonsManagement();
+    initSchedulingForm();
+    initFinalSubmission();
+    initSaveButtons();
+    initInputFocusHandling();
+    initDarkModeListener();
+
+    // Restore saved data
+    restoreFormData();
+
+    // Update progress
+    updateProgress();
+
+    // Update logo for current mode
+    updateLogoForDarkMode();
+
+    // Initialize cost calculation for add-ons step
+    if (formData.consultationType === 'paid') {
+        updateTotalCost();
+    }
+}
+
+// Keyboard Navigation
+function initKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.classList.contains('option-card')) {
+            e.target.click();
+        }
+
+        // Allow Escape key to go back
+        if (e.key === 'Escape' && currentStep > 1) {
+            prevStep();
+        }
+    });
+}
+
+// Auto-save on input changes
+function initAutoSave() {
+    document.addEventListener('input', (e) => {
+        if (e.target.matches('input, textarea')) {
+            clearTimeout(window.autoSaveTimeout);
+            window.autoSaveTimeout = setTimeout(autoSave, 1000);
+        }
+    });
+}
+
+// DOM Content Loaded Event
+document.addEventListener('DOMContentLoaded', () => {
+    initializeApp();
+    initKeyboardNavigation();
+    initAutoSave();
 });
+
+// Global functions for onclick handlers
+window.prevStep = prevStep;
+window.nextStep = nextStep;
+window.handleOtherReferralNext = handleOtherReferralNext;
+window.handleConsultationNext = handleConsultationNext;
