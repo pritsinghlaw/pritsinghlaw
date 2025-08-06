@@ -578,6 +578,31 @@ visibility:hidden!important;
   }
 }
 
+
+.navbar-dropdwn-toggle:focus {
+  outline: 2px dashed #FF8C00;
+  outline-offset: 4px;
+}
+.navbar-dropdown-link:focus {
+  background: rgba(255, 140, 0, 0.1);
+}
+
+
+
+.w-dropdown-list {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform-origin: top center;
+}
+.w-dropdown.w--open .w-dropdown-list {
+  opacity: 1;
+  transform: scaleY(1);
+}
+.w-dropdown-list[aria-hidden="true"] {
+  opacity: 0;
+  transform: scaleY(0.9);
+}
+
+
 </style>
 
   
@@ -660,9 +685,18 @@ visibility:hidden!important;
 
 <!---  <a href="/about" class="navbar-link w-nav-link">About Us</a> --->
 
-<!---ABOUT---->
-  
-   <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" class="navbar-menu-dropdown w-dropdown">
+<!-- ABOUT dropdown -->
+<div class="navbar-menu-dropdown w-dropdown" id="about-dropdown">
+  <div
+    id="about-toggle"
+    class="navbar-dropdwn-toggle w-dropdown-toggle"
+    role="button"
+    tabindex="0"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="about-list"
+  >
+ 
     <div class="navbar-dropdwn-toggle w-dropdown-toggle">
       <div class="dropdown-icon w-embed">
         <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -671,28 +705,35 @@ visibility:hidden!important;
       </div>
       <div>About</div>
     </div>
+</div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
-    <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
-      <div class="navbar-dropdown-list-wrapper flex-horizontal">
+    <nav
+    id="about-list"
+    class="navbar-dropdown-list-container shadow-navbar w-dropdown-list"
+    role="menu"
+    aria-hidden="true"
+    aria-labelledby="about-toggle"
+  >
+    <div class="navbar-dropdown-list-wrapper flex-horizontal">
         <div class="navbar-dropdown-list">
        
            
           <!-- ✅ Grid parent -->
           <div class="menu-item-container flex-horizontal">
             <div class="menu-item-wrapper">
-              <a href="/about" class="navbar-dropdown-link w-dropdown-link" aria-label="Learn about our company profile and history">Company Profile</a>
+              <a role="menuitem" href="/about" class="navbar-dropdown-link w-dropdown-link" aria-label="Learn about our company profile and history">Company Profile</a>
            
-              <a href="/knowledge-base" target="_blank" class="navbar-dropdown-link w-dropdown-link" aria-label="Access our legal knowledge base">Knowledge Base</a>
-              <a href="https://newsroom.pritsinghlaw.com" target="_blank" class="navbar-dropdown-link w-dropdown-link" aria-label="Read our latest news and legal insights">News & Insights</a>
+              <a role="menuitem" href="/knowledge-base" target="_blank" class="navbar-dropdown-link w-dropdown-link" aria-label="Access our legal knowledge base">Knowledge Base</a>
+              <a role="menuitem" href="https://newsroom.pritsinghlaw.com" target="_blank" class="navbar-dropdown-link w-dropdown-link" aria-label="Read our latest news and legal insights">News & Insights</a>
 
             </div>
             <!-- Team Members Submenu -->
             <div class="menu-item-wrapper">
               <div class="submenu-header">Our Team</div>
-              <a href="/team/pritpal-singh" class="navbar-dropdown-link w-dropdown-link" aria-label="Meet Pritpal Singh, our lead attorney">Pritpal Singh, Esq. | Lead Attorney</a>
-              <a href="/team/michael-chigbu" class="navbar-dropdown-link w-dropdown-link" aria-label="Meet Michael Chigbu, our legal assistant">Michael E. Chigbu | Legal Assistant</a>
-              <a href="/careers" class="navbar-dropdown-link w-dropdown-link" aria-label="Explore career opportunities">Join Our Legal Team | Careers</a>
+              <a role="menuitem" href="/team/pritpal-singh" class="navbar-dropdown-link w-dropdown-link" aria-label="Meet Pritpal Singh, our lead attorney">Pritpal Singh, Esq. | Lead Attorney</a>
+              <a role="menuitem" href="/team/michael-chigbu" class="navbar-dropdown-link w-dropdown-link" aria-label="Meet Michael Chigbu, our legal assistant">Michael E. Chigbu | Legal Assistant</a>
+              <a role="menuitem" href="/careers" class="navbar-dropdown-link w-dropdown-link" aria-label="Explore career opportunities">Join Our Legal Team | Careers</a>
             </div>
           </div>
         </div>
@@ -704,19 +745,34 @@ visibility:hidden!important;
   
 
   <!---SERVICES--->
-  <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" class="navbar-menu-dropdown w-dropdown">
-    <div class="navbar-dropdwn-toggle w-dropdown-toggle">
+ <div class="navbar-menu-dropdown w-dropdown" id="practice-dropdown">
+  <div
+    id="practice-toggle"
+    class="navbar-dropdwn-toggle w-dropdown-toggle"
+    role="button"
+    tabindex="0"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="practice-list"
+  >
+   <div class="navbar-dropdwn-toggle w-dropdown-toggle">
       <div class="dropdown-icon w-embed">
         <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
         </svg>
       </div>
       <div>Practice Areas</div>
-    </div>
+    </div></div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
-    <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
-      <div class="navbar-dropdown-list-wrapper flex-horizontal">
+     <nav
+    id="practice-list"
+    class="navbar-dropdown-list-container shadow-navbar w-dropdown-list"
+    role="menu"
+    aria-hidden="true"
+    aria-labelledby="practice-toggle"
+  >
+     <div class="navbar-dropdown-list-wrapper flex-horizontal">
         <div class="navbar-dropdown-list">
           
           
@@ -727,15 +783,15 @@ visibility:hidden!important;
           <!-- ✅ Grid parent -->
           <div class="menu-item-container flex-horizontal">
             <div class="menu-item-wrapper">
-              <a href="/services/real-estate-litigation" class="navbar-dropdown-link w-dropdown-link">Real Estate Litigation</a>
-              <a href="/services/Landlord-Tenant-Matter" class="navbar-dropdown-link w-dropdown-link">Landlord Tenant Law</a>
-              <a href="/services/Premises-Liability" class="navbar-dropdown-link w-dropdown-link">Premises Liability</a>
-              <a href="/services/Boundary-Disputes" class="navbar-dropdown-link w-dropdown-link">Boundary Disputes</a>
-              <a href="/services/Quiet-Title" class="navbar-dropdown-link w-dropdown-link">Quiet Title Actions</a>
-               <a href="/services/Contract-Drafting-Review" class="navbar-dropdown-link w-dropdown-link">Contract Drafting &amp; Review</a>
-              <a href="/services/Purchase-Agreements" class="navbar-dropdown-link w-dropdown-link">Purchase Agreements</a>
-              <a href="/services/Adverse-Possession" class="navbar-dropdown-link w-dropdown-link">Adverse Possession Claims</a>
-              <a href="/services" class="navbar-dropdown-link w-dropdown-link"><b>Browse All Practice Areas →</b></a>
+              <a role="menuitem" href="/services/real-estate-litigation" class="navbar-dropdown-link w-dropdown-link">Real Estate Litigation</a>
+              <a role="menuitem" href="/services/Landlord-Tenant-Matter" class="navbar-dropdown-link w-dropdown-link">Landlord Tenant Law</a>
+              <a role="menuitem" href="/services/Premises-Liability" class="navbar-dropdown-link w-dropdown-link">Premises Liability</a>
+              <a role="menuitem" href="/services/Boundary-Disputes" class="navbar-dropdown-link w-dropdown-link">Boundary Disputes</a>
+              <a role="menuitem" href="/services/Quiet-Title" class="navbar-dropdown-link w-dropdown-link">Quiet Title Actions</a>
+               <a role="menuitem" href="/services/Contract-Drafting-Review" class="navbar-dropdown-link w-dropdown-link">Contract Drafting &amp; Review</a>
+              <a role="menuitem" href="/services/Purchase-Agreements" class="navbar-dropdown-link w-dropdown-link">Purchase Agreements</a>
+              <a role="menuitem" href="/services/Adverse-Possession" class="navbar-dropdown-link w-dropdown-link">Adverse Possession Claims</a>
+              <a role="menuitem" href="/services" class="navbar-dropdown-link w-dropdown-link"><b>Browse All Practice Areas →</b></a>
               
               <!---
               <a href="/services/Easements-Encroachments" class="navbar-dropdown-link w-dropdown-link">Easements &amp; Encroachments</a>
