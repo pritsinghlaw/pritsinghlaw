@@ -1257,7 +1257,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -1315,7 +1315,7 @@ body {
 
 .modal-header h3 {
   color: var(--law-primary);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0;
 }
@@ -1357,14 +1357,14 @@ body {
 
 .modal-payment-info h4 {
   color: var(--law-primary);
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 15px;
   font-weight: bold;
 }
 
 .modal-payment-info > p {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.4;
   margin-bottom: 30px;
   color: var(--law-text);
 }
@@ -1379,7 +1379,7 @@ body {
 
 .payment-details h5 {
   color: var(--law-primary);
-  font-size: 18px;
+  font-size: 17px;
   margin-bottom: 15px;
   font-weight: bold;
 }
@@ -1403,7 +1403,7 @@ body {
 .btn-proceed {
   background-color: var(--law-primary);
   color: var(--law-white);
-  font-size: 18px;
+  font-size: 16px;
   padding: 18px 40px;
   border-radius: 15px;
   border: none;
