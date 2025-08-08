@@ -483,12 +483,148 @@ visibility:hidden!important;
   
 <style>
 /* ---------- NAVIGATION ---------- */
-/* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
-.navbar-dropdown-list-container{
-  width:auto!important; 
-                                               /* full screen width */
-  max-height:none!important;                        /* no internal scroll */
-}
+
+
+    /* DROPDOWN LIST - FIXED SIZE AND POSITIONING */
+    .navbar-dropdown-list-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      min-width: 500px; /* FIXED: Proper width instead of screen-covering */
+      max-width: 600px; /* FIXED: Maximum width constraint */
+      width: max-content; /* FIXED: Fits content without excess space */
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      padding: 1.5rem;
+    }
+
+    /* SHOW DROPDOWN ON HOVER (DESKTOP) */
+    @media (min-width: 992px) {
+      .navbar-menu-dropdown:hover .navbar-dropdown-list-container {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+
+    /* SHOW DROPDOWN WHEN CLICKED (ALL DEVICES) */
+    .navbar-menu-dropdown.w--open .navbar-dropdown-list-container {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* DROPDOWN GRID LAYOUT */
+    .menu-item-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      gap: 2rem 3rem; /* Row gap, Column gap */
+      align-items: start;
+    }
+
+    .menu-item-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .submenu-header {
+      font-weight: 700;
+      color: #001f54;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #001f54;
+      padding-bottom: 0.25rem;
+    }
+
+    .navbar-dropdown-link {
+      color: #374151;
+      text-decoration: none;
+      padding: 0.75rem 0;
+      display: block;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .navbar-dropdown-link:hover {
+      color: #001f54;
+      background-color: rgba(0, 31, 84, 0.05);
+      padding-left: 0.5rem;
+      transform: translateX(4px);
+    }
+
+    /* DROPDOWN ARROW ICON */
+    .dropdown-icon {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-menu-dropdown:hover .dropdown-icon,
+    .navbar-menu-dropdown.w--open .dropdown-icon {
+      transform: rotate(180deg);
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 991px) {
+      .navbar-menu {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .navbar-dropdown-list-container {
+        position: static;
+        min-width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid #e5e7eb;
+        border-radius: 0;
+        margin-top: 0.5rem;
+        padding: 1rem 0;
+      }
+
+      .menu-item-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      /* Mobile: Show dropdown only when clicked, not on hover */
+      .navbar-menu-dropdown:hover .navbar-dropdown-list-container {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+      }
+    }
+
+    /* UTILITY CLASSES */
+    .w--open {
+      /* Webflow's open state class */
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
 @media (max-width:767px){                           /* phones only */
   .navbar-dropdown-link{font-size:.875rem;}         /* slightly smaller text */
 }
@@ -676,13 +812,18 @@ visibility:hidden!important;
     
     <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
   
-<nav role="navigation" aria-label="Main navigation" id="w-node-b62916c8-25c1-48a4-c0e8-4b5699b25d14-99b25d10" class="navbar-menu page-height-tablet w-nav-menu">
+<nav style="display: flex; align-items: center;
+      gap: 2rem; list-style: none;
+      margin: 0;
+      padding: 1rem 0;
+      position: relative;" role="navigation" aria-label="Main navigation" id="w-node-b62916c8-25c1-48a4-c0e8-4b5699b25d14-99b25d10" class="navbar-menu page-height-tablet w-nav-menu">
   <a href="/" class="navbar-link w-nav-link">Home</a>
 
 <!---  <a href="/about" class="navbar-link w-nav-link">About Us</a> --->
 
 <!-- ABOUT dropdown -->
-<div class="navbar-menu-dropdown w-dropdown" id="about-dropdown">
+<div style="position: relative;
+      display: inline-block;" class="navbar-menu-dropdown w-dropdown" id="about-dropdown">
   <div
     id="about-toggle"
     class="navbar-dropdwn-toggle w-dropdown-toggle"
