@@ -685,8 +685,8 @@ visibility:hidden!important;
         position: absolute !important;
         top: 100% !important;
         left: 0 !important;
-        width: 100vw !important;
-        z-index: 10000 !important;
+        width: auto !important;
+        z-index: 9999 !important;
         display: none !important; /* Hidden by default */
     }
     
@@ -702,7 +702,7 @@ visibility:hidden!important;
     /* Ensure dropdown links are clickable */
     .navbar-dropdown-link {
         display: block !important;
-        padding: 12px 20px !important;
+        padding: auto;
         text-decoration: none !important;
         border-bottom: 1px solid #eee !important;
     }
@@ -724,9 +724,9 @@ visibility:hidden!important;
   /* Full-width mobile dropdown */
   #about-list,
   #practice-list {
-    width: 100vw;
+    width: auto !important;
     left: 0 !important;
-    max-height: none;
+    max-height: none !important;
   }
 }
 
@@ -834,7 +834,7 @@ html {
   .navbar-menu {
     display: flex !important;
     align-items: center !important;
-    gap: 8px !important; /* controls space between each item */
+    gap: 4px !important; /* controls space between each item */
     padding: 0 !important; /* remove any built-in padding */
   }
 
@@ -845,15 +845,7 @@ html {
     margin: 0 !important;              /* remove any extra margin */
   }
 
-  /* 3) If you want one last bit of breathing room on the ends */
-  .navbar-menu .w-nav-link:first-child,
-  .navbar-menu .navbar-dropdwn-toggle:first-child {
-    padding-left: 0.8rem !important;
-  }
-  .navbar-menu .w-nav-link:last-child,
-  .navbar-menu .navbar-dropdwn-toggle:last-child {
-    padding-right: 0.8rem !important;
-  }
+  
   
 </style>
 
@@ -892,7 +884,7 @@ html {
 </head>
 <body>
   
-  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
 
 <div class="animated-background">
   <!-- Legal/Real Estate themed icons floating in background -->
