@@ -1459,6 +1459,72 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const aboutToggle = document.getElementById('about-toggle');
+      const practiceToggle = document.getElementById('practice-toggle');
+      const aboutDropdown = document.getElementById('about-dropdown');
+      const practiceDropdown = document.getElementById('practice-dropdown');
+      const aboutList = document.getElementById('about-list');
+      const practiceList = document.getElementById('practice-list');
 
+      // Utility to open/close a dropdown
+      function setDropdown(toggle, dropdown, list, open) {
+        dropdown.classList.toggle('w--open', open);
+        toggle.setAttribute('aria-expanded', open);
+        list.setAttribute('aria-hidden', !open);
+      }
+
+      // Close all dropdowns
+      function closeAll() {
+        setDropdown(aboutToggle, aboutDropdown, aboutList, false);
+        setDropdown(practiceToggle, practiceDropdown, practiceList, false);
+      }
+
+      // Toggle handlers for mobile/click interaction
+      aboutToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = !aboutDropdown.classList.contains('w--open');
+        closeAll(); // Close all first
+        if (isOpen) {
+          setDropdown(aboutToggle, aboutDropdown, aboutList, true);
+        }
+      });
+
+      practiceToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = !practiceDropdown.classList.contains('w--open');
+        closeAll(); // Close all first
+        if (isOpen) {
+          setDropdown(practiceToggle, practiceDropdown, practiceList, true);
+        }
+      });
+
+      // Keyboard support: Enter/Space
+      [aboutToggle, practiceToggle].forEach(toggle => {
+        toggle.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle.click();
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!aboutDropdown.contains(e.target) && !practiceDropdown.contains(e.target)) {
+          closeAll();
+        }
+      });
+
+      // Close dropdowns on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeAll();
+        }
+      });
+    });
+  </script>
+  
 </body>
 </html>
