@@ -402,7 +402,7 @@ visibility:hidden!important;
 
 /* Fix navigation dropdown */
 .navbar-dropdown-list-container {
-    display: block !important;
+  
     height: auto !important;
     left:10px !important;
 }
@@ -434,7 +434,7 @@ visibility:hidden!important;
 <style>
 /* ---------- GENERIC RESETS ---------- */
 .navbar-dropdown-list-container{
-  width:auto !important;           /* let it span parent */
+  width: 100vw;           /* let it span parent */
  
 }
 
@@ -449,7 +449,7 @@ visibility:hidden!important;
 
   @media (min-width: 992px) { /* Adjust the breakpoint as needed */
   #w-dropdown-list-0 {
-    width: auto !important; /* Set a desired minimum width */
+    width: 100%; /* Set a desired minimum width */
     
   }
 }
@@ -476,7 +476,7 @@ visibility:hidden!important;
 /* ---------- NAVIGATION ---------- */
 /* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
 .navbar-dropdown-list-container{
-  width:auto!important; 
+  width:100vw; 
                                                /* full screen width */
   max-height:none!important;                        /* no internal scroll */
 }
@@ -589,6 +589,42 @@ visibility:hidden!important;
   transform: scaleY(0.9);
 }
 
+
+
+
+/*FIXING NAVBAR ISSUES */
+/* 1) Hide dropdowns by default */
+.navbar-dropdown-list-container {
+  display: none !important;
+}
+
+/* 2) Only show when Webflow JS marks them “open” */
+.w-dropdown.w--open .navbar-dropdown-list-container {
+  display: block !important;
+}
+
+/* 3) On desktop, also open on hover */
+@media (hover: hover) and (pointer: fine) {
+  .navbar-menu-dropdown:hover .navbar-dropdown-list-container {
+    display: block !important;
+  }
+}
+
+/* 4) Reduce horizontal gap between the two dropdown toggles */
+@media (min-width: 768px) {
+  /* adjust this margin to taste */
+  .navbar-menu-dropdown {
+    margin: 0 8px !important;
+  }
+}
+
+/* 5) Fix that stray quote in your header gradient */
+@media (min-width: 992px) {
+  .header {
+    background: linear-gradient(to right, #fff 50%, #edf2fa 50%) !important;
+  }
+}
+</style>
 
 </style>
 
