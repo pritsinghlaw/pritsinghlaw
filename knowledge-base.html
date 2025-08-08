@@ -3,13 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge Center | Law Offices of Pritpal Singh - California Real Estate Law</title>
+    <title>Knowledge Base | Law Offices of Pritpal Singh - California Real Estate Law</title>
     <meta name="description" content="Comprehensive knowledge center for California real estate law. Expert legal guidance from the Law Offices of Pritpal Singh.">
-        <meta name="keywords" content="California law knowledge, legal resources CA, law guides California, legal information, attorney insights California">
-<link rel="canonical" href="https://pritsinghlaw.com/knowledge-base">
-        
-        
-    <link rel="stylesheet" href="https://pritsinghlaw.com/styles.css">
+    <meta name="keywords" content="California law knowledge, legal resources CA, law guides California, legal information, attorney insights California">
+    <link rel="canonical" href="https://pritsinghlaw.com/knowledge-base">
+
+    <style>
+        /* Color Variables */
+        :root {
+            --navy-dark: #14213d;
+            --navy-medium: #2F4968;
+            --orange-bright: #FF8C00;
+            --orange-accent: #FCA311;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --border-light: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--off-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--navy-dark);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(20, 33, 61, 0.2);
+        }
+
+        .header__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo__title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            margin-bottom: 0.2rem;
+        }
+
+        .logo__tagline {
+            font-size: 0.9rem;
+            color: var(--orange-accent);
+            font-style: italic;
+        }
+
+        .nav__list {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav__link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav__link:hover {
+            color: var(--orange-accent);
+            background-color: rgba(252, 163, 17, 0.1);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main {
+            padding: 2rem 0;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: var(--navy-dark);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--orange-bright);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--navy-medium);
+            font-size: 1.6rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .section h4 {
+            color: var(--navy-medium);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .section ul, .section ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Knowledge Base Specific Styles */
+        .knowledge-item {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .knowledge-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .knowledge-item h3 {
+            color: var(--navy-dark);
+            border-left: 4px solid var(--orange-bright);
+            padding-left: 1rem;
+            margin-top: 0;
+        }
+
+        /* Attorney Profile Styles */
+        .attorney-profile {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-medium) 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .attorney-profile h2 {
+            color: var(--white);
+            border-bottom: 3px solid var(--orange-accent);
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 1.2rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--navy-medium);
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            background: var(--off-white);
+        }
+
+        /* Contact Section Styles */
+        .contact {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--orange-bright);
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: var(--navy-dark);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            padding: 1rem;
+            background: var(--off-white);
+            border-radius: 8px;
+            border-left: 4px solid var(--orange-accent);
+        }
+
+        .contact-item h4 {
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--orange-bright);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--orange-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--navy-medium);
+        }
+
+        .btn-secondary:hover {
+            background: var(--navy-dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header__content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav__list {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .logo__title {
+                font-size: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-orange { color: var(--orange-bright); }
+        .text-navy { color: var(--navy-dark); }
+        .bg-navy { background-color: var(--navy-dark); }
+        .bg-orange { background-color: var(--orange-bright); }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -41,180 +345,69 @@
         <!-- Knowledge Base Section -->
         <section id="knowledge-base" class="section knowledge-base">
             <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Knowledge Base</h2>
-                    <p class="section__description">Stay informed with the latest California real estate law updates and comprehensive legal guidance.</p>
-                    <div class="search-bar">
-                        <input type="text" id="knowledge-search" class="form-control" placeholder="Search knowledge base...">
-                        <button type="button" class="btn btn--primary search-btn">Search</button>
-                    </div>
+                <h2>California Real Estate Law Knowledge Center</h2>
+
+                <div class="knowledge-item">
+                    <h3>Recent CEQA Reform Legislation</h3>
+                    <p>Governor Newsom signed AB 130 and SB 131 implementing sweeping CEQA reforms. AB 130 introduces exemptions for qualifying infill housing developments up to 20 acres, while SB 131 targets infrastructure projects. These changes represent the most significant housing policy reform in recent California history.</p>
+
+                    <h4>Key Provisions of AB 130:</h4>
+                    <ul>
+                        <li>Streamlined approval process for qualifying infill developments</li>
+                        <li>Exemptions for projects up to 20 acres in designated areas</li>
+                        <li>Enhanced transit-oriented development opportunities</li>
+                        <li>Reduced environmental review timelines</li>
+                    </ul>
+
+                    <p>The new legislation addresses California's housing crisis by removing environmental review barriers for qualifying developments. Projects must meet specific criteria including location within transit priority areas and adherence to local general plans.</p>
+
+                    <h4>Impact on Real Estate Development:</h4>
+                    <p>These reforms are expected to accelerate housing production statewide, particularly in urban areas where infill development is most needed. Developers should review their projects for potential exemption eligibility and adjust timelines accordingly.</p>
                 </div>
 
-                <div class="knowledge-categories">
-                    <!-- 2025 California Real Estate Law Updates -->
-                    <div class="knowledge-category">
-                        <h3 class="category__title">2025 California Real Estate Law Updates</h3>
-                        <div class="articles-grid">
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">AB 130 & SB 131: CEQA Reform and Housing Development</h4>
-                                    <p class="article__summary">Major changes to California Environmental Quality Act streamlining housing approvals</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: July 2025</span>
-                                        <span class="status status--info">New</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>New categorical exemptions for housing projects</li>
-                                            <li>Streamlined approval process</li>
-                                            <li>Reduced litigation risk for developers</li>
-                                            <li>Minimum density requirements</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>Governor Newsom signed AB 130 and SB 131 implementing sweeping CEQA reforms. AB 130 introduces exemptions for qualifying infill housing developments up to 20 acres, while SB 131 targets infrastructure projects. These changes represent the most significant housing policy reform in recent California history.</p>
-                                        <p>The new legislation addresses California's housing crisis by removing environmental review barriers for qualifying developments. Projects must meet specific criteria including location within transit priority areas and adherence to local general plans.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
+                <div class="knowledge-item">
+                    <h3>Property Rights and Boundary Disputes</h3>
+                    <p>Boundary disputes are among the most common real estate litigation issues in California. Understanding property lines, easements, and adverse possession claims is crucial for property owners and developers.</p>
 
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">AB 2747: Tenant Credit Reporting Requirements</h4>
-                                    <p class="article__summary">New law requires landlords to offer positive credit reporting for rent payments</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: January 2025</span>
-                                        <span class="status status--success">Active</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Applies to buildings with 15+ units</li>
-                                            <li>Must offer annually</li>
-                                            <li>Cost capped at $10/month</li>
-                                            <li>Tenant can opt in/out anytime</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>Effective January 1, 2025, landlords of buildings with 15+ units must offer tenants the option to report positive rental payment history to credit agencies. This helps tenants build credit history.</p>
-                                        <p>The law aims to help renters establish credit history through timely rent payments, potentially improving their ability to secure future housing or financing. Landlords must provide annual notice of this opportunity.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
+                    <h4>Common Boundary Dispute Issues:</h4>
+                    <ul>
+                        <li>Survey discrepancies and conflicting property descriptions</li>
+                        <li>Encroachment issues with neighboring properties</li>
+                        <li>Easement disputes and access rights</li>
+                        <li>Prescriptive easement claims</li>
+                    </ul>
 
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">AB 2801: Security Deposit Law Updates</h4>
-                                    <p class="article__summary">Enhanced requirements for security deposit handling and documentation</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: January 2025</span>
-                                        <span class="status status--warning">Updated</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Mandatory photo documentation at move-in/out</li>
-                                            <li>Stricter timeline for deposit returns</li>
-                                            <li>Enhanced tenant protection measures</li>
-                                            <li>Detailed itemization requirements</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>AB 2801 strengthens tenant protections by requiring landlords to document property conditions with photographs at the beginning and end of tenancies. This reduces disputes over security deposit deductions.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
+                    <p>Early resolution through professional surveying and legal consultation can prevent costly litigation and preserve neighborhood relationships.</p>
+                </div>
 
-                    <!-- Landlord-Tenant Law -->
-                    <div class="knowledge-category">
-                        <h3 class="category__title">Landlord-Tenant Law</h3>
-                        <div class="articles-grid">
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">California Security Deposit Rules 2025</h4>
-                                    <p class="article__summary">Updated requirements for security deposit handling and documentation</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: January 2025</span>
-                                        <span class="status status--success">Current</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Photo documentation required</li>
-                                            <li>Restrictions on deposit use</li>
-                                            <li>Clear return procedures</li>
-                                            <li>Professional cleaning limitations</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>AB 2801 clarifies security deposit restrictions and requires photo documentation of unit condition at move-in and move-out. Landlords must provide detailed accounting of any deductions within 21 days.</p>
-                                        <p>The new requirements protect both landlords and tenants by creating clear documentation standards and limiting disputes over property conditions.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
+                <div class="knowledge-item">
+                    <h3>Landlord-Tenant Relations Under AB 1482</h3>
+                    <p>The Tenant Protection Act of 2019 (AB 1482) established statewide rent control and just cause eviction requirements, significantly changing landlord-tenant dynamics across California.</p>
 
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">Rent Control and Tenant Protections</h4>
-                                    <p class="article__summary">Comprehensive guide to California's rent stabilization laws</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: March 2025</span>
-                                        <span class="status status--info">Guide</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>AB 1482 rent cap provisions</li>
-                                            <li>Just-cause eviction requirements</li>
-                                            <li>Local rent control ordinances</li>
-                                            <li>Tenant relocation assistance</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>California's Tenant Protection Act limits rent increases and requires just cause for evictions in most rental properties built before 2007. Understanding these complex regulations is essential for landlords and tenants.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
+                    <h4>Rent Increase Limitations:</h4>
+                    <ul>
+                        <li>Annual rent increases capped at 5% plus inflation, not to exceed 10%</li>
+                        <li>Applies to properties over 15 years old</li>
+                        <li>Exemptions for single-family homes and condos (with conditions)</li>
+                    </ul>
 
-                    <!-- Real Estate Transactions -->
-                    <div class="knowledge-category">
-                        <h3 class="category__title">Real Estate Transactions</h3>
-                        <div class="articles-grid">
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">Disclosure Requirements for Sellers</h4>
-                                    <p class="article__summary">Essential disclosure obligations in California real estate sales</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: April 2025</span>
-                                        <span class="status status--info">Essential</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Transfer Disclosure Statement requirements</li>
-                                            <li>Natural hazard disclosures</li>
-                                            <li>Lead-based paint notifications</li>
-                                            <li>HOA and CC&R disclosures</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>California law requires extensive property disclosures to protect buyers and ensure informed transactions. Sellers must provide comprehensive information about property conditions, defects, and environmental hazards.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
+                    <h4>Just Cause Eviction Requirements:</h4>
+                    <p>Landlords must now provide specific legal grounds for eviction after a tenant has occupied the property for 12 months. This includes both "at-fault" and "no-fault" just causes, each with different notice requirements and potential relocation assistance obligations.</p>
+                </div>
+
+                <div class="knowledge-item">
+                    <h3>Environmental Compliance in Real Estate Transactions</h3>
+                    <p>California's stringent environmental regulations impact nearly every real estate transaction. From disclosure requirements to remediation obligations, environmental compliance is a critical consideration.</p>
+
+                    <h4>Key Environmental Disclosure Requirements:</h4>
+                    <ul>
+                        <li>Natural Hazard Disclosure Statement (NHD)</li>
+                        <li>Environmental hazards including lead-based paint</li>
+                        <li>Earthquake fault zone disclosures</li>
+                        <li>Flood zone and fire hazard area notifications</li>
+                    </ul>
+
+                    <p>Buyers should conduct thorough due diligence, including Phase I environmental assessments for commercial properties, to identify potential liabilities before closing.</p>
                 </div>
             </div>
         </section>
@@ -222,191 +415,70 @@
         <!-- Attorney Profile Section -->
         <section id="attorney-profile" class="section attorney-profile">
             <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Attorney Profile</h2>
-                </div>
-                <div class="profile-content">
-                    <div class="profile-card card">
-                        <div class="card__body">
-                            <div class="profile-info">
-                                <div class="profile-photo">
-                                    <div class="photo-placeholder">
-                                        <span>PS</span>
-                                    </div>
-                                </div>
-                                <div class="profile-details">
-                                    <h3 class="profile-name">Pritpal Singh, Esq.</h3>
-                                    <p class="profile-title">Attorney at Law</p>
-                                    <div class="bar-status">
-                                        <span class="status status--success">Active - Good Standing</span>
-                                        <p class="bar-info">
-                                            California State Bar #350741 |
-                                            <a href="https://apps.calbar.ca.gov/attorney/Licensee/Detail/350741" target="_blank" class="bar-link">View Official Profile</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                <h2>Attorney Pritpal Singh</h2>
+                <p class="mb-3">With extensive experience in California real estate law, Attorney Pritpal Singh provides comprehensive legal services to property owners, developers, landlords, and tenants throughout the state.</p>
 
-                            <div class="profile-sections">
-                                <div class="profile-section">
-                                    <h4>Key Practice Areas</h4>
-                                    <ul class="practice-areas-list">
-                                        <li>Real Estate Transactions</li>
-                                        <li>Landlord-Tenant Law</li>
-                                        <li>Commercial Real Estate</li>
-                                        <li>Litigation and Disputes</li>
-                                       
-                                    </ul>
-                                </div>
+                <h3 class="text-orange">Areas of Expertise</h3>
+                <ul>
+                    <li>Real Estate Litigation and Dispute Resolution</li>
+                    <li>Landlord-Tenant Law and Eviction Proceedings</li>
+                    <li>Property Boundary and Title Disputes</li>
+                    <li>Environmental Compliance and Due Diligence</li>
+                    <li>Contract Drafting and Review</li>
+                    <li>CEQA and Land Use Planning</li>
+                </ul>
 
-                                <div class="profile-section">
-                                    <h4>Education & Background</h4>
-                                    <div class="education-item">
-                                        <strong>Juris Doctor</strong>
-                                        <p>San Francisco Law School</p>
-                                    </div>
-                                    <div class="education-item">
-                                        <strong>Bachelor of Arts</strong>
-                                        <p>California State University, East Bay</p>
-                                    </div>
-                                                                       <div class="education-item">
-                                        <strong>Bachelor of Arts</strong>
-                                        <p>John F. Kennedy University, Legal Studies</p>
-                                    </div>
-                                                                       <div class="education-item">
-                                        <strong>Certification</strong>
-                                        <p>McGeorge School of Law, Cannabis Law</p>
-                                    </div>
-                                </div>
+                <h3 class="text-orange mt-3">Professional Background</h3>
+                <p>Attorney Singh brings a unique perspective to real estate law, combining legal expertise with practical business acumen. His approach focuses on achieving efficient resolutions while protecting clients' long-term interests.</p>
 
-                                <div class="profile-section">
-                                    <h4>Admmissions</h4>
-                                    <ul>
-                                        <li>California State Bar (Active since 2023)</li>
-                                        <li>California Supreme Court</li>
-                                        <li>U.S. District Court, Northern District of California</li>
-                                         <li>U.S. Ninth Circuit Court of Appeals</li>
-                                    </ul>
-                                </div>
-
-                                <div class="profile-section">
-                                    <h4>Professional Licenses</h4>
-                                    <ul>
-                                        <li>California State Bar License</li>
-                                       
-                                        <li>California Real Estate Salesperson License</li>
-                                      
-                                    </ul>
-                                </div>
-
-                                <div class="profile-section">
-                                    <h4>Experience & Recognition</h4>
-                                    <p>I started out representing Fortune 500 companies in a large multi-state law firm in commercial litigation; however, my passion for real estate brought me to pivot toward a more focused real estate practice, where my practice led me to represent property owners, landlords, HOAs, and insurance carriers in property disputes. Prior to law school, I worked in litigation support as a paralegal and worked in various practice areas including real estate, elections law, plaintiffs' rights class actions, data privacy law, and capital habeas corpus work on behalf of inmates on California's death row. Prior to my more than 12-year long legal career, I worked as a real estate salesperson and focused on buyer-side residential sales.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3">
+                    <a href="#contact" class="btn btn-secondary">Schedule Consultation</a>
                 </div>
             </div>
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="section faq">
+        <section id="faq" class="section">
             <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Frequently Asked Questions</h2>
-                    <p class="section__description">Find answers to common questions about California real estate law.</p>
+                <h2 class="text-center">Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What qualifies as a boundary dispute in California?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A boundary dispute typically involves disagreements about property lines, encroachments, easements, or access rights. These disputes often arise from survey discrepancies, unclear property descriptions, or conflicting interpretations of legal documents. Professional surveying and legal consultation are essential for resolution.</p>
+                    </div>
                 </div>
 
-                <div class="faq-categories">
-                    <div class="faq-category">
-                        <h3 class="faq-category__title">Real Estate Transactions</h3>
-                        <div class="faq-items">
-                            <div class="faq-item">
-                                <button class="faq-question">What does a real estate attorney do?</button>
-                                <div class="faq-answer">
-                                    <p>Real estate attorneys handle contract review, title searches, closing procedures, and resolve legal issues that arise during property transactions. We ensure your interests are protected throughout the buying or selling process.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">When do I need a real estate lawyer?</button>
-                                <div class="faq-answer">
-                                    <p>You should consult a real estate attorney for complex transactions, commercial purchases, properties with title issues, FSBO sales, or when disputes arise. Early involvement can prevent costly problems.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">What are common closing issues?</button>
-                                <div class="faq-answer">
-                                    <p>Common issues include title defects, financing problems, inspection disputes, disclosure violations, and last-minute contract changes. Having legal representation helps navigate these challenges.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">How much do real estate legal services cost?</button>
-                                <div class="faq-answer">
-                                    <p>Fees vary based on transaction complexity. We offer transparent pricing with flat fees for standard transactions and hourly rates for complex matters. Initial consultations help determine appropriate fee structures.</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do the new CEQA reforms affect my development project?</span>
+                        <span>+</span>
                     </div>
-
-                    <div class="faq-category">
-                        <h3 class="faq-category__title">Landlord-Tenant Issues</h3>
-                        <div class="faq-items">
-                            <div class="faq-item">
-                                <button class="faq-question">What are just-cause eviction requirements in California?</button>
-                                <div class="faq-answer">
-                                    <p>California requires just cause for evictions in many jurisdictions. Valid reasons include non-payment of rent, lease violations, or owner move-in. Proper notice and procedures must be followed.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">How do new rent control laws affect me?</button>
-                                <div class="faq-answer">
-                                    <p>AB 1482 limits annual rent increases to 5% plus inflation (capped at 10%) for most properties built before 2007. Local ordinances may impose additional restrictions.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">What security deposit rules must I follow?</button>
-                                <div class="faq-answer">
-                                    <p>Security deposits are limited to 2-3 months' rent depending on property type. Deposits must be returned within 21 days with itemized deductions. New laws require photo documentation.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="faq-answer">
+                        <p>AB 130 and SB 131 provide streamlined approval processes for qualifying infill developments and infrastructure projects. If your project meets the criteria—including location in transit priority areas and compliance with local general plans—you may be eligible for expedited environmental review or exemptions.</p>
                     </div>
+                </div>
 
-                    <div class="faq-category">
-                        <h3 class="faq-category__title">Commercial Real Estate</h3>
-                        <div class="faq-items">
-                            <div class="faq-item">
-                                <button class="faq-question">What should I know about commercial leases?</button>
-                                <div class="faq-answer">
-                                    <p>Commercial leases are complex agreements requiring careful negotiation of terms including rent escalations, maintenance responsibilities, assignment rights, and termination clauses.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">How do zoning laws affect my business?</button>
-                                <div class="faq-answer">
-                                    <p>Zoning regulations determine permitted uses for commercial properties. Understanding local ordinances is crucial before leasing or purchasing business locations.</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are my rights under AB 1482 as a landlord?</span>
+                        <span>+</span>
                     </div>
+                    <div class="faq-answer">
+                        <p>Under AB 1482, landlords can still increase rent annually up to 5% plus inflation (maximum 10%) for properties over 15 years old. After 12 months of tenancy, evictions require just cause—either at-fault (non-payment, lease violations) or no-fault (owner move-in, major renovations) reasons with proper notice.</p>
+                    </div>
+                </div>
 
-                    <div class="faq-category">
-                        <h3 class="faq-category__title">Legal Process</h3>
-                        <div class="faq-items">
-                            <div class="faq-item">
-                                <button class="faq-question">How long does a real estate transaction take?</button>
-                                <div class="faq-answer">
-                                    <p>Typical residential transactions take 30-45 days from contract to closing. Commercial deals may require 60-90 days or more depending on complexity and due diligence requirements.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <button class="faq-question">What documents do I need to bring?</button>
-                                <div class="faq-answer">
-                                    <p>Bring purchase agreements, inspection reports, title documents, loan paperwork, and any correspondence related to your transaction. We'll review everything during your consultation.</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What environmental disclosures are required in California real estate transactions?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>California requires extensive environmental disclosures including Natural Hazard Disclosure Statement (NHD), lead-based paint disclosures, earthquake fault zones, flood zones, and fire hazard areas. Commercial transactions typically require Phase I environmental assessments to identify potential contamination issues.</p>
                     </div>
                 </div>
             </div>
@@ -415,141 +487,70 @@
         <!-- Contact Section -->
         <section id="contact" class="section contact">
             <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Contact Us</h2>
-                    <p class="section__description">Schedule a consultation for your California real estate legal needs.</p>
+                <h2>Contact Law Offices of Pritpal Singh</h2>
+                <p class="mb-3">Get expert legal guidance for your California real estate matters. We provide comprehensive representation throughout the state.</p>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Phone</h4>
+                        <p>(555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p>info@pritsinghlaw.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Office Hours</h4>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                        Saturday: 10:00 AM - 2:00 PM</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Location</h4>
+                        <p>California Statewide Practice<br>
+                        Virtual and In-Person Consultations Available</p>
+                    </div>
                 </div>
 
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-card card">
-                            <div class="card__body">
-                                <h3>Office Information</h3>
-                                <div class="contact-details">
-                                    <div class="contact-item">
-                                        <strong>Address:</strong>
-                                        <p>509 13th St,<br>Oakland, CA 94612</p>
-                                    </div>
-                                    <div class="contact-item">
-                                        <strong>Phone:</strong>
-                                        <p>(510) 225-9220</p>
-                                    </div>
-                                    <div class="contact-item">
-                                        <strong>Email:</strong>
-                                        <p>info@pritsinghlaw.com</p>
-                                    </div>
-                                    <div class="contact-item">
-                                        <strong>Office Hours:</strong>
-                                        <p>Monday-Friday: 9:00 AM - 5:00 PM</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-form-section">
-                        <div class="contact-form-card card">
-                            <div class="card__body">
-                                <h3>Schedule a Consultation</h3>
-                                <form class="contact-form" action="https://formspree.io/f/mvgqkooj" method="POST" id="consultation-form">
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label">Name *</label>
-                                            <input type="text" id="name" name="name" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email" class="form-label">Email *</label>
-                                            <input type="email" id="email" name="email" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="phone" class="form-label">Phone *</label>
-                                            <input type="tel" id="phone" name="phone" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="property-type" class="form-label">Property Type</label>
-                                            <select id="property-type" name="property-type" class="form-control">
-                                                <option value="">Select property type</option>
-                                                <option value="residential">Residential</option>
-                                                <option value="commercial">Commercial</option>
-                                                <option value="investment">Investment</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="legal-matter" class="form-label">Legal Matter Type</label>
-                                        <select id="legal-matter" name="legal-matter" class="form-control">
-                                            <option value="">Select legal matter</option>
-                                            <option value="purchase-sale">Purchase/Sale</option>
-                                            <option value="landlord-tenant">Landlord/Tenant</option>
-                                            <option value="development">Development</option>
-                                            <option value="dispute">Dispute</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description" class="form-label">Case Description</label>
-                                        <textarea id="description" name="description" rows="4" class="form-control" placeholder="Please describe your legal matter..."></textarea>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="contact-method" class="form-label">Preferred Contact Method</label>
-                                            <select id="contact-method" name="contact-method" class="form-control">
-                                                <option value="email">Email</option>
-                                                <option value="phone">Phone</option>
-                                                <option value="in-person">In-person</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="best-time" class="form-label">Best Time to Contact</label>
-                                            <input type="text" id="best-time" name="best-time" class="form-control" placeholder="e.g., Mornings, Afternoons">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn--primary btn--full-width">Schedule Consultation</button>
-                                </form>
-                                <div class="legal-disclaimer">
-                                    <p><strong>Legal Disclaimer:</strong> Contacting us through this form does not create an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.</p>
-                                    <p><strong>Privacy Notice:</strong> Your information is kept confidential and used solely for consultation scheduling purposes.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3">
+                    <a href="tel:555-123-4567" class="btn">Call Now</a>
+                    <a href="mailto:info@pritsinghlaw.com" class="btn btn-secondary">Send Email</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Law Offices of Pritpal Singh</h4>
-                    <p>California Real Estate Law Experts</p>
-                    <p>&copy; 2025 Law Offices of Pritpal Singh. All rights reserved.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Key Practice Areas</h4>
-                    <ul>
-                        <li>Real Estate Transactions</li>
-                        <li>Landlord-Tenant Law</li>
-                        <li>Commercial Real Estate</li>
-                      
-                        <li>Litigation and Disputes</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact Information</h4>
-                    <p>509 13th St<br>Oakland, CA 94612</p>
-                    <p>Phone: (510) 225-9220</p>
-                    <p>Email: info@pritsinghlaw.com</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
 
-    <script src="https://pritsinghlaw.com/app.js"></script>
+                // Close all FAQ answers
+                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+                document.querySelectorAll('.faq-question span:last-child').forEach(s => s.textContent = '+');
+
+                // Toggle current answer
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    question.querySelector('span:last-child').textContent = '−';
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
