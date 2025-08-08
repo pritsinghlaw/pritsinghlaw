@@ -20,8 +20,8 @@
 
       /* Header & Footer */
       .header, .footer {
-        background-color: var(--color-navy);
-        color: var(--text-light);
+        background-color: #00205B;
+        color: #ffffff;
       }
 
       /* Navigation links */
@@ -41,7 +41,7 @@
       .btn--primary, .btn--primary.btn--full-width {
         background-color: var(--color-orange);
         border-color: var(--color-orange);
-        color: var(--text-light);
+        color: #ffffff;
       }
       .btn--primary:hover {
         opacity: 0.9;
@@ -77,10 +77,9 @@
     <header class="header">
         <div class="container">
             <div class="header__content">
-                <div class="logo">
-                    <h1 class="logo__title">Law Offices of Pritpal Singh</h1>
-                    <p class="logo__tagline">California Real Estate Law Experts</p>
-                </div>
+                <a href="/" class="logo">
+                    <img src="/whitenobg.svg" alt="Law Offices of Pritpal Singh" width="200" height="auto"/>
+                </a>
                 <nav class="nav">
                     <ul class="nav__list">
                         <li><a href="#knowledge-base" class="nav__link">Knowledge Base</a></li>
@@ -103,7 +102,7 @@
         <section id="knowledge-base" class="section knowledge-base">
             <div class="container">
                 <div class="section__header">
-                    <h2 class="section__title">Knowledge Base</h2>
+                    <h1 class="h2 section__title">Knowledge Base</h1>
                     <p class="section__description">Stay informed with the latest California real estate law updates and comprehensive legal guidance.</p>
                     <div class="search-bar">
                         <input type="text" id="knowledge-search" class="form-control" placeholder="Search knowledge base...">
