@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Your Bill Securely | Law Offices of Pritpal Singh</title>
-    <link rel="stylesheet" href="payments.css">
+    <link rel="stylesheet" href="https://pritsinghlaw.com/payments.css">
 </head>
 <body>
     <!-- Navigation Header -->
@@ -14,7 +14,7 @@
                 <!-- Logo -->
                 <div class="nav-brand">
                     <a href="/" class="brand-link">
-                        <span class="brand-name">Law Offices of Pritpal Singh</span>
+                        <img src="https://pritsinghlaw.com/whitenobg.svg" width="150" height="auto"/>
                     </a>
                 </div>
 
@@ -24,31 +24,35 @@
                         <li class="nav-item">
                             <a href="/" class="nav-link">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item">
                             <a href="/about" class="nav-link">About</a>
-                            <div class="dropdown-menu">
-                                <a href="/about/team" class="dropdown-link">Our Team</a>
-                                <a href="/about/history" class="dropdown-link">Our History</a>
-                                <a href="/about/values" class="dropdown-link">Our Values</a>
-                            </div>
                         </li>
                         <li class="nav-item">
                             <a href="/services" class="nav-link">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/assistant" class="nav-link">Support</a>
+                            <a href="/support" class="nav-link">Support</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pay" class="nav-link active">Pay Bill</a>
                         </li>
                     </ul>
+                    
+                    <!-- Mobile Actions (shown in mobile menu) -->
+                    <div class="nav-actions">
+                        <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
+                        <a href="/coming-soon" class="btn btn-portal">Client Portal</a>
+                    </div>
                 </div>
 
-                <!-- Contact Info & Client Portal -->
-                <div class="nav-actions">
+                <!-- Desktop Contact Info & Client Portal -->
+                <div class="nav-actions-desktop">
                     <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
-                    <a href="/client-portal" class="btn btn-portal">Client Portal</a>
+                    <a href="/coming-soon" class="btn btn-portal">Client Portal</a>
                 </div>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="hamburger" id="hamburger">
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -77,6 +81,7 @@
                                 <p>Our primary payment processor, specifically designed for legal services. LawPay ensures compliance with attorney trust account regulations and provides bank-level security for all transactions.</p>
                                 <ul class="method-features">
                                     <li>✓ Accept credit and debit cards securely</li>
+                                    <li>✓ eCheck payment options available</li>
                                     <li>✓ Compliant with legal industry standards</li>
                                     <li>✓ Instant payment processing</li>
                                     <li>✓ Detailed payment receipts</li>
@@ -85,7 +90,7 @@
                             
                             <div class="method-card">
                                 <h3>Alternative: Stripe</h3>
-                                <p>We also accept payments through Stripe as an alternative payment method. Contact our support team if you prefer to use this option.</p>
+                                <p>We also accept payments through Stripe as an alternative payment method with the option to set up a payment plan to cover your legal fees using Affirm or Klarna. Contact our support team if you prefer to use this option or need assistance with payment setup.</p>
                             </div>
                         </div>
                         
@@ -93,7 +98,8 @@
                             <h3>How to Pay Your Bill:</h3>
                             <ol class="payment-steps">
                                 <li>Click the "Pay Now" button below</li>
-                                <li>Enter your payment information in the secure form</li>
+                                <li>You'll be securely redirected to our payment processor</li>
+                                <li>Enter your payment information using credit/debit card or eCheck</li>
                                 <li>Review your payment details</li>
                                 <li>Submit your payment securely</li>
                                 <li>You'll receive a confirmation receipt via email</li>
@@ -101,7 +107,7 @@
                         </div>
                         
                         <div class="security-notice">
-                            <p><strong>Security Notice:</strong> All payments are processed through encrypted, secure connections. We never store your payment information on our servers.</p>
+                            <p><strong>Security Notice:</strong> All payments are processed through encrypted, secure connections. We never store your payment information on our servers. Your payment will open in a secure new tab for your protection.</p>
                         </div>
                     </div>
                     
@@ -112,6 +118,7 @@
                     
                     <div class="additional-info">
                         <p>Need help with your payment or want to set up a payment plan? Our support team is here to assist you.</p>
+                        <p><strong>Office Address:</strong> 509 13th St, Oakland, CA 94612</p>
                     </div>
                 </div>
             </div>
@@ -134,17 +141,17 @@
                 <div class="footer-section">
                     <h4 class="footer-title">Services</h4>
                     <ul class="footer-links">
-                        <li><a href="/services/real-estate-litigation">Property Litigation & Disputes</a></li>
-                        <li><a href="/services/immigration">Contract Drafting & Reviews</a></li>
-                        <li><a href="/services/criminal-defense">Real Estate Financing Documents</a></li>
-                        <li><a href="/services"><b>Browse All Practice Areas</b></a></li>
+                        <li><a href="/services/personal-injury">Personal Injury</a></li>
+                        <li><a href="/services/immigration">Immigration Law</a></li>
+                        <li><a href="/services/criminal-defense">Criminal Defense</a></li>
+                        <li><a href="/services/family-law">Family Law</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4 class="footer-title">Resources</h4>
                     <ul class="footer-links">
-                        <li><a href="/about">About</a></li>
+                        <li><a href="/about">About Us</a></li>
                         <li><a href="/blog">Blog</a></li>
                         <li><a href="/faq">FAQ</a></li>
                         <li><a href="/client-portal">Client Portal</a></li>
@@ -173,26 +180,48 @@
         </div>
     </footer>
 
-    <!-- Payment Modal -->
+    <!-- Payment Information Modal -->
     <div class="modal hidden" id="paymentModal">
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Secure Payment Portal</h3>
-                <button class="modal-close" id="modalClose">&times;</button>
+                <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
             </div>
             <div class="modal-body">
-                <iframe 
-                    src="https://secure.lawpay.com/pages/lawofficesofpritpalsingh/operating" 
-                    width="100%" 
-                    height="600" 
-                    frameborder="0"
-                    title="LawPay Payment Form">
-                </iframe>
+                <div class="modal-payment-info">
+                    <div class="security-icon">🔒</div>
+                    <h4>Secure Payment Processing</h4>
+                    <p>For your security and privacy, your payment will be processed on LawPay's secure platform, which will open in a new tab.</p>
+                    
+                    <div class="payment-details">
+                        <h5>What to expect:</h5>
+                        <ul>
+                            <li>✓ Bank-level encryption and security</li>
+                            <li>✓ Compliance with legal industry standards</li>
+                            <li>✓ Credit/debit card and eCheck options</li>
+                            <li>✓ Immediate payment confirmation</li>
+                            <li>✓ Email receipt for your records</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button class="btn btn-proceed" id="proceedToPayment">
+                            Continue to Secure Payment
+                        </button>
+                        <p class="modal-note">This will open LawPay in a new secure tab</p>
+                    </div>
+                    
+                    <div class="support-info">
+                        <p><strong>Need Help?</strong></p>
+                        <p>Contact our support team at <a href="tel:(510) 225-9220">(510) 225-9220</a> or visit our <a href="https://pritsinghlaw.com/contact" target="_blank">contact page</a>.</p>
+                        <p>For alternative payment methods like Stripe, please contact support.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="payments.js"></script>
+    <script src="https://pritsinghlaw.com/payments.js"></script>
 </body>
 </html>
