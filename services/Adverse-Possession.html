@@ -44,6 +44,7 @@
       height: 48px;
       margin-left: 2rem;
       margin-right: 1.5rem;
+      padding:15px;
     }
     .breadcrumbs {
       font-size: 1rem;
@@ -225,17 +226,32 @@ background: #001f54; /* Navy blue */
       .header-bar { flex-direction: column; }
       .hero__title { font-size: 2rem; }
     }
+
+    .backbtn {
+  position: fixed;
+   height:60px;
+   width:60px;
+  right: 40px;
+  bottom: 40px;
+  background-color:ff0049;
+	color:#ffffff;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
   </style>
+
+  
 </head>
 <body>
   <!-- ==== TOP HEADER WITH LOGO & BREADCRUMBS ==== -->
   <div class="header-bar">
     <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="Bay Area Real Estate Attorneys logo" />
     <nav aria-label="breadcrumb">
-      <span class="breadcrumbs">
+     <br> <span class="breadcrumbs">
         <a href="/">Home </a> &gt;
         <a href="/services">Practice Areas </a> &gt;
-        <span style="color:var(--accent);font-weight:600;"> Adverse Possession </span>
+        <span style="color:var(--accent);font-weight:600;"> Adverse Possession </span> <br>
       </span>
     </nav>
   </div>
@@ -327,6 +343,9 @@ background: #001f54; /* Navy blue */
       &copy; 2025 Law Offices of Pritpal Singh. All rights reserved.
     </div>
   </footer>
+
+<button class='backbtn' onclick="history.back(-1)"><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/home.png" alt="home"/></button>
+  
   <script src="main.js"></script>
 </body>
 </html>
