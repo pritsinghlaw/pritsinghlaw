@@ -1,66 +1,182 @@
 // JavaScript for Law Offices of Pritpal Singh Payment Portal
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Modal functionality
+    console.log('DOM Content Loaded - Initializing payment portal...');
+    
+    // Modal functionality elements
     const payNowBtn = document.getElementById('payNowBtn');
     const paymentModal = document.getElementById('paymentModal');
     const modalClose = document.getElementById('modalClose');
     const modalOverlay = document.getElementById('modalOverlay');
+    const proceedToPayment = document.getElementById('proceedToPayment');
     
-    // Mobile navigation
+    // Mobile navigation elements
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     
-    // Pay Now button click handler
+    // LawPay URL
+    const lawPayUrl = 'https://secure.lawpay.com/pages/lawofficesofpritpalsingh/operating';
+    
+    // Debug: Log element detection
+    console.log('Element detection:', {
+        payNowBtn: !!payNowBtn,
+        paymentModal: !!paymentModal,
+        modalClose: !!modalClose,
+        modalOverlay: !!modalOverlay,
+        proceedToPayment: !!proceedToPayment,
+        hamburger: !!hamburger,
+        navMenu: !!navMenu
+    });
+    
+    // Pay Now button click handler - opens modal instead of direct navigation
     if (payNowBtn) {
+        console.log('Setting up Pay Now button event listener');
         payNowBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Pay Now button clicked');
+            e.stopPropagation();
+            console.log('Pay Now button clicked - opening modal');
             openModal();
         });
+        
+        // Also add keyboard support
+        payNowBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Pay Now button activated via keyboard');
+                openModal();
+            }
+        });
+    } else {
+        console.error('Pay Now button not found!');
+    }
+    
+    // Proceed to Payment button - opens LawPay in new tab
+    if (proceedToPayment) {
+        console.log('Setting up Proceed to Payment button event listener');
+        proceedToPayment.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Proceeding to LawPay payment...');
+            
+            try {
+                // Open LawPay in new tab
+                const lawPayWindow = window.open(lawPayUrl, '_blank', 'noopener,noreferrer');
+                
+                if (lawPayWindow) {
+                    console.log('LawPay opened successfully in new tab');
+                    showNotification('Redirecting to secure payment portal...', 'success');
+                    
+                    // Close modal after opening payment page
+                    setTimeout(() => {
+                        closeModal();
+                    }, 1000);
+                } else {
+                    console.error('Failed to open LawPay - popup may be blocked');
+                    showNotification('Please allow popups for this site to process payments securely.', 'error');
+                }
+            } catch (error) {
+                console.error('Error opening LawPay:', error);
+                showNotification('Error opening payment portal. Please try again.', 'error');
+            }
+        });
+    } else {
+        console.error('Proceed to Payment button not found!');
     }
     
     // Modal close button handler
     if (modalClose) {
+        console.log('Setting up modal close button event listener');
         modalClose.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             console.log('Modal close button clicked');
             closeModal();
         });
+    } else {
+        console.error('Modal close button not found!');
     }
     
     // Modal overlay click handler (close when clicking outside)
     if (modalOverlay) {
+        console.log('Setting up modal overlay event listener');
         modalOverlay.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Modal overlay clicked');
+            e.stopPropagation();
+            console.log('Modal overlay clicked - closing modal');
             closeModal();
         });
+    } else {
+        console.error('Modal overlay not found!');
     }
     
     // Escape key handler for modal
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && paymentModal && !paymentModal.classList.contains('hidden')) {
-            console.log('Escape key pressed, closing modal');
-            closeModal();
+        if (e.key === 'Escape') {
+            if (paymentModal && paymentModal.classList.contains('show')) {
+                console.log('Escape key pressed, closing modal');
+                closeModal();
+            }
+            if (navMenu && navMenu.classList.contains('mobile-open')) {
+                console.log('Escape key pressed, closing mobile menu');
+                closeMobileMenu();
+            }
+        }
+        
+        // Handle Enter and Space for hamburger menu
+        if (e.target === hamburger && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            toggleMobileMenu();
         }
     });
     
-    // Mobile hamburger menu handler
+    // Mobile hamburger menu handler with improved functionality
     if (hamburger && navMenu) {
+        console.log('Setting up hamburger menu event listener');
         hamburger.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             console.log('Hamburger menu clicked');
             toggleMobileMenu();
         });
+        
+        // Add keyboard support for hamburger
+        hamburger.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMobileMenu();
+            }
+        });
+        
+        // Ensure hamburger is focusable
+        hamburger.setAttribute('tabindex', '0');
+        hamburger.setAttribute('role', 'button');
+        hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+        hamburger.setAttribute('aria-expanded', 'false');
+    } else {
+        console.error('Hamburger menu or nav menu not found!');
     }
     
     // Close mobile menu when clicking on nav links
     const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768 && navMenu.classList.contains('mobile-open')) {
+    console.log(`Found ${navLinks.length} navigation links`);
+    
+    navLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+            console.log(`Navigation link ${index} clicked:`, this.href);
+            
+            // Close mobile menu if open
+            if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('mobile-open')) {
+                console.log('Closing mobile menu after nav link click');
                 closeMobileMenu();
+            }
+            
+            // For placeholder links, prevent default navigation
+            const href = this.getAttribute('href');
+            if (href && (href.startsWith('/') || href === '#')) {
+                e.preventDefault();
+                console.log('Navigation placeholder - showing notification');
+                showNotification(`Navigation to ${this.textContent} - Coming Soon!`, 'info');
             }
         });
     });
@@ -69,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         if (navMenu && navMenu.classList.contains('mobile-open')) {
             if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                console.log('Clicked outside mobile menu, closing');
                 closeMobileMenu();
             }
         }
@@ -76,212 +193,192 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle window resize for mobile menu
     window.addEventListener('resize', function() {
+        console.log(`Window resized to: ${window.innerWidth}px`);
         if (window.innerWidth > 768) {
             closeMobileMenu();
         }
-        
-        // Show/hide hamburger menu based on screen size
-        updateMenuVisibility();
     });
     
-    // Initial menu visibility setup
-    updateMenuVisibility();
-    
-    // Functions
+    // Modal Functions
     function openModal() {
-        console.log('Opening modal...');
-        if (paymentModal) {
+        console.log('Opening payment modal...');
+        if (!paymentModal) {
+            console.error('Cannot open modal - paymentModal element not found');
+            return;
+        }
+        
+        try {
             // Remove hidden class first
             paymentModal.classList.remove('hidden');
+            console.log('Removed hidden class from modal');
             
-            // Force a repaint, then add show class
+            // Force a repaint
             paymentModal.offsetHeight;
             
-            // Add show class for animation
-            setTimeout(() => {
+            // Add show class for animation with slight delay
+            requestAnimationFrame(() => {
                 paymentModal.classList.add('show');
                 document.body.style.overflow = 'hidden'; // Prevent background scrolling
-                console.log('Modal opened successfully');
-            }, 10);
-        } else {
-            console.error('Payment modal not found');
+                
+                // Focus management - focus on the proceed button
+                if (proceedToPayment) {
+                    setTimeout(() => {
+                        proceedToPayment.focus();
+                    }, 100);
+                }
+                
+                console.log('Payment modal opened successfully');
+                showNotification('Payment information loaded', 'info');
+            });
+        } catch (error) {
+            console.error('Error opening modal:', error);
+            showNotification('Error opening payment information', 'error');
         }
     }
     
     function closeModal() {
-        console.log('Closing modal...');
-        if (paymentModal) {
+        console.log('Closing payment modal...');
+        if (!paymentModal) {
+            console.error('Cannot close modal - paymentModal element not found');
+            return;
+        }
+        
+        try {
             // Remove show class for animation
             paymentModal.classList.remove('show');
             document.body.style.overflow = ''; // Restore scrolling
             
+            // Return focus to pay now button
+            if (payNowBtn) {
+                payNowBtn.focus();
+            }
+            
             // Wait for animation to complete before hiding
             setTimeout(() => {
                 paymentModal.classList.add('hidden');
-                console.log('Modal closed successfully');
+                console.log('Payment modal closed successfully');
             }, 300);
-        } else {
-            console.error('Payment modal not found');
+        } catch (error) {
+            console.error('Error closing modal:', error);
         }
     }
     
     function toggleMobileMenu() {
         console.log('Toggling mobile menu...');
-        if (navMenu) {
-            const isOpen = navMenu.classList.contains('mobile-open');
-            
-            if (isOpen) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
+        if (!navMenu || !hamburger) {
+            console.error('Cannot toggle menu - elements not found');
+            return;
+        }
+        
+        const isOpen = navMenu.classList.contains('mobile-open');
+        console.log('Mobile menu currently open:', isOpen);
+        
+        if (isOpen) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
         }
     }
     
     function openMobileMenu() {
         console.log('Opening mobile menu...');
-        navMenu.classList.add('mobile-open');
-        hamburger.classList.add('active');
+        if (!navMenu || !hamburger) return;
         
-        // Animate hamburger lines
-        animateHamburger(true);
+        try {
+            navMenu.classList.add('mobile-open');
+            hamburger.classList.add('active');
+            
+            // Update ARIA attributes for accessibility
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.setAttribute('aria-label', 'Close navigation menu');
+            
+            console.log('Mobile menu opened successfully');
+        } catch (error) {
+            console.error('Error opening mobile menu:', error);
+        }
     }
     
     function closeMobileMenu() {
         console.log('Closing mobile menu...');
-        if (navMenu && navMenu.classList.contains('mobile-open')) {
-            navMenu.classList.remove('mobile-open');
-            hamburger.classList.remove('active');
-            
-            // Reset hamburger lines
-            animateHamburger(false);
-        }
-    }
-    
-    function animateHamburger(isActive) {
-        const lines = hamburger.querySelectorAll('.hamburger-line');
-        if (isActive) {
-            lines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
-            lines[1].style.opacity = '0';
-            lines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
-        } else {
-            lines[0].style.transform = '';
-            lines[1].style.opacity = '';
-            lines[2].style.transform = '';
-        }
-    }
-    
-    function updateMenuVisibility() {
-        const isMobile = window.innerWidth <= 768;
+        if (!navMenu || !hamburger) return;
         
-        if (isMobile) {
-            // Show hamburger, hide desktop menu unless mobile-open
-            hamburger.style.display = 'flex';
-            if (!navMenu.classList.contains('mobile-open')) {
-                navMenu.style.display = 'none';
+        if (navMenu.classList.contains('mobile-open')) {
+            try {
+                navMenu.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+                
+                // Update ARIA attributes for accessibility
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.setAttribute('aria-label', 'Open navigation menu');
+                
+                console.log('Mobile menu closed successfully');
+            } catch (error) {
+                console.error('Error closing mobile menu:', error);
             }
-        } else {
-            // Show desktop menu, hide hamburger
-            hamburger.style.display = 'none';
-            navMenu.style.display = 'flex';
-            // Close mobile menu if it was open
-            closeMobileMenu();
         }
     }
     
-    // Animation for payment method cards on scroll
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Observe payment method cards for animation
-    const methodCards = document.querySelectorAll('.method-card');
-    methodCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
-    });
-    
-    // Enhanced button hover effects
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        // Skip the contact support button since it's a link
-        if (button.tagName.toLowerCase() !== 'a') {
-            button.addEventListener('mouseenter', function() {
-                if (this.classList.contains('btn-pay-now')) {
-                    this.style.transform = 'translateY(-3px) scale(1.02)';
-                } else {
-                    this.style.transform = 'translateY(-2px)';
-                }
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = '';
-            });
-        }
-    });
-    
-    // Iframe load handler for better user experience
-    const paymentIframe = document.querySelector('#paymentModal iframe');
-    if (paymentIframe) {
-        paymentIframe.addEventListener('load', function() {
-            console.log('Payment form loaded successfully');
-        });
-        
-        paymentIframe.addEventListener('error', function() {
-            console.error('Failed to load payment form');
-            showNotification('Failed to load payment form. Please try again or contact support.', 'error');
-        });
-    }
-    
-    // Notification system
+    // Notification system for user feedback
     function showNotification(message, type = 'info') {
+        console.log(`Showing notification: ${message} (${type})`);
+        
         const notification = document.createElement('div');
         notification.className = `notification notification--${type}`;
         notification.textContent = message;
+        notification.setAttribute('role', 'alert');
+        notification.setAttribute('aria-live', 'polite');
         
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            background: var(--law-primary);
-            color: white;
-            border-radius: 8px;
-            z-index: 3000;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: all 0.3s ease;
-            max-width: 300px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        `;
+        // Notification styles
+        const baseStyles = {
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            padding: '15px 20px',
+            borderRadius: '8px',
+            zIndex: '3000',
+            opacity: '0',
+            transform: 'translateX(100%)',
+            transition: 'all 0.3s ease',
+            maxWidth: '300px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            fontSize: '14px',
+            lineHeight: '1.4',
+            fontWeight: '500'
+        };
         
-        if (type === 'error') {
-            notification.style.background = '#dc3545';
-        } else if (type === 'success') {
-            notification.style.background = '#28a745';
+        // Apply base styles
+        Object.assign(notification.style, baseStyles);
+        
+        // Adjust colors based on type
+        switch(type) {
+            case 'error':
+                notification.style.background = '#dc3545';
+                notification.style.color = 'white';
+                break;
+            case 'success':
+                notification.style.background = '#28a745';
+                notification.style.color = 'white';
+                break;
+            case 'warning':
+                notification.style.background = '#ffc107';
+                notification.style.color = '#212529';
+                break;
+            default:
+                notification.style.background = '#001f54';
+                notification.style.color = 'white';
         }
         
         document.body.appendChild(notification);
         
-        // Show notification
-        setTimeout(() => {
-            notification.style.opacity = '1';
-            notification.style.transform = 'translateX(0)';
-        }, 100);
+        // Show notification with animation
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+        });
         
-        // Hide notification
+        // Auto-hide notification
         setTimeout(() => {
             notification.style.opacity = '0';
             notification.style.transform = 'translateX(100%)';
@@ -290,57 +387,165 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.body.removeChild(notification);
                 }
             }, 300);
-        }, 5000);
+        }, 4000);
     }
     
-    // Smooth scroll for anchor links
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && href.length > 1) {
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+    // Enhanced button interactions
+    const buttons = document.querySelectorAll('.btn');
+    console.log(`Found ${buttons.length} buttons for enhancement`);
+    
+    buttons.forEach((button, index) => {
+        console.log(`Setting up button ${index}:`, button.className);
+        
+        // Add ripple effect on click
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                if (this.contains(ripple)) {
+                    this.removeChild(ripple);
                 }
+            }, 600);
+        });
+    });
+    
+    // Add ripple animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .skip-link:focus {
+            top: 6px !important;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Track external link clicks
+    const externalLinks = document.querySelectorAll('a[target="_blank"]');
+    console.log(`Found ${externalLinks.length} external links`);
+    
+    externalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            console.log('External link clicked:', this.href);
+            
+            // Show confirmation for support links
+            if (this.href.includes('contact') || this.href.includes('support')) {
+                showNotification('Opening support page...', 'info');
             }
         });
     });
     
-    // External link tracking
-    const externalLinks = document.querySelectorAll('a[target="_blank"]');
-    externalLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            console.log('External link clicked:', this.href);
-        });
-    });
-    
-    // Phone link tracking
+    // Track phone link clicks
     const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+    console.log(`Found ${phoneLinks.length} phone links`);
+    
     phoneLinks.forEach(link => {
         link.addEventListener('click', function() {
             console.log('Phone link clicked:', this.href);
+            showNotification('Initiating phone call...', 'success');
         });
     });
     
-    // Page load performance tracking
+    // Accessibility enhancements
+    function enhanceAccessibility() {
+        console.log('Enhancing accessibility...');
+        
+        // Add skip link for keyboard users
+        const skipLink = document.createElement('a');
+        skipLink.href = '#main-content';
+        skipLink.textContent = 'Skip to main content';
+        skipLink.className = 'skip-link';
+        skipLink.style.cssText = `
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #001f54;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+            transition: top 0.3s;
+            font-weight: bold;
+        `;
+        
+        document.body.insertBefore(skipLink, document.body.firstChild);
+        
+        // Add main content ID for skip link
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            mainContent.id = 'main-content';
+            mainContent.setAttribute('tabindex', '-1');
+        }
+        
+        // Enhance modal accessibility
+        if (paymentModal) {
+            paymentModal.setAttribute('role', 'dialog');
+            paymentModal.setAttribute('aria-modal', 'true');
+            paymentModal.setAttribute('aria-labelledby', 'modal-title');
+            
+            const modalTitle = paymentModal.querySelector('.modal-header h3');
+            if (modalTitle) {
+                modalTitle.id = 'modal-title';
+            }
+        }
+        
+        console.log('Accessibility enhancements completed');
+    }
+    
+    // Initialize accessibility enhancements
+    enhanceAccessibility();
+    
+    // Page performance and error tracking
     window.addEventListener('load', function() {
         const loadTime = performance.now();
         console.log(`Payment portal page loaded in ${loadTime.toFixed(2)}ms`);
+        showNotification('Payment portal loaded successfully', 'success');
     });
     
-    // Debug information
-    console.log('Payment portal JavaScript initialized successfully');
-    console.log('Elements found:', {
-        payNowBtn: !!payNowBtn,
-        paymentModal: !!paymentModal,
-        modalClose: !!modalClose,
-        modalOverlay: !!modalOverlay,
-        hamburger: !!hamburger,
-        navMenu: !!navMenu
+    // Error handling
+    window.addEventListener('error', function(e) {
+        console.error('JavaScript error:', e.error);
+        showNotification('An error occurred. Please refresh if issues persist.', 'error');
     });
+    
+    window.addEventListener('unhandledrejection', function(e) {
+        console.error('Promise rejection:', e.reason);
+        showNotification('Network error. Please check connection.', 'warning');
+    });
+    
+    // Final initialization log
+    console.log('Payment portal JavaScript fully initialized');
+    console.log('Ready for user interaction');
+    
+    // Test notification on load (remove in production)
+    setTimeout(() => {
+        console.log('Initialization complete - all systems ready');
+    }, 1000);
 });
