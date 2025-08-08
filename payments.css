@@ -1315,7 +1315,7 @@ body {
 
 .modal-header h3 {
   color: var(--law-primary);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin: 0;
 }
@@ -1350,8 +1350,8 @@ body {
 }
 
 .security-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
+  font-size: 30px;
+  margin-bottom: 10px;
   display: block;
 }
 
@@ -1373,7 +1373,7 @@ body {
   background: var(--law-light);
   padding: 25px;
   border-radius: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
