@@ -1,0 +1,18 @@
+name: Secure Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Use Secret in Workflow
+      run: echo "The API key is ${{ secrets.MYKEYFR }}"
+      # Here, you can use the secret in your commands or scripts
