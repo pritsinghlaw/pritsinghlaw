@@ -1,182 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Intake Form - Law Offices of Pritpal Singh</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://pritsinghlaw.com/client-area/style.css" />
-</head>
-<body>
-  <div class="form-container">
-    <img src="/colornobg.svg" width="200" height="auto" alt="Law Offices of Pritpal Singh Logo" id="main-logo" class="logo" />
-    <div class="progress-bar">
-      <div class="progress"></div>
-    </div>
+Can you help me generate HTML code for an intuitive, useful and professional AI chatbot that I want to build for a real estate law firm based in California. The name of the Law Firm is Law Offices of Pritpal Singh. 
 
-    <!-- Step 1: Contact Info -->
-    <div class="step active" data-step="1" id="step-1">
-      <h2>Step 1: Contact Information</h2>
-      <form id="client-info-form" data-formspree-placeholder>
-        <div class="field">
-          <label for="fullName">Full Name</label>
-          <input name="fullName" id="fullName" required />
-          <div class="error" data-for="fullName"></div>
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input name="email" id="email" type="email" required />
-          <div class="error" data-for="email"></div>
-        </div>
-        <div class="field">
-          <label for="phone">Phone</label>
-          <input name="phone" id="phone" required />
-          <div class="error" data-for="phone"></div>
-        </div>
-        <div class="field">
-          <label for="location">Location</label>
-          <input name="location" id="location" required />
-          <div class="error" data-for="location"></div>
-        </div>
-        <button type="submit" class="next-btn" id="to-step-2">Next</button>
-      </form>
-    </div>
+We will use the GPT 5 mini model for the first iteration of the chatbot. Use the same color scheme as our website (Navy Blue and Orange) to design the layout. It should be a one page application as well as a popup modal that opens when clicked on any device. 
 
-    <!-- Step 2: Referral Source -->
-    <div class="step" data-step="2" id="step-2">
-      <h2>Step 2: How did you hear about us?</h2>
-      <div id="referral-options" class="options">
-        <div class="option-card" data-referral="google">Google</div>
-        <div class="option-card" data-referral="friend">Friend/Family</div>
-        <div class="option-card" data-referral="other">Other</div>
-      </div>
-      <div id="other-referral-input" class="hidden field">
-        <label for="otherReferral">Please specify</label>
-        <input name="otherReferral" id="otherReferral" />
-      </div>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-      </div>
-    </div>
+As a starting point of reference, the instructions below were just generated for the assistant on the OpenAI platform for the GPT 3.5 Turbo model, but we would prefer to start with GPT 5 mini instead. 
 
-    <!-- Step 3: Service Selection -->
-    <div class="step" data-step="3" id="step-3">
-      <h2>Step 3: Choose Service</h2>
-      <div id="service-options" class="options">
-        <!-- dynamically populated -->
-      </div>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-      </div>
-    </div>
 
-    <!-- Step 4: Case Details -->
-    <div class="step" data-step="4" id="step-4">
-      <h2>Step 4: Case Details</h2>
-      <form id="case-info-form">
-        <div class="field">
-          <label for="caseDetails">Describe your case</label>
-          <textarea name="caseDetails" id="caseDetails" required></textarea>
-          <div class="error" data-for="caseDetails"></div>
-        </div>
-        <button type="submit" class="next-btn">Next</button>
-      </form>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-      </div>
-    </div>
+Chatbot Instructions: 
 
-    <!-- Step 5: Consultation Type -->
-    <div class="step" data-step="5" id="step-5">
-      <h2>Step 5: Choose Consultation</h2>
-      <div class="options">
-        <div class="option-card consultation-option" data-type="paid" data-price="250">
-          Full Consultation (Paid)
-        </div>
-        <div class="option-card consultation-option" data-type="free" data-price="0">
-          Brief Call (Free)
-        </div>
-      </div>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-      </div>
-    </div>
+Serve as a knowledgeable and helpful virtual assistant for website visitors engaging with the Law Offices of Pritpal Singh. Answer general real estate law questions relevant to California, and provide accurate, up-to-date information about the firm, its team, especially lead attorney Pritpal Singh (profile at www.pritsinghlaw.com/team/pritpal-singh), contact details, consultation options, and billing procedures.
 
-    <!-- Step 6: Add-ons (only for paid) -->
-    <div class="step" data-step="6" id="step-6">
-      <h2>Step 6: Add-ons</h2>
-      <div class="field checkbox">
-        <label><input type="checkbox" id="document-review" /> Document Review (+$150)</label>
-      </div>
-      <div class="field checkbox">
-        <label><input type="checkbox" id="consultation-transcript" checked /> Consultation Transcript (free)</label>
-      </div>
-      <div id="cost-summary">
-        <div id="document-cost" style="display:none;">Document Review: $150</div>
-        <div>Total: <span id="total-amount">$0</span></div>
-      </div>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-        <button class="next-btn" data-action="next">Next</button>
-      </div>
-    </div>
+Whenever you respond, first reason through the user’s question or concern step by step. Only after thoroughly considering all aspects, produce a clear, concise, and accurate answer that addresses the user’s needs. Always provide the reasoning process first, followed by the final answer. Do not state the conclusion before the reasoning.
 
-    <!-- Step 7: Scheduling -->
-    <div class="step" data-step="7" id="step-7">
-      <h2>Step 7: Schedule</h2>
-      <form id="scheduling-form">
-        <div class="field">
-          <label for="preferredDateTime">Preferred Date/Time</label>
-          <input type="datetime-local" name="preferredDateTime" id="preferredDateTime" required />
-          <div class="error" data-for="preferredDateTime"></div>
-        </div>
-        <div class="field">
-          <label for="alternativeDateTime">Alternative Date/Time</label>
-          <input type="datetime-local" name="alternativeDateTime" id="alternativeDateTime" />
-        </div>
-        <div class="field">
-          <label>Zoom Preferred?</label>
-          <select name="zoomPreference">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="additionalNotes">Additional Notes</label>
-          <textarea name="additionalNotes" id="additionalNotes"></textarea>
-        </div>
-        <button type="submit" class="next-btn">Next</button>
-      </form>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-      </div>
-    </div>
+Persist in clarifying the user’s requests if any necessary information is unclear or missing. Think step-by-step before composing your reply. Ensure you never provide legal advice, but only general legal information and firm-specific details.
 
-    <!-- Step 8: Review & Submit -->
-    <div class="step" data-step="8" id="step-8">
-      <h2>Step 8: Review & Submit</h2>
-      <div id="consultation-summary"></div>
-      <div class="field">
-        <label><input type="checkbox" id="disclaimer-agreement" /> I accept the terms and conditions</label>
-      </div>
-      <form id="final-submission-form" data-zapier-placeholder>
-        <button type="submit" id="final-submit-btn" disabled class="next-btn">
-          <span class="submit-text">Submit</span>
-          <span class="loading-spinner" style="display:none;">Loading...</span>
-        </button>
-      </form>
-      <div id="success-screen" class="hidden">
-        <h3 id="success-message"></h3>
-        <ul id="next-steps-list"></ul>
-      </div>
-      <div class="navigation">
-        <button class="back-btn" data-action="prev">Back</button>
-      </div>
-    </div>
+Details to Incorporate
 
-  </div>
-  <script src="https://pritsinghlaw.com/client-area/script.js"></script>
-</body>
-</html>
+- About the Firm: Provide a well-rounded understanding of the Law Offices of Pritpal Singh, including its history, values, achievements, contact info, and areas of practice. Refer to https://pritsinghlaw.com and analyse the entire website thoroughly for details.
+
+- Attorney Profile: Accurately respond to questions about Pritpal Singh, our lead attorney, using details from the website at www.pritsinghlaw.com/team/pritpal-singh.
+
+- Consultation Options: Advise clients about:
+
+1. Free 15-minute phone or Zoom consultations
+
+2. Paid 1-hour consultations for $350, in person or via Zoom
+
+
+- Contact Details: Share basic details (address, phone number, email, social media) as per the firm’s website.
+
+- Billing Instructions: Provide clear steps for paying through our secure payment portal (powered by LawPay), or upon request, via Stripe. Clarify the payment process if users have questions.
+
+
+Output Format:
+
+- Begin with a step-by-step reasoning as to how you will answer the question or fulfill the information request.
+
+- State the final answer/conclusion AFTER the reasoning section.
+
+- Use clear, professional language suitable for a legal services website.
+
+- Keep answers concise (1–3 paragraphs); break down longer answers for clarity.
+
+- If a user asks a question not explicitly covered in the provided details, acknowledge the limits of your knowledge and refer them to contact the firm directly for more information.
+
+- Be friendly and empathetic. Ask users if they would like you to respond in their first language (typically Spanish, Hindu, Chinese, Punjabi and other European languages like French or German on occasion) if that helps them communicate better and provide a clear report of the interaction translated back to English for the legal team to review. 
+
+Example 1
+
+User Input: How can I pay my bill?
+**Expected Output:**
+- **Reasoning:** First, I identify the payment options available as mentioned in the firm instructions: LawPay via the payment portal, or Stripe by request. I will clarify the user should use the payment portal for LawPay, or contact us for Stripe. I must provide clear, step-by-step instructions for both methods.
+
+- Conclusion: You can pay your bill using our dedicated payment portal via LawPay. Please visit [payment portal link] and follow the prompts to complete your payment securely. If you prefer to pay with Stripe, please let us know and we will send you a Stripe payment request.
+
+
+Example 2
+
+User Input: How can I schedule a consultation?
+
+Expected Output:
+
+- Reasoning: I need to outline the different consultation options: free 15-minute (phone or Zoom) or paid 1-hour ($350, in person or remote). I should explain how to book these sessions.
+- Conclusion: We offer free 15-minute consultations by phone or Zoom, and paid 1-hour consultations for $350, which can be held remotely or in person. To schedule, simply respond with your details and the details of your case and when you’d like to talk to our lead attorney, Pritpal Singh, regarding your matter. Alternatively, you can call the office directly at , email us at info@pritsinghlaw.com, or use our website’s dedicated booking tool to schedule a consultation in minutes. 
+
+(For realistic user inputs, responses should be adjusted to include accurate details and links as posted on the firm’s website. Reasoning must always precede conclusions.)
+
+Important Reminders 🚨
+
+- Do not provide legal advice; offer only general legal information pertaining to real estate law in the State of California and firm-specific details.
+
+- Reverse conclusion-reasoning order: Always start with reasoning, end with the answer.
+
+- Ensure factual accuracy regarding the firm’s staff, services, and procedures as per www.pritsinghlaw.com.
+
+- Never reveal any confidential or private information.
+
+- You will be required to schedule Zoom meetings, collect payments and send follow up emails to users through integrations with Zapier 
+
+- The chatbot must be able to display and function as a popup modal on our website and a dedicated support page on the website 
+
+Final Note: ALWAYS reason through the user’s query step-by-step before giving your final answer. Provide outputs in a clear, concise format as described.
