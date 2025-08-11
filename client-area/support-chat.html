@@ -2,306 +2,465 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Assistant — Law Offices of Pritpal Singh</title>
-  <meta name="description" content="Real estate law assistant for California — Law Offices of Pritpal Singh" />
+  <title>Law Offices of Pritpal Singh — PritAI Legal Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root{
-      /* Brand palette: tweak to match site precisely */
-      --brand-navy:#0b1f3b;
-      --brand-navy-700:#112a50;
-      --brand-orange:#f97316; /* accessible orange */
-      --ink:#0f172a;
-      --ink-2:#334155;
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --ring:#cbd5e1;
-      --ok:#16a34a;
-      --warn:#ea580c;
+      /* Brand tokens — swap to exact hex if needed */
+      --brand-navy:#0b2a4d;      /* Navy Blue */
+      --brand-orange:#ff6a00;    /* Orange */
+      --brand-navy-700:#0a2442;
+      --brand-navy-50:#eef3f9;
+      --ink:#0a0a0a;
+      --muted:#5e6a7a;
+      --bg:#ffffff;
+      --ring:rgba(255,106,0,.45);
+      --radius:14px;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    a{color:var(--brand-navy);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:1080px;margin:0 auto;padding:1.25rem}
-    header{
-      display:flex;gap:1rem;align-items:center;justify-content:space-between;
-      padding:1rem 0;margin-bottom:.5rem
-    }
-    .brand{display:flex;align-items:center;gap:.75rem}
-    .brand-badge{
-      width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--brand-navy),#06142b);
-      display:grid;place-items:center;color:#fff;font-weight:700
-    }
-    .brand-title{font-weight:700;color:var(--brand-navy)}
-    .tag{font-size:.8rem;color:#fff;background:var(--brand-orange);padding:.15rem .5rem;border-radius:.5rem}
-    .shell{display:grid;grid-template-columns:1.15fr .85fr;gap:1.25rem}
-    @media (max-width:1000px){.shell{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid var(--ring);border-radius:14px;box-shadow:0 6px 18px rgba(2,6,23,.06)}
-    .hero{padding:1.2rem}
-    .hero h1{margin:.2rem 0 .4rem 0;font-size:1.25rem;color:var(--brand-navy)}
-    .hero p{margin:0;color:var(--ink-2)}
-    .quick{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
-    .chip{border:1px solid var(--ring);padding:.5rem .7rem;border-radius:1000px;background:#fff;cursor:pointer}
-    .chip:hover{border-color:var(--brand-navy);color:var(--brand-navy)}
-    .disclaimer{font-size:.85rem;color:var(--ink-2);padding:1rem;border-top:1px dashed var(--ring)}
-    .disclaimer strong{color:var(--ink)}
-    /* Chat pane */
-    .chat{display:flex;flex-direction:column;height:70vh;min-height:520px}
-    .chat-head{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-bottom:1px solid var(--ring)}
-    .chat-head h2{margin:0;color:var(--brand-navy);font-size:1rem}
-    .bubble-wrap{flex:1;overflow:auto;padding:1rem;scroll-behavior:smooth}
-    .row{display:flex;gap:.75rem;margin-bottom:.75rem}
-    .row.user{justify-content:flex-end}
-    .avatar{width:32px;height:32px;border-radius:50%;background:var(--brand-navy);display:grid;place-items:center;color:#fff;font-weight:700;flex:0 0 32px}
-    .avatar.u{background:var(--brand-orange)}
-    .bubble{
-      max-width:min(720px,85%);padding:.75rem .9rem;border-radius:12px;border:1px solid var(--ring);background:#fff;word-wrap:break-word
-    }
-    .row.user .bubble{background:#0b1f3b0d;border-color:#0b1f3b33}
-    .section-label{font-size:.8rem;color:var(--ink-2);margin:.25rem 0 .35rem 0}
-    .bubble h4{margin:.3rem 0 .25rem 0}
-    .bubble ul{margin:.25rem 0 .3rem 1rem}
-    .bubble .answer{border-left:3px solid var(--brand-navy-700);padding-left:.6rem}
-    .composer{display:flex;gap:.5rem;padding:.75rem;border-top:1px solid var(--ring)}
-    .composer textarea{
-      flex:1;resize:none;min-height:48px;max-height:140px;padding:.7rem;border-radius:10px;border:1px solid var(--ring)
-    }
-    .btn{
-      background:var(--brand-navy);color:#fff;border:0;border-radius:10px;padding:.7rem 1rem;cursor:pointer;font-weight:600
-    }
-    .btn:hover{filter:brightness(.95)}
-    .btn.sec{background:var(--brand-orange)}
-    .btn.link{background:transparent;border:1px solid var(--ring);color:var(--brand-navy)}
-    .legal-note{font-size:.8rem;color:var(--ink-2);padding:.6rem 1rem}
-    /* Floating launcher */
-    .launcher{
-      position:fixed;right:22px;bottom:22px;z-index:9999;
-      background:var(--brand-orange);color:#fff;border:0;border-radius:999px;padding:.9rem 1rem;box-shadow:0 8px 24px rgba(2,6,23,.25);cursor:pointer
-    }
+    html,body{height:100%}
+    body{margin:0;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+    /* Full-page support layout (visible when body has .page-mode) */
+    body.page-mode .support-shell{display:grid;grid-template-rows:auto 1fr;min-height:100vh}
+    .support-header{display:none}
+    body.page-mode .support-header{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #e6eaf0;background:var(--brand-navy);color:#fff}
+    .support-header .badge{background:rgba(255,255,255,.12);padding:4px 10px;border-radius:999px;font-size:12px}
+    body.page-mode .chat-window{position:relative;max-width:1000px;margin:24px auto;padding:0 16px;height:calc(100vh - 100px)}
+    /* Floating launcher (modal use) */
+    .chat-launcher{position:fixed;right:18px;bottom:18px;background:var(--brand-orange);color:#fff;border:none;border-radius:999px;padding:14px 16px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.2);cursor:pointer}
+    .chat-launcher:focus{outline:3px solid var(--ring)}
     /* Modal */
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,.5);display:none;align-items:center;justify-content:center;z-index:10000}
-    .modal[aria-hidden="false"]{display:flex}
-    .dialog{width:min(960px,94vw);height:88vh;background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--ring)}
-    .sr-only{position:absolute;left:-9999px}
+    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(7,16,28,.42);z-index:9999}
+    .modal.open{display:grid}
+    .modal-dialog{width:min(100%,720px);height:min(90vh,800px);background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(3,14,26,.45)}
+    /* Chat window */
+    .chat-window{position:absolute;inset:0;display:grid;grid-template-rows:auto auto 1fr auto;background:#fff;border:1px solid #e6eaf0;border-radius:var(--radius)}
+    .chat-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--brand-navy);color:#fff}
+    .chat-title{display:flex;align-items:center;gap:10px}
+    .chat-title .dot{width:12px;height:12px;border-radius:50%;background:var(--brand-orange)}
+    .chat-close{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer}
+    .tools{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid #e6eaf0;background:#fff}
+    .pill{border:1px solid #dbe3ee;background:#fff;border-radius:999px;padding:7px 12px;font-size:12px;cursor:pointer}
+    .pill.primary{background:var(--brand-orange);border-color:var(--brand-orange);color:#fff;font-weight:700}
+    .chat-messages{padding:16px;overflow:auto;background:var(--brand-navy-50)}
+    .msg{display:grid;gap:6px;margin:0 0 14px}
+    .msg.you .bubble{background:#fff;border:1px solid #dbe3ee}
+    .msg.ai .bubble{background:#fff;border-left:4px solid var(--brand-orange);border:1px solid #e3e8f2}
+    .bubble{padding:12px 14px;border-radius:12px}
+    .role{font-size:12px;color:var(--muted)}
+    .section-label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+    .reasoning{background:#fafbfe;border:1px dashed #d9e2f2;padding:10px;border-radius:8px}
+    .answer{padding-top:2px}
+    .disclaimer{font-size:12px;color:#6b7788;margin:10px 0}
+    .chat-input{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px;border-top:1px solid #e6eaf0;background:#fff}
+    .chat-input textarea{resize:none;min-height:48px;max-height:120px;padding:12px;border:1px solid #cfd9e6;border-radius:10px;font:inherit}
+    .chat-input button{background:var(--brand-orange);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer}
+    /* Drawer (intake / Stripe request) */
+    .drawer{position:fixed;inset:0;display:none;place-items:center;background:rgba(7,16,28,.40);z-index:10000}
+    .drawer.open{display:grid}
+    .drawer-card{width:min(100%,560px);max-height:90vh;background:#fff;border-radius:14px;overflow:auto;box-shadow:0 24px 70px rgba(3,14,26,.4)}
+    .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #e6eaf0;background:var(--brand-navy);color:#fff}
+    .drawer-body{padding:16px}
+    .grid{display:grid;gap:12px}
+    .grid.cols-2{grid-template-columns:1fr 1fr}
+    label{font-size:13px;color:#334155}
+    input,select,textarea{width:100%;padding:10px;border:1px solid #cfd9e6;border-radius:10px;font:inherit}
+    .help{font-size:12px;color:#6b7788}
+    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+    .btn{border:1px solid #dbe3ee;background:#fff;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn.primary{background:var(--brand-orange);border-color:var(--brand-orange);color:#fff}
+    @media (max-width: 740px){
+      .modal-dialog{width:100%;height:100%;border-radius:0}
+      .chat-window{border:none;border-radius:0}
+      .grid.cols-2{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="brand-badge">PS</div>
-        <div>
-          <div class="brand-title">Law Offices of Pritpal Singh</div>
-          <div class="tag" aria-label="California real estate law">Real Estate Law · California</div>
-        </div>
-      </div>
-      <div>
-        <button class="btn link" id="open-modal">Open as Popup</button>
-      </div>
+  <div class="support-shell">
+    <header class="support-header">
+      <div style="font-weight:700">Law Offices of Pritpal Singh — Real Estate Law (CA)</div>
+      <span class="badge">AI Assistant</span>
     </header>
+    <main class="chat-window support" aria-live="polite" hidden></main>
+  </div>
 
-    <div class="shell">
-      <!-- Left: Chat -->
-      <section class="card chat" aria-label="AI Assistant chat" id="chatcard">
-        <div class="chat-head">
-          <h2 id="chat-title">Ask the Real Estate Law Assistant</h2>
+  <button class="chat-launcher" id="openChat" aria-haspopup="dialog" aria-controls="chatModal">
+    Chat with us
+  </button>
+
+  <div class="modal" id="chatModal" role="dialog" aria-modal="true" aria-label="AI legal assistant">
+    <div class="modal-dialog">
+      <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+          <div class="chat-title"><span class="dot" aria-hidden="true"></span> Law Offices of Pritpal Singh</div>
           <div>
-            <button class="btn sec" id="clear">New Chat</button>
+            <button class="pill" id="langToggle" title="Switch language">Español</button>
+            <button class="chat-close" id="closeChat" title="Close">✕</button>
           </div>
         </div>
-        <div class="bubble-wrap" id="thread" aria-live="polite"></div>
-        <div class="composer">
-          <label for="msg" class="sr-only">Your message</label>
-          <textarea id="msg" placeholder="Ask about consultations, payments, or California real estate law (general info only)…" rows="2"></textarea>
-          <button class="btn" id="send">Send</button>
-        </div>
-        <div class="legal-note">
-          <strong>Not legal advice.</strong> For general information in California. No attorney–client relationship is formed by using this chat. For personal legal advice, please book a consultation.
-        </div>
-      </section>
 
-      <!-- Right: Helper card -->
-      <aside class="card hero" aria-label="Shortcuts and info">
-        <h1>How I can help</h1>
-        <p>Ask firm‑specific questions (consultations, billing, contact) or general California real estate law questions (no legal advice).</p>
-        <div class="quick" id="quick">
-          <button class="chip" data-q="How do I schedule a consultation?">Schedule consult</button>
-          <button class="chip" data-q="How can I pay my bill?">Pay my bill</button>
-          <button class="chip" data-q="What cases do you handle?">Practice areas</button>
-          <button class="chip" data-q="What are your contact details?">Contact info</button>
-          <button class="chip" data-q="Can we talk in Spanish?">Español</button>
+        <!-- Quick actions -->
+        <div class="tools" id="quickTools">
+          <button class="pill primary" data-action="book-free">Book Free 15‑min</button>
+          <button class="pill" data-action="book-paid">Book 60‑min ($350)</button>
+          <button class="pill" data-action="pay">Pay Bill</button>
+          <button class="pill" data-action="stripe">Request Stripe Link</button>
+          <button class="pill" data-action="call">Call</button>
+          <button class="pill" data-action="email">Email</button>
+          <button class="pill" data-action="directions">Directions</button>
         </div>
-        <div class="disclaimer">
-          <strong>Payments:</strong> LawPay portal (preferred). Stripe available on request. See the firm’s billing page for steps.  
-          <br/>Address: 509 13th St, Oakland, CA 94612 · Phone: (510) 225‑9220 · Email: info@pritsinghlaw.com
+
+        <div class="chat-messages" id="messages" tabindex="0"></div>
+
+        <div class="chat-input">
+          <textarea id="input" placeholder="Ask about California real estate law, consultations, billing…"></textarea>
+          <button id="send">Send</button>
         </div>
-      </aside>
+      </div>
     </div>
   </div>
 
-  <!-- Launcher for any page -->
-  <button class="launcher" id="launcher" aria-controls="ps-modal" aria-expanded="false">Chat with us</button>
-
-  <!-- Modal -->
-  <div class="modal" id="ps-modal" role="dialog" aria-modal="true" aria-labelledby="ps-modal-title" aria-hidden="true">
-    <div class="dialog card">
-      <div class="chat-head">
-        <h2 id="ps-modal-title">Law Offices of Pritpal Singh — AI Assistant</h2>
-        <button class="btn link" id="close-modal" aria-label="Close">Close</button>
+  <!-- Drawer overlay for intake/stripe -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="drawer-card" role="document" aria-labelledby="drawerTitle">
+      <div class="drawer-head">
+        <div id="drawerTitle">Action</div>
+        <button class="btn" id="drawerClose">Close</button>
       </div>
-      <div class="bubble-wrap" id="modal-thread" aria-live="polite"></div>
-      <div class="composer">
-        <label for="modal-msg" class="sr-only">Your message</label>
-        <textarea id="modal-msg" placeholder="Type your question…" rows="2"></textarea>
-        <button class="btn" id="modal-send">Send</button>
-      </div>
-      <div class="legal-note">
-        General information only · California. For advice on your facts, book a consult. By continuing you consent to our <a href="/privacy" target="_blank" rel="noopener">Privacy</a>.
-      </div>
+      <div class="drawer-body" id="drawerBody"></div>
     </div>
   </div>
 
 <script>
-/** ---------- Minimal client app (no API keys in browser) ---------- **/
-const FIRM_FACTS = {
+/* ===== CONFIG ===== */
+/* IMPORTANT: For security, the browser calls your own server endpoints below.
+   Set these URLs to match your deployment (e.g., same-origin /api/*). */
+const API = {
+  chat: "/api/prit-chat",
+  schedule: "/api/schedule",
+  stripe: "/api/stripe"
+};
+
+/* Firm facts and links — update as needed */
+const FIRM = {
   name: "Law Offices of Pritpal Singh",
   site: "https://pritsinghlaw.com",
+  teamPrit: "https://pritsinghlaw.com/team/pritpal-singh",
   address: "509 13th St, Oakland, CA 94612",
-  phone: "+1 (510) 225-9220",
+  phone: "(510) 225-9220",
   email: "info@pritsinghlaw.com",
-  attorney: {
-    name: "Pritpal Singh, Esq.",
-    barNumber: "350741",
-    admission: "November 2023",
-    jd: "San Francisco Law School (2021)",
-    profileUrl: "https://pritsinghlaw.com/team/pritpal-singh"
-  },
-  consultations: {
-    freeIntro: "15-minute introductory call (no charge)",
-    paid: "60-minute consultation ($350)",
-    schedulingUrl: "https://pritsinghlaw.com/client-area/intake-form",
-    notes: "Zoom available; indicate preference when scheduling."
-  },
-  billing: {
-    primary: "LawPay secure portal",
-    alt: "Stripe by request (installments available via Affirm/Klarna)",
-    billingUrl: "https://pritsinghlaw.com/pay-my-bill"
+  payments: "https://pritsinghlaw.com/pay-my-bill",
+  booking: "", // TODO: if you have a public booking link (Calendly/OnceHub/etc.), paste it here.
+  consult: {
+    free15: "Free 15-minute consultation (phone or Zoom)",
+    paid60: "Paid 60-minute consultation ($350, in person or Zoom)"
   }
 };
 
-// Accessible helpers
-function el(tag, cls){ const x=document.createElement(tag); if(cls) x.className=cls; return x; }
-function addMessage(where, who, html){
-  const row=el('div','row '+who);
-  const avatar=el('div','avatar '+(who==='user'?'u':'')); avatar.textContent = who==='user'?'You':'PS';
-  const bubble=el('div','bubble'); bubble.innerHTML = html;
-  row.appendChild(who==='user'?bubble:avatar);
-  row.appendChild(who==='user'?avatar:bubble);
-  where.appendChild(row);
-  where.scrollTop = where.scrollHeight;
+/* Model selection is done server-side, but we pass a preferred + fallback just in case */
+const MODEL_ID_PREFERRED = "gpt-5-mini";
+const MODEL_ID_FALLBACK  = "gpt-4.1-mini";
+
+/* ===== SYSTEM PROMPT (policy-safe: show brief reasoning summary then answer) ===== */
+const SYSTEM_PROMPT = `
+You are a helpful, policy-safe virtual assistant for the Law Offices of Pritpal Singh, a California real estate law firm.
+PRIMARY GOAL: Provide general legal information (not advice) and accurate firm information.
+Always output:
+1) "Reasoning summary" – 1–4 brief bullets (public, non-sensitive).
+2) "Answer" – clear, concise (1–3 short paragraphs).
+
+CAUTION: No legal advice or outcomes. California law context only. If specific advice is requested, recommend a consultation.
+
+FIRM:
+- ${FIRM.name} (${FIRM.site})
+- Lead attorney: Pritpal Singh, Esq. – CA Bar #350741 – ${FIRM.teamPrit}
+- Office: ${FIRM.address}
+- Contact: ${FIRM.phone} · ${FIRM.email}
+- Consultations: ${FIRM.consult.free15}; ${FIRM.consult.paid60}
+- Billing: LawPay portal at ${FIRM.payments}; Stripe available upon request (never collect card numbers in chat).
+
+LANGUAGES: Offer English, Spanish, Hindi, Punjabi, Chinese, French, German.
+BOOKING: If user wants to book, collect name, email, phone, time windows & timezone, modality (phone/Zoom/in-person), and brief matter summary. Then confirm next steps.
+`;
+
+/* ===== UI helpers ===== */
+const d = (sel, root=document) => root.querySelector(sel);
+const messagesEl = d('#messages'), inputEl = d('#input'), sendBtn = d('#send');
+const modal = d('#chatModal'), openBtn = d('#openChat'), closeBtn = d('#closeChat');
+const langToggle = d('#langToggle'), toolsEl = d('#quickTools');
+const drawer = d('#drawer'), drawerBody = d('#drawerBody'), drawerTitle = d('#drawerTitle'), drawerClose = d('#drawerClose');
+const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const tzGuess = () => Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
+
+/* Page mode (embedded page) */
+if (document.body.classList.contains('page-mode')) {
+  d('.support .chat-window').hidden = false;
+} else {
+  d('.support .chat-window')?.remove();
 }
-function sanitize(s){ return s.replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function renderAssistant(payload){
-  // payload is { approach_summary:[], answer:"...", disclaimers:"...", language:string }
-  const wrap = [
-    `<div class="section-label">Approach</div>`,
-    `<div><ul>${(payload.approach_summary||[]).slice(0,3).map(p=>`<li>${sanitize(p)}</li>`).join('')}</ul></div>`,
-    `<div class="section-label">Answer</div>`,
-    `<div class="answer">${payload.answer}</div>`,
-    payload.disclaimers ? `<div class="section-label">Note</div><div>${sanitize(payload.disclaimers)}</div>` : ''
-  ].join('');
-  return wrap;
+/* Modal open/close */
+openBtn?.addEventListener('click', () => { modal.classList.add('open'); d('#messages').focus(); });
+closeBtn?.addEventListener('click', () => modal.classList.remove('open'));
+
+/* Drawer open/close */
+function openDrawer(title, html){
+  drawerTitle.textContent = title;
+  drawerBody.innerHTML = html;
+  drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false');
 }
-
-async function callAPI(userText, history, langPref){
-  const body = {
-    messages: history.concat([{role:'user', content: userText}]),
-    language: langPref || 'auto',
-    firmFacts: FIRM_FACTS
-  };
-  const res = await fetch('/api/chat', {
-    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
-  });
-  if(!res.ok){ throw new Error('Network error'); }
-  return await res.json(); // { approach_summary, answer, disclaimers, language }
+function closeDrawer(){
+  drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true');
+  drawerBody.innerHTML = "";
 }
+drawerClose.addEventListener('click', closeDrawer);
+drawer.addEventListener('click', (e)=>{ if(e.target === drawer) closeDrawer(); });
 
-function wireChat(threadEl, textareaEl, sendBtn){
-  let history = JSON.parse(localStorage.getItem('ps_history')||'[]');
-  let lang = localStorage.getItem('ps_lang') || 'auto';
-
-  // greet if empty
-  if(history.length===0){
-    addMessage(threadEl,'assistant', renderAssistant({
-      approach_summary:["Welcome the visitor","Offer language choices","Explain scope & get topic"],
-      answer: `Hi! I'm the AI assistant for the Law Offices of Pritpal Singh. I can share general information about California real estate law and firm details (consultations, billing, contact). Would you like to continue in English, Español, हिन्दी (Hindi), ਪੰਜਾਬੀ (Punjabi), 中文 (Mandarin), Français, or Deutsch?`,
-      disclaimers:"General information only; not legal advice."
-    }));
+/* Messages */
+function addMsg(role, html){
+  const wrap = document.createElement('div');
+  wrap.className = `msg ${role}`;
+  wrap.innerHTML = `<div class="role">${role === 'you' ? 'You' : 'Assistant'}</div><div class="bubble">${html}</div>`;
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addAI(text){
+  const hasSections = /Reasoning summary:/i.test(text) && /Answer:/i.test(text);
+  let html = "";
+  if(hasSections){
+    const match = text.match(/Reasoning summary:\s*([\s\S]*?)\n\s*Answer:\s*([\s\S]*)/i);
+    const rs = (match && match[1]) ? match[1] : "";
+    const ans = (match && match[2]) ? match[2] : text;
+    html = `
+      <div class="section-label">Reasoning summary</div>
+      <div class="reasoning"><div>${esc(rs).replace(/\n/g,'<br>')}</div></div>
+      <div class="section-label" style="margin-top:8px">Answer</div>
+      <div class="answer">${esc(ans).replace(/\n/g,'<br>')}</div>
+      <div class="disclaimer">This chat provides general information about California real estate law and our firm. It is not legal advice.</div>
+    `;
   } else {
-    // replay selectively
-    for(const m of history.slice(-8)){
-      addMessage(threadEl, m.role==='user'?'user':'assistant', m.role==='user'?sanitize(m.content):renderAssistant(m.payload));
-    }
+    html = `<div class="answer">${esc(text).replace(/\n/g,'<br>')}</div>
+            <div class="disclaimer">This chat provides general information about California real estate law and our firm. It is not legal advice.</div>`;
   }
-
-  async function onSend(){
-    const text = textareaEl.value.trim();
-    if(!text) return;
-    addMessage(threadEl,'user', sanitize(text));
-    textareaEl.value='';
-    try{
-      const payload = await callAPI(text, history, lang);
-      addMessage(threadEl,'assistant', renderAssistant(payload));
-      history.push({role:'user', content:text});
-      history.push({role:'assistant', payload});
-      localStorage.setItem('ps_history', JSON.stringify(history.slice(-20)));
-      if(payload.language && payload.language!=='auto'){ lang=payload.language; localStorage.setItem('ps_lang', lang); }
-    }catch(e){
-      addMessage(threadEl,'assistant', renderAssistant({
-        approach_summary:["Detect failure","Offer fallback"],
-        answer:"Sorry—I'm having trouble reaching our server right now. Please try again, or call the office at (510) 225‑9220.",
-        disclaimers:""
-      }));
-    }
-  }
-  sendBtn.addEventListener('click', onSend);
-  textareaEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); onSend(); }});
+  addMsg('ai', html);
 }
 
-(function init(){
-  // Full-page chat
-  wireChat(document.getElementById('thread'), document.getElementById('msg'), document.getElementById('send'));
-  // Quick chips
-  document.getElementById('quick').addEventListener('click', (e)=>{
-    const q = e.target?.dataset?.q; if(!q) return;
-    const t = document.getElementById('msg'); t.value = q; t.focus();
-  });
-  document.getElementById('clear').addEventListener('click', ()=>{
-    localStorage.removeItem('ps_history'); location.reload();
-  });
+/* Memory (short-lived, client-side) */
+const memory = [
+  { role: "system", content: SYSTEM_PROMPT },
+  { role: "assistant", content:
+`Reasoning summary:
+- Welcome user and offer language options; clarify scope (general info only).
+- Invite a short description of their CA real estate issue or ask if they want to book/pay.
 
-  // Modal chat: open/close + focus trap
-  const modal = document.getElementById('ps-modal');
-  const launcher = document.getElementById('launcher');
-  const openBtn = document.getElementById('open-modal');
-  const closeBtn = document.getElementById('close-modal');
+Answer:
+Hi! I’m the AI assistant for the Law Offices of Pritpal Singh. I can share general information on California real estate law, consultations, and billing. Would you like to continue in English, Español, हिंदी (Hindi), ਪੰਜਾਬੀ (Punjabi), 中文 (Chinese), Français, or Deutsch?` }
+];
 
-  function setModal(open){
-    modal.setAttribute('aria-hidden', open?'false':'true');
-    launcher.setAttribute('aria-expanded', String(open));
-    if(open) document.getElementById('modal-msg').focus();
+/* Language toggle (demo) */
+let targetLocale = "en";
+langToggle?.addEventListener('click', () => {
+  targetLocale = targetLocale === "en" ? "es" : "en";
+  langToggle.textContent = targetLocale === "en" ? "Español" : "English";
+  addAI(`Reasoning summary:
+- Switching language preference to ${targetLocale === "en" ? "English" : "Spanish"} for clarity.
+
+Answer:
+Understood. I can continue in ${targetLocale === "en" ? "English" : "Spanish"}. ¿Desea que continúe en este idioma?`);
+});
+
+/* Quick tools actions */
+toolsEl.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-action]');
+  if(!btn) return;
+  const action = btn.getAttribute('data-action');
+  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(FIRM.address)}`;
+  switch(action){
+    case 'book-free': showScheduleForm('free15'); break;
+    case 'book-paid': showScheduleForm('paid60'); break;
+    case 'pay': window.open(FIRM.payments,'_blank','noopener'); break;
+    case 'stripe': showStripeForm(); break;
+    case 'call': window.location.href = `tel:+15102259220`; break;
+    case 'email': window.location.href = `mailto:${FIRM.email}`; break;
+    case 'directions': window.open(maps,'_blank','noopener'); break;
   }
-  launcher.addEventListener('click', ()=> setModal(true));
-  openBtn.addEventListener('click', ()=> setModal(true));
-  closeBtn.addEventListener('click', ()=> setModal(false));
-  modal.addEventListener('click', (e)=>{ if(e.target===modal) setModal(false); });
-  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') setModal(false); });
+});
 
-  // Wire modal chat
-  wireChat(document.getElementById('modal-thread'), document.getElementById('modal-msg'), document.getElementById('modal-send'));
-})();
+/* Send logic */
+sendBtn.addEventListener('click', send);
+inputEl.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+
+async function send(){
+  const text = inputEl.value.trim();
+  if(!text) return;
+  addMsg('you', `<div class="answer">${esc(text)}</div>`);
+  inputEl.value = "";
+  const thinkingId = "thinking-"+Date.now();
+  addMsg('ai', `<div id="${thinkingId}" class="answer">Thinking…</div>`);
+  try{
+    const out = await chatCompletion(text);
+    d('#'+thinkingId)?.parentElement?.remove();
+    addAI(out);
+  }catch(err){
+    const node = d('#'+thinkingId);
+    if(node) node.innerHTML = `Sorry—there was a problem. (${esc(err.message)})`;
+  }
+}
+
+/* Server-proxied chat call (no API key in browser) */
+async function chatCompletion(userText){
+  const payload = {
+    modelPreferred: MODEL_ID_PREFERRED,
+    modelFallback: MODEL_ID_FALLBACK,
+    messages: [...memory, { role: "user", content: userText }],
+    temperature: 0.2
+  };
+  const res = await fetch(API.chat, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  const text = data.text || data.reply || "(No response)";
+  memory.push({ role:"user", content:userText });
+  memory.push({ role:"assistant", content:text });
+  return text;
+}
+
+/* ==== Scheduling Intake ==== */
+function showScheduleForm(kind){
+  const kindLabel = kind === 'paid60' ? `${FIRM.consult.paid60}` : `${FIRM.consult.free15}`;
+  const title = `Request Consultation — ${kind === 'paid60' ? '60 min ($350)' : '15 min (free)'}`;
+  const html = `
+    <form id="consultForm" class="grid" novalidate>
+      <input type="hidden" name="consultType" value="${kind}">
+      <div class="grid cols-2">
+        <div><label>Full name*</label><input name="name" required></div>
+        <div><label>Email*</label><input type="email" name="email" required></div>
+      </div>
+      <div class="grid cols-2">
+        <div><label>Phone</label><input name="phone" placeholder="(###) ###-####"></div>
+        <div><label>Timezone</label>
+          <input name="timezone" value="${tzGuess()}">
+          <div class="help">We’ll align times with your timezone.</div>
+        </div>
+      </div>
+      <div class="grid cols-2">
+        <div><label>Preferred modality</label>
+          <select name="modality">
+            <option value="Phone">Phone</option>
+            <option value="Zoom">Zoom</option>
+            <option value="In person">In‑person</option>
+          </select>
+        </div>
+        <div><label>Preferred time windows</label>
+          <input name="windows" placeholder="e.g., Tue/Thu 2–5pm">
+        </div>
+      </div>
+      <div>
+        <label>Brief summary of your real estate matter*</label>
+        <textarea name="summary" rows="4" required></textarea>
+      </div>
+      <div>
+        <label><input type="checkbox" name="consent" required> I understand this chat gives general information only and is not legal advice.</label>
+      </div>
+      <div class="help">Consultation selected: <b>${kindLabel}</b>. ${kind==='paid60' ? 'You’ll receive a secure payment link if confirmed.' : 'We\'ll confirm a time shortly.'}</div>
+      <div class="actions">
+        <button type="button" class="btn" id="cancelForm">Cancel</button>
+        <button class="btn primary" type="submit">Send request</button>
+      </div>
+    </form>
+  `;
+  openDrawer(title, html);
+  d('#cancelForm').addEventListener('click', closeDrawer);
+  d('#consultForm').addEventListener('submit', onSubmitConsult);
+}
+
+async function onSubmitConsult(e){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const data = Object.fromEntries(f.entries());
+  // basic validation
+  if(!data.name || !data.email || !data.summary || !f.get('consent')){
+    alert("Please complete required fields and consent."); return;
+  }
+  // If you have a public booking link, open it; otherwise, send to server/Zapier.
+  if(FIRM.booking){
+    window.open(FIRM.booking, '_blank','noopener');
+  }
+  // server call to schedule (Zapier/webhook behind the scenes)
+  try{
+    const res = await fetch(API.schedule, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ ...data, site:FIRM.site }) });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  }catch(err){
+    console.warn("Schedule error:", err);
+  }
+  closeDrawer();
+
+  // Confirm in chat
+  const human = `
+Name: ${esc(data.name)}
+Email: ${esc(data.email)} ${data.phone?`· Phone: ${esc(data.phone)}`:""}
+Consultation: ${data.consultType==='paid60'?'60 min ($350)':'15 min (free)'}
+Modality: ${esc(data.modality||'')}
+Windows: ${esc(data.windows||'')}
+Timezone: ${esc(data.timezone||'')}
+Summary: ${esc(data.summary)}
+  `.trim();
+
+  addMsg('you', `<div class="answer">Consultation request sent:<br><pre>${human}</pre></div>`);
+
+  // Nudge model to confirm next steps
+  const followup = `Please confirm receipt and next steps for this consultation request. Details:\n${human}`;
+  const out = await chatCompletion(followup);
+  addAI(out);
+}
+
+/* ==== Stripe Link Request ==== */
+function showStripeForm(){
+  const html = `
+    <form id="stripeForm" class="grid" novalidate>
+      <div class="grid cols-2">
+        <div><label>Full name*</label><input name="name" required></div>
+        <div><label>Email*</label><input type="email" name="email" required></div>
+      </div>
+      <div class="grid cols-2">
+        <div><label>Amount (optional)</label><input name="amount" inputmode="decimal" placeholder="350.00"></div>
+        <div><label>Matter / reference</label><input name="reference" placeholder="Invoice note"></div>
+      </div>
+      <div class="help">We’ll email a secure Stripe payment link. For LawPay, use the Pay Bill button.</div>
+      <div class="actions">
+        <button type="button" class="btn" id="cancelStripe">Cancel</button>
+        <button class="btn primary" type="submit">Request link</button>
+      </div>
+    </form>
+  `;
+  openDrawer("Request a Stripe payment link", html);
+  d('#cancelStripe').addEventListener('click', closeDrawer);
+  d('#stripeForm').addEventListener('submit', onSubmitStripe);
+}
+
+async function onSubmitStripe(e){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const data = Object.fromEntries(f.entries());
+  if(!data.name || !data.email){ alert("Name and email are required."); return; }
+  try{
+    const res = await fetch(API.stripe, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ ...data, site:FIRM.site }) });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  }catch(err){
+    console.warn("Stripe error:", err);
+  }
+  closeDrawer();
+  addMsg('you', `<div class="answer">Stripe link requested for ${esc(data.name)} (${esc(data.email)}). ${data.amount?`Amount: $${esc(data.amount)}`:""}</div>`);
+  const out = await chatCompletion(`Client requested a Stripe payment link. Name: ${data.name}; Email: ${data.email}; Amount: ${data.amount||'N/A'}; Ref: ${data.reference||'N/A'}. Confirm next steps politely.`);
+  addAI(out);
+}
+
+/* Kickoff greeting already in memory */
+addAI(memory[1].content);
 </script>
 </body>
 </html>
