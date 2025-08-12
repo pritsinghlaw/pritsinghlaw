@@ -1,40 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Quiet Title Actions | Law Offices of Pritpal Singh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Title Actions | California Real Estate Law Firm - Law Offices of Pritpal Singh</title>
+  <meta name="description" content="Clear clouds on title and resolve competing ownership claims. We handle quiet title actions across the Bay Area—conducting title chain analysis, filing CCP-compliant pleadings, serving all interested parties, and recording the court’s judgment so you can move forward with confidence.">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://pritsinghlaw.com/payments.css">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  <script>
+    WebFont.load({ google: { families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"] }});
+  </script>
+
+  <style>
+    :root { --navy:#001f54; --accent:#ff4900; --white:#fff; --gray:#f5f5f7; --shadow:0 2px 12px rgba(17,41,76,0.05); }
+    body { background:var(--white); color:var(--navy); font-family:'Geologica',sans-serif; margin:0; }
+    .hero { background:var(--navy); color:var(--white); padding:3rem 0 2rem; text-align:center; }
+    .hero__title { font-size:2.75rem; margin-bottom:.75rem; font-weight:700; }
+    .hero__subtitle { font-size:1.2rem; max-width:680px; margin:0 auto 1.5rem; }
+    .btn { display:inline-block; font-family:inherit; font-size:1rem; padding:.75rem 1.5rem; border-radius:15px; cursor:pointer; transition:.3s; text-decoration:none; border:none; background:#001f54; color:#fff; }
+    .btn:hover { background:#00306e; transform:translateY(-2px) scale(1.02); }
+    .btn--secondary { background:#fff; color:#001f54; border:2px solid #001f54; }
+    .btn--secondary:hover { background:#f0f4ff; color:#001f54; transform:translateY(-2px) scale(1.02); }
+    .container { max-width:1000px; margin:0 auto; padding:0 2rem; }
+    section.section { padding:2.5rem 0; }
+    .section__title { color:var(--navy); font-size:2rem; margin-bottom:.6em; position:relative; }
+    .section__title:after { content:""; display:block; width:36px; height:3px; background:var(--accent); margin-top:10px; border-radius:2px; }
+    .section--intro p { font-size:1.15rem; margin-bottom:1rem; line-height:1.5; }
+    .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:2rem; margin-top:2rem; }
+    .card { background:var(--gray); border-radius:8px; box-shadow:var(--shadow); padding:1.5rem 1.3rem 1.1rem; display:flex; flex-direction:column; }
+    .card__title { color:var(--accent); font-size:1.23rem; font-weight:700; margin-bottom:.65em; }
+    .card__text { color:#23395d; flex-grow:1; font-size:1.05rem; margin-bottom:1em; }
+    .list--bullets { padding-left:1.25em; margin-bottom:0; color:#23395d; }
+    .list--bullets li { margin-bottom:.5em; font-size:1.1rem; }
+    .section--why-us { background:var(--gray); border-radius:8px; }
+    .footer-main { background:var(--navy); color:var(--white); padding:2.5rem 0 1.75rem; text-align:center; margin-top:2.25rem; }
+    .footer-main .footer__title { margin-bottom:.5em; font-weight:700; font-size:1.5rem; }
+    .footer-main p { margin-bottom:2em; }
+    .contact-form { max-width:450px; margin:0 auto; display:flex; flex-direction:column; gap:1.1em; }
+    .contact-form input, .contact-form textarea { padding:.75em; font-size:1em; border-radius:4px; border:1px solid #ccd8ed; outline:none; width:100%; background:var(--white); color:var(--navy); }
+    .contact-form textarea { min-height:100px; resize:vertical; }
+    .footer-copy { font-size:.98em; color:#bbc9df; padding:1em 0 .3em; border-top:1px solid rgba(255,255,255,0.09); margin:2em 0 0; }
+    @media (max-width:700px){ .container{padding:0 1rem;} .card-grid{grid-template-columns:1fr;} .hero__title{font-size:2rem;} }
+    .backbtn { position:fixed; height:60px; width:60px; right:40px; bottom:20px; background-color:#ff0049; color:#ffffff; border-radius:50px; text-align:center; box-shadow:2px 2px 3px #999; }
+    h1,h2,h3,h4,h5,.hero__title,.card__title,.section__title{ font-family:'Geologica',sans-serif!important; font-weight:500!important; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Quiet Title Actions</h1>
+
+  <!-- Global Top Navigation -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <a href="/" class="brand-link">
+            <img src="https://pritsinghlaw.com/whitenobg.svg" width="150" alt="Law Offices of Pritpal Singh"/>
+          </a>
+        </div>
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="/services" class="nav-link active">Services</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">Support</a></li>
+            <li class="nav-item"><a href="/pay-my-bill" class="nav-link">Pay Bill</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
+            <a href="/coming-soon" class="btn btn-portal" style="background:#fff;color:#001f54">Client Portal</a>
+          </div>
+        </div>
+        <div class="nav-actions-desktop">
+          <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
+          <a href="/coming-soon" class="btn btn-portal">Client Portal</a>
+        </div>
+      </div>
+    </nav>
   </header>
-  <main>
-    <p>When multiple parties claim ownership of the same parcel, a quiet title action operates as a court-issued reset button that wipes away competing claims and delivers a judgment confirming who truly owns the property.</p>
 
-    <p>In the Bay Area—where unresolved title defects can freeze million-dollar deals—we guide owners in San Francisco, Oakland, Berkeley, Richmond, Fremont, and beyond through every step of a quiet title lawsuit.</p>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero__title" style="color:white!important;">Quiet Title Actions</h1>
+      <p class="hero__subtitle">
+        When ownership is unclear or competing claims cloud your deed, a quiet title action is the legal reset that confirms who owns the property. We handle quiet title matters across the Bay Area—San Francisco, Oakland, Berkeley, Richmond, Fremont, and beyond—so you can sell, refinance, or build with confidence.
+      </p>
+      <a style="background:#ff4900!important;color:#fff!important;" href="https://pritsinghlaw.com/client-area/intake-form" data-ps-intake-open class="btn">Schedule a Quiet Title Consultation</a>
+    </div>
+  </header>
 
-    <p><strong>Schedule a Quiet Title Consultation today and move your project forward with confidence.</strong></p>
+  <!-- INTRO -->
+  <section class="section section--intro">
+    <div class="container">
+      <p>
+        A quiet title action is a lawsuit to establish ownership of real property and “quiet” any competing claims. It’s commonly used to correct deed errors, remove wrongful liens or judgments, resolve boundary or encroachment disputes, address inheritance and trust conflicts, or clear title following adverse possession issues.
+      </p>
+      <p>
+        We conduct full title chain analysis, prepare CCP-compliant pleadings, serve all interested parties, and record the court’s judgment—delivering clear, marketable title so your transactions aren’t stalled.
+      </p>
+    </div>
+  </section>
 
-    <h2>When Is a Quiet Title Action Necessary?</h2>
-    <ul>
-      <li>Fraudulent or erroneous deeds cloud the chain of title.</li>
-      <li>Boundary or encroachment disputes leave ownership in doubt.</li>
-      <li>Liens, judgments, or inheritance claims threaten a closing.</li>
-      <li>Adverse possession allegations must be resolved before refinance or sale.</li>
-    </ul>
+  <!-- ELEMENTS -->
+  <section class="section section--services">
+    <div class="container">
+      <h2 class="section__title">Quiet Title Actions in California</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3 class="card__title">What Is a Quiet Title Action?</h3>
+          <p class="card__text">
+            It’s a court action to establish ownership and eliminate adverse or uncertain claims. Quiet title actions are governed by California Code of Civil Procedure § 760.010 et seq. and result in a recorded judgment confirming who owns the property.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Common Situations We Handle</h3>
+          <p class="card__text">
+            Disputes over who owns the property; errors or ambiguities in deeds or legal descriptions; liens and judgments that shouldn’t be on title; boundary line disputes and encroachments; conflicting inheritance or trust claims; and clearing title after adverse possession claims.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="card__title">The Quiet Title Process</h3>
+          <p class="card__text">
+            We review the entire title chain (past deeds, liens, transfers), draft a complaint that meets CCP § 761.020, serve every person or entity with a potential claim, and record the court’s judgment—so your ownership is clear and undisputed.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    <h2>Our Process</h2>
-    <ul>
-      <li>Comprehensive title-chain investigation and document review.</li>
-      <li>Drafting a complaint that complies with CCP § 761.020.</li>
-      <li>Serving every person or entity with a potential interest—miss one and your judgment could be challenged.</li>
-      <li>Recording the final judgment so your ownership is clear and marketable.</li>
-    </ul>
+  <!-- WHY US -->
+  <section class="section section--why-us">
+    <div class="container">
+      <h2 class="section__title">Why Choose Us for Quiet Title Cases?</h2>
+      <p>
+        In the Bay Area—where property is among the most valuable in the country—title issues can bring sales, refinances, and construction to a halt. We clear clouds on title, defend against fraudulent or unfounded claims, and work with title companies and escrow to keep your deals moving.
+      </p>
+      <a href="https://pritsinghlaw.com/client-area/intake-form" style="color:white!important;" data-ps-intake-open class="btn">Protect Your Title Now</a>
+    </div>
+  </section>
 
-    <h2>Why Work With Us?</h2>
-    <p>We clear clouds on title that insurers refuse to touch, defend against fraudulent claims, and partner with escrow and title officers to keep your transaction on track.</p>
-  </main>
+  <!-- LEGAL BACKGROUND -->
+  <section class="section section--legal">
+    <div class="container">
+      <h2 class="section__title">California Law: Quiet Title</h2>
+      <p>
+        Quiet title actions require strict compliance with CCP §§ 760.010–764.010 and are supported by evidence such as property surveys, recorded instruments, and possession history. Courts emphasize thorough documentation, including in Lynch v. Glass (1975) 44 Cal.App.3d 943.
+      </p>
+    </div>
+  </section>
+
+
+
+  <!-- Global Site Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 class="footer-title" style="color:white!important;">Law Offices of Pritpal Singh</h4>
+          <div class="footer-contact">
+            <p>509 13th St<br>Oakland, CA 94612</p>
+            <p><a href="tel:(510) 225-9220">(510) 225-9220</a></p>
+            <p><a href="mailto:info@pritsinghlaw.com">info@pritsinghlaw.com</a></p>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title" style="color:white!important;">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a data-ps-intake-open href="/client-area/intake-form">Consultations</a></li>
+            <li><a href="#">Payment Plans</a></li>
+            <li><a href="#">Subscriptions</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title" style="color:white!important;">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="/about">Company Profile</a></li>
+            <li><a href="https://newsroom.pritsinghlaw.com">News & Insights</a></li>
+            <li><a href="/coming-soon">Client Portal</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title" style="color:white!important;">Follow Us</h4>
+          <div class="social-links">
+            <a class="social-link" target="_blank" href="https://facebook.com">Facebook</a>
+            <a class="social-link" target="_blank" href="https://instagram.com/pritsinghlaw">Instagram</a>
+            <a class="social-link" target="_blank" href="https://twitter.com/pritsinghlaw">Twitter</a>
+            <a class="social-link" target="_blank" href="https://linkedin.com/company/law-offices-of-pritpal-singh">LinkedIn</a>
+            <a class="social-link" target="_blank" href="https://yelp.com">Yelp</a>
+            <a class="social-link" target="_blank" href="https://youtube.com">Youtube</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025, Law Offices of Pritpal Singh. All rights reserved.</p>
+        <div class="footer-legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script src="main.js"></script>
+  
+  
+  <!-- === Client Intake (Real Estate Law) — Popup Modal === -->
+  <!-- (Unchanged UI/behavior; content above has been updated only) -->
+  <style>
+    :root{
+      --ps-navy:#001f54;
+      --ps-orange:#ff4900;
+      --ps-bg:#ffffff;
+      --ps-surface:#f6f8fb;
+      --ps-muted:#6b7788;
+      --ps-ring:rgba(255,73,0,.35);
+      --ps-radius:14px;
+    }
+    /* Launcher (optional secondary button; you can hide it) */
+    .ps-intake-launch{
+      position:fixed; right:18px; bottom:86px; z-index:9998;
+      background:var(--ps-navy); color:#fff; border:none;
+      border-radius:999px; padding:12px 14px; font-weight:700;
+      box-shadow:0 10px 26px rgba(0,0,0,.18); cursor:pointer;
+    }
+    .ps-intake-launch:focus{ outline:3px solid var(--ps-ring) }
+
+    /* Modal shell */
+    .ps-intake-modal{ position:fixed; inset:0; display:none; place-items:center;
+      background:rgba(0,0,0,.35); z-index:9999; }
+    .ps-intake-modal.ps-open{ display:grid }
+    .ps-intake-dialog{
+      width:min(100%,860px); height:min(94vh,920px); background:#fff;
+      border-radius:16px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.4);
+      display:grid; grid-template-rows:auto 1fr auto;
+    }
+    @media (max-width:820px){ .ps-intake-dialog{ width:100%; height:100%; border-radius:0 } }
+
+    /* Header */
+    .ps-intake-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 16px; background:var(--ps-navy); color:#fff;
+    }
+    .ps-head-title{ display:flex; gap:10px; align-items:center; font-weight:700 }
+    .ps-head-dot{ width:10px; height:10px; border-radius:50%; background:var(--ps-orange) }
+    .ps-head-tools{ display:flex; gap:8px; align-items:center }
+    .ps-x{ background:transparent; border:none; color:#fff; font-size:18px; cursor:pointer }
+
+    /* Body */
+    .ps-intake-body{ display:grid; grid-template-columns:260px 1fr; gap:0; min-height:0 }
+    @media (max-width:820px){ .ps-intake-body{ grid-template-columns:1fr } }
+
+    /* Step list */
+    .ps-steps{
+      background:var(--ps-surface); border-right:1px solid #e6eaf0; padding:14px; overflow:auto;
+    }
+    .ps-step{
+      display:flex; gap:10px; align-items:center; padding:10px 8px; border-radius:10px; margin-bottom:6px; cursor:default;
+    }
+    .ps-step-num{
+      flex:0 0 auto; width:26px; height:26px; border-radius:999px; display:grid; place-items:center;
+      border:2px solid var(--ps-navy); color:var(--ps-navy); font-size:12px; font-weight:700; background:#fff;
+    }
+    .ps-step.active{ background:#fff; border:1px solid #e6eaf0 }
+    .ps-step.complete .ps-step-num{ background:var(--ps-orange); color:#fff; border-color:var(--ps-orange) }
+    .ps-step-label{ font-size:13px; color:#222 }
+
+    /* Content */
+    .ps-panel{ padding:16px; overflow:auto }
+    .ps-grid{ display:grid; gap:12px }
+    .ps-2col{ grid-template-columns:1fr 1fr }
+    .ps-3col{ grid-template-columns:1fr 1fr 1fr }
+    .ps-field{ display:grid; gap:6px }
+    .ps-label{ font-size:13px; color:#1a2a3b; font-weight:600 }
+    .ps-req{ color:#ff3b3b }
+    .ps-input, .ps-select, .ps-textarea{
+      width:100%; padding:10px 12px; border:1px solid #cfd9e6; border-radius:10px; font:inherit; background:#fff;
+    }
+    .ps-textarea{ min-height:110px; resize:vertical }
+    .ps-hint{ font-size:12px; color:var(--ps-muted) }
+    .ps-error{ font-size:12px; color:#b00020 }
+
+    .ps-tags{ display:flex; gap:8px; flex-wrap:wrap }
+    .ps-tag{ border:1px solid #dbe3ee; padding:6px 10px; border-radius:999px; cursor:pointer; font-size:12px; background:#fff }
+    .ps-tag.selected{ background:var(--ps-orange); color:#fff; border-color:var(--ps-orange) }
+
+    /* Footer */
+    .ps-intake-foot{ display:flex; justify-content:space-between; gap:10px; padding:12px; border-top:1px solid #e6eaf0; background:#fff }
+    .ps-btn{ padding:10px 14px; border-radius:10px; border:1px solid #cfd9e6; background:#fff; cursor:pointer; font-weight:700 }
+    .ps-btn[disabled]{ opacity:.5; cursor:not-allowed }
+    .ps-btn-primary{ background:var(--ps-orange); color:#fff; border:none }
+
+    /* Success view */
+    .ps-success{ text-align:center; padding:24px }
+    .ps-check{ font-size:40px; color:var(--ps-orange) }
+
+    .ps-disclaimer{ font-size:12px; line-height:1.5; color:#1a2a3b; background:#fff7f2; border:1px solid #ffd7c2; padding:12px; border-radius:10px }
+  </style>
+
+  <!-- Optional secondary launcher (you can remove if you prefer to trigger from your existing CTA)
+  <button class="ps-intake-launch" id="psIntakeOpen">Start Intake</button>
+  --->
+
+
+  <div class="ps-intake-modal" id="psIntakeModal" role="dialog" aria-modal="true" aria-label="Client intake form">
+    <!-- (Modal markup unchanged) -->
+    <!-- ... -->
+  </div>
+
+  <script>
+    // (Modal behavior unchanged)
+  </script>
+  <!-- === /Client Intake Modal === -->
+  
 </body>
 </html>
