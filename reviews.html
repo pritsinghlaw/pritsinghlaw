@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Oct 24 2023 09:01:12 GMT+0000 (Coordinated Universal Time) -->
+<!-- Reviews Page -->
 <html data-wf-domain="sterlingelysium.webflow.io" data-wf-page="649d51207bcfb13155239b27" data-wf-site="64785fe0a8b931af3b0da218">
 <head>
   <meta charset="utf-8">
   <title>Client Reviews & Feedback - Law Offices of Pritpal Singh</title>
   <meta name="description" content="We value your experience. Leave a review, share feedback, or report any problems with our website or services. Thank you for trusting the Law Offices of Pritpal Singh with your real estate matters.">
   <meta property="og:title" content="Client Reviews & Feedback - Law Offices of Pritpal Singh">
-  <meta property="og:description" content="Tell us how we did. Leave a review, share feedback, or report any issues—your input helps us improve.">
-  <meta property="og:image" content="https://pritsinghlaw.com/pritcover.png">
+  <meta property="og:description" content="Tell us how we did. Leave a star rating, share feedback, or report issues—your input helps us improve.">
+  <meta property="og:image" content="https://cdn.prod.website-files.com/64785fe0a8b931af3b0da218/649b0c387fa3267cc8c16488_Group%201-min%20(1).webp">
   <meta property="twitter:title" content="Client Reviews & Feedback - Law Offices of Pritpal Singh">
-  <meta property="twitter:description" content="Tell us how we did. Leave a review, share feedback, or report any issues—your input helps us improve.">
-  <meta property="twitter:image" content="https://pritsinghlaw.com/pritcover.png">
+  <meta property="twitter:description" content="Tell us how we did. Leave a star rating, share feedback, or report issues—your input helps us improve.">
+  <meta property="twitter:image" content="/pritcover.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -18,12 +18,13 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link rel="canonical" href="https://pritsinghlaw.com/reviews">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   <script>WebFont.load({google:{families:["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"]}});</script>
   <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
   <link href="/icon.png" rel="shortcut icon" type="image/png">
   <link href="/icon.png" rel="apple-touch-icon">
 
+  <!-- Styles (same as before, plus dropdown fix & stars) -->
   <style>
     body {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
     .header, .hero-width-home-v2 { max-width: 100% !important; overflow: hidden !important; box-sizing: border-box !important; }
@@ -68,7 +69,7 @@
     .section, .padding-section-large, .blog-component, .testimonial-component-without-images, .contact-form-component,
     .card-background, .link-card-practice-areas { opacity:1!important; transform:none!important; display:block!important; }
 
-    /* Dropdown container sizing/scroll (keep), but DO NOT force open */
+    /* Dropdown container size/scroll */
     .navbar-dropdown-list-container{
       width:fit-content!important;
       max-height:70vh!important;
@@ -76,17 +77,15 @@
       left:10px!important;
     }
 
-    /* --- Desktop dropdown visibility fix: closed by default --- */
+    /* Desktop dropdowns CLOSED by default */
     @media (min-width: 992px){
       .navbar-dropdown-list-container{display:none!important;}
       .w-dropdown.w--open .navbar-dropdown-list-container{display:block!important;}
-      /* Optional: open on hover for pointer devices */
       @media (hover: hover) and (pointer: fine){
         .navbar-menu-dropdown:hover .navbar-dropdown-list-container{display:block!important;}
       }
     }
-
-    /* --- Mobile/tablet dropdown behavior --- */
+    /* Mobile/tablet dropdown behavior */
     @media (max-width: 991px){
       .w-dropdown-list{position:absolute!important; top:100%!important; left:0!important; width:100vw!important; z-index:9999!important; display:none!important;}
       .w-dropdown.w--open .w-dropdown-list{display:block!important;}
@@ -99,7 +98,6 @@
     .star-rating input[type="radio"] { display:none; }
     .star-rating label { cursor:pointer; font-size:1.5rem; line-height:1; color:#ccd8ed; transition: transform .15s ease; }
     .star-rating label:hover { transform: translateY(-1px) scale(1.05); }
-    /* fill logic */
     .star-rating input#rating-1:checked ~ label[for="rating-1"],
     .star-rating input#rating-2:checked ~ label[for="rating-1"],
     .star-rating input#rating-2:checked ~ label[for="rating-2"],
@@ -152,7 +150,7 @@
 </div>
 
 <div class="page-wrapper">
-  <!-- NAV (unchanged structure) -->
+  <!-- NAV -->
   <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" role="banner" data-duration="400">
     <div class="container-large">
       <div class="navbar-container">
@@ -241,13 +239,13 @@
         <div class="navbar-button-wrapper">
           <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
           <a href="#" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important; font-size:9.5px!important;"><b>CLIENT PORTAL</b></a>
-          <div class="navbar-menu-button w-nav-button" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
+          <div class="navbar-menu-button w-nav-button" aria-label="menu" role="button" tabindex="0">
             <div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div>
           </div>
         </div>
       </div>
     </div>
-    <div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div>
+    <div class="w-nav-overlay" data-wf-ignore=""></div>
   </div>
 
   <main class="main-wrapper">
@@ -261,17 +259,15 @@
                 <div class="max-width-large align-center">
                   <div class="margin-bottom margin-xsmall"><div class="eyebrow">We value your experience</div></div>
                   <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Leave a Review or Share Your Feedback</h1></div>
-                  <p class="text-size-medium">Your insight helps us serve you better. Tell us how we helped with your real estate matter, leave a star rating, or report any problems with our website or services. <br><br>Thank you for trusting the Law Offices of Pritpal Singh.</p>
+                  <p class="text-size-medium">Your insight helps us serve Bay Area property owners better. Tell us how we helped with your real estate matter, leave a star rating, or report any problems with our website or services. Thank you for trusting the Law Offices of Pritpal Singh.</p>
                 </div>
-              </div><br>
+              </div>
 
               <!-- TRUSTPILOT PLACEHOLDER -->
               <div class="margin-bottom margin-large">
                 <div class="trustpilot-placeholder">
                   <strong>Trustpilot Widget Placeholder</strong>
-                  <div class="text-size-regular" style="margin-top:.5rem;">
-                    Paste your Trustpilot embed script here.
-                  </div>
+                  <div class="text-size-regular" style="margin-top:.5rem;">Paste your Trustpilot embed script here.</div>
                 </div>
               </div>
 
@@ -303,21 +299,22 @@
               <!-- SOCIAL LINKS (same as footer) -->
               <div class="spacer-medium"></div>
               <div class="w-layout-grid footer-social-list" style="justify-items:center;">
-                <!-- (links kept exactly as footer) -->
                 <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block" aria-label="Facebook"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
                 <a href="https://www.instagram.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Instagram"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
-                <a href="https://twitter.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="X"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
+                <a href="https://twitter.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="X/Twitter"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
                 <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block" aria-label="LinkedIn"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
                 <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="YouTube"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
                 <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
               </div>
 
-              <!-- REVIEW / FEEDBACK FORM (Formspree) -->
+              <!-- REVIEW / FEEDBACK FORM (Formspree with redirect) -->
               <div class="form-component w-form" style="margin-top:1.5rem;">
                 <form id="wf-form-Reviews-Form" class="contact-form _2-column-grid"
-                      action="https://formspree.io/f/mldlzbva" method="POST">
+                      action="https://formspree.io/f/xeokkzle" method="POST">
                   <input type="hidden" name="form_name" value="Reviews & Feedback (pritsinghlaw.com)">
                   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                  <!-- Server-side fallback redirect (Formspree) -->
+                  <input type="hidden" name="_redirect" value="https://pritsinghlaw.com/thank-you">
 
                   <!-- Name -->
                   <div class="form-field-wrapper">
@@ -385,6 +382,7 @@
                   </div>
                 </form>
 
+                <!-- Fallback messages (unused if redirect occurs) -->
                 <div class="success-message w-form-done" style="display:none;">
                   <div class="success-text">Thank you! Your review has been received.</div>
                 </div>
@@ -400,21 +398,15 @@
     </header>
   </main>
 
-  <!-- FOOTER (unchanged) -->
-  <footer class="footer-component">
-    <!-- ...footer content exactly as before... -->
-    <div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer-top-wrapper"><div class="footer-left-wrapper"><a href="#" class="footer-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh Law Offices logo"></a><div class="spacer-medium"></div><div class="footer-details-wrapper"><div class="text-size-small"><span class="text-weight-semibold text-color-navy">Head Office:<br></span><span class="text-weight-light text-color-navy">509 13th St, Oakland, CA 94612</span><br>&zwj;<br><span class="text-weight-semibold text-color-navy">Contact:<br></span>+<a href="tel:(510) 225-9220" class="footer-link text-weight-light">1 (510) 225-9220<br></a>info<a href="mailto:info@pritsinghlaw.com" class="footer-link text-weight-light">@pritsinghlaw.com</a></div></div>
-    <div class="spacer-medium"></div><div class="w-layout-grid footer-social-list">
-      <!-- same social links as above -->
-      <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
-      <a href="https://www.instagram.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
-      <a href="https://twitter.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
-      <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
-      <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
-      <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
-    </div></div>
-    <div class="w-layout-grid footer-menu-wrapper"><div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div><div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div><div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="/coming-soon" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div><div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div><div class="w-layout-grid footer-legal-list"><a href="/privacy" class="footer-legal-link text-color-navy">Privacy</a><a href="/terms" class="footer-legal-link text-color-navy">Terms</a><a href="/cookies" class="footer-legal-link text-color-navy">Cookies</a></div></div></div></div>
-  </footer>
+  <!-- FOOTER (same as before) -->
+  <footer class="footer-component"><div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer-top-wrapper"><div class="footer-left-wrapper"><a href="#" class="footer-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh Law Offices logo"></a><div class="spacer-medium"></div><div class="footer-details-wrapper"><div class="text-size-small"><span class="text-weight-semibold text-color-navy">Head Office:<br></span><span class="text-weight-light text-color-navy">509 13th St, Oakland, CA 94612</span><br>&zwj;<br><span class="text-weight-semibold text-color-navy">Contact:<br></span>+<a href="tel:(510) 225-9220" class="footer-link text-weight-light">1 (510) 225-9220<br></a>info<a href="mailto:info@pritsinghlaw.com" class="footer-link text-weight-light">@pritsinghlaw.com</a></div></div><div class="spacer-medium"></div><div class="w-layout-grid footer-social-list">
+    <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
+    <a href="https://www.instagram.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
+    <a href="https://twitter.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
+    <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
+    <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
+    <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
+  </div></div><div class="w-layout-grid footer-menu-wrapper"><div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div><div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div><div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="/coming-soon" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div><div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div><div class="w-layout-grid footer-legal-list"><a href="/privacy" class="footer-legal-link text-color-navy">Privacy</a><a href="/terms" class="footer-legal-link text-color-navy">Terms</a><a href="/cookies" class="footer-legal-link text-color-navy">Cookies</a></div></div></div></div></footer>
 </div>
 
 <!-- Scripts -->
@@ -432,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const dropdown = this.closest('.navbar-menu-dropdown');
         const dropdownList = dropdown.querySelector('.w-dropdown-list');
         const isOpen = dropdown.classList.contains('w--open');
-        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => { dd.classList.remove('w--open'); dd.querySelector('.w-dropdown-list').style.display = 'none'; });
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => { dd.classList.remove('w--open'); const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none'; });
         if (!isOpen) { dropdown.classList.add('w--open'); dropdownList.style.display = 'block'; }
       });
     });
@@ -443,9 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-</script>
 
-<script>
 /* Simple search demo */
 function performSearch() {
   const searchInput = document.getElementById('searchInput');
@@ -453,7 +443,7 @@ function performSearch() {
   if (term) alert('Searching for: ' + term);
 }
 
-/* Formspree AJAX submit to keep user on page */
+/* Formspree AJAX submit with JS redirect (also has server-side fallback) */
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('wf-form-Reviews-Form');
   const done = document.querySelector('.w-form-done');
@@ -470,8 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
         body: new FormData(form)
       });
       if (res.ok) {
-        form.style.display = 'none';
-        done.style.display = 'block';
+        window.location.href = 'https://pritsinghlaw.com/thank-you';
       } else {
         const data = await res.json().catch(() => ({}));
         const msg = data.errors ? data.errors.map(x => x.message).join(', ') : 'Submission failed.';
