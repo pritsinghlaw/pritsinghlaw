@@ -485,6 +485,30 @@ visibility:hidden!important;
  
 }
 
+  /* Truly hidden by default to avoid click-through when closed */
+    .navbar-menu-dropdown.w-dropdown { position: relative; }
+    .navbar-dropdown-list-container {
+      position: absolute; top: 100%; left: 0;
+      display: none !important;
+      visibility: hidden; opacity: 0;
+      pointer-events: none;
+      width: auto !important;
+      min-width: 220px;
+      background: #fff;
+      border: none !important; outline: none !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08); /* soft shadow only */
+      z-index: 10000;
+    }
+    .w-dropdown.w--open .navbar-dropdown-list-container,
+    .w-dropdown.w--open > .navbar-dropdwn-toggle + .navbar-dropdown-list-container {
+      display: block !important;
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+  
+
 /* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
 @media (min-width:768px){
   .menu-item-container{
