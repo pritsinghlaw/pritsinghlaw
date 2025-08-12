@@ -48,41 +48,106 @@
     .backbtn { position:fixed; height:60px; width:60px; right:40px; bottom:20px; background-color:#ff0049; color:#ffffff; border-radius:50px; text-align:center; box-shadow:2px 2px 3px #999; }
     h1,h2,h3,h4,h5,.hero__title,.card__title,.section__title{ font-family:'Geologica',sans-serif!important; font-weight:700!important; }
   </style>
+
+
+
+  <!---MOBILE NAVIGATION--->
+  <style>
+/* ==== Mobile drawer + hamburger ==== */
+.navbar{ background:var(--navy); color:var(--white); }
+.nav-container{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px; }
+.hamburger{ display:inline-flex; flex-direction:column; gap:5px; padding:10px; background:transparent; border:0; cursor:pointer; }
+.hamburger-line{ width:26px; height:3px; background:#fff; border-radius:2px; transition:.25s; }
+.hamburger.is-active .hamburger-line:nth-child(1){ transform:translateY(8px) rotate(45deg); }
+.hamburger.is-active .hamburger-line:nth-child(2){ opacity:0; }
+.hamburger.is-active .hamburger-line:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
+
+/* Drawer container */
+.nav-menu{
+  position:fixed; top:0; right:0; height:100vh; width:min(86vw,360px);
+  background:#fff; color:var(--navy);
+  box-shadow:-8px 0 24px rgba(0,0,0,.18);
+  transform:translateX(100%); transition:transform .3s ease;
+  z-index:1001; display:flex; flex-direction:column; padding:24px 18px 28px;
+}
+.nav-menu.open{ transform:translateX(0); }
+.drawer-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:1000;
+}
+.drawer-overlay.show{ opacity:1; pointer-events:auto; }
+.no-scroll{ overflow:hidden; }
+
+.nav-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+.nav-item .nav-link{ color:var(--navy); text-decoration:none; font-weight:600; padding:10px 8px; display:block; border-radius:8px; }
+.nav-item .nav-link:hover{ background:var(--gray); }
+.nav-divider{ height:1px; background:#e6eaf0; margin:16px 0; }
+.nav-actions{ margin-top:8px; display:flex; flex-direction:column; gap:12px; }
+.phone-link,.email-link{ color:var(--navy); text-decoration:none; font-weight:600; }
+.email-link{ font-weight:500; }
+
+/* Desktop layout */
+.nav-actions-desktop{ display:none; gap:12px; align-items:center; }
+@media (min-width:900px){
+  .nav-menu{
+    position:static; height:auto; width:auto; transform:none; box-shadow:none; background:transparent;
+    flex-direction:row; align-items:center; gap:18px; padding:0;
+  }
+  .nav-list{ flex-direction:row; gap:18px; }
+  .nav-item .nav-link{ color:#fff; padding:6px 8px; }
+  .nav-actions{ display:none; }
+  .nav-actions-desktop{ display:flex; }
+  .hamburger{ display:none; }
+}
+
+/* Alias to match requested class name */
+.btn-secondary{ background:#fff; color:#001f54; border:2px solid #001f54; }
+.btn-secondary:hover{ background:#f0f4ff; color:#001f54; }
+
+    
 </head>
 <body>
 
-  <!-- Global Top Navigation -->
-  <header class="header">
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <a href="/" class="brand-link">
-            <img src="https://pritsinghlaw.com/whitenobg.svg" width="150" alt="Law Offices of Pritpal Singh"/>
-          </a>
-        </div>
-        <div class="nav-menu" id="nav-menu">
-          <ul class="nav-list">
-            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="/services" class="nav-link active">Services</a></li>
-            <li class="nav-item"><a href="/contact" class="nav-link">Support</a></li>
-            <li class="nav-item"><a href="/pay-my-bill" class="nav-link">Pay Bill</a></li>
-          </ul>
-          <div class="nav-actions">
-            <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
-            <a href="/coming-soon" class="btn btn-portal" style="background:#fff;color:#001f54">Client Portal</a>
-          </div>
-        </div>
-        <div class="nav-actions-desktop">
-          <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
-          <a href="/coming-soon" class="btn btn-portal btn--secondary">Get Started</a>
-        </div>
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-          <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
-        </button>
+ <!-- Global Top Navigation -->
+<header class="header">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="/" class="brand-link">
+          <img src="https://pritsinghlaw.com/whitenobg.svg" width="150" alt="Law Offices of Pritpal Singh"/>
+        </a>
       </div>
-    </nav>
-  </header>
+
+      <!-- Drawer / menu -->
+      <div class="nav-menu" id="nav-menu" aria-hidden="true">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="/services" class="nav-link">Practice Areas</a></li>
+          <li class="nav-item"><a href="/pay-my-bill" class="nav-link">Pay My Bill</a></li>
+          <li class="nav-item"><a href="/contact" class="nav-link">Get In Touch</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="/coming-soon" class="btn btn-portal btn-secondary">Client Portal</a>
+          <div class="nav-divider"></div>
+          <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
+          <a href="mailto:info@pritsinghlaw.com" class="email-link">info@pritsinghlaw.com</a>
+        </div>
+      </div>
+
+      <!-- Desktop-only actions -->
+      <div class="nav-actions-desktop">
+        <a href="tel:(510) 225-9220" class="phone-link" style="color:#fff">(510) 225-9220</a>
+        <a href="/coming-soon" class="btn btn-portal btn--secondary">Client Portal</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false">
+        <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+</header>
 
   <!-- HERO -->
   <header class="hero">
@@ -207,6 +272,53 @@
 
 
 
+    <!---MOBILE NAVIGATION SNIPPET--->
+
+<script>
+(() => {
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('nav-menu');
+
+  // Create a reusable overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'drawer-overlay';
+  overlay.className = 'drawer-overlay';
+  document.body.appendChild(overlay);
+
+  function openDrawer(){
+    menu.classList.add('open');
+    hamburger.classList.add('is-active');
+    overlay.classList.add('show');
+    hamburger.setAttribute('aria-expanded','true');
+    menu.setAttribute('aria-hidden','false');
+    document.body.classList.add('no-scroll');
+  }
+  function closeDrawer(){
+    menu.classList.remove('open');
+    hamburger.classList.remove('is-active');
+    overlay.classList.remove('show');
+    hamburger.setAttribute('aria-expanded','false');
+    menu.setAttribute('aria-hidden','true');
+    document.body.classList.remove('no-scroll');
+  }
+  function toggleDrawer(){
+    menu.classList.contains('open') ? closeDrawer() : openDrawer();
+  }
+
+  hamburger.addEventListener('click', toggleDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDrawer(); });
+
+  // Close when any link/button inside the drawer is clicked
+  menu.addEventListener('click', (e) => {
+    const a = e.target.closest('a, button');
+    if(a) closeDrawer();
+  });
+})();
+</script>
+
+
+    
   <script src="main.js"></script>
   
   
