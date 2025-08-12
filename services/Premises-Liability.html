@@ -1,337 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Premises Liability Defense | California Real Estate - Law Offices of Pritpal Singh</title>
-  <link rel="stylesheet" href="styles.css" />
-  
-  
-
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    WebFont.load({
-      google: { families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"] }
-    });
-  </script>
-
-<style>
-    :root {
-      --navy: #001f54;
-      --accent: #ff4900;
-      --white: #fff;
-      --gray: #f5f5f7;
-      --shadow: 0 2px 12px rgba(17,41,76,0.05);
-    }
-
-    body {
-      background: var(--white);
-      color: var(--navy);
-      font-family: 'Geologica', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .header-bar {
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      box-shadow: var(--shadow);
-      padding: 1rem 0;
-    }
-    .logo {
-      height: 48px;
-      margin-left: 2rem;
-      margin-right: 1.5rem;
-      padding:15px;
-    }
-    .breadcrumbs {
-      font-size: 1rem;
-      color: #5a6982;
-      margin: 0;
-    }
-    .breadcrumbs a {
-      color: var(--navy);
-      text-decoration: none;
-    }
-    .breadcrumbs a:hover {
-      text-decoration: underline;
-      color: var(--accent);
-    }
-    .hero {
-      background: var(--navy);
-      color: var(--white);
-      padding: 3rem 0 2rem;
-      text-align: center;
-    }
-    .hero__title {
-      font-size: 2.75rem;
-      margin-bottom: 0.75rem;
-      font-weight: 700;
-    }
-    .hero__subtitle {
-      font-size: 1.2rem;
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
-    }
-    .btn {
-      display: inline-block;
-      font-family: inherit;
-      font-size: 1rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 15px; /* Rounded corners */
-      cursor: pointer;
-      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
-      text-decoration: none;
-      border: none;
-      background: #001f54; /* Navy blue */
-      color: #ffffff;
-      border: none;
-    }
-    .btn--secondary {
-      background: #ffffff;
-      color: #001f54;
-      border: 2px solid #001f54;
-    }
-    .btn--secondary:hover {
-      background: #f0f4ff;
-      color: #001f54;
-      transform: translateY(-2px) scale(1.02);
-    }
-    .btn:hover {
-      background: #00306e; /* Slightly lighter navy */
-      transform: translateY(-2px) scale(1.02);
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    section.section {
-      padding: 2.5rem 0;
-    }
-    .section__title {
-      color: var(--navy);
-      font-size: 2rem;
-      margin-bottom: 0.6em;
-      position: relative;
-    }
-    .section__title:after {
-      content: "";
-      display: block;
-      width: 36px;
-      height: 3px;
-      background: var(--accent);
-      margin-top: 10px;
-      border-radius: 2px;
-    }
-    .section--intro p {
-      font-size: 1.15rem;
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .card {
-      background: var(--gray);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 1.5rem 1.3rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card__title {
-      color: var(--accent);
-      font-size: 1.23rem;
-      font-weight: bold;
-      margin-bottom: 0.65em;
-    }
-    .card__text {
-      color: #23395d;
-      flex-grow: 1;
-      font-size: 1.05rem;
-      margin-bottom: 1em;
-    }
-    .list--bullets {
-      padding-left: 1.25em;
-      margin-bottom: 0;
-      color: #23395d;
-    }
-    .list--bullets li {
-      margin-bottom: 0.5em;
-      font-size: 1.1rem;
-    }
-    .section--why-us {
-      background: var(--gray);
-      border-radius: 8px;
-    }
-    .footer-main {
-      background: var(--navy);
-      color: var(--white);
-      padding: 2.5rem 0 1.75rem;
-      text-align: center;
-      margin-top: 2.25rem;
-    }
-    .footer-main .footer__title {
-      margin-bottom: 0.5em;
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-    .footer-main p {
-      margin-bottom: 2em;
-    }
-    .contact-form {
-      max-width: 450px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.1em;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      padding: 0.75em;
-      font-size: 1em;
-      border-radius: 4px;
-      border: 1px solid #ccd8ed;
-      outline: none;
-      width: 100%;
-      background: var(--white);
-      color: var(--navy);
-    }
-    .contact-form textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-    .footer-copy {
-      font-size: 0.98em;
-      color: #bbc9df;
-      padding: 1em 0 0.3em;
-      border-top: 1px solid rgba(255,255,255,0.09);
-      margin: 2em 0 0;
-    }
-    @media (max-width: 700px) {
-      .container { padding: 0 1rem; }
-      .card-grid { grid-template-columns: 1fr; }
-      .header-bar { flex-direction: column; }
-      .hero__title { font-size: 2rem; }
-    }
-
-    .backbtn {
-      position: fixed;
-      height:60px;
-      width:60px;
-      right: 40px;
-      bottom: 20px;
-      background-color:#ff0049;
-      color:#ffffff;
-      border-radius:50px;
-      text-align:center;
-      box-shadow: 2px 2px 3px #999;
-    }
-
-    h1, h2, h3, h4, h5, .hero__title, .card__title, .section__title {
-      font-family: 'Geologica', sans-serif !important;
-      font-weight: 500 !important;
-    }
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premises Liability Defense | California Real Estate Law Firm - Law Offices of Pritpal Singh</title>
+  <link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="https://pritsinghlaw.com/payments.css">
+  <link href="https://fonts.googleapis.com" rel="preconnect"><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  <script>WebFont.load({google:{families:["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"]}});</script>
+  <style>
+    :root{--navy:#001f54;--accent:#ff4900;--white:#fff;--gray:#f5f5f7;--shadow:0 2px 12px rgba(17,41,76,.05)}
+    body{background:var(--white);color:var(--navy);font-family:'Geologica',sans-serif;margin:0}
+    .hero{background:var(--navy);color:#fff;text-align:center;padding:3rem 0 2rem}
+    .hero__title{font-size:2.75rem;margin:0 0 .75rem;font-weight:700}
+    .hero__subtitle{font-size:1.2rem;max-width:680px;margin:0 auto 1.5rem}
+    .btn{display:inline-block;font:inherit;font-size:1rem;padding:.75rem 1.5rem;border-radius:15px;cursor:pointer;transition:.2s;text-decoration:none;border:none;background:#001f54;color:#fff}
+    .btn:hover{background:#00306e;transform:translateY(-2px) scale(1.02)}
+    .btn--secondary{background:#fff;color:#001f54;border:2px solid #001f54}
+    .btn--secondary:hover{background:#f0f4ff;color:#001f54;transform:translateY(-2px) scale(1.02)}
+    .container{max-width:1000px;margin:0 auto;padding:0 2rem}
+    section.section{padding:2.5rem 0}
+    .section__title{color:var(--navy);font-size:2rem;margin:0 0 .6em;position:relative}
+    .section__title:after{content:"";display:block;width:36px;height:3px;background:var(--accent);margin-top:10px;border-radius:2px}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem;margin-top:2rem}
+    .card{background:var(--gray);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem 1.3rem 1.1rem;display:flex;flex-direction:column}
+    .card__title{color:var(--accent);font-size:1.23rem;font-weight:700;margin:0 0 .65em}
+    .card__text{color:#23395d;flex-grow:1;font-size:1.05rem;margin:0 0 1em}
+    .footer-main{background:var(--navy);color:#fff;text-align:center;padding:2.5rem 0 1.75rem;margin-top:2.25rem}
+    .footer-copy{font-size:.98em;color:#bbc9df;padding:1em 0 .3em;border-top:1px solid rgba(255,255,255,.09);margin:2em 0 0}
+    @media(max-width:700px){.container{padding:0 1rem}.hero__title{font-size:2rem}.card-grid{grid-template-columns:1fr}}
+    .backbtn{position:fixed;height:60px;width:60px;right:40px;bottom:20px;background-color:#ff0049;color:#fff;border-radius:50px;text-align:center;box-shadow:2px 2px 3px #999}
+    h1,h2,h3,h4,h5,.hero__title,.card__title,.section__title{font-family:'Geologica',sans-serif!important;font-weight:500!important}
   </style>
-
 </head>
 <body>
-  <div class="header-bar">
-    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="California Real Estate Attorneys logo" />
-    <nav aria-label="breadcrumb">
-      <span class="breadcrumbs">
-        <a href="/">Home</a> &gt;
-        <a href="/services">Services</a> &gt;
-        <span style="color:var(--accent);font-weight:600;">Premises Liability</span>
-      </span>
-    </nav>
-  </div>
+
+  <!-- Global Top Navigation -->
+  <header class="header">
+    <nav class="navbar"><div class="nav-container">
+      <div class="nav-brand"><a href="/" class="brand-link"><img src="https://pritsinghlaw.com/whitenobg.svg" width="150" alt="Law Offices of Pritpal Singh"/></a></div>
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="/services" class="nav-link active">Services</a></li>
+          <li class="nav-item"><a href="/contact" class="nav-link">Support</a></li>
+          <li class="nav-item"><a href="/pay-my-bill" class="nav-link">Pay Bill</a></li>
+        </ul>
+        <div class="nav-actions"><a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a><a href="/coming-soon" class="btn btn-portal" style="background:#fff;color:#001f54">Client Portal</a></div>
+      </div>
+      <div class="nav-actions-desktop"><a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a><a href="/coming-soon" class="btn btn-portal">Client Portal</a></div>
+     <!-- <button class="hamburger" id="hamburger" aria-label="Toggle navigation"><span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span></button>--->
+    </div></nav>
+  </header>
+
+  <!-- HERO -->
   <header class="hero">
     <div class="container">
-      <h1 class="hero__title">Premises Liability Defense</h1>
-      <p class="hero__subtitle">
-        Accidents happen, but that doesn’t make you liable. In California’s tenant-friendly legal climate, landlords and property owners face relentless claims over slips, trips, and alleged unsafe conditions. Our firm defends California property owners, fighting for fair outcomes and protecting your investment.
-      </p>
-      <a href="#contact" class="btn" style="background:#ff4900!important; color:#fff!important;">Request a Free Defense Consultation</a>
+      <h1 class="hero__title" style="color:white!important;">Premises Liability Defense</h1>
+      <p class="hero__subtitle">Protect your property and your bottom line. We defend owners, landlords, and managers across the state of California against inflated or meritless injury claims.</p>
+      <a href="https://pritsinghlaw.com/client-area/intake-form" class="btn" style="background:#ff4900!important;color:#fff!important;">Get Defense Help</a>
     </div>
   </header>
-  <section class="section section--intro">
-    <div class="container">
-      <p>
-        California Civil Code § 1714 sets a duty of care for property owners, but not every accident is your fault. We defend against exaggerated and fraudulent claims, investigate quickly, and build the evidence you need to avoid unfair liability.
-      </p>
-      <p>
-        Don’t wait for a lawsuit to spiral—schedule a consultation now and let us take the pressure off your shoulders.
-      </p>
+
+  <!-- INTRO -->
+  <section class="section section--intro"><div class="container">
+    <p>Slip-and-falls, inadequate security, and hazardous condition claims can escalate quickly. We move fast to preserve evidence, evaluate exposure, and pursue dismissals or favorable settlements.</p>
+    <p>Our team blends practical investigation with sharp courtroom strategy to resolve claims efficiently.</p>
+  </div></section>
+
+  <!-- SERVICES -->
+  <section class="section section--services"><div class="container">
+    <h2 class="section__title">How We Defend Your Case</h2>
+    <div class="card-grid">
+      <article class="card"><h3 class="card__title">Early Investigation</h3><p class="card__text">Scene inspections, video preservation, incident reports, and expert analysis.</p><a href="https://pritsinghlaw.com/client-area/intake-form" class="btn btn--secondary">Start an investigation</a></article>
+      <article class="card"><h3 class="card__title">Aggressive Motion Practice</h3><p class="card__text">Challenge causation, notice, and damages with targeted motions.</p><a href="https://pritsinghlaw.com/client-area/intake-form" class="btn btn--secondary">Discuss motion strategy</a></article>
+      <article class="card"><h3 class="card__title">Risk-Focused Resolution</h3><p class="card__text">Demand letters, mediation, or trial—whatever protects your interests best.</p><a href="https://pritsinghlaw.com/client-area/intake-form" class="btn btn--secondary">Explore resolution options</a></article>
     </div>
-  </section>
-  <section class="section section--services">
-    <div class="container">
-      <h2 class="section__title">Common Premises Liability Claims We Defend</h2>
-      <div class="card-grid">
-        <article class="card">
-          <h3 class="card__title">Slip-and-Fall & Trip Hazards</h3>
-          <p class="card__text">
-            Wet floors, broken steps, or poor lighting can lead to claims. We challenge false allegations and prove when tenants’ own negligence caused the injury.
-          </p>
-          <a href="#contact" class="btn btn--secondary">Defend a slip-and-fall claim</a>
-        </article>
-        <article class="card">
-          <h3 class="card__title">Habitability & Building Code Disputes</h3>
-          <p class="card__text">
-            Tenants often allege building code violations or unsafe conditions. We work with experts to prove compliance and defeat exaggerated claims.
-          </p>
-          <a href="#contact" class="btn btn--secondary">Fight a habitability claim</a>
-        </article>
-        <article class="card">
-          <h3 class="card__title">Negligent Security & Other Accusations</h3>
-          <p class="card__text">
-            From assault to theft claims, we defend you against allegations that poor security caused harm—ensuring the law is applied fairly.
-          </p>
-          <a href="#contact" class="btn btn--secondary">Get legal protection now</a>
-        </article>
+  </div></section>
+
+  <!-- WHY US -->
+  <section class="section section--why-us"><div class="container">
+    <h2 class="section__title">Why Choose Us</h2>
+    <p>We treat every claim like it could go to trial—building leverage for a strong outcome at every stage.</p>
+    <a href="https://pritsinghlaw.com/client-area/intake-form" class="btn">Talk to a Defense Attorney</a>
+  </div></section>
+
+  <!-- CTA (kept as SECTION) -->
+  <section id="contact" class="footer-main"><div class="container">
+    <h2 class="footer__title">Schedule Your Consultation</h2>
+    <p>Need experienced premises liability defense? We’re ready.</p>
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Name" required/>
+      <input type="email" name="email" placeholder="Email" required/>
+      <input type="tel" name="phone" placeholder="Phone"/>
+      <textarea name="message" placeholder="Tell us about the claim"></textarea>
+    </form>
+    <div class="footer-copy">© 2025 Law Offices of Pritpal Singh</div>
+  </div></section>
+
+  <!-- Global Footer -->
+  <footer class="footer"><div class="container">
+    <div class="footer-content">
+      <div class="footer-section"><h4 class="footer-title" style="color:white!important;">Law Offices of Pritpal Singh</h4>
+        <div class="footer-contact"><p>509 13th St<br>Oakland, CA 94612</p><p><a href="tel:(510) 225-9220">(510) 225-9220</a></p><p><a href="mailto:info@pritsinghlaw.com">info@pritsinghlaw.com</a></p></div>
+      </div>
+      <div class="footer-section"><h4 class="footer-title" style="color:white!important;">Services</h4>
+        <ul class="footer-links"><li><a href="/services/client-">Consultations</a></li><li><a href="#">Payment Plans</a></li><li><a href="#">Subscriptions</a></li><li><a href="#">LegalTech</a></li></ul>
+      </div>
+      <div class="footer-section"><h4 class="footer-title" style="color:white!important;">Resources</h4>
+        <ul class="footer-links"><li><a href="/about">Company Profile</a></li><li><a href="/blog">News & Insights</a></li><li><a href="/client-portal">Client Portal</a></li></ul>
+      </div>
+      <div class="footer-section"><h4 class="footer-title" style="color:white!important;">Follow Us</h4>
+        <div class="social-links"><a class="social-link" target="_blank" href="https://facebook.com">Facebook</a><a class="social-link" target="_blank" href="https://instagram.com">Instagram</a><a class="social-link" target="_blank" href="https://twitter.com">Twitter</a><a class="social-link" target="_blank" href="https://linkedin.com/company/law-offices-of-pritpal-singh">LinkedIn</a></div>
       </div>
     </div>
-  </section>
-  <section class="section section--why-us">
-    <div class="container">
-      <h2 class="section__title">Why Choose Us for Premises Liability Defense?</h2>
-      <p>
-        We know California courts and tenant ordinances inside out. Our team investigates immediately, negotiates assertively, and litigates when needed. You get more than a defense—you get peace of mind.
-      </p>
-      <a href="#contact" class="btn">Book Your Defense Strategy Session</a>
+    <div class="footer-bottom"><p>&copy; 2025, Law Offices of Pritpal Singh. All rights reserved.</p>
+      <div class="footer-legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
     </div>
-  </section>
-  <footer id="contact" class="footer-main">
-    <div class="container">
-      <h2 class="footer__title">Schedule Your Consultation</h2>
-      <p>
-        Being sued? Don’t delay—fill out the form or call our defense team today.
-      </p>
-      <form class="contact-form">
-        <input type="text" name="name" placeholder="Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="tel" name="phone" placeholder="Phone" />
-        <textarea name="message" placeholder="Describe your liability issue"></textarea>
-        <button type="submit" class="btn">Submit</button>
-      </form>
-    </div>
-    <div class="footer-copy">
-      &copy; 2025 California Real Estate Attorneys. All rights reserved.
-    </div>
-  </footer>
-  <script src="main.js"></script>
+  </div></footer>
 
-<button class="backbtn" onclick="history.back(-1)"><img width="34" height="34" src="https://img.icons8.com/material-outlined/48/rewind.png" alt="rewind"/></button>
+  <button class="backbtn" onclick="history.back(-1)"><img width="34" height="34" src="https://img.icons8.com/material-outlined/48/rewind.png" alt="rewind"/></button>
+  <script src="main.js"></script>
 </body>
 </html>
