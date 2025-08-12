@@ -1413,5 +1413,146 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+
+
+<!-- === Pritpal Singh AI Assistant (Popup) === -->
+<style>
+  :root{
+    --ps-navy:#001f54;
+    --ps-orange:#ff4900;
+    --ps-bg:#ffffff;
+    --ps-surface:#f6f8fb;
+    --ps-muted:#5c6b7d;
+  }
+  .ps-chat-launch{
+    position:fixed; right:18px; bottom:18px; z-index:9998;
+    background:var(--ps-orange); color:#fff; border:none;
+    border-radius:999px; padding:14px 16px; font-weight:700;
+    box-shadow:0 12px 30px rgba(0,0,0,.18); cursor:pointer;
+  }
+  .ps-chat-launch:focus{ outline:3px solid rgba(255,73,0,.35) }
+
+  .ps-modal{ position:fixed; inset:0; display:none; place-items:center;
+    background:rgba(0,0,0,.3); z-index:9999; }
+  .ps-modal.ps-open{ display:grid }
+
+  .ps-dialog{
+    width:min(100%,720px); height:min(90vh,800px);
+    background:#fff; border-radius:16px; overflow:hidden;
+    box-shadow:0 28px 80px rgba(0,0,0,.35);
+  }
+  @media (max-width:740px){ .ps-dialog{ width:100%; height:100%; border-radius:0 } }
+
+  .ps-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 14px; background:var(--ps-navy); color:#fff;
+  }
+  .ps-title{ display:flex; align-items:center; gap:10px; font-weight:700 }
+  .ps-dot{ width:10px; height:10px; border-radius:50%; background:var(--ps-orange) }
+
+  .ps-tools{ display:flex; gap:8px; align-items:center }
+  .ps-pill{ background:#fff; color:var(--ps-navy); border:1px solid #e3e8f2;
+    border-radius:999px; padding:6px 10px; font-size:12px; cursor:pointer }
+  .ps-x{ background:transparent; border:none; color:#fff; font-size:18px; cursor:pointer }
+
+  .ps-msgs{ padding:16px; overflow:auto; background:var(--ps-surface); height:calc(100% - 120px) }
+  .ps-msg{ margin:0 0 12px }
+  .ps-role{ font-size:12px; color:var(--ps-muted); margin-bottom:4px }
+  .ps-bubble{ background:#fff; border:1px solid #e4e9f2; border-left:4px solid var(--ps-orange);
+    padding:12px 14px; border-radius:12px; }
+
+  .ps-input{ display:grid; grid-template-columns:1fr auto; gap:10px;
+    padding:12px; border-top:1px solid #e6eaf0; background:#fff }
+  .ps-input textarea{ resize:none; min-height:48px; max-height:120px;
+    padding:12px; border:1px solid #cfd9e6; border-radius:10px; font:inherit }
+  .ps-send{ background:var(--ps-orange); color:#fff; border:none; border-radius:10px; padding:12px 16px; font-weight:700; cursor:pointer }
+
+  .ps-note{ font-size:12px; color:#6b7788; margin-top:8px }
+</style>
+
+<button class="ps-chat-launch" id="psOpenChat" aria-haspopup="dialog" aria-controls="psChatModal">Chat with us</button>
+
+<div class="ps-modal" id="psChatModal" role="dialog" aria-modal="true" aria-label="AI legal assistant">
+  <div class="ps-dialog">
+    <div class="ps-head">
+      <div class="ps-title"><span class="ps-dot" aria-hidden="true"></span> Law Offices of Pritpal Singh</div>
+      <div class="ps-tools">
+        <button class="ps-pill" id="psLang">Español</button>
+        <button class="ps-x" id="psClose">✕</button>
+      </div>
+    </div>
+    <div class="ps-msgs" id="psMessages" tabindex="0" aria-live="polite"></div>
+    <div class="ps-input">
+      <textarea id="psInput" placeholder="Ask about California real estate law, consultations, or billing…"></textarea>
+      <button id="psSend" class="ps-send">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const openBtn = document.getElementById('psOpenChat');
+  const closeBtn = document.getElementById('psClose');
+  const modal   = document.getElementById('psChatModal');
+  const msgsEl  = document.getElementById('psMessages');
+  const inputEl = document.getElementById('psInput');
+  const sendBtn = document.getElementById('psSend');
+  const langBtn = document.getElementById('psLang');
+
+  let locale = 'en';
+
+  function addMsg(role, html){
+    const wrap = document.createElement('div');
+    wrap.className = 'ps-msg';
+    wrap.innerHTML = `<div class="ps-role">${role === 'user' ? 'You' : 'Assistant'}</div>
+                      <div class="ps-bubble">${html}</div>`;
+    msgsEl.appendChild(wrap);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+  const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+  openBtn?.addEventListener('click', () => { modal.classList.add('ps-open'); msgsEl.focus(); if(!msgsEl.dataset.greeted){ addMsg('assistant',
+    `Reasoning summary:<br>- Welcome user, explain scope (general info only).<br>- Offer languages.<br><br><b>Answer:</b><br>Hello! I’m the AI assistant for the Law Offices of Pritpal Singh. I can share general information on California real estate law, consultations, and billing. Would you like to continue in English, Español, हिंदी (Hindi), ਪੰਜਾਬੀ (Punjabi), 中文 (Chinese), Français, or Deutsch? <div class="ps-note">This chat provides general info only and isn’t legal advice.</div>`
+  ); msgsEl.dataset.greeted = '1'; } });
+  closeBtn?.addEventListener('click', () => modal.classList.remove('ps-open'));
+
+  langBtn?.addEventListener('click', () => {
+    locale = (locale === 'en') ? 'es' : 'en';
+    langBtn.textContent = (locale === 'en') ? 'Español' : 'English';
+    addMsg('assistant', `Reasoning summary:<br>- Switch language to ${locale === 'en' ? 'English' : 'Spanish'} for clarity.<br><br><b>Answer:</b><br>Okay — I can continue in ${locale === 'en' ? 'English' : 'Español'}. ¿Desea continuar en este idioma?`);
+  });
+
+  sendBtn.addEventListener('click', send);
+  inputEl.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+
+  async function send(){
+    const text = inputEl.value.trim();
+    if(!text) return;
+    addMsg('user', esc(text));
+    inputEl.value = '';
+    const id = 'ps-thinking-'+Date.now();
+    addMsg('assistant', `<span id="${id}">Thinking…</span>`);
+
+    try{
+      // Call your secure backend (you’ll create /api/openai-chat below)
+      const r = await fetch('/api/openai-chat', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ user_text: text, locale })
+      });
+      if(!r.ok) throw new Error(await r.text());
+      const data = await r.json();
+      document.getElementById(id).parentElement.innerHTML = data.html || esc(data.text);
+    }catch(e){
+      document.getElementById(id).innerText = 'Sorry — there was a problem reaching the model.';
+    }
+  }
+})();
+</script>
+<!-- === /AI Assistant === -->
+
+  
+  
 </body>
 </html>
