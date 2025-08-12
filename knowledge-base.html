@@ -1,377 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge Center | Law Offices of Pritpal Singh - California Real Estate Law</title>
-    <meta name="description" content="Comprehensive knowledge center for California real estate law. Expert legal guidance from the Law Offices of Pritpal Singh.">
-    <meta name="keywords" content="California law knowledge, legal resources CA, law guides California, legal information, attorney insights California">
-<link rel="canonical" href="https://pritsinghlaw.com/knowledge-base">
-    
-    
-    <link rel="stylesheet" href="https://pritsinghlaw.com/styles.css">
-    <style>
-      :root {
-        --color-navy: #00205B;
-        --color-orange: #F37021;
-        --text-light: #ffffff;
-        --text-dark: #333333;
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knowledge Center | Law Offices of Pritpal Singh - California Real Estate Law</title>
+  <meta name="description" content="Comprehensive knowledge center for California real estate law. Expert legal guidance from the Law Offices of Pritpal Singh.">
+  <meta name="keywords" content="California law knowledge, legal resources CA, law guides California, legal information, attorney insights California">
+  <link rel="canonical" href="https://pritsinghlaw.com/knowledge-base">
 
-      /* Header & Footer */
-      .header, .footer {
-        background-color: #00205B;
-        color: #ffffff;
-      }
+  <link rel="stylesheet" href="https://pritsinghlaw.com/styles.css">
 
-      /* Navigation links */
-      .nav__link {
-        color: var(--text-light);
-      }
-      .nav__link:hover {
-        color: var(--color-orange);
-      }
+  <style>
+    /* === Brand System === */
+    :root{
+      --navy: #001f54;          /* primary navy */
+      --navy-80: #16335f;       /* slightly lighter for hover/alt */
+      --navy-10: #e6ecf5;       /* pale background chips */
+      --orange: #ff4900;        /* primary orange */
+      --orange-80: #ff6a2f;     /* hover/alt */
+      --orange-10: #ffefe8;     /* pale background chips */
+      --text: #1f2937;          /* neutral dark text */
+      --muted: #6b7280;         /* muted text */
+      --bg: #ffffff;            /* page background */
+      --border: #e5e7eb;        /* light border */
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --info: var(--navy);
+      --focus: #94c6ff;         /* visible focus ring */
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,.06);
+    }
 
-      /* Section titles */
-      .section__title, .section__header h2 {
-        color: var(--color-navy);
-      }
+    html,body{background:var(--bg); color:var(--text);}
+    img{max-width:100%; height:auto;}
 
-      /* Primary buttons */
-      .btn--primary, .btn--primary.btn--full-width {
-        background-color: var(--color-orange);
-        border-color: var(--color-orange);
-        color: #ffffff;
-      }
-      .btn--primary:hover {
-        opacity: 0.9;
-      }
+    /* Header & Footer */
+    .header,.footer{background:var(--navy); color:#fff;}
+    .nav__link{color:#fff; transition:color .2s ease}
+    .nav__link:hover{color:var(--orange)}
+    .logo img{display:block}
 
-      /* Outline buttons */
-      .btn--outline, .search-btn {
-        border: 2px solid var(--color-orange);
-        color: var(--color-orange);
-      }
-      .btn--outline:hover, .search-btn:hover {
-        background-color: var(--color-orange);
-        color: var(--text-light);
-      }
+    /* Sections & headings */
+    .section{padding: clamp(2rem, 4vw, 4rem) 0;}
+    .section__title,.section__header h2{color:var(--navy)}
+    .section__description{color:var(--muted)}
 
-      /* Status badges */
-      .status--info {
-        background-color: var(--color-navy);
-        color: var(--text-light);
-      }
-      .status--success {
-        background-color: #28a745;
-        color: var(--text-light);
-      }
-      .status--warning {
-        background-color: #ffc107;
-        color: var(--text-dark);
-      }
-    </style>
+    /* Buttons */
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.75rem 1rem; border-radius:var(--radius); border:1px solid transparent; cursor:pointer; font-weight:600}
+    .btn--primary,.btn--primary.btn--full-width{background:var(--orange); color:#fff; border-color:var(--orange)}
+    .btn--primary:hover{background:var(--orange-80)}
+    .btn--outline,.search-btn{border:2px solid var(--orange); color:var(--orange); background:#fff}
+    .btn--outline:hover,.search-btn:hover{background:var(--orange); color:#fff}
+
+    .btn--full-width{width:100%}
+
+    /* Cards & grids */
+    .articles-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1rem}
+    .card{background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .card__body{padding:1rem}
+    .article__title{margin:.25rem 0 .25rem}
+    .article__summary{color:var(--muted); margin:.25rem 0 .5rem}
+    .article__meta{display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; font-size:.9rem; color:var(--muted)}
+    .status{padding:.15rem .5rem; border-radius:999px; font-size:.75rem; font-weight:700}
+    .status--info{background:var(--navy-10); color:var(--navy)}
+    .status--success{background:#ecfdf5; color:var(--success)}
+    .status--warning{background:#fffbeb; color:var(--warning)}
+
+    /* Search */
+    .search-bar{display:flex; gap:.5rem; margin-top:1rem}
+    .form-control{width:100%; padding:.75rem 1rem; border:1px solid var(--border); border-radius:10px; background:#fff}
+    .form-control:focus{outline:3px solid var(--focus); border-color:transparent}
+    .pill{display:inline-block; padding:.25rem .6rem; border-radius:999px; background:var(--orange-10); color:var(--orange); font-weight:600; font-size:.75rem}
+
+    /* Tabs (Knowledge Base / Recent Updates) */
+    .tabs{display:flex; gap:.5rem; margin:1rem 0 1.25rem; border-bottom:1px solid var(--border)}
+    .tab{appearance:none; background:transparent; border:none; padding:.75rem 1rem; color:var(--muted); font-weight:700; cursor:pointer; position:relative}
+    .tab[aria-selected="true"]{color:var(--navy)}
+    .tab[aria-selected="true"]::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:3px; background:var(--orange); border-radius:3px 3px 0 0}
+    .tab-panel{display:none}
+    .tab-panel[aria-hidden="false"]{display:block}
+
+    /* Accordion (FAQ) */
+    .accordion{border:1px solid var(--border); border-radius:var(--radius); overflow:hidden}
+    .accordion__item+.accordion__item{border-top:1px solid var(--border)}
+    .accordion__button{width:100%; text-align:left; background:#fff; border:none; padding:1rem 1rem; font-weight:700; color:var(--navy); cursor:pointer; position:relative}
+    .accordion__button:focus{outline:3px solid var(--focus)}
+    .accordion__button .chev{position:absolute; right:1rem; top:50%; transform:translateY(-50%) rotate(0); transition:transform .2s ease}
+    .accordion__button[aria-expanded="true"] .chev{transform:translateY(-50%) rotate(90deg)}
+    .accordion__panel{display:none; padding:0 1rem 1rem; color:var(--text); background:#fff}
+    .accordion__panel[aria-hidden="false"]{display:block}
+
+    /* Utility */
+    .muted{color:var(--muted)}
+    .note{background:var(--navy-10); border-left:4px solid var(--navy); padding:1rem; border-radius:8px}
+    .legal-disclaimer{background:#f8fafc; border:1px dashed var(--border); padding:1rem; border-radius:8px; color:#111827}
+
+    /* Footer links */
+    .footer__link{color:#cfe1ff}
+    .footer__link:hover{color:#fff}
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header__content">
-                <a href="/" class="logo">
-                    <img src="/whitenobg.svg" alt="Law Offices of Pritpal Singh" width="200" height="auto"/>
-                </a>
-                <nav class="nav">
-                    <ul class="nav__list">
-                        <li><a href="#knowledge-base" class="nav__link">Knowledge Base</a></li>
-                        <li><a href="#attorney-profile" class="nav__link">Attorney Profile</a></li>
-                        <li><a href="#faq" class="nav__link">FAQ</a></li>
-                        <li><a href="#contact" class="nav__link">Contact</a></li>
-                    </ul>
-                </nav>
-                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+  <a href="#knowledge-base" class="visually-hidden">Skip to content</a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header__content">
+        <a href="/" class="logo" aria-label="Law Offices of Pritpal Singh">
+          <img src="/whitenobg.svg" alt="Law Offices of Pritpal Singh" width="200" height="auto"/>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <ul class="nav__list">
+            <li><a href="#knowledge-base" class="nav__link">Knowledge Base</a></li>
+            <li><a href="#attorney-profile" class="nav__link">Attorney Profile</a></li>
+            <li><a href="#faq" class="nav__link">FAQ</a></li>
+            <li><a href="#contact" class="nav__link">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Knowledge Base -->
+    <section id="knowledge-base" class="section knowledge-base">
+      <div class="container">
+        <div class="section__header">
+          <h1 class="h2 section__title">Knowledge Center: California Real Estate Law</h1>
+          <p class="section__description">Plain-English guides, statute pointers, timelines, and checklists for owners, buyers, sellers, landlords, and tenants in California.</p>
+
+          <div class="search-bar" role="search">
+            <input type="text" id="knowledge-search" class="form-control" placeholder="Search topics (e.g., 'security deposit', 'TDS', 'eviction')">
+            <button type="button" class="btn btn--primary search-btn" id="run-search" aria-label="Run search">Search</button>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs" role="tablist" aria-label="Knowledge Sections">
+            <button role="tab" class="tab" id="tab-articles" aria-controls="panel-articles" aria-selected="true">Articles & Guides</button>
+            <button role="tab" class="tab" id="tab-updates" aria-controls="panel-updates" aria-selected="false">Recent Updates</button>
+          </div>
         </div>
-    </header>
 
-    <main class="main">
-        <!-- Knowledge Base Section -->
-        <section id="knowledge-base" class="section knowledge-base">
-            <div class="container">
-                <div class="section__header">
-                    <h1 class="h2 section__title">Knowledge Base</h1>
-                    <p class="section__description">Stay informed with the latest California real estate law updates and comprehensive legal guidance.</p>
-                    <div class="search-bar">
-                        <input type="text" id="knowledge-search" class="form-control" placeholder="Search knowledge base...">
-                        <button type="button" class="btn btn--primary search-btn">Search</button>
+        <!-- Articles Panel -->
+        <div id="panel-articles" class="tab-panel" role="tabpanel" aria-labelledby="tab-articles" aria-hidden="false">
+          <div class="legal-disclaimer">
+            <strong>Disclaimer:</strong> This Knowledge Center provides general information, not legal advice. Laws and local ordinances change and can vary by city/county. For advice on your situation, consult an attorney.
+          </div>
+
+          <div class="knowledge-categories" id="kb-list">
+            <!-- 2025 California Real Estate Law Updates (kept; now with note) -->
+            <div class="knowledge-category">
+              <h3 class="category__title">2025 California Real Estate Law Updates <span class="pill">Year in Context</span></h3>
+              <div class="articles-grid">
+                <article class="knowledge-article card" data-tags="ceqa, development, approvals, housing">
+                  <div class="card__body">
+                    <h4 class="article__title">CEQA Streamlining & Housing Approvals</h4>
+                    <p class="article__summary">Overview of recent streamlining measures affecting infill and transit-oriented projects.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: July 2025</span>
+                      <span class="status status--info">New</span>
                     </div>
-                </div>
-
-                <div class="knowledge-categories">
-                    <!-- 2025 California Real Estate Law Updates -->
-                    <div class="knowledge-category">
-                        <h3 class="category__title">2025 California Real Estate Law Updates</h3>
-                        <div class="articles-grid">
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">AB 130 &amp; SB 131: CEQA Reform and Housing Development</h4>
-                                    <p class="article__summary">Major changes to California Environmental Quality Act streamlining housing approvals</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: July 2025</span>
-                                        <span class="status status--info">New</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>New categorical exemptions for housing projects</li>
-                                            <li>Streamlined approval process</li>
-                                            <li>Reduced litigation risk for developers</li>
-                                            <li>Minimum density requirements</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>Governor Newsom signed AB 130 and SB 131 implementing sweeping CEQA reforms. AB 130 introduces exemptions for qualifying infill housing developments up to 20 acres, while SB 131 targets infrastructure projects. These changes represent the most significant housing policy reform in recent California history.</p>
-                                        <p>The new legislation addresses California's housing crisis by removing environmental review barriers for qualifying developments. Projects must meet specific criteria including location within transit priority areas and adherence to local general plans.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">AB 2747: Tenant Credit Reporting Requirements</h4>
-                                    <p class="article__summary">New law requires landlords to offer positive credit reporting for rent payments</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: January 2025</span>
-                                        <span class="status status--success">Active</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Applies to buildings with 15+ units</li>
-                                            <li>Must offer annually</li>
-                                            <li>Cost capped at $10/month</li>
-                                            <li>Tenant can opt in/out anytime</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>Effective January 1, 2025, landlords of buildings with 15+ units must offer tenants the option to report positive rental payment history to credit agencies. This helps tenants build credit history.</p>
-                                        <p>The law aims to help renters establish credit history through timely rent payments, potentially improving their ability to secure future housing or financing. Landlords must provide annual notice of this opportunity.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">AB 2801: Security Deposit Law Updates</h4>
-                                    <p class="article__summary">Enhanced requirements for security deposit handling and documentation</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: January 2025</span>
-                                        <span class="status status--warning">Updated</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Mandatory photo documentation at move-in/out</li>
-                                            <li>Stricter timeline for deposit returns</li>
-                                            <li>Enhanced tenant protection measures</li>
-                                            <li>Detailed itemization requirements</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>AB 2801 strengthens tenant protections by requiring landlords to document property conditions with photographs at the beginning and end of tenancies. This reduces disputes over security deposit deductions.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-                        </div>
+                    <div class="article__key-points">
+                      <strong>Key Points:</strong>
+                      <ul>
+                        <li>Eligibility often hinges on <em>location</em> (infill/transit priority) and <em>consistency</em> with local plans.</li>
+                        <li>Litigation timelines and records preparation may be streamlined for qualifying projects.</li>
+                        <li>Always check city/county programmatic EIRs and local objective standards.</li>
+                      </ul>
                     </div>
-
-                    <!-- Landlord-Tenant Law -->
-                    <div class="knowledge-category">
-                        <h3 class="category__title">Landlord-Tenant Law</h3>
-                        <div class="articles-grid">
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">California Security Deposit Rules 2025</h4>
-                                    <p class="article__summary">Updated requirements for security deposit handling and documentation</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: January 2025</span>
-                                        <span class="status status--success">Current</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Photo documentation required</li>
-                                            <li>Restrictions on deposit use</li>
-                                            <li>Clear return procedures</li>
-                                            <li>Professional cleaning limitations</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>AB 2801 clarifies security deposit restrictions and requires photo documentation of unit condition at move-in and move-out. Landlords must provide detailed accounting of any deductions within 21 days.</p>
-                                        <p>The new requirements protect both landlords and tenants by creating clear documentation standards and limiting disputes over property conditions.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">Rent Control and Tenant Protections</h4>
-                                    <p class="article__summary">Comprehensive guide to California's rent stabilization laws</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: March 2025</span>
-                                        <span class="status status--info">Guide</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>AB 1482 rent cap provisions</li>
-                                            <li>Just-cause eviction requirements</li>
-                                            <li>Local rent control ordinances</li>
-                                            <li>Tenant relocation assistance</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>California's Tenant Protection Act limits rent increases and requires just cause for evictions in most rental properties built before 2007. Understanding these complex regulations is essential for landlords and tenants.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-                        </div>
+                    <div class="article__content" style="display:none">
+                      <p>California continues to balance environmental review with urgent housing needs. For qualifying projects, agencies may rely on prior EIRs, objective standards, and categorical/noticing pathways. Confirm eligibility early, align site plans with objective standards, and maintain a clean administrative record.</p>
+                      <div class="note"><strong>Practice Tip:</strong> Build a “CEQA dossier” from day one: objective standards matrix, consistency checklists, transportation/hazardous materials memos, and public comment trackers.</div>
                     </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
 
-                    <!-- Real Estate Transactions -->
-                    <div class="knowledge-category">
-                        <h3 class="category__title">Real Estate Transactions</h3>
-                        <div class="articles-grid">
-                            <article class="knowledge-article card">
-                                <div class="card__body">
-                                    <h4 class="article__title">Disclosure Requirements for Sellers</h4>
-                                    <p class="article__summary">Essential disclosure obligations in California real estate sales</p>
-                                    <div class="article__meta">
-                                        <span class="article__date">Last Updated: April 2025</span>
-                                        <span class="status status--info">Essential</span>
-                                    </div>
-                                    <div class="article__key-points">
-                                        <strong>Key Points:</strong>
-                                        <ul>
-                                            <li>Transfer Disclosure Statement requirements</li>
-                                            <li>Natural hazard disclosures</li>
-                                            <li>Lead-based paint notifications</li>
-                                            <li>HOA and CC&amp;R disclosures</li>
-                                        </ul>
-                                    </div>
-                                    <div class="article__content" style="display: none;">
-                                        <p>California law requires extensive property disclosures to protect buyers and ensure informed transactions. Sellers must provide comprehensive information about property conditions, defects, and environmental hazards.</p>
-                                    </div>
-                                    <button class="btn btn--outline expand-article">Learn More</button>
-                                </div>
-                            </article>
-                        </div>
+                <article class="knowledge-article card" data-tags="tenant credit, reporting, credit bureaus, renters">
+                  <div class="card__body">
+                    <h4 class="article__title">Tenant Credit Reporting Programs</h4>
+                    <p class="article__summary">How positive rent-payment reporting works and what landlords must disclose.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: January 2025</span>
+                      <span class="status status--success">Active</span>
                     </div>
-                </div>
+                    <div class="article__key-points">
+                      <strong>Key Points:</strong>
+                      <ul>
+                        <li>Large properties may need to offer opt-in credit reporting for on-time rent.</li>
+                        <li>Annual written notice recommended; tenants can opt in/out.</li>
+                        <li>Costs should be reasonable and clearly disclosed.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>Positive rent-payment history can help renters build credit. Landlords should select reputable processors, disclose fees and data use, and provide an opt-out pathway.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+
+                <article class="knowledge-article card" data-tags="security deposit, move-in, move-out, photos, deduction">
+                  <div class="card__body">
+                    <h4 class="article__title">Security Deposits: Documentation & Return</h4>
+                    <p class="article__summary">Best practices to reduce disputes and stay compliant with itemization and timelines.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: January 2025</span>
+                      <span class="status status--warning">Updated</span>
+                    </div>
+                    <div class="article__key-points">
+                      <strong>Key Points:</strong>
+                      <ul>
+                        <li><strong>Photos/video</strong> at move-in & move-out are essential.</li>
+                        <li>Itemize deductions (parts/labor) and return balance within statutory timelines.</li>
+                        <li>Limitations on “professional cleaning” and ordinary wear and tear.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>California Civil Code §1950.5 governs deposits, deductions, and the 21-day timeline to return and account. Pre-move-out inspection rights and written itemization reduce risk for both sides.</p>
+                      <ul>
+                        <li><strong>Landlord checklist:</strong> Offer pre-move-out inspection; document with photos; collect receipts/estimates; send itemization + remaining funds by day 21.</li>
+                        <li><strong>Tenant checklist:</strong> Request pre-move-out, fix minor issues, return keys, provide forwarding address.</li>
+                      </ul>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+              </div>
             </div>
-        </section>
 
-        <!-- Attorney Profile Section -->
-        <section id="attorney-profile" class="section attorney-profile">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Attorney Profile</h2>
-                </div>
-                <div class="profile">
-                    <div class="profile__photo">
-                        <img src="https://pritsinghlaw.com/images/pritpal_singh.jpg" alt="Pritpal Singh">
+            <!-- Landlord-Tenant Law -->
+            <div class="knowledge-category">
+              <h3 class="category__title">Landlord–Tenant Law <span class="pill">Residential</span></h3>
+              <div class="articles-grid">
+                <article class="knowledge-article card" data-tags="ab 1482, rent cap, just cause, eviction">
+                  <div class="card__body">
+                    <h4 class="article__title">Rent Caps & Just-Cause Evictions (AB 1482)</h4>
+                    <p class="article__summary">Understanding statewide rent caps and when “just cause” is required.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: March 2025</span>
+                      <span class="status status--info">Guide</span>
                     </div>
-                    <div class="profile__bio">
-                        <h3>Pritpal Singh, Esq.</h3>
-                        <p>Pritpal Singh is a seasoned real estate attorney with over 15 years of experience in California. He has represented buyers, sellers, developers, and lenders in complex real estate transactions, land use, and environmental matters.</p>
-                        <p>Bar Admissions: California State Bar (2008), US District Court Northern District of California (2010)</p>
+                    <div class="article__key-points">
+                      <strong>Key Points:</strong>
+                      <ul>
+                        <li>Rent cap applies to many units; some are exempt (e.g., newer construction, single-family non-corporate with disclosure).</li>
+                        <li>Evictions typically require “at-fault” or “no-fault” just cause and notices with specific content.</li>
+                        <li>Local ordinances (LA, SF, Oakland, etc.) may add stricter rules.</li>
+                      </ul>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <div class="article__content" style="display:none">
+                      <p>AB 1482 is codified primarily at Civil Code §§1946.2 (just cause) and 1947.12 (rent cap). Verify exemptions, give required disclosures addenda, and check city rent boards for additional rules.</p>
+                      <div class="note"><strong>Template Tip:</strong> Keep a standing AB 1482 disclosure addendum and a city-specific addendum set for your portfolio.</div>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
 
-        <!-- FAQ Section -->
-        <section id="faq" class="section faq">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Frequently Asked Questions</h2>
-                </div>
-                <div class="faq__list">
-                    <div class="faq__item">
-                        <h4>What is CEQA and how does it affect my development project?</h4>
-                        <p>The California Environmental Quality Act (CEQA) requires environmental review of certain projects. Recent reforms under AB 130 &amp; SB 131 provide exemptions for qualifying housing and infrastructure projects to streamline approvals.</p>
+                <article class="knowledge-article card" data-tags="notices, 3-day, 30-day, 60-day, unlawful detainer">
+                  <div class="card__body">
+                    <h4 class="article__title">Notice Periods & Eviction Timeline</h4>
+                    <p class="article__summary">From notice service to lockout — who does what, and when.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: May 2025</span>
+                      <span class="status status--success">Current</span>
                     </div>
-                    <div class="faq__item">
-                        <h4>How much can I charge for a security deposit?</h4>
-                        <p>Under California law, a landlord may charge up to two months’ rent for an unfurnished property and three months’ rent for a furnished property as a security deposit. AB 2801 adds requirements for documentation and timelines.</p>
+                    <div class="article__key-points">
+                      <strong>Essentials:</strong>
+                      <ul>
+                        <li>3-Day Notice to Pay or Quit: CCP §1161(2).</li>
+                        <li>30/60-Day Termination (no-fault, where allowed): Civ. Code §1946.1.</li>
+                        <li>Entry: Civ. Code §1954 (typically 24-hour notice, emergencies excepted).</li>
+                      </ul>
                     </div>
-                    <div class="faq__item">
-                        <h4>Do I need to disclose natural hazards when selling my property?</h4>
-                        <p>Yes. Sellers must disclose known natural hazards, such as flood zones, earthquake faults, and wildfire risks, using the Natural Hazard Disclosure Statement.</p>
+                    <div class="article__content" style="display:none">
+                      <ol>
+                        <li>Serve proper notice (method matters).</li>
+                        <li>File unlawful detainer if no compliance; request trial preference.</li>
+                        <li>Judgment and writ of possession; sheriff lockout if needed.</li>
+                      </ol>
+                      <p class="muted">Local emergency rules can modify timelines. Always verify local court procedures.</p>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
 
-        <!-- Contact Section -->
-        <section id="contact" class="section contact">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Contact Us</h2>
-                </div>
-                <form class="contact-form" action="https://formspree.io/f/mvgqkooj" method="POST">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                <article class="knowledge-article card" data-tags="habitability, repairs, rent withholding, green v. superior court">
+                  <div class="card__body">
+                    <h4 class="article__title">Habitability & Repairs</h4>
+                    <p class="article__summary">Minimum housing standards, repair obligations, and remedies.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: April 2025</span>
+                      <span class="status status--info">Essential</span>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                    <div class="article__key-points">
+                      <strong>Key Points:</strong>
+                      <ul>
+                        <li>Implied warranty of habitability (Green v. Superior Court).</li>
+                        <li>Health & Safety Codes set minimums (heat, water, sanitation).</li>
+                        <li>Notice and reasonable time to repair; rent withholding/repair-and-deduct rules are narrow.</li>
+                      </ul>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                    <div class="article__content" style="display:none">
+                      <p>Document issues in writing with dates, photos, and access offered. For landlords, prioritize life-safety issues and provide written repair timelines and vendor confirmations.</p>
                     </div>
-                    <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
-                </form>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+              </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__content">
-                <div class="footer__section">
-                    <h4>Law Offices of Pritpal Singh</h4>
-                    <p>509 13th Street<br>San Francisco, CA 94612</p>
-                </div>
-                <div class="footer__section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#knowledge-base" class="footer__link">Knowledge Base</a></li>
-                        <li><a href="#attorney-profile" class="footer__link">Attorney Profile</a></li>
-                        <li><a href="#faq" class="footer__link">FAQ</a></li>
-                        <li><a href="#contact" class="footer__link">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer__section">
-                    <h4>Contact</h4>
-                    <p>Phone: (510) 225-9220</p>
-                    <p>Email: info@pritsinghlaw.com</p>
-                </div>
+            <!-- Real Estate Transactions -->
+            <div class="knowledge-category">
+              <h3 class="category__title">Real Estate Transactions <span class="pill">Buyers & Sellers</span></h3>
+              <div class="articles-grid">
+                <article class="knowledge-article card" data-tags="disclosures, tds, natural hazard, hoa, lead">
+                  <div class="card__body">
+                    <h4 class="article__title">Seller Disclosures: TDS, NHD & More</h4>
+                    <p class="article__summary">What must be disclosed in California, when, and how.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: April 2025</span>
+                      <span class="status status--info">Essential</span>
+                    </div>
+                    <div class="article__key-points">
+                      <strong>Checklist:</strong>
+                      <ul>
+                        <li>Transfer Disclosure Statement (TDS): Civ. Code §1102 et seq.</li>
+                        <li>Natural Hazard Disclosure (NHD): Civ. Code §1103 et seq.</li>
+                        <li>Lead-based paint (pre-1978): federal law.</li>
+                        <li>HOA docs/CC&Rs for common-interest properties.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>Disclose known material facts affecting value or desirability. Exemptions exist (e.g., some trust transfers), but anti-fraud duties still apply. If in doubt, disclose.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+
+                <article class="knowledge-article card" data-tags="escrow, contingencies, inspections, title">
+                  <div class="card__body">
+                    <h4 class="article__title">Escrow, Title & Contingencies</h4>
+                    <p class="article__summary">From offer acceptance to close of escrow — who orders what and when.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: March 2025</span>
+                      <span class="status status--success">Current</span>
+                    </div>
+                    <div class="article__key-points">
+                      <ul>
+                        <li>Inspection, appraisal, and loan contingencies — deadlines matter.</li>
+                        <li>Title review: easements, liens, CC&Rs, and exceptions.</li>
+                        <li>Request for Repair vs. credit; risk allocation via addenda.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>Use a closing checklist tracking contingency removals, disclosures received, repair negotiations, and loan docs. Escrow instructions must match the deal points precisely.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+              </div>
             </div>
+
+            <!-- Ownership, Construction & Property Issues -->
+            <div class="knowledge-category">
+              <h3 class="category__title">Ownership, Construction & Property Issues</h3>
+              <div class="articles-grid">
+                <article class="knowledge-article card" data-tags="mechanics lien, preliminary notice, release, stop notice">
+                  <div class="card__body">
+                    <h4 class="article__title">Mechanic’s Liens Basics</h4>
+                    <p class="article__summary">Deadlines, preliminary notice, recording, and release.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: May 2025</span>
+                      <span class="status status--info">Guide</span>
+                    </div>
+                    <div class="article__key-points">
+                      <ul>
+                        <li>Preliminary notice generally within 20 days of first furnishing.</li>
+                        <li>Strict recording deadlines after completion/cessation.</li>
+                        <li>Bonded stop notice options on certain projects.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>California Civil Code §8400 et seq. governs lien rights. Track milestones (start, completion, notice of completion) and calendar statutory dates the day you sign the contract.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+
+                <article class="knowledge-article card" data-tags="easement, boundary, prescriptive, adverse possession, quiet title">
+                  <div class="card__body">
+                    <h4 class="article__title">Easements, Boundaries & Adverse Possession</h4>
+                    <p class="article__summary">Common disputes and how California resolves them.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: February 2025</span>
+                      <span class="status status--warning">Updated</span>
+                    </div>
+                    <div class="article__key-points">
+                      <ul>
+                        <li>Easements: express, implied, necessity, prescriptive.</li>
+                        <li>Adverse possession: 5 years, taxes paid, actual/open/hostile/exclusive/continuous.</li>
+                        <li>Quiet title and boundary surveys are often required.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>Keep a paper trail: surveys, fences, maintenance records, and tax receipts. Consider boundary line agreements or lot line adjustments before litigation.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+
+                <article class="knowledge-article card" data-tags="property tax, prop 19, base transfer, homestead exemption">
+                  <div class="card__body">
+                    <h4 class="article__title">Property Taxes, Transfers & Homestead</h4>
+                    <p class="article__summary">Prop 19 base-year transfers, reassessment triggers, and homestead protections.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: January 2025</span>
+                      <span class="status status--success">Current</span>
+                    </div>
+                    <div class="article__key-points">
+                      <ul>
+                        <li>Prop 19 allows eligible homeowners to transfer tax base to a replacement home (limits apply).</li>
+                        <li>Reassessment often triggered by change in ownership unless an exclusion applies.</li>
+                        <li>Homestead exemption (CCP §704.730) protects home equity up to statutory limits, adjusted annually.</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>Coordinate with your assessor’s office, track filing deadlines, and confirm whether exclusions (parent-child, intra-spousal) apply.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Helpful Resources -->
+            <div class="knowledge-category">
+              <h3 class="category__title">Helpful Resources & Agencies</h3>
+              <div class="articles-grid">
+                <article class="knowledge-article card" data-tags="resources, links, agencies, forms">
+                  <div class="card__body">
+                    <h4 class="article__title">Where to Find Official Forms & Guidance</h4>
+                    <p class="article__summary">Courts, city rent boards, and state agencies that publish landlord-tenant and transaction resources.</p>
+                    <div class="article__meta">
+                      <span class="article__date">Last Updated: June 2025</span>
+                      <span class="status status--info">Directory</span>
+                    </div>
+                    <div class="article__key-points">
+                      <ul>
+                        <li>County Superior Courts (unlawful detainer forms & local rules)</li>
+                        <li>City Rent Boards (e.g., SF, LA, Oakland)</li>
+                        <li>CA Dept. Real Estate & State Controller (tax and transfer references)</li>
+                      </ul>
+                    </div>
+                    <div class="article__content" style="display:none">
+                      <p>Always download forms directly from the issuing court or agency to ensure the latest versions.</p>
+                    </div>
+                    <button class="btn btn--outline expand-article">Learn More</button>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
 
-    <script src="https://pritsinghlaw.com/app.js"></script>
+        <!-- Recent Updates Panel -->
+        <div id="panel-updates" class="tab-panel" role="tabpanel" aria-labelledby="tab-updates" aria-hidden="true">
+          <div class="articles-grid">
+            <article class="knowledge-article card">
+              <div class="card__body">
+                <h4 class="article__title">Launch: Web-Based Knowledge Platform</h4>
+                <p class="article__summary">Our centralized, searchable library for California real estate law is live.</p>
+                <div class="article__meta">
+                  <span class="article__date">Launched: July 2025</span>
+                  <span class="status status--success">Live</span>
+                </div>
+                <ul>
+                  <li>Self-serve guides, checklists, and practical timelines</li>
+                  <li>Improved mobile experience and accessibility</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="knowledge-article card">
+              <div class="card__body">
+                <h4 class="article__title">Introducing <strong>PritAI</strong> (Beta)</h4>
+                <p class="article__summary">Our AI-powered chatbot to help users navigate core topics and find relevant guides.</p>
+                <div class="article__meta">
+                  <span class="article__date">Status: Development Underway</span>
+                  <span class="status status--warning">Beta</span>
+                </div>
+                <ul>
+                  <li>Answers common questions with citations to our guides</li>
+                  <li>Escalates complex matters to an attorney consultation</li>
+                  <li>Roadmap: secure client portal + document automations</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="knowledge-article card">
+              <div class="card__body">
+                <h4 class="article__title">Value-Added Subscriptions</h4>
+                <p class="article__summary">Tiered memberships for landlords, HOAs, buyers/sellers, and small developers.</p>
+                <div class="article__meta">
+                  <span class="article__date">Planned: 2025–2026</span>
+                  <span class="status status--info">Roadmap</span>
+                </div>
+                <ul>
+                  <li><strong>Essentials:</strong> Templates (notices, checklists), quarterly Q&A webinars</li>
+                  <li><strong>Plus:</strong> Document reviews, priority response, compliance alerts</li>
+                  <li><strong>Pro:</strong> Portfolio audits, training sessions, custom addenda packs</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attorney Profile -->
+    <section id="attorney-profile" class="section attorney-profile">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Attorney Profile</h2>
+        </div>
+        <div class="profile">
+          <div class="profile__photo">
+            <img src="https://pritsinghlaw.com/images/pritpal_singh.jpg" alt="Pritpal Singh">
+          </div>
+          <div class="profile__bio">
+            <h3>Pritpal Singh, Esq.</h3>
+            <p>Pritpal Singh is a seasoned real estate attorney with over 15 years of experience in California. He has represented buyers, sellers, developers, and lenders in complex real estate transactions, land use, and environmental matters.</p>
+            <p>Bar Admissions: California State Bar (2008), US District Court Northern District of California (2010)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (Accordion) -->
+    <section id="faq" class="section faq">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Frequently Asked Questions</h2>
+          <p class="muted">Click a question to expand. These are educational summaries and not a substitute for legal advice.</p>
+        </div>
+
+        <div class="accordion" id="faq-accordion">
+          <div class="accordion__item">
+            <button class="accordion__button" aria-expanded="false" aria-controls="faq1" id="faq1-header">
+              What is CEQA and how could it impact a housing project?
+              <span class="chev">›</span>
+            </button>
+            <div class="accordion__panel" id="faq1" role="region" aria-labelledby="faq1-header" aria-hidden="true">
+              <p>The California Environmental Quality Act (CEQA) requires environmental review of certain projects. Some qualifying infill/transit-oriented housing may benefit from streamlined pathways, but eligibility and local objective standards still control.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <button class="accordion__button" aria-expanded="false" aria-controls="faq2" id="faq2-header">
+              How much can a landlord collect and keep from a security deposit?
+              <span class="chev">›</span>
+            </button>
+            <div class="accordion__panel" id="faq2" role="region" aria-labelledby="faq2-header" aria-hidden="true">
+              <p>California Civil Code §1950.5 governs deposits, deductions, and the 21-day return timeline. Deductions are limited (e.g., unpaid rent, beyond-wear-and-tear damage). Photos, receipts, and a pre-move-out inspection help avoid disputes.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <button class="accordion__button" aria-expanded="false" aria-controls="faq3" id="faq3-header">
+              Do sellers need to disclose natural hazards and known defects?
+              <span class="chev">›</span>
+            </button>
+            <div class="accordion__panel" id="faq3" role="region" aria-labelledby="faq3-header" aria-hidden="true">
+              <p>Yes. Transfer Disclosure Statement (Civ. Code §1102 et seq.) and Natural Hazard Disclosure (Civ. Code §1103 et seq.) require disclosure of known material facts and listed hazards. Lead-based paint disclosures apply to pre-1978 homes under federal law.</p>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <button class="accordion__button" aria-expanded="false" aria-controls="faq4" id="faq4-header">
+              What notices are needed before filing an eviction (unlawful detainer)?
+              <span class="chev">›</span>
+            </button>
+            <div class="accordion__panel" id="faq4" role="region" aria-labelledby="faq4-header" aria-hidden="true">
+              <p>It depends on the reason (nonpayment, breach, no-fault). Common notices include a 3-Day Notice to Pay or Quit (CCP §1161(2)) and, in some cases, 30/60-day terminations (Civ. Code §1946.1). Local rent control rules may add requirements.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Contact Us</h2>
+        </div>
+        <form class="contact-form" action="https://formspree.io/f/mvgqkooj" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__section">
+          <h4>Law Offices of Pritpal Singh</h4>
+          <p>509 13th Street<br>San Francisco, CA 94612</p>
+        </div>
+        <div class="footer__section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#knowledge-base" class="footer__link">Knowledge Base</a></li>
+            <li><a href="#attorney-profile" class="footer__link">Attorney Profile</a></li>
+            <li><a href="#faq" class="footer__link">FAQ</a></li>
+            <li><a href="#contact" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__section">
+          <h4>Contact</h4>
+          <p>Phone: (510) 225-9220</p>
+          <p>Email: info@pritsinghlaw.com</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Existing site script -->
+  <script src="https://pritsinghlaw.com/app.js"></script>
+
+  <!-- Lightweight UI behaviors (tabs, accordion, search, article expand) -->
+  <script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    const panels = {
+      'tab-articles': document.getElementById('panel-articles'),
+      'tab-updates': document.getElementById('panel-updates')
+    };
+    tabs.forEach(t=>{
+      t.addEventListener('click',()=>{
+        tabs.forEach(x=>x.setAttribute('aria-selected','false'));
+        Object.values(panels).forEach(p=>p.setAttribute('aria-hidden','true'));
+        t.setAttribute('aria-selected','true');
+        panels[t.id].setAttribute('aria-hidden','false');
+      });
+    });
+
+    // Article expanders
+    document.querySelectorAll('.expand-article').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const content = btn.parentElement.querySelector('.article__content');
+        const isOpen = content.style.display === 'block';
+        content.style.display = isOpen ? 'none' : 'block';
+        btn.textContent = isOpen ? 'Learn More' : 'Show Less';
+      });
+    });
+
+    // FAQ accordion (accessible)
+    const acc = document.getElementById('faq-accordion');
+    if (acc){
+      acc.querySelectorAll('.accordion__button').forEach(button=>{
+        button.addEventListener('click',()=>{
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          const panel = document.getElementById(button.getAttribute('aria-controls'));
+          button.setAttribute('aria-expanded', String(!expanded));
+          panel.setAttribute('aria-hidden', String(expanded));
+        });
+      });
+    }
+
+    // Client-side search (filters article cards)
+    function filterKB(){
+      const q = (document.getElementById('knowledge-search').value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('#kb-list .knowledge-article');
+      cards.forEach(card=>{
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+    document.getElementById('run-search').addEventListener('click', filterKB);
+    document.getElementById('knowledge-search').addEventListener('input', filterKB);
+  </script>
 </body>
 </html>
