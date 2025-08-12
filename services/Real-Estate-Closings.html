@@ -31,27 +31,149 @@
     .backbtn{position:fixed;height:60px;width:60px;right:40px;bottom:20px;background-color:#ff0049;color:#fff;border-radius:50px;text-align:center;box-shadow:2px 2px 3px #999}
     h1,h2,h3,h4,h5,.hero__title,.card__title,.section__title{font-family:'Geologica',sans-serif!important;font-weight:500!important}
   </style>
+ <!---MOBILE NAVIGATION--->
+  <style>
+/* ==== Mobile drawer + hamburger ==== */
+.navbar{ background:var(--navy); color:var(--white); }
+.nav-container{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px; }
+.hamburger{ display:inline-flex; flex-direction:column; gap:5px; padding:10px; background:transparent; border:0; cursor:pointer; }
+.hamburger-line{ width:26px; height:3px; background:#fff; border-radius:2px; transition:.25s; }
+.hamburger.is-active .hamburger-line:nth-child(1){ transform:translateY(8px) rotate(45deg); }
+.hamburger.is-active .hamburger-line:nth-child(2){ opacity:0; }
+.hamburger.is-active .hamburger-line:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
+
+/* Drawer container */
+.nav-menu{
+  position:fixed; top:0; right:0; height:100vh; width:min(86vw,360px);
+  background:#fff; color:var(--navy);
+  box-shadow:-8px 0 24px rgba(0,0,0,.18);
+  transform:translateX(100%); transition:transform .3s ease;
+  z-index:1001; display:flex; flex-direction:column; padding:24px 18px 28px;
+}
+.nav-menu.open{ transform:translateX(0); }
+.drawer-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important;
+}
+.drawer-overlay.show{ opacity:1;
+  pointer-events:auto;
+  /* carve out the drawer width so overlay never covers it (iOS-safe) */
+  clip-path: inset(0 calc(min(86vw, 360px)) 0 0); }
+.no-scroll{ overflow:hidden; }
+
+.nav-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+.nav-item .nav-link{ color:var(--navy); text-decoration:none; font-weight:600; padding:10px 8px; display:block; border-radius:8px; }
+.nav-item .nav-link:hover{ background:var(--gray); }
+.nav-divider{ height:1px; background:#e6eaf0; margin:16px 0; }
+.nav-actions{ margin-top:8px; display:flex; flex-direction:column; gap:12px; }
+.phone-link,.email-link{ color:var(--navy); text-decoration:none; font-weight:600; }
+.email-link{ font-weight:500; }
+
+/* Desktop layout */
+.nav-actions-desktop{ display:none; gap:12px; align-items:center; }
+@media (min-width:900px){
+  .nav-menu{
+    position:static; height:auto; width:auto; transform:none; box-shadow:none; background:transparent;
+    flex-direction:row; align-items:center; gap:18px; padding:0;
+  }
+  .nav-list{ flex-direction:row; gap:18px; }
+  .nav-item .nav-link{ color:#fff; padding:6px 8px; }
+  .nav-actions{ display:none; }
+  .nav-actions-desktop{ display:flex; }
+  .hamburger{ display:none; }
+}
+
+/* Alias to match requested class name */
+.btn-secondary{ background:#fff; color:#001f54; border:2px solid #001f54; }
+.btn-secondary:hover{ background:#f0f4ff; color:#001f54; }
+
+  
+  /* --- Drawer: default closed state (mobile) --- */
+#nav-menu{
+  position:fixed; top:0; right:0;
+  height:100vh; /* or 100dvh for iOS 17+ */
+  width:min(86vw,360px);
+  background:#fff; color:var(--navy);
+  box-shadow:-8px 0 24px rgba(0,0,0,.18);
+  transform:translateX(100%) !important;   /* keep off-canvas */
+  visibility:hidden;                        /* no flash on load */
+  opacity:0;                                /* fade in/out */
+  pointer-events:none;                      /* don't trap taps */
+  transition:transform .32s ease, opacity .16s linear, visibility 0s linear .32s;
+  z-index:10020 !important; display:flex; flex-direction:column; padding:24px 18px 28px;
+}
+
+/* Open state set by JS */
+#nav-menu.open{
+  transform:translateX(0) !important;
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+  transition:transform .32s ease, opacity .16s linear;
+}
+
+/* Overlay */
+.drawer-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important; 
+}
+.drawer-overlay.show{ opacity:1; pointer-events:auto; }
+
+/* Desktop reset (do not use the off-canvas layout) */
+@media (min-width:900px){
+  #nav-menu{
+    position:static; height:auto; width:auto;
+    transform:none !important; visibility:visible; opacity:1; pointer-events:auto;
+    background:transparent; box-shadow:none; padding:0;
+  }
+}
+  
+  </style>
+    
 </head>
 <body>
 
-  <!-- Global Top Navigation -->
-  <header class="header">
-    <nav class="navbar"><div class="nav-container">
-      <div class="nav-brand"><a href="/" class="brand-link"><img src="https://pritsinghlaw.com/whitenobg.svg" width="150" alt="Law Offices of Pritpal Singh"/></a></div>
-      <div class="nav-menu" id="nav-menu">
+ <!-- Global Top Navigation -->
+<header class="header">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="/" class="brand-link">
+          <img src="https://pritsinghlaw.com/whitenobg.svg" width="150" alt="Law Offices of Pritpal Singh"/>
+        </a>
+      </div>
+
+      <!-- Drawer / menu -->
+      <div class="nav-menu" id="nav-menu" aria-hidden="true"
+     style="visibility:hidden;opacity:0;transform:translateX(100%);pointer-events:none;">
         <ul class="nav-list">
           <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="/services" class="nav-link active">Services</a></li>
-          <li class="nav-item"><a href="/contact" class="nav-link">Support</a></li>
-          <li class="nav-item"><a href="/pay-my-bill" class="nav-link">Pay Bill</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="/services" class="nav-link">Practice Areas</a></li>
+          <li class="nav-item"><a href="/pay-my-bill" class="nav-link">Pay My Bill</a></li>
+          <li class="nav-item"><a href="/contact" class="nav-link">Get In Touch</a></li>
         </ul>
-        <div class="nav-actions"><a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a><a href="/coming-soon" class="btn btn-portal" style="background:#fff;color:#001f54">Client Portal</a></div>
+
+        <div class="nav-actions">
+          <a href="/coming-soon" class="btn btn-portal btn-secondary">Client Portal</a>
+          <div class="nav-divider"></div>
+          <a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a>
+          <a href="mailto:info@pritsinghlaw.com" class="email-link">info@pritsinghlaw.com</a>
+        </div>
       </div>
-      <div class="nav-actions-desktop"><a href="tel:(510) 225-9220" class="phone-link">(510) 225-9220</a><a href="/coming-soon" class="btn btn-portal">Client Portal</a></div>
-      <!---<button class="hamburger" id="hamburger" aria-label="Toggle navigation"><span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span></button> --->
-    </div></nav>
-  </header>
+
+      <!-- Desktop-only actions -->
+      <div class="nav-actions-desktop">
+        <a href="tel:(510) 225-9220" class="phone-link" style="color:#fff">(510) 225-9220</a>
+        <a href="/coming-soon" class="btn btn-portal btn--secondary">Client Portal</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false">
+        <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+</header>
 
   <!-- HERO -->
   <header class="hero">
@@ -108,7 +230,664 @@
     </div>
   </div></footer>
 
-  <button class="backbtn" onclick="history.back(-1)"><img width="34" height="34" src="https://img.icons8.com/material-outlined/48/rewind.png" alt="rewind"/></button>
+
+    <!---MOBILE NAVIGATION SNIPPET--->
+
+
+<script>
+(() => {
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('nav-menu');
+
+  // remove inline guard so CSS can control state
+  menu.removeAttribute('style');
+
+  // Create overlay once
+  const overlay = document.createElement('div');
+  overlay.className = 'drawer-overlay';
+  document.body.appendChild(overlay);
+
+  // Size overlay so it doesn't cover the drawer
+  function sizeOverlay(){
+    const drawerWidth = Math.min(window.innerWidth * 0.86, 360); // match CSS: min(86vw,360px)
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.bottom = '0';
+    overlay.style.left = '0';
+    overlay.style.right = drawerWidth + 'px'; // leave the drawer area uncovered
+  }
+
+  function openDrawer(){
+    sizeOverlay();
+    menu.classList.add('open');
+    hamburger.classList.add('is-active');
+    overlay.classList.add('show');
+    hamburger.setAttribute('aria-expanded','true');
+    menu.setAttribute('aria-hidden','false');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeDrawer(){
+    menu.classList.remove('open');
+    hamburger.classList.remove('is-active');
+    overlay.classList.remove('show');
+    hamburger.setAttribute('aria-expanded','false');
+    menu.setAttribute('aria-hidden','true');
+    document.body.classList.remove('no-scroll');
+    // reset overlay to full width (optional)
+    overlay.style.right = '0';
+  }
+
+  function toggleDrawer(){ menu.classList.contains('open') ? closeDrawer() : openDrawer(); }
+
+  // Ensure closed on first paint
+  closeDrawer();
+
+  // Events
+  hamburger.addEventListener('click', toggleDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDrawer(); });
+
+  // Close after user taps any link/button in the drawer (allow navigation)
+  menu.addEventListener('click', (e) => {
+    const a = e.target.closest('a, button');
+    if(a){ setTimeout(closeDrawer, 0); }
+  });
+
+  // Keep overlay sized correctly on rotate/resize while open
+  window.addEventListener('resize', () => {
+    if(menu.classList.contains('open')) sizeOverlay();
+  });
+
+  // Desktop -> mobile transitions
+  const mq = window.matchMedia('(min-width:900px)');
+  function syncToViewport(e){
+    if(e.matches){ // desktop
+      hamburger.classList.remove('is-active');
+      overlay.classList.remove('show');
+      document.body.classList.remove('no-scroll');
+      menu.setAttribute('aria-hidden','false');
+    }else{
+      if(!menu.classList.contains('open')) closeDrawer();
+    }
+  }
+  mq.addEventListener?.('change', syncToViewport);
+  syncToViewport(mq);
+})();
+
+</script>
+
+
+
+    
   <script src="main.js"></script>
+  
+  
+  <!-- === Client Intake (Real Estate Law) — Popup Modal === -->
+<style>
+  :root{
+    --ps-navy:#001f54;
+    --ps-orange:#ff4900;
+    --ps-bg:#ffffff;
+    --ps-surface:#f6f8fb;
+    --ps-muted:#6b7788;
+    --ps-ring:rgba(255,73,0,.35);
+    --ps-radius:14px;
+  }
+  /* Launcher (optional secondary button; you can hide it) */
+  .ps-intake-launch{
+    position:fixed; right:18px; bottom:40px; z-index:9998;
+    background:#ff0049; color:#fff; border:none;
+    border-radius:999px; padding:12px 14px; font-weight:700;
+    box-shadow:0 10px 26px rgba(0,0,0,.18); cursor:pointer;
+  }
+  .ps-intake-launch:focus{ outline:3px solid var(--ps-ring) }
+
+  /* Modal shell */
+  .ps-intake-modal{ position:fixed; inset:0; display:none; place-items:center;
+    background:rgba(0,0,0,.35); z-index:9999; }
+  .ps-intake-modal.ps-open{ display:grid }
+  .ps-intake-dialog{
+    width:min(100%,860px); height:min(94vh,920px); background:#fff;
+    border-radius:16px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.4);
+    display:grid; grid-template-rows:auto 1fr auto;
+  }
+  @media (max-width:820px){ .ps-intake-dialog{ width:100%; height:100%; border-radius:0 } }
+
+  /* Header */
+  .ps-intake-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; background:var(--ps-navy); color:#fff;
+  }
+  .ps-head-title{ display:flex; gap:10px; align-items:center; font-weight:700 }
+  .ps-head-dot{ width:10px; height:10px; border-radius:50%; background:var(--ps-orange) }
+  .ps-head-tools{ display:flex; gap:8px; align-items:center }
+  .ps-x{ background:transparent; border:none; color:#fff; font-size:18px; cursor:pointer }
+
+  /* Body */
+  .ps-intake-body{ display:grid; grid-template-columns:260px 1fr; gap:0; min-height:0 }
+  @media (max-width:820px){ .ps-intake-body{ grid-template-columns:1fr } }
+
+  /* Step list */
+  .ps-steps{
+    background:var(--ps-surface); border-right:1px solid #e6eaf0; padding:14px; overflow:auto;
+  }
+  .ps-step{
+    display:flex; gap:10px; align-items:center; padding:10px 8px; border-radius:10px; margin-bottom:6px; cursor:default;
+  }
+  .ps-step-num{
+    flex:0 0 auto; width:26px; height:26px; border-radius:999px; display:grid; place-items:center;
+    border:2px solid var(--ps-navy); color:var(--ps-navy); font-size:12px; font-weight:700; background:#fff;
+  }
+  .ps-step.active{ background:#fff; border:1px solid #e6eaf0 }
+  .ps-step.complete .ps-step-num{ background:var(--ps-orange); color:#fff; border-color:var(--ps-orange) }
+  .ps-step-label{ font-size:13px; color:#222 }
+
+  /* Content */
+  .ps-panel{ padding:16px; overflow:auto }
+  .ps-grid{ display:grid; gap:12px }
+  .ps-2col{ grid-template-columns:1fr 1fr }
+  .ps-3col{ grid-template-columns:1fr 1fr 1fr }
+  .ps-field{ display:grid; gap:6px }
+  .ps-label{ font-size:13px; color:#1a2a3b; font-weight:600 }
+  .ps-req{ color:#ff3b3b }
+  .ps-input, .ps-select, .ps-textarea{
+    width:100%; padding:10px 12px; border:1px solid #cfd9e6; border-radius:10px; font:inherit; background:#fff;
+  }
+  .ps-textarea{ min-height:110px; resize:vertical }
+  .ps-hint{ font-size:12px; color:var(--ps-muted) }
+  .ps-error{ font-size:12px; color:#b00020 }
+
+  .ps-tags{ display:flex; gap:8px; flex-wrap:wrap }
+  .ps-tag{ border:1px solid #dbe3ee; padding:6px 10px; border-radius:999px; cursor:pointer; font-size:12px; background:#fff }
+  .ps-tag.selected{ background:var(--ps-orange); color:#fff; border-color:var(--ps-orange) }
+
+  /* Footer */
+  .ps-intake-foot{ display:flex; justify-content:space-between; gap:10px; padding:12px; border-top:1px solid #e6eaf0; background:#fff }
+  .ps-btn{ padding:10px 14px; border-radius:10px; border:1px solid #cfd9e6; background:#fff; cursor:pointer; font-weight:700 }
+  .ps-btn[disabled]{ opacity:.5; cursor:not-allowed }
+  .ps-btn-primary{ background:var(--ps-orange); color:#fff; border:none }
+
+  /* Success view */
+  .ps-success{ text-align:center; padding:24px }
+  .ps-check{ font-size:40px; color:var(--ps-orange) }
+
+  .ps-disclaimer{ font-size:12px; line-height:1.5; color:#1a2a3b; background:#fff7f2; border:1px solid #ffd7c2; padding:12px; border-radius:10px }
+</style>
+
+<!-- Optional secondary launcher (you can remove if you prefer to trigger from your existing CTA)--->
+<button class="ps-intake-launch" id="psIntakeOpen">Get Started</button>
+
+
+
+<div class="ps-intake-modal" id="psIntakeModal" role="dialog" aria-modal="true" aria-label="Client intake form">
+  <div class="ps-intake-dialog">
+    <div class="ps-intake-head">
+      <div class="ps-head-title"><span class="ps-head-dot"></span> Client Intake — Law Offices of Pritpal Singh</div>
+      <div class="ps-head-tools">
+        <button class="ps-x" id="psIntakeClose" title="Close">✕</button>
+      </div>
+    </div>
+
+    <div class="ps-intake-body">
+      <!-- Steps nav -->
+      <aside class="ps-steps" id="psSteps"></aside>
+
+      <!-- Panels -->
+      <form class="ps-panel" id="psIntakeForm" novalidate>
+        <!-- Step 1: Contact -->
+        <section class="ps-step-panel" data-step="1">
+          <div class="ps-grid ps-2col">
+            <div class="ps-field">
+              <label class="ps-label">First name <span class="ps-req">*</span></label>
+              <input class="ps-input" name="firstName" required />
+              <div class="ps-error"></div>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Last name <span class="ps-req">*</span></label>
+              <input class="ps-input" name="lastName" required />
+              <div class="ps-error"></div>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Email <span class="ps-req">*</span></label>
+              <input class="ps-input" type="email" name="email" required />
+              <div class="ps-error"></div>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Phone <span class="ps-req">*</span></label>
+              <input class="ps-input" type="tel" name="phone" required />
+              <div class="ps-error"></div>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Preferred contact</label>
+              <select class="ps-select" name="preferredContact">
+                <option value="">No preference</option>
+                <option>Phone</option><option>Email</option><option>Text</option>
+              </select>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Preferred language</label>
+              <select class="ps-select" name="language">
+                <option>English</option><option>Spanish</option><option>Hindi</option><option>Punjabi</option><option>Chinese</option><option>French</option><option>German</option>
+              </select>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Best time to reach you</label>
+              <input class="ps-input" name="bestTime" placeholder="e.g., Weekdays 2–5pm PT" />
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Timezone</label>
+              <input class="ps-input" name="timezone" placeholder="e.g., Pacific (PT)" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2: Property & Role -->
+        <section class="ps-step-panel" data-step="2" hidden>
+          <div class="ps-grid ps-2col">
+            <div class="ps-field">
+              <label class="ps-label">Is your matter related to a specific property? <span class="ps-req">*</span></label>
+              <select class="ps-select" name="hasProperty" required>
+                <option value="">Select…</option>
+                <option value="yes">Yes</option>
+                <option value="no">No / Not sure</option>
+              </select>
+              <div class="ps-hint">If yes, we’ll ask for the address next.</div>
+              <div class="ps-error"></div>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Your role <span class="ps-req">*</span></label>
+              <select class="ps-select" name="clientRole" required>
+                <option value="">Select…</option>
+                <option>Owner/Landlord</option><option>Tenant</option><option>Buyer</option><option>Seller</option>
+                <option>Developer</option><option>HOA/Board</option><option>Broker/Agent</option><option>Other</option>
+              </select>
+              <div class="ps-error"></div>
+            </div>
+          </div>
+
+          <!-- Property address group (conditional) -->
+          <div id="psPropertyGroup" hidden style="margin-top:12px">
+            <div class="ps-grid ps-2col">
+              <div class="ps-field">
+                <label class="ps-label">Street address</label>
+                <input class="ps-input" name="propStreet" />
+              </div>
+              <div class="ps-field">
+                <label class="ps-label">Unit/Suite</label>
+                <input class="ps-input" name="propUnit" />
+              </div>
+              <div class="ps-field">
+                <label class="ps-label">City</label>
+                <input class="ps-input" name="propCity" />
+              </div>
+              <div class="ps-field">
+                <label class="ps-label">State</label>
+                <input class="ps-input" name="propState" value="CA" />
+              </div>
+              <div class="ps-field">
+                <label class="ps-label">ZIP</label>
+                <input class="ps-input" name="propZip" />
+              </div>
+              <div class="ps-field">
+                <label class="ps-label">County</label>
+                <input class="ps-input" name="propCounty" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 3: Matter Type & Background -->
+        <section class="ps-step-panel" data-step="3" hidden>
+          <div class="ps-field">
+            <label class="ps-label">Matter category <span class="ps-req">*</span></label>
+            <select class="ps-select" name="matterCategory" required>
+              <option value="">Select…</option>
+              <option>Real Estate Transaction</option>
+              <option>Landlord–Tenant</option>
+              <option>Boundary/Title Issue</option>
+              <option>Quiet Title Action</option>
+              <option>Premises Liability</option>
+              <option>Adverse Possession</option>
+              <option>Contract Drafting/Review</option>
+              <option>Litigation/Dispute</option>
+              <option>Other</option>
+            </select>
+            <div class="ps-error"></div>
+          </div>
+          <div class="ps-field">
+            <label class="ps-label">Brief background of your matter <span class="ps-req">*</span></label>
+            <textarea class="ps-textarea" name="background" required placeholder="Please include key facts, timeline, and current status…"></textarea>
+            <div class="ps-hint">Aim for 5–10 sentences.</div>
+            <div class="ps-error"></div>
+          </div>
+          <div class="ps-grid ps-2col">
+            <div class="ps-field">
+              <label class="ps-label">Any deadlines or court dates?</label>
+              <input class="ps-input" name="deadlines" placeholder="e.g., Hearing on Sept 12, 2025" />
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Documents available?</label>
+              <select class="ps-select" name="hasDocs">
+                <option>No</option><option>Yes, can share</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 4: Desired Outcome -->
+        <section class="ps-step-panel" data-step="4" hidden>
+          <div class="ps-field">
+            <label class="ps-label">What outcome are you hoping to achieve? <span class="ps-req">*</span></label>
+            <div class="ps-tags" data-name="desiredOutcomeTags">
+              <button type="button" class="ps-tag">Settle quickly</button>
+              <button type="button" class="ps-tag">Quiet title</button>
+              <button type="button" class="ps-tag">Evict lawfully</button>
+              <button type="button" class="ps-tag">Defend against eviction</button>
+              <button type="button" class="ps-tag">Close the transaction</button>
+              <button type="button" class="ps-tag">Negotiate better terms</button>
+              <button type="button" class="ps-tag">Seek damages</button>
+              <button type="button" class="ps-tag">Other</button>
+            </div>
+            <input type="hidden" name="desiredOutcome" />
+            <div class="ps-error"></div>
+          </div>
+          <div class="ps-field">
+            <label class="ps-label">In your own words</label>
+            <textarea class="ps-textarea" name="desiredOutcomeText" placeholder="Describe success in your own words…"></textarea>
+          </div>
+        </section>
+
+        <!-- Step 5: Other Parties & Conflicts -->
+        <section class="ps-step-panel" data-step="5" hidden>
+          <div class="ps-field">
+            <label class="ps-label">Other parties involved</label>
+            <textarea class="ps-textarea" name="otherParties" placeholder="Names of individuals, companies, brokers/agents, HOAs, and any attorneys already involved…"></textarea>
+          </div>
+          <div class="ps-grid ps-2col">
+            <div class="ps-field">
+              <label class="ps-label">Have you signed any agreement(s)?</label>
+              <select class="ps-select" name="signedAgreements">
+                <option>No</option><option>Yes</option>
+              </select>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">How did you hear about us?</label>
+              <select class="ps-select" name="referral">
+                <option>Google/Search</option><option>Referral</option><option>Social Media</option><option>Yelp</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 6: Consultation Preferences -->
+        <section class="ps-step-panel" data-step="6" hidden>
+          <div class="ps-field">
+            <label class="ps-label">Consultation type <span class="ps-req">*</span></label>
+            <select class="ps-select" name="consultType" required>
+              <option value="">Select…</option>
+              <option>Free 15-minute (Phone or Zoom)</option>
+              <option>Paid 60-minute ($350, In person or Zoom)</option>
+            </select>
+            <div class="ps-error"></div>
+          </div>
+          <div class="ps-grid ps-2col">
+            <div class="ps-field">
+              <label class="ps-label">Preferred format</label>
+              <select class="ps-select" name="consultMode">
+                <option>Phone</option><option>Zoom</option><option>In person</option>
+              </select>
+            </div>
+            <div class="ps-field">
+              <label class="ps-label">Payment preference</label>
+              <select class="ps-select" name="paymentPref">
+                <option>LawPay portal</option><option>Stripe (send link)</option><option>Not sure</option>
+              </select>
+            </div>
+          </div>
+          <div class="ps-grid ps-3col" style="margin-top:8px">
+            <div class="ps-field"><label class="ps-label">Preferred time 1</label><input class="ps-input" type="datetime-local" name="slot1" /></div>
+            <div class="ps-field"><label class="ps-label">Preferred time 2</label><input class="ps-input" type="datetime-local" name="slot2" /></div>
+            <div class="ps-field"><label class="ps-label">Preferred time 3</label><input class="ps-input" type="datetime-local" name="slot3" /></div>
+          </div>
+          <div class="ps-field">
+            <label class="ps-label">Budget / fee expectations</label>
+            <select class="ps-select" name="budget">
+              <option>Undisclosed</option><option>Under $1,000</option><option>$1,000–$3,000</option><option>$3,000–$7,500</option><option>$7,500–$15,000</option><option>$15,000+</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- Step 7: Disclaimer & Submit -->
+        <section class="ps-step-panel" data-step="7" hidden>
+          <div class="ps-disclaimer" style="margin-bottom:10px">
+            <strong>Disclaimer</strong><br>
+            “I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further I acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions.”
+          </div>
+          <label style="display:flex; gap:8px; align-items:flex-start">
+            <input type="checkbox" name="ack" required style="margin-top:4px" />
+            <span class="ps-label">I agree to the above disclaimer. <span class="ps-req">*</span></span>
+          </label>
+          <div class="ps-error" data-error-for="ack"></div>
+
+          <div class="ps-hint" style="margin-top:8px">By submitting, you consent to be contacted at the details provided.</div>
+        </section>
+      </form>
+    </div>
+
+    <div class="ps-intake-foot">
+      <button class="ps-btn" id="psBack" disabled>Back</button>
+      <div style="display:flex; gap:8px">
+        <button class="ps-btn" id="psSave">Save & Continue Later</button>
+        <button class="ps-btn ps-btn-primary" id="psNext">Next</button>
+        <button class="ps-btn ps-btn-primary" id="psSubmit" hidden>Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const modal = document.getElementById('psIntakeModal');
+  const openBtn = document.getElementById('psIntakeOpen'); // optional secondary launcher
+  const closeBtn = document.getElementById('psIntakeClose');
+  const form = document.getElementById('psIntakeForm');
+  const stepsNav = document.getElementById('psSteps');
+  const panels = Array.from(form.querySelectorAll('.ps-step-panel'));
+  const backBtn = document.getElementById('psBack');
+  const nextBtn = document.getElementById('psNext');
+  const submitBtn = document.getElementById('psSubmit');
+  const saveBtn = document.getElementById('psSave');
+
+  const stepMeta = [
+    'Contact',
+    'Property & Role',
+    'Matter Background',
+    'Desired Outcome',
+    'Other Parties',
+    'Consult Preference',
+    'Disclaimer'
+  ];
+
+  let step = 1;
+
+  // Build side stepper
+  function renderSteps(){
+    stepsNav.innerHTML = '';
+    stepMeta.forEach((label, i) => {
+      const idx = i+1;
+      const item = document.createElement('div');
+      item.className = 'ps-step'+(idx===step?' active':'')+(idx<step?' complete':'');
+      item.innerHTML = `<div class="ps-step-num">${idx}</div><div class="ps-step-label">${label}</div>`;
+      stepsNav.appendChild(item);
+    });
+  }
+
+  function showStep(n){
+    step = n;
+    panels.forEach(p => p.hidden = Number(p.dataset.step)!==step);
+    backBtn.disabled = step===1;
+    nextBtn.hidden = step===panels.length;
+    submitBtn.hidden = step!==panels.length;
+    renderSteps();
+  }
+
+  // Validation helpers
+  function validateStep(){
+    let valid = true;
+    const panel = panels.find(p => Number(p.dataset.step)===step);
+    // Clear previous errors
+    panel.querySelectorAll('.ps-error').forEach(e => e.textContent='');
+
+    // Required inputs/selects/checkboxes inside this panel
+    panel.querySelectorAll('[required]').forEach(el => {
+      if(el.type==='checkbox'){
+        if(!el.checked){ valid=false; const holder = panel.querySelector('[data-error-for="'+el.name+'"]') || el.closest('.ps-field')?.querySelector('.ps-error'); if(holder) holder.textContent='This field is required.'; }
+      } else if(!el.value.trim()){
+        valid=false;
+        const err = el.closest('.ps-field')?.querySelector('.ps-error');
+        if(err) err.textContent = 'This field is required.';
+      } else if(el.type==='email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)){
+        valid=false;
+        const err = el.closest('.ps-field')?.querySelector('.ps-error');
+        if(err) err.textContent = 'Enter a valid email.';
+      }
+    });
+
+    // Step 2 conditional property address requirement (only if "yes")
+    if(step===2){
+      const hasProp = form.hasProperty.value === 'yes';
+      document.getElementById('psPropertyGroup').hidden = !hasProp;
+      // no hard requirement, but you can enforce if needed:
+      // if(hasProp && !form.propStreet.value.trim()){ valid=false; ... }
+    }
+
+    // Step 4 desired outcome tags must have at least 1
+    if(step===4){
+      if(!form.desiredOutcome.value.trim()){
+        valid=false;
+        const panelErr = panels[3].querySelector('.ps-field .ps-error');
+        if(panelErr) panelErr.textContent = 'Select at least one desired outcome.';
+      }
+    }
+
+    return valid;
+  }
+
+  function gatherPayload(){
+    const fd = new FormData(form);
+    // tags were stored as CSV in hidden input
+    const payload = Object.fromEntries(fd.entries());
+    payload._submittedAt = new Date().toISOString();
+    // basic derived data
+    payload.fullName = `${payload.firstName||''} ${payload.lastName||''}`.trim();
+    return payload;
+  }
+
+  function saveDraft(){
+    localStorage.setItem('ps_intake_draft', JSON.stringify(gatherPayload()));
+  }
+  function loadDraft(){
+    const raw = localStorage.getItem('ps_intake_draft');
+    if(!raw) return;
+    try{
+      const data = JSON.parse(raw);
+      Object.keys(data).forEach(k => {
+        const el = form.elements[k];
+        if(!el) return;
+        if(el.type==='checkbox') el.checked = !!data[k];
+        else el.value = data[k];
+      });
+      // reflect property UI
+      document.getElementById('psPropertyGroup').hidden = form.hasProperty.value!=='yes';
+      // reflect selected tags
+      syncTagsFromHidden();
+    }catch{}
+  }
+
+  // Tag UI for desired outcomes
+  const tagContainer = form.querySelector('[data-name="desiredOutcomeTags"]');
+  const hiddenTagInput = form.desiredOutcome;
+  function syncHiddenFromTags(){
+    const selected = Array.from(tagContainer.querySelectorAll('.ps-tag.selected')).map(b => b.textContent.trim());
+    hiddenTagInput.value = selected.join(', ');
+  }
+  function syncTagsFromHidden(){
+    const selected = (hiddenTagInput.value || '').split(',').map(s=>s.trim()).filter(Boolean);
+    tagContainer.querySelectorAll('.ps-tag').forEach(b => {
+      b.classList.toggle('selected', selected.includes(b.textContent.trim()));
+    });
+  }
+  tagContainer.addEventListener('click', e => {
+    const b = e.target.closest('.ps-tag'); if(!b) return;
+    b.classList.toggle('selected'); syncHiddenFromTags();
+  });
+
+  // Navigation
+  nextBtn.addEventListener('click', () => {
+    if(!validateStep()) return;
+    if(step < panels.length) showStep(step+1);
+  });
+  backBtn.addEventListener('click', () => { if(step>1) showStep(step-1); });
+  saveBtn.addEventListener('click', saveDraft);
+
+  // Submit -> POST to your backend
+  submitBtn.addEventListener('click', async () => {
+    if(!validateStep()) return;
+
+    const payload = gatherPayload();
+    submitBtn.disabled = true; submitBtn.textContent = 'Submitting…';
+
+    try{
+      const r = await fetch('/api/intake-submit', {
+        method:'POST', headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if(!r.ok) throw new Error(await r.text());
+
+      localStorage.removeItem('ps_intake_draft');
+      // Success view
+      const wrapper = document.createElement('div');
+      wrapper.className = 'ps-success';
+      wrapper.innerHTML = `<div class="ps-check">✅</div>
+        <h3>Thank you!</h3>
+        <p>We’ve received your intake. Our team will reach out soon to confirm your consultation.</p>
+        <p>If you chose a paid consultation, you may complete payment anytime at <a href="/pay-my-bill" target="_blank">our LawPay portal</a>.</p>
+        <div style="margin-top:12px">
+          <button class="ps-btn" onclick="document.getElementById('psIntakeModal').classList.remove('ps-open')">Close</button>
+        </div>`;
+      const body = document.querySelector('#psIntakeModal .ps-intake-body');
+      const foot = document.querySelector('#psIntakeModal .ps-intake-foot');
+      body.innerHTML = ''; body.appendChild(wrapper); foot.style.display='none';
+    }catch(err){
+      alert('There was a problem submitting your intake. Please try again or call (510) 225-9220.');
+    }finally{
+      submitBtn.disabled = false; submitBtn.textContent = 'Submit';
+    }
+  });
+
+  // Open/close
+  function open(){ modal.classList.add('ps-open'); renderSteps(); showStep(1); loadDraft(); }
+  function close(){ modal.classList.remove('ps-open'); }
+  openBtn?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+
+  // Automatically intercept CTA buttons if you add data attribute (see section 2 below)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-ps-intake-open]');
+    if(a){ e.preventDefault(); open(); }
+  });
+
+  // Property conditional UI
+  form.hasProperty.addEventListener('change', () => {
+    document.getElementById('psPropertyGroup').hidden = (form.hasProperty.value!=='yes');
+  });
+
+  // Prefill timezone
+  try{ form.timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }catch{}
+})();
+</script>
+<!-- === /Client Intake Modal === -->
+  
 </body>
 </html>
