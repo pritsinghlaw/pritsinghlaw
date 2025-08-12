@@ -323,6 +323,10 @@
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('nav-menu');
 
+  // >>> add this line <<<
+  menu.removeAttribute('style'); // let CSS classes control visibility
+
+  
   // Create overlay on demand
   const overlay = document.createElement('div');
   overlay.className = 'drawer-overlay';
