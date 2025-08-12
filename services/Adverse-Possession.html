@@ -103,7 +103,49 @@
 /* Alias to match requested class name */
 .btn-secondary{ background:#fff; color:#001f54; border:2px solid #001f54; }
 .btn-secondary:hover{ background:#f0f4ff; color:#001f54; }
-</style>
+
+  
+  /* --- Drawer: default closed state (mobile) --- */
+#nav-menu{
+  position:fixed; top:0; right:0;
+  height:100vh; /* or 100dvh for iOS 17+ */
+  width:min(86vw,360px);
+  background:#fff; color:var(--navy);
+  box-shadow:-8px 0 24px rgba(0,0,0,.18);
+  transform:translateX(100%) !important;   /* keep off-canvas */
+  visibility:hidden;                        /* no flash on load */
+  opacity:0;                                /* fade in/out */
+  pointer-events:none;                      /* don't trap taps */
+  transition:transform .32s ease, opacity .16s linear, visibility 0s linear .32s;
+  z-index:1001; display:flex; flex-direction:column; padding:24px 18px 28px;
+}
+
+/* Open state set by JS */
+#nav-menu.open{
+  transform:translateX(0) !important;
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+  transition:transform .32s ease, opacity .16s linear;
+}
+
+/* Overlay */
+.drawer-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:1000;
+}
+.drawer-overlay.show{ opacity:1; pointer-events:auto; }
+
+/* Desktop reset (do not use the off-canvas layout) */
+@media (min-width:900px){
+  #nav-menu{
+    position:static; height:auto; width:auto;
+    transform:none !important; visibility:visible; opacity:1; pointer-events:auto;
+    background:transparent; box-shadow:none; padding:0;
+  }
+}
+  
+  </style>
     
 </head>
 <body>
@@ -119,7 +161,8 @@
       </div>
 
       <!-- Drawer / menu -->
-      <div class="nav-menu" id="nav-menu" aria-hidden="true">
+      <div class="nav-menu" id="nav-menu" aria-hidden="true"
+     style="visibility:hidden;opacity:0;transform:translateX(100%);pointer-events:none;">
         <ul class="nav-list">
           <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
@@ -274,14 +317,14 @@
 
     <!---MOBILE NAVIGATION SNIPPET--->
 
+
 <script>
 (() => {
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('nav-menu');
 
-  // Create a reusable overlay
+  // Create overlay on demand
   const overlay = document.createElement('div');
-  overlay.id = 'drawer-overlay';
   overlay.className = 'drawer-overlay';
   document.body.appendChild(overlay);
 
@@ -301,21 +344,40 @@
     menu.setAttribute('aria-hidden','true');
     document.body.classList.remove('no-scroll');
   }
-  function toggleDrawer(){
-    menu.classList.contains('open') ? closeDrawer() : openDrawer();
-  }
+  function toggleDrawer(){ menu.classList.contains('open') ? closeDrawer() : openDrawer(); }
 
+  // Ensure closed on first paint (in case CSS was late or overridden)
+  closeDrawer();
+
+  // Wire up events
   hamburger.addEventListener('click', toggleDrawer);
   overlay.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDrawer(); });
 
-  // Close when any link/button inside the drawer is clicked
+  // Close when any link/button inside the drawer is tapped
   menu.addEventListener('click', (e) => {
-    const a = e.target.closest('a, button');
-    if(a) closeDrawer();
+    const a = e.target.closest('a, button'); if(a) closeDrawer();
   });
+
+  // If the user rotates or widens to desktop, normalize the state
+  const mq = window.matchMedia('(min-width:900px)');
+  function syncToViewport(e){
+    if(e.matches){ // desktop
+      // Drawer styles are disabled by CSS at desktop, but make sure state is clean
+      hamburger.classList.remove('is-active');
+      overlay.classList.remove('show');
+      document.body.classList.remove('no-scroll');
+      menu.setAttribute('aria-hidden','false');
+    }else{
+      // back to mobile: ensure hidden unless explicitly opened
+      if(!menu.classList.contains('open')) closeDrawer();
+    }
+  }
+  mq.addEventListener?.('change', syncToViewport);
+  syncToViewport(mq);
 })();
 </script>
+
 
 
     
