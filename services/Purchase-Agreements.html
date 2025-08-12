@@ -3,52 +3,255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Real Estate Purchase Agreements | California Real Estate Attorneys</title>
+  <title>Real Estate Purchase Agreements | Law Offices of Pritpal Singh</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    :root { --navy: #11294c; --accent: #ff4900; --white: #fff; --gray: #f5f5f7; --shadow: 0 2px 12px rgba(17,41,76,0.05);}
-    body { background: var(--white); color: var(--navy); font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;}
-    .header-bar { background: var(--white); display: flex; align-items: center; box-shadow: var(--shadow); padding: 1rem 0;}
-    .logo { height: 48px; margin-left: 2rem; margin-right: 1.5rem;}
-    .breadcrumbs { font-size: 1rem; color: #5a6982; margin: 0;}
-    .breadcrumbs a { color: var(--navy); text-decoration: none;}
-    .breadcrumbs a:hover { text-decoration: underline; color: var(--accent);}
-    .hero { background: var(--navy); color: var(--white); padding: 3rem 0 2rem; text-align: center;}
-    .hero__title { font-size: 2.75rem; margin-bottom: 0.75rem; font-weight: 700;}
-    .hero__subtitle { font-size: 1.2rem; max-width: 680px; margin: 0 auto 1.5rem;}
-    .btn { background: var(--accent); color: var(--white); border: none; padding: 0.85em 1.7em; border-radius: 3px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; margin: 0.2em 0;}
-    .btn--secondary { background: var(--navy); border: 1px solid var(--accent); color: var(--accent);}
-    .btn--secondary:hover { background: var(--accent); color: var(--white);}
-    .btn:hover { background: #d13e00;}
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem;}
-    section.section { padding: 2.5rem 0;}
-    .section__title { color: var(--navy); font-size: 2rem; margin-bottom: 0.6em; position: relative;}
-    .section__title:after { content: ""; display: block; width: 36px; height: 3px; background: var(--accent); margin-top: 10px; border-radius: 2px;}
-    .section--intro p { font-size: 1.15rem; margin-bottom: 1rem; line-height: 1.5;}
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;}
-    .card { background: var(--gray); border-radius: 8px; box-shadow: var(--shadow); padding: 1.5rem 1.3rem 1.1rem; display: flex; flex-direction: column; justify-content: space-between;}
-    .card__title { color: var(--accent); font-size: 1.23rem; font-weight: bold; margin-bottom: 0.65em;}
-    .card__text { color: #23395d; flex-grow: 1; font-size: 1.05rem; margin-bottom: 1em;}
-    .list--bullets { padding-left: 1.25em; margin-bottom: 0; color: #23395d;}
-    .list--bullets li { margin-bottom: 0.5em; font-size: 1.1rem;}
-    .section--why-us { background: var(--gray); border-radius: 8px;}
-    .footer-main { background: var(--navy); color: var(--white); padding: 2.5rem 0 1.75rem; text-align: center; margin-top: 2.25rem;}
-    .footer-main .footer__title { margin-bottom: 0.5em; font-weight: 700; font-size: 1.5rem;}
-    .footer-main p { margin-bottom: 2em;}
-    .contact-form { max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.1em;}
-    .contact-form input, .contact-form textarea { padding: 0.75em; font-size: 1em; border-radius: 4px; border: 1px solid #ccd8ed; outline: none; width: 100%; background: var(--white); color: var(--navy);}
-    .contact-form textarea { min-height: 100px; resize: vertical;}
-    .footer-copy { font-size: 0.98em; color: #bbc9df; padding: 1em 0 0.3em; border-top: 1px solid rgba(255,255,255,0.09); margin: 2em 0 0;}
-    @media (max-width: 700px) { .container { padding: 0 1rem; } .card-grid { grid-template-columns: 1fr; } .header-bar { flex-direction: column; } .hero__title { font-size: 2rem; } }
+  
+  
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: { families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"] }
+    });
+  </script>
+
+<style>
+    :root {
+      --navy: #001f54;
+      --accent: #ff4900;
+      --white: #fff;
+      --gray: #f5f5f7;
+      --shadow: 0 2px 12px rgba(17,41,76,0.05);
+    }
+
+    body {
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'Geologica', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-bar {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+    }
+    .logo {
+      height: 48px;
+      margin-left: 2rem;
+      margin-right: 1.5rem;
+      padding:15px;
+    }
+    .breadcrumbs {
+      font-size: 1rem;
+      color: #5a6982;
+      margin: 0;
+    }
+    .breadcrumbs a {
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    .hero__title {
+      font-size: 2.75rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    .hero__subtitle {
+      font-size: 1.2rem;
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 15px; /* Rounded corners */
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+      border: none;
+      background: #001f54; /* Navy blue */
+      color: #ffffff;
+      border: none;
+    }
+    .btn--secondary {
+      background: #ffffff;
+      color: #001f54;
+      border: 2px solid #001f54;
+    }
+    .btn--secondary:hover {
+      background: #f0f4ff;
+      color: #001f54;
+      transform: translateY(-2px) scale(1.02);
+    }
+    .btn:hover {
+      background: #00306e; /* Slightly lighter navy */
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section.section {
+      padding: 2.5rem 0;
+    }
+    .section__title {
+      color: var(--navy);
+      font-size: 2rem;
+      margin-bottom: 0.6em;
+      position: relative;
+    }
+    .section__title:after {
+      content: "";
+      display: block;
+      width: 36px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+    .section--intro p {
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: var(--gray);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.3rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card__title {
+      color: var(--accent);
+      font-size: 1.23rem;
+      font-weight: bold;
+      margin-bottom: 0.65em;
+    }
+    .card__text {
+      color: #23395d;
+      flex-grow: 1;
+      font-size: 1.05rem;
+      margin-bottom: 1em;
+    }
+    .list--bullets {
+      padding-left: 1.25em;
+      margin-bottom: 0;
+      color: #23395d;
+    }
+    .list--bullets li {
+      margin-bottom: 0.5em;
+      font-size: 1.1rem;
+    }
+    .section--why-us {
+      background: var(--gray);
+      border-radius: 8px;
+    }
+    .footer-main {
+      background: var(--navy);
+      color: var(--white);
+      padding: 2.5rem 0 1.75rem;
+      text-align: center;
+      margin-top: 2.25rem;
+    }
+    .footer-main .footer__title {
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .footer-main p {
+      margin-bottom: 2em;
+    }
+    .contact-form {
+      max-width: 450px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1em;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75em;
+      font-size: 1em;
+      border-radius: 4px;
+      border: 1px solid #ccd8ed;
+      outline: none;
+      width: 100%;
+      background: var(--white);
+      color: var(--navy);
+    }
+    .contact-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .footer-copy {
+      font-size: 0.98em;
+      color: #bbc9df;
+      padding: 1em 0 0.3em;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      margin: 2em 0 0;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 0 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .header-bar { flex-direction: column; }
+      .hero__title { font-size: 2rem; }
+    }
+
+    .backbtn {
+      position: fixed;
+      height:60px;
+      width:60px;
+      right: 40px;
+      bottom: 20px;
+      background-color:#ff0049;
+      color:#ffffff;
+      border-radius:50px;
+      text-align:center;
+      box-shadow: 2px 2px 3px #999;
+    }
+
+    h1, h2, h3, h4, h5, .hero__title, .card__title, .section__title {
+      font-family: 'Geologica', sans-serif !important;
+      font-weight: 500 !important;
+    }
   </style>
+
 </head>
 <body>
   <div class="header-bar">
-    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="California Real Estate Attorneys logo" />
+    <img class="logo" src="/colornobg.svg" width="200" height="auto" alt="Law Offices of Pritpal Singh logo" />
     <nav aria-label="breadcrumb">
       <span class="breadcrumbs">
         <a href="/">Home</a> &gt;
-        <a href="/services">Services</a> &gt;
+        <a href="/services">Practice Areas</a> &gt;
         <span style="color:var(--accent);font-weight:600;">Purchase Agreements</span>
       </span>
     </nav>
@@ -59,7 +262,7 @@
       <p class="hero__subtitle">
         The purchase agreement is the backbone of every real estate deal. Our attorneys draft, review, and negotiate contracts that withstand the pressure of California’s most competitive markets—protecting your interests from offer to closing.
       </p>
-      <a href="#contact" class="btn">Schedule a Consultation</a>
+      <a href="#contact" class="btn" style="background:#ff4900!important; color:#fff!important;">Schedule a Consultation</a>
     </div>
   </header>
   <section class="section section--intro">
@@ -127,9 +330,11 @@
       </form>
     </div>
     <div class="footer-copy">
-      &copy; 2025 California Real Estate Attorneys. All rights reserved.
+      &copy; 2025 Law Offices of Pritpal Singh. All rights reserved.
     </div>
   </footer>
   <script src="main.js"></script>
+
+<button class="backbtn" onclick="history.back(-1)"><img width="34" height="34" src="https://img.icons8.com/material-outlined/48/rewind.png" alt="rewind"/></button>
 </body>
 </html>
