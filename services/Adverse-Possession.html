@@ -117,7 +117,7 @@
   opacity:0;                                /* fade in/out */
   pointer-events:none;                      /* don't trap taps */
   transition:transform .32s ease, opacity .16s linear, visibility 0s linear .32s;
-  z-index:1001; display:flex; flex-direction:column; padding:24px 18px 28px;
+  z-index:10020 !important; display:flex; flex-direction:column; padding:24px 18px 28px;
 }
 
 /* Open state set by JS */
@@ -132,7 +132,7 @@
 /* Overlay */
 .drawer-overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.35);
-  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:1000;
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important; 
 }
 .drawer-overlay.show{ opacity:1; pointer-events:auto; }
 
@@ -323,16 +323,26 @@
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('nav-menu');
 
-  // >>> add this line <<<
-  menu.removeAttribute('style'); // let CSS classes control visibility
+  // remove inline guard so CSS can control state
+  menu.removeAttribute('style');
 
-  
-  // Create overlay on demand
+  // Create overlay once
   const overlay = document.createElement('div');
   overlay.className = 'drawer-overlay';
   document.body.appendChild(overlay);
 
+  // Size overlay so it doesn't cover the drawer
+  function sizeOverlay(){
+    const drawerWidth = Math.min(window.innerWidth * 0.86, 360); // match CSS: min(86vw,360px)
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.bottom = '0';
+    overlay.style.left = '0';
+    overlay.style.right = drawerWidth + 'px'; // leave the drawer area uncovered
+  }
+
   function openDrawer(){
+    sizeOverlay();
     menu.classList.add('open');
     hamburger.classList.add('is-active');
     overlay.classList.add('show');
@@ -340,6 +350,7 @@
     menu.setAttribute('aria-hidden','false');
     document.body.classList.add('no-scroll');
   }
+
   function closeDrawer(){
     menu.classList.remove('open');
     hamburger.classList.remove('is-active');
@@ -347,39 +358,47 @@
     hamburger.setAttribute('aria-expanded','false');
     menu.setAttribute('aria-hidden','true');
     document.body.classList.remove('no-scroll');
+    // reset overlay to full width (optional)
+    overlay.style.right = '0';
   }
+
   function toggleDrawer(){ menu.classList.contains('open') ? closeDrawer() : openDrawer(); }
 
-  // Ensure closed on first paint (in case CSS was late or overridden)
+  // Ensure closed on first paint
   closeDrawer();
 
-  // Wire up events
+  // Events
   hamburger.addEventListener('click', toggleDrawer);
   overlay.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDrawer(); });
 
-  // Close when any link/button inside the drawer is tapped
+  // Close after user taps any link/button in the drawer (allow navigation)
   menu.addEventListener('click', (e) => {
-    const a = e.target.closest('a, button'); if(a) closeDrawer();
+    const a = e.target.closest('a, button');
+    if(a){ setTimeout(closeDrawer, 0); }
   });
 
-  // If the user rotates or widens to desktop, normalize the state
+  // Keep overlay sized correctly on rotate/resize while open
+  window.addEventListener('resize', () => {
+    if(menu.classList.contains('open')) sizeOverlay();
+  });
+
+  // Desktop -> mobile transitions
   const mq = window.matchMedia('(min-width:900px)');
   function syncToViewport(e){
     if(e.matches){ // desktop
-      // Drawer styles are disabled by CSS at desktop, but make sure state is clean
       hamburger.classList.remove('is-active');
       overlay.classList.remove('show');
       document.body.classList.remove('no-scroll');
       menu.setAttribute('aria-hidden','false');
     }else{
-      // back to mobile: ensure hidden unless explicitly opened
       if(!menu.classList.contains('open')) closeDrawer();
     }
   }
   mq.addEventListener?.('change', syncToViewport);
   syncToViewport(mq);
 })();
+
 </script>
 
 
