@@ -130,6 +130,95 @@
     width: 100px;
   }
 }
+
+
+  /* Fix navigation dropdown */
+.navbar-dropdown-list-container {
+    display: block !important;
+    height: auto !important;
+    left:10px !important;
+}
+
+/* ---------- GENERIC RESETS ---------- */
+.navbar-dropdown-list-container{
+  width:fit-contant !important;           /* let it span parent */
+ 
+}
+
+/* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
+@media (min-width:768px){
+  .menu-item-container{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important; /* two equal columns */
+    gap:0.75rem 1.25rem !important;                 /* row/col gap */
+  }
+}
+
+  @media (min-width: 992px) { /* Adjust the breakpoint as needed */
+  #w-dropdown-list-0 {
+    width: fit-content !important; /* Set a desired minimum width */
+    
+  }
+}
+
+
+/* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
+.navbar-dropdown-list-container{
+  max-height:70vh !important;       /* never exceed 70 % of screen height   */
+  overflow-y:auto !important;       /* internal scroll if list is very long */
+
+
+
+
+/* ---------- NAVIGATION ---------- */
+/* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
+.navbar-dropdown-list-container{
+  width:fit-content!important; 
+                                               /* full screen width */
+  max-height:none!important;                        /* no internal scroll */
+}
+@media (max-width:767px){                           /* phones only */
+  .navbar-dropdown-link{font-size:.875rem;}         /* slightly smaller text */
+}
+/* 2) Prevent long labels from wrapping */
+.navbar-dropdown-link{white-space:nowrap;}
+
+
+
+  /* Mobile dropdown fixes */
+@media (max-width: 991px) {
+    .w-dropdown-list {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100vw !important;
+        z-index: 9999 !important;
+        display: none !important; /* Hidden by default */
+    }
+    
+    .w-dropdown.w--open .w-dropdown-list {
+        display: block !important;
+    }
+    
+    .navbar-dropdwn-toggle {
+        cursor: pointer;
+        user-select: none;
+    }
+    
+    /* Ensure dropdown links are clickable */
+    .navbar-dropdown-link {
+        display: block !important;
+        padding: 12px 20px !important;
+        text-decoration: none !important;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .navbar-dropdown-link:hover {
+        background-color: #f5f5f5;
+    }
+}
+
+  
 </style>
 
   
