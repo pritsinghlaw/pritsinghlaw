@@ -130,96 +130,76 @@
     width: 100px;
   }
 }
+</style>
 
 
-  /* Fix navigation dropdown */
-.navbar-dropdown-list-container {
-    display: block !important;
-    height: auto !important;
-    left:10px !important;
+  <style id="nav-dropdown-fix">
+/* ---------- Base dropdown ---------- */
+.navbar-menu-dropdown{ position:relative; }
+
+.w-dropdown-toggle,
+.navbar-dropdwn-toggle{
+  display:flex; align-items:center; gap:.35rem; cursor:pointer;
 }
 
-/* ---------- GENERIC RESETS ---------- */
+/* Keep long labels on one line */
+.navbar-dropdown-link{ white-space:nowrap; }
+
+/* Desktop dropdown panel */
+.w-dropdown-list,
 .navbar-dropdown-list-container{
-  width:fit-contant !important;           /* let it span parent */
- 
+  position:absolute; top:100%; left:0;
+  min-width:260px;
+  background:#fff; border-radius:12px;
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+  padding:.5rem;
+  z-index:1000;
+  display:none; /* hidden until .w--open */
 }
 
-/* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
+/* Open state (Webflow toggles .w--open) */
+.w-dropdown.w--open > .w-dropdown-list{ display:block; }
+
+/* Scroll long menus nicely */
+.navbar-dropdown-list-container{
+  max-height:70vh; overflow-y:auto;
+  width:max-content; /* fixed the typo: fit-content */
+}
+
+/* Two-column grid inside large menus (tablet and up) */
 @media (min-width:768px){
   .menu-item-container{
-    display:grid !important;
-    grid-template-columns:repeat(2,1fr) !important; /* two equal columns */
-    gap:0.75rem 1.25rem !important;                 /* row/col gap */
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:.75rem 1.25rem;
   }
 }
 
-  @media (min-width: 992px) { /* Adjust the breakpoint as needed */
-  #w-dropdown-list-0 {
-    width: fit-content !important; /* Set a desired minimum width */
-    
+/* Mobile: make lists flow inside the opened nav, not absolutely positioned */
+@media (max-width:991px){
+  .w-nav-menu{ overflow-y:auto; }
+
+  .w-dropdown-list,
+  .navbar-dropdown-list-container{
+    position:static !important;
+    width:auto !important;
+    max-height:none !important;
+    box-shadow:none; border-radius:0; padding:.25rem 0;
+    display:none; /* hidden until .w--open */
   }
+
+  .w-dropdown.w--open > .w-dropdown-list{ display:block; }
+
+  .navbar-dropdown-link{
+    display:block; padding:12px 20px; border-bottom:1px solid #eee;
+  }
+
+  .navbar-dropdown-link:hover{ background:#f5f5f5; }
 }
-
-
-/* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
-.navbar-dropdown-list-container{
-  max-height:70vh !important;       /* never exceed 70 % of screen height   */
-  overflow-y:auto !important;       /* internal scroll if list is very long */
-
-
-
-
-/* ---------- NAVIGATION ---------- */
-/* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
-.navbar-dropdown-list-container{
-  width:fit-content!important; 
-                                               /* full screen width */
-  max-height:none!important;                        /* no internal scroll */
-}
-@media (max-width:767px){                           /* phones only */
-  .navbar-dropdown-link{font-size:.875rem;}         /* slightly smaller text */
-}
-/* 2) Prevent long labels from wrapping */
-.navbar-dropdown-link{white-space:nowrap;}
-
-
-
-  /* Mobile dropdown fixes */
-@media (max-width: 991px) {
-    .w-dropdown-list {
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100vw !important;
-        z-index: 9999 !important;
-        display: none !important; /* Hidden by default */
-    }
-    
-    .w-dropdown.w--open .w-dropdown-list {
-        display: block !important;
-    }
-    
-    .navbar-dropdwn-toggle {
-        cursor: pointer;
-        user-select: none;
-    }
-    
-    /* Ensure dropdown links are clickable */
-    .navbar-dropdown-link {
-        display: block !important;
-        padding: 12px 20px !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .navbar-dropdown-link:hover {
-        background-color: #f5f5f5;
-    }
-}
-
-  
 </style>
+
+
+
+
 
   
 </head>
@@ -409,62 +389,62 @@
 
 
   
-<script>
-/* --- Complete fix for Webflow mobile dropdown issues --- */
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on mobile/tablet
-    if (window.matchMedia("(max-width: 991px)").matches) {
-        
-        // 1. Disable hover behavior on mobile
-        document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]')
-                .forEach(el => el.setAttribute('data-hover', 'false'));
-        
-        // 2. Add click handlers for dropdown toggles
-        document.querySelectorAll('.navbar-dropdwn-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const dropdown = this.closest('.navbar-menu-dropdown');
-                const dropdownList = dropdown.querySelector('.w-dropdown-list');
-                
-                // Toggle the dropdown
-                if (dropdownList.style.display === 'block') {
-                    dropdownList.style.display = 'none';
-                    dropdown.classList.remove('w--open');
-                } else {
-                    // Close other dropdowns first
-                    document.querySelectorAll('.w-dropdown-list').forEach(list => {
-                        list.style.display = 'none';
-                    });
-                    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-                        dd.classList.remove('w--open');
-                    });
-                    
-                    // Open this dropdown
-                    dropdownList.style.display = 'block';
-                    dropdown.classList.add('w--open');
-                }
-            });
+<script id="nav-dropdown-fix-js">
+(function(){
+  const mq = '(max-width: 991px)';
+  const isMobile = () => window.matchMedia(mq).matches;
+
+  function setHoverMode(){
+    // Avoid hover-open on mobile, allow it on desktop (Webflow behavior)
+    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
+      dd.setAttribute('data-hover', isMobile() ? 'false' : 'true');
+    });
+  }
+
+  function closeAll(){
+    document.querySelectorAll('.navbar-menu-dropdown.w-dropdown').forEach(dd=>{
+      dd.classList.remove('w--open');
+      const t = dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
+      if (t) t.setAttribute('aria-expanded','false');
+    });
+  }
+
+  function bindMobileClicks(){
+    document.querySelectorAll('.navbar-menu-dropdown .w-dropdown-toggle, .navbar-menu-dropdown .navbar-dropdwn-toggle')
+      .forEach(toggle=>{
+        toggle.setAttribute('aria-expanded','false');
+        toggle.addEventListener('click', (e)=>{
+          if (!isMobile()) return; // let Webflow do desktop hover
+          e.preventDefault(); e.stopPropagation();
+          const dd = toggle.closest('.w-dropdown');
+          const open = dd.classList.contains('w--open');
+
+          // close others, then toggle this one
+          closeAll();
+          if (!open){
+            dd.classList.add('w--open');
+            toggle.setAttribute('aria-expanded','true');
+          }
         });
-        
-        // 3. Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.navbar-menu-dropdown')) {
-                document.querySelectorAll('.w-dropdown-list').forEach(list => {
-                    list.style.display = 'none';
-                });
-                document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-                    dd.classList.remove('w--open');
-                });
-            }
-        });
-    }
-});
+      });
+
+    // tap/click outside to close
+    document.addEventListener('click', (e)=>{
+      if (!isMobile()) return;
+      if (!e.target.closest('.navbar-menu-dropdown')) closeAll();
+    }, true);
+  }
+
+  setHoverMode();
+  bindMobileClicks();
+  window.addEventListener('resize', setHoverMode);
+})();
 </script>
 
 
 
+
+  <!---SEARCH FUNCTIONALITY--->
 <script>
 function performSearch() {
   const searchInput = document.getElementById('searchInput');
