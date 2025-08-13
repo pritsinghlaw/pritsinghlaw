@@ -181,7 +181,7 @@
   .w-dropdown-list,
   .navbar-dropdown-list-container{
     position:static !important;
-    width:auto !important;
+    
     max-height:none !important;
     box-shadow:none; border-radius:0; padding:.25rem 0;
     display:none; /* hidden until .w--open */
@@ -198,7 +198,22 @@
 </style>
 
 
+<style id="nav-dropdown-fix-z">
+  /* Make sure dropdown panels sit above everything */
+  .w-dropdown-list,
+  .navbar-dropdown-list-container{
+    z-index: 9999 !important; /* higher than buttons/overlay */
+  }
 
+  /* On desktop the mobile overlay shouldn't catch clicks */
+  @media (min-width: 992px){
+    .w-nav-overlay{
+      pointer-events: none !important;
+      /* don't force display:none; Webflow manages visibility —
+         blocking pointer events is enough to prevent click-eating */
+    }
+  }
+</style>
 
 
   
@@ -441,7 +456,36 @@
 })();
 </script>
 
+<script id="nav-dropdown-clickthrough">
+(function(){
+  const isDesktop = () => !window.matchMedia('(max-width: 991px)').matches;
 
+  // Ensure clicks on links inside open dropdowns always navigate on desktop
+  document.addEventListener('click', function(e){
+    if (!isDesktop()) return;
+
+    const a = e.target.closest('.w-dropdown-list a, .navbar-dropdown-list-container a');
+    if (!a) return;
+
+    // Let modifier keys behave normally (open in new tab/window)
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+
+    // Stop any handlers that might cancel navigation
+    e.preventDefault();
+    e.stopPropagation();
+
+    const target = (a.getAttribute('target') || '').toLowerCase();
+    if (target === '_blank') {
+      window.open(href, '_blank');
+    } else {
+      window.location.assign(href);
+    }
+  }, true); // capture phase to win over other listeners
+})();
+</script>
 
 
   <!---SEARCH FUNCTIONALITY--->
