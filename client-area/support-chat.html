@@ -1,466 +1,475 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Law Offices of Pritpal Singh — PritAI Legal Assistant</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{
-      /* Brand tokens — swap to exact hex if needed */
-      --brand-navy:#0b2a4d;      /* Navy Blue */
-      --brand-orange:#ff6a00;    /* Orange */
-      --brand-navy-700:#0a2442;
-      --brand-navy-50:#eef3f9;
-      --ink:#0a0a0a;
-      --muted:#5e6a7a;
-      --bg:#ffffff;
-      --ring:rgba(255,106,0,.45);
-      --radius:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-    /* Full-page support layout (visible when body has .page-mode) */
-    body.page-mode .support-shell{display:grid;grid-template-rows:auto 1fr;min-height:100vh}
-    .support-header{display:none}
-    body.page-mode .support-header{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #e6eaf0;background:var(--brand-navy);color:#fff}
-    .support-header .badge{background:rgba(255,255,255,.12);padding:4px 10px;border-radius:999px;font-size:12px}
-    body.page-mode .chat-window{position:relative;max-width:1000px;margin:24px auto;padding:0 16px;height:calc(100vh - 100px)}
-    /* Floating launcher (modal use) */
-    .chat-launcher{position:fixed;right:18px;bottom:18px;background:var(--brand-orange);color:#fff;border:none;border-radius:999px;padding:14px 16px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.2);cursor:pointer}
-    .chat-launcher:focus{outline:3px solid var(--ring)}
-    /* Modal */
-    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(7,16,28,.42);z-index:9999}
-    .modal.open{display:grid}
-    .modal-dialog{width:min(100%,720px);height:min(90vh,800px);background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(3,14,26,.45)}
-    /* Chat window */
-    .chat-window{position:absolute;inset:0;display:grid;grid-template-rows:auto auto 1fr auto;background:#fff;border:1px solid #e6eaf0;border-radius:var(--radius)}
-    .chat-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--brand-navy);color:#fff}
-    .chat-title{display:flex;align-items:center;gap:10px}
-    .chat-title .dot{width:12px;height:12px;border-radius:50%;background:var(--brand-orange)}
-    .chat-close{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer}
-    .tools{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid #e6eaf0;background:#fff}
-    .pill{border:1px solid #dbe3ee;background:#fff;border-radius:999px;padding:7px 12px;font-size:12px;cursor:pointer}
-    .pill.primary{background:var(--brand-orange);border-color:var(--brand-orange);color:#fff;font-weight:700}
-    .chat-messages{padding:16px;overflow:auto;background:var(--brand-navy-50)}
-    .msg{display:grid;gap:6px;margin:0 0 14px}
-    .msg.you .bubble{background:#fff;border:1px solid #dbe3ee}
-    .msg.ai .bubble{background:#fff;border-left:4px solid var(--brand-orange);border:1px solid #e3e8f2}
-    .bubble{padding:12px 14px;border-radius:12px}
-    .role{font-size:12px;color:var(--muted)}
-    .section-label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-    .reasoning{background:#fafbfe;border:1px dashed #d9e2f2;padding:10px;border-radius:8px}
-    .answer{padding-top:2px}
-    .disclaimer{font-size:12px;color:#6b7788;margin:10px 0}
-    .chat-input{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px;border-top:1px solid #e6eaf0;background:#fff}
-    .chat-input textarea{resize:none;min-height:48px;max-height:120px;padding:12px;border:1px solid #cfd9e6;border-radius:10px;font:inherit}
-    .chat-input button{background:var(--brand-orange);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer}
-    /* Drawer (intake / Stripe request) */
-    .drawer{position:fixed;inset:0;display:none;place-items:center;background:rgba(7,16,28,.40);z-index:10000}
-    .drawer.open{display:grid}
-    .drawer-card{width:min(100%,560px);max-height:90vh;background:#fff;border-radius:14px;overflow:auto;box-shadow:0 24px 70px rgba(3,14,26,.4)}
-    .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #e6eaf0;background:var(--brand-navy);color:#fff}
-    .drawer-body{padding:16px}
-    .grid{display:grid;gap:12px}
-    .grid.cols-2{grid-template-columns:1fr 1fr}
-    label{font-size:13px;color:#334155}
-    input,select,textarea{width:100%;padding:10px;border:1px solid #cfd9e6;border-radius:10px;font:inherit}
-    .help{font-size:12px;color:#6b7788}
-    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-    .btn{border:1px solid #dbe3ee;background:#fff;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
-    .btn.primary{background:var(--brand-orange);border-color:var(--brand-orange);color:#fff}
-    @media (max-width: 740px){
-      .modal-dialog{width:100%;height:100%;border-radius:0}
-      .chat-window{border:none;border-radius:0}
-      .grid.cols-2{grid-template-columns:1fr}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PritAI Legal Assistant</title>
+    <!-- Use Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            /* Branding colors from pritsinghlaw.com */
+            --brand-blue: #001f54;
+            --brand-gold: #ff4900;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Light slate gray */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #chat-container {
+            max-height: 90vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        /* Hide the scrollbar for a cleaner look */
+        #chat-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Custom scrollbar for Firefox */
+        #chat-container {
+            scrollbar-width: none;
+        }
+
+        .user-message {
+            background-color: var(--brand-blue);
+            color: white;
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            border-top-left-radius: 1rem;
+        }
+
+        .bot-message {
+            background-color: var(--brand-gold);
+            color: var(--brand-blue);
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        /* Animation for message entry */
+        .message-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse-animation {
+            animation: pulse-ring 1.5s cubic-bezier(0.2, 0, 0, 1) infinite;
+        }
+        
+        .dot {
+            animation: bounce 1.4s ease-in-out infinite both;
+        }
+        
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.85);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1.0);
+            }
+        }
+    </style>
 </head>
-<body>
-  <div class="support-shell">
-    <header class="support-header">
-      <div style="font-weight:700">Law Offices of Pritpal Singh — Real Estate Law (CA)</div>
-      <span class="badge">AI Assistant</span>
-    </header>
-    <main class="chat-window support" aria-live="polite" hidden></main>
-  </div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-  <button class="chat-launcher" id="openChat" aria-haspopup="dialog" aria-controls="chatModal">
-    Chat with us
-  </button>
+    <!-- Chatbot Main Container -->
+    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-lg mx-4 md:mx-auto lg:max-w-xl flex flex-col h-[90vh]">
+        
+        <!-- Chatbot Header -->
+        <header class="bg-white border-b-2 border-gray-100 p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <!-- Company Logo Placeholder -->
+                <img src="/whitenobg.svg" alt="Pritpal Singh Law Logo" class="w-24 h-auto rounded-lg">
+                <h1 class="text-xl font-bold text-gray-800">PritAI Legal Assistant</h1>
+            </div>
+            <p class="text-sm text-gray-500 hidden md:block">Your Virtual Legal Assistant</p>
+        </header>
 
-  <div class="modal" id="chatModal" role="dialog" aria-modal="true" aria-label="AI legal assistant">
-    <div class="modal-dialog">
-      <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-          <div class="chat-title"><span class="dot" aria-hidden="true"></span> Law Offices of Pritpal Singh</div>
-          <div>
-            <button class="pill" id="langToggle" title="Switch language">Español</button>
-            <button class="chat-close" id="closeChat" title="Close">✕</button>
-          </div>
+        <!-- Chat Messages Container -->
+        <div id="chat-container" class="flex-grow p-4 space-y-4">
+            <!-- Initial greeting message -->
+            <div class="flex items-start space-x-2">
+                <div class="w-8 h-8 rounded-full bg-brand-gold flex-shrink-0 flex items-center justify-center font-bold text-white">Bot</div>
+                <div class="bot-message p-4 text-sm max-w-[80%] shadow-md message-fade-in">
+                    <p>Hello! I am PritAI, your virtual assistant for the Law Offices of Pritpal Singh. How can I assist you with your real estate legal questions today?</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Quick actions -->
-        <div class="tools" id="quickTools">
-          <button class="pill primary" data-action="book-free">Book Free 15‑min</button>
-          <button class="pill" data-action="book-paid">Book 60‑min ($350)</button>
-          <button class="pill" data-action="pay">Pay Bill</button>
-          <button class="pill" data-action="stripe">Request Stripe Link</button>
-          <button class="pill" data-action="call">Call</button>
-          <button class="pill" data-action="email">Email</button>
-          <button class="pill" data-action="directions">Directions</button>
-        </div>
+        <!-- Chat Input and Action Bar -->
+        <div class="p-4 bg-white border-t-2 border-gray-100 flex items-center space-x-2">
+            <input type="text" id="user-input" placeholder="Type your message..." class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-gold transition-all duration-200">
+            
+            <!-- Microphone button -->
+            <button id="mic-btn" class="relative p-3 bg-brand-blue text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-200 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm0 0v3.75m-6.75-3.75H6a.75.75 0 0 1 .75-.75h6.75a.75.75 0 0 1 .75.75h-.75M12 18.75V12a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v3.75" />
+                </svg>
+            </button>
 
-        <div class="chat-messages" id="messages" tabindex="0"></div>
-
-        <div class="chat-input">
-          <textarea id="input" placeholder="Ask about California real estate law, consultations, billing…"></textarea>
-          <button id="send">Send</button>
+            <!-- Send button -->
+            <button id="send-btn" class="p-3 bg-brand-gold text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-200 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.493 12a59.769 59.769 0 0 1-18.224 8.875L6 12Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+            </button>
         </div>
-      </div>
+        
+        <!-- Footer -->
+        <footer class="p-4 bg-gray-50 border-t-2 border-gray-100 text-center text-xs text-gray-400">
+            <p class="mb-1">
+                This chatbot provides general information and is not a substitute for legal advice.
+                The use of this chatbot does not create an attorney-client relationship.
+            </p>
+            <p>&copy; 2025 Law Offices of Pritpal Singh. All rights reserved.</p>
+        </footer>
     </div>
-  </div>
+    
+    <!-- JavaScript Section -->
+    <script>
+        // Check for SpeechRecognition support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  <!-- Drawer overlay for intake/stripe -->
-  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="drawer-card" role="document" aria-labelledby="drawerTitle">
-      <div class="drawer-head">
-        <div id="drawerTitle">Action</div>
-        <button class="btn" id="drawerClose">Close</button>
-      </div>
-      <div class="drawer-body" id="drawerBody"></div>
-    </div>
-  </div>
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const micBtn = document.getElementById('mic-btn');
 
-<script>
-/* ===== CONFIG ===== */
-/* IMPORTANT: For security, the browser calls your own server endpoints below.
-   Set these URLs to match your deployment (e.g., same-origin /api/*). */
-const API = {
-  chat: "/api/prit-chat",
-  schedule: "/api/schedule",
-  stripe: "/api/stripe"
-};
+        // Check if `SpeechRecognition` is supported
+        const isSpeechRecognitionSupported = !!SpeechRecognition;
+        if (!isSpeechRecognitionSupported) {
+            micBtn.style.display = 'none'; // Hide the microphone button if not supported
+            console.warn("Speech Recognition is not supported in this browser.");
+        }
+        
+        // Define the chatbot's system instructions. This is the "brain" of the chatbot.
+        // It's crucial for setting the persona, knowledge base, and rules.
+        const systemInstructions = `
+            You are an intuitive client support chatbot for a real estate law firm based in the state of California,
+            designed to serve as a knowledgeable and helpful virtual assistant for website visitors engaging with the Law Offices of Pritpal Singh.
 
-/* Firm facts and links — update as needed */
-const FIRM = {
-  name: "Law Offices of Pritpal Singh",
-  site: "https://pritsinghlaw.com",
-  teamPrit: "https://pritsinghlaw.com/team/pritpal-singh",
-  address: "509 13th St, Oakland, CA 94612",
-  phone: "(510) 225-9220",
-  email: "info@pritsinghlaw.com",
-  payments: "https://pritsinghlaw.com/pay-my-bill",
-  booking: "", // TODO: if you have a public booking link (Calendly/OnceHub/etc.), paste it here.
-  consult: {
-    free15: "Free 15-minute consultation (phone or Zoom)",
-    paid60: "Paid 60-minute consultation ($350, in person or Zoom)"
-  }
-};
+            Answer general real estate law questions relevant to California, and provide accurate, up-to-date information about the firm, its team,
+            especially lead attorney Pritpal Singh (profile at https://www.pritsinghlaw.com/team/pritpal-singh),
+            areas of practice (see https://www.pritsinghlaw.com/services), contact details, consultation options, and billing procedures.
 
-/* Model selection is done server-side, but we pass a preferred + fallback just in case */
-const MODEL_ID_PREFERRED = "gpt-5-mini";
-const MODEL_ID_FALLBACK  = "gpt-4.1-mini";
+            Whenever you respond, first reason through the user’s question or concern step by step. Only after thoroughly considering all aspects,
+            produce a clear, concise, and accurate answer that addresses the user’s needs.
 
-/* ===== SYSTEM PROMPT (policy-safe: show brief reasoning summary then answer) ===== */
-const SYSTEM_PROMPT = `
-You are a helpful, policy-safe virtual assistant for the Law Offices of Pritpal Singh, a California real estate law firm.
-PRIMARY GOAL: Provide general legal information (not advice) and accurate firm information.
-Always output:
-1) "Reasoning summary" – 1–4 brief bullets (public, non-sensitive).
-2) "Answer" – clear, concise (1–3 short paragraphs).
+            Persist in clarifying the user’s requests if any necessary information is unclear or missing.
+            Think step-by-step before composing your reply. Ensure you never provide legal advice, but only general legal information and firm-specific details.
 
-CAUTION: No legal advice or outcomes. California law context only. If specific advice is requested, recommend a consultation.
+            Details to Incorporate:
+            - About the Firm: Provide a well-rounded understanding of the Law Offices of Pritpal Singh, including its history, values, achievements,
+            contact info, and areas of practice. Refer to all relevant pages at https://www.pritsinghlaw.com for details.
 
-FIRM:
-- ${FIRM.name} (${FIRM.site})
-- Lead attorney: Pritpal Singh, Esq. – CA Bar #350741 – ${FIRM.teamPrit}
-- Office: ${FIRM.address}
-- Contact: ${FIRM.phone} · ${FIRM.email}
-- Consultations: ${FIRM.consult.free15}; ${FIRM.consult.paid60}
-- Billing: LawPay portal at ${FIRM.payments}; Stripe available upon request (never collect card numbers in chat).
+            - Attorney Profile: Accurately respond to questions about Pritpal Singh, using details from https://www.pritsinghlaw.com/team/pritpal-singh.
 
-LANGUAGES: Offer English, Spanish, Hindi, Punjabi, Chinese, French, German.
-BOOKING: If user wants to book, collect name, email, phone, time windows & timezone, modality (phone/Zoom/in-person), and brief matter summary. Then confirm next steps.
-`;
+            - Consultation Options: Advise clients about:
+            1) Free 15-minute phone or Zoom consultations
+            2) Paid 1-hour consultations for $500, in person or via Zoom
+            Refer to our dedicated booking form at https://www.pritsinghlaw.com/client-area/intake-form
 
-/* ===== UI helpers ===== */
-const d = (sel, root=document) => root.querySelector(sel);
-const messagesEl = d('#messages'), inputEl = d('#input'), sendBtn = d('#send');
-const modal = d('#chatModal'), openBtn = d('#openChat'), closeBtn = d('#closeChat');
-const langToggle = d('#langToggle'), toolsEl = d('#quickTools');
-const drawer = d('#drawer'), drawerBody = d('#drawerBody'), drawerTitle = d('#drawerTitle'), drawerClose = d('#drawerClose');
-const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-const tzGuess = () => Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
+            - Contact Details: Share basic details (address, phone number, email, social media) as per the firm’s website
+            (see https://www.pritsinghlaw.com for details). The phone number is (510) 225-9220 and email is info@pritsinghlaw.com.
 
-/* Page mode (embedded page) */
-if (document.body.classList.contains('page-mode')) {
-  d('.support .chat-window').hidden = false;
-} else {
-  d('.support .chat-window')?.remove();
-}
+            - Billing Instructions: Provide clear steps for paying through our secure payment portal powered by LawPay, our preferred payment provider
+            which supports credit/debit card payments, echecks and payment plans through Affirm (subject to credit check) or, upon request, via our dedicated Stripe Checkout page.
+            Clarify the payment process if users have questions. The payment portal is at https://pritsinghlaw.com/client-area/pay-my-bill.
 
-/* Modal open/close */
-openBtn?.addEventListener('click', () => { modal.classList.add('open'); d('#messages').focus(); });
-closeBtn?.addEventListener('click', () => modal.classList.remove('open'));
+            Output Format:
+            - Begin with a friendly response like “Thanks for your query, followed by the answer”.
+            - Use clear, professional and respectful language suitable for a legal services website.
+            - Keep answers concise (1–3 paragraphs); break down longer answers for clarity.
+            - If a user asks a question not explicitly covered in the provided details, acknowledge the limits of your knowledge and refer them to
+            contact the firm’s legal assistant, Michael, directly for more information (refer them to Michael’s profile page at https://pritsinghlaw.com/team/michael-chigbu),
+            or call the office at (510) 225-9220 during working hours or send an email to info@pritsinghlaw.com.
 
-/* Drawer open/close */
-function openDrawer(title, html){
-  drawerTitle.textContent = title;
-  drawerBody.innerHTML = html;
-  drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false');
-}
-function closeDrawer(){
-  drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true');
-  drawerBody.innerHTML = "";
-}
-drawerClose.addEventListener('click', closeDrawer);
-drawer.addEventListener('click', (e)=>{ if(e.target === drawer) closeDrawer(); });
+            ### Example 1:
+            **User Input:** How can I pay my bill?
+            **Expected Output:**
+            - Reasoning: First, I identify the payment options available as mentioned in the firm instructions: LawPay via the payment portal, or Stripe by request.
+            I will clarify the user should use the payment portal for LawPay, or contact us for Stripe. I must provide clear, step-by-step instructions for both methods.
+            - Conclusion: You can pay your bill using our dedicated payment portal via LawPay. Please visit https://pritsinghlaw.com/client-area/pay-my-bill
+            and follow the prompts to complete your payment securely. If you have any issues with this payment method or prefer to pay via Stripe,
+            please let us know and we will send you a Stripe payment link.
 
-/* Messages */
-function addMsg(role, html){
-  const wrap = document.createElement('div');
-  wrap.className = `msg ${role}`;
-  wrap.innerHTML = `<div class="role">${role === 'you' ? 'You' : 'Assistant'}</div><div class="bubble">${html}</div>`;
-  messagesEl.appendChild(wrap);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-}
-function addAI(text){
-  const hasSections = /Reasoning summary:/i.test(text) && /Answer:/i.test(text);
-  let html = "";
-  if(hasSections){
-    const match = text.match(/Reasoning summary:\s*([\s\S]*?)\n\s*Answer:\s*([\s\S]*)/i);
-    const rs = (match && match[1]) ? match[1] : "";
-    const ans = (match && match[2]) ? match[2] : text;
-    html = `
-      <div class="section-label">Reasoning summary</div>
-      <div class="reasoning"><div>${esc(rs).replace(/\n/g,'<br>')}</div></div>
-      <div class="section-label" style="margin-top:8px">Answer</div>
-      <div class="answer">${esc(ans).replace(/\n/g,'<br>')}</div>
-      <div class="disclaimer">This chat provides general information about California real estate law and our firm. It is not legal advice.</div>
-    `;
-  } else {
-    html = `<div class="answer">${esc(text).replace(/\n/g,'<br>')}</div>
-            <div class="disclaimer">This chat provides general information about California real estate law and our firm. It is not legal advice.</div>`;
-  }
-  addMsg('ai', html);
-}
+            ### Example 2:
+            **User Input:** How can I schedule a consultation?
+            **Expected Output:**
+            - Reasoning: I need to outline the different consultation options: free 15-minute (phone or Zoom) or paid 1-hour ($500, in person or remote). I should explain how to book these sessions.
+            - Conclusion: We offer free 15-minute consultations by phone or Zoom, and paid 1-hour consultations for $500, which can be held remotely or in person.
+            To schedule, please call us at (510) 225-9220, email us at info@pritsinghlaw.com, or use the online booking form on our website to get started.
 
-/* Memory (short-lived, client-side) */
-const memory = [
-  { role: "system", content: SYSTEM_PROMPT },
-  { role: "assistant", content:
-`Reasoning summary:
-- Welcome user and offer language options; clarify scope (general info only).
-- Invite a short description of their CA real estate issue or ask if they want to book/pay.
+            ## Important Reminders:
+            - **Do not provide legal advice**; offer only general legal information and firm-specific details.
+            - Ensure factual accuracy regarding the firm’s staff, services (refer to https://pritsinghlaw.com/services for all information pertaining to our services and areas of practice), and procedures as per www.pritsinghlaw.com.
+            - Never reveal any confidential or private information.
+            `;
 
-Answer:
-Hi! I’m the AI assistant for the Law Offices of Pritpal Singh. I can share general information on California real estate law, consultations, and billing. Would you like to continue in English, Español, हिंदी (Hindi), ਪੰਜਾਬੀ (Punjabi), 中文 (Chinese), Français, or Deutsch?` }
-];
+        let chatHistory = [];
+        let recognition = null;
+        let isListening = false;
+        let speechSynth = window.speechSynthesis;
 
-/* Language toggle (demo) */
-let targetLocale = "en";
-langToggle?.addEventListener('click', () => {
-  targetLocale = targetLocale === "en" ? "es" : "en";
-  langToggle.textContent = targetLocale === "en" ? "Español" : "English";
-  addAI(`Reasoning summary:
-- Switching language preference to ${targetLocale === "en" ? "English" : "Spanish"} for clarity.
+        // Function to create a chat message element
+        function createMessageElement(text, isUser = false) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`;
+            messageWrapper.classList.add('message-fade-in');
 
-Answer:
-Understood. I can continue in ${targetLocale === "en" ? "English" : "Spanish"}. ¿Desea que continúe en este idioma?`);
-});
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `p-4 rounded-3xl max-w-[80%] shadow-md text-sm transition-all duration-200 ${isUser ? 'user-message' : 'bot-message'}`;
+            messageBubble.innerHTML = `<p>${text}</p>`;
 
-/* Quick tools actions */
-toolsEl.addEventListener('click', (e)=>{
-  const btn = e.target.closest('button[data-action]');
-  if(!btn) return;
-  const action = btn.getAttribute('data-action');
-  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(FIRM.address)}`;
-  switch(action){
-    case 'book-free': showScheduleForm('free15'); break;
-    case 'book-paid': showScheduleForm('paid60'); break;
-    case 'pay': window.open(FIRM.payments,'_blank','noopener'); break;
-    case 'stripe': showStripeForm(); break;
-    case 'call': window.location.href = `tel:+15102259220`; break;
-    case 'email': window.location.href = `mailto:${FIRM.email}`; break;
-    case 'directions': window.open(maps,'_blank','noopener'); break;
-  }
-});
+            messageWrapper.appendChild(messageBubble);
 
-/* Send logic */
-sendBtn.addEventListener('click', send);
-inputEl.addEventListener('keydown', e => { if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+            if (!isUser) {
+                // Add an audio button for bot messages
+                const audioBtn = document.createElement('button');
+                audioBtn.className = 'ml-2 p-2 rounded-full text-brand-blue hover:text-white hover:bg-brand-blue transition-colors duration-200';
+                audioBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.924a6.452 6.452 0 0 1 0 12.152M16.514 8.524a2.91 2.91 0 0 1 0 5.852M12 21a9 9 0 1 1 0-18a9 9 0 0 1 0 18ZM15 12a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z" />
+                                    </svg>`;
+                audioBtn.title = "Listen to message";
+                audioBtn.addEventListener('click', () => speakMessage(text));
+                messageWrapper.appendChild(audioBtn);
+            }
 
-async function send(){
-  const text = inputEl.value.trim();
-  if(!text) return;
-  addMsg('you', `<div class="answer">${esc(text)}</div>`);
-  inputEl.value = "";
-  const thinkingId = "thinking-"+Date.now();
-  addMsg('ai', `<div id="${thinkingId}" class="answer">Thinking…</div>`);
-  try{
-    const out = await chatCompletion(text);
-    d('#'+thinkingId)?.parentElement?.remove();
-    addAI(out);
-  }catch(err){
-    const node = d('#'+thinkingId);
-    if(node) node.innerHTML = `Sorry—there was a problem. (${esc(err.message)})`;
-  }
-}
+            return messageWrapper;
+        }
+        
+        // Function to display the user's message
+        function displayUserMessage(message) {
+            const messageElement = createMessageElement(message, true);
+            chatContainer.appendChild(messageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-/* Server-proxied chat call (no API key in browser) */
-async function chatCompletion(userText){
-  const payload = {
-    modelPreferred: MODEL_ID_PREFERRED,
-    modelFallback: MODEL_ID_FALLBACK,
-    messages: [...memory, { role: "user", content: userText }],
-    temperature: 0.2
-  };
-  const res = await fetch(API.chat, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify(payload)
-  });
-  if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
-  const text = data.text || data.reply || "(No response)";
-  memory.push({ role:"user", content:userText });
-  memory.push({ role:"assistant", content:text });
-  return text;
-}
+        // Function to display the bot's message
+        function displayBotMessage(message) {
+            const messageElement = createMessageElement(message, false);
+            chatContainer.appendChild(messageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-/* ==== Scheduling Intake ==== */
-function showScheduleForm(kind){
-  const kindLabel = kind === 'paid60' ? `${FIRM.consult.paid60}` : `${FIRM.consult.free15}`;
-  const title = `Request Consultation — ${kind === 'paid60' ? '60 min ($350)' : '15 min (free)'}`;
-  const html = `
-    <form id="consultForm" class="grid" novalidate>
-      <input type="hidden" name="consultType" value="${kind}">
-      <div class="grid cols-2">
-        <div><label>Full name*</label><input name="name" required></div>
-        <div><label>Email*</label><input type="email" name="email" required></div>
-      </div>
-      <div class="grid cols-2">
-        <div><label>Phone</label><input name="phone" placeholder="(###) ###-####"></div>
-        <div><label>Timezone</label>
-          <input name="timezone" value="${tzGuess()}">
-          <div class="help">We’ll align times with your timezone.</div>
-        </div>
-      </div>
-      <div class="grid cols-2">
-        <div><label>Preferred modality</label>
-          <select name="modality">
-            <option value="Phone">Phone</option>
-            <option value="Zoom">Zoom</option>
-            <option value="In person">In‑person</option>
-          </select>
-        </div>
-        <div><label>Preferred time windows</label>
-          <input name="windows" placeholder="e.g., Tue/Thu 2–5pm">
-        </div>
-      </div>
-      <div>
-        <label>Brief summary of your real estate matter*</label>
-        <textarea name="summary" rows="4" required></textarea>
-      </div>
-      <div>
-        <label><input type="checkbox" name="consent" required> I understand this chat gives general information only and is not legal advice.</label>
-      </div>
-      <div class="help">Consultation selected: <b>${kindLabel}</b>. ${kind==='paid60' ? 'You’ll receive a secure payment link if confirmed.' : 'We\'ll confirm a time shortly.'}</div>
-      <div class="actions">
-        <button type="button" class="btn" id="cancelForm">Cancel</button>
-        <button class="btn primary" type="submit">Send request</button>
-      </div>
-    </form>
-  `;
-  openDrawer(title, html);
-  d('#cancelForm').addEventListener('click', closeDrawer);
-  d('#consultForm').addEventListener('submit', onSubmitConsult);
-}
+        // Function to display the typing indicator
+        function showTypingIndicator() {
+            const typingIndicator = document.createElement('div');
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.className = 'flex items-center space-x-2';
+            typingIndicator.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-brand-gold flex-shrink-0 flex items-center justify-center font-bold text-white">Bot</div>
+                <div class="bot-message p-4 max-w-[80%] shadow-md flex space-x-1">
+                    <span class="dot w-2 h-2 bg-gray-600 rounded-full"></span>
+                    <span class="dot w-2 h-2 bg-gray-600 rounded-full"></span>
+                    <span class="dot w-2 h-2 bg-gray-600 rounded-full"></span>
+                </div>
+            `;
+            chatContainer.appendChild(typingIndicator);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-async function onSubmitConsult(e){
-  e.preventDefault();
-  const f = new FormData(e.target);
-  const data = Object.fromEntries(f.entries());
-  // basic validation
-  if(!data.name || !data.email || !data.summary || !f.get('consent')){
-    alert("Please complete required fields and consent."); return;
-  }
-  // If you have a public booking link, open it; otherwise, send to server/Zapier.
-  if(FIRM.booking){
-    window.open(FIRM.booking, '_blank','noopener');
-  }
-  // server call to schedule (Zapier/webhook behind the scenes)
-  try{
-    const res = await fetch(API.schedule, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ ...data, site:FIRM.site }) });
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  }catch(err){
-    console.warn("Schedule error:", err);
-  }
-  closeDrawer();
+        // Function to remove the typing indicator
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
 
-  // Confirm in chat
-  const human = `
-Name: ${esc(data.name)}
-Email: ${esc(data.email)} ${data.phone?`· Phone: ${esc(data.phone)}`:""}
-Consultation: ${data.consultType==='paid60'?'60 min ($350)':'15 min (free)'}
-Modality: ${esc(data.modality||'')}
-Windows: ${esc(data.windows||'')}
-Timezone: ${esc(data.timezone||'')}
-Summary: ${esc(data.summary)}
-  `.trim();
+        // Function to handle sending a message
+        async function sendMessage(prompt) {
+            if (!prompt.trim()) return;
 
-  addMsg('you', `<div class="answer">Consultation request sent:<br><pre>${human}</pre></div>`);
+            // Display user message
+            displayUserMessage(prompt);
+            userInput.value = '';
 
-  // Nudge model to confirm next steps
-  const followup = `Please confirm receipt and next steps for this consultation request. Details:\n${human}`;
-  const out = await chatCompletion(followup);
-  addAI(out);
-}
+            // Add user message to chat history
+            chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
 
-/* ==== Stripe Link Request ==== */
-function showStripeForm(){
-  const html = `
-    <form id="stripeForm" class="grid" novalidate>
-      <div class="grid cols-2">
-        <div><label>Full name*</label><input name="name" required></div>
-        <div><label>Email*</label><input type="email" name="email" required></div>
-      </div>
-      <div class="grid cols-2">
-        <div><label>Amount (optional)</label><input name="amount" inputmode="decimal" placeholder="350.00"></div>
-        <div><label>Matter / reference</label><input name="reference" placeholder="Invoice note"></div>
-      </div>
-      <div class="help">We’ll email a secure Stripe payment link. For LawPay, use the Pay Bill button.</div>
-      <div class="actions">
-        <button type="button" class="btn" id="cancelStripe">Cancel</button>
-        <button class="btn primary" type="submit">Request link</button>
-      </div>
-    </form>
-  `;
-  openDrawer("Request a Stripe payment link", html);
-  d('#cancelStripe').addEventListener('click', closeDrawer);
-  d('#stripeForm').addEventListener('submit', onSubmitStripe);
-}
+            // Show typing indicator
+            showTypingIndicator();
 
-async function onSubmitStripe(e){
-  e.preventDefault();
-  const f = new FormData(e.target);
-  const data = Object.fromEntries(f.entries());
-  if(!data.name || !data.email){ alert("Name and email are required."); return; }
-  try{
-    const res = await fetch(API.stripe, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ ...data, site:FIRM.site }) });
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  }catch(err){
-    console.warn("Stripe error:", err);
-  }
-  closeDrawer();
-  addMsg('you', `<div class="answer">Stripe link requested for ${esc(data.name)} (${esc(data.email)}). ${data.amount?`Amount: $${esc(data.amount)}`:""}</div>`);
-  const out = await chatCompletion(`Client requested a Stripe payment link. Name: ${data.name}; Email: ${data.email}; Amount: ${data.amount||'N/A'}; Ref: ${data.reference||'N/A'}. Confirm next steps politely.`);
-  addAI(out);
-}
+            try {
+                // The API key is provided by the runtime environment.
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
-/* Kickoff greeting already in memory */
-addAI(memory[1].content);
-</script>
+                const payload = {
+                    contents: [{ role: "user", parts: [{ text: systemInstructions + prompt }] }]
+                };
+                
+                let response;
+                let retryCount = 0;
+                const maxRetries = 3;
+                let delay = 1000;
+
+                while (retryCount < maxRetries) {
+                    try {
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.status === 429) {
+                            console.warn(`Rate limit hit. Retrying in ${delay / 1000} seconds...`);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; // Exponential backoff
+                            retryCount++;
+                            continue;
+                        }
+
+                        if (!response.ok) {
+                            throw new Error(`API error: ${response.statusText}`);
+                        }
+
+                        const result = await response.json();
+                        const botText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                        if (botText) {
+                            hideTypingIndicator();
+                            displayBotMessage(botText);
+                            // Speak the message after displaying it
+                            speakMessage(botText);
+                            chatHistory.push({ role: 'model', parts: [{ text: botText }] });
+                        } else {
+                            hideTypingIndicator();
+                            displayBotMessage("I'm sorry, I couldn't generate a response. Please try again.");
+                        }
+                        break; // Exit the loop on success
+                    } catch (error) {
+                        console.error('API call failed:', error);
+                        if (retryCount >= maxRetries - 1) {
+                            hideTypingIndicator();
+                            displayBotMessage("I'm sorry, I couldn't reach the server. Please try again later.");
+                        }
+                        retryCount++;
+                        delay *= 2; // Exponential backoff
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            } catch (e) {
+                hideTypingIndicator();
+                console.error('Error during fetch:', e);
+                displayBotMessage("I'm sorry, an unexpected error occurred. Please try again.");
+            }
+        }
+
+        // Event listener for the send button
+        sendBtn.addEventListener('click', () => {
+            sendMessage(userInput.value);
+        });
+
+        // Event listener for the enter key
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage(userInput.value);
+            }
+        });
+
+        // Function to speak a message using Web Speech API
+        function speakMessage(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 1; // Default rate
+            utterance.pitch = 1; // Default pitch
+            speechSynth.speak(utterance);
+        }
+
+        // Speech Recognition functionality
+        if (isSpeechRecognitionSupported) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false; // Stop after one phrase
+            recognition.lang = 'en-US';
+            recognition.interimResults = false; // Only return final results
+            recognition.maxAlternatives = 1; // The most likely result
+
+            // Event listener for the microphone button
+            micBtn.addEventListener('click', () => {
+                if (isListening) {
+                    recognition.stop();
+                    isListening = false;
+                    micBtn.classList.remove('pulse-animation');
+                } else {
+                    recognition.start();
+                    isListening = true;
+                    micBtn.classList.add('pulse-animation');
+                    userInput.placeholder = "Listening...";
+                    userInput.disabled = true;
+                }
+            });
+
+            // Event handler for when speech is recognized
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                userInput.value = transcript;
+                isListening = false;
+                micBtn.classList.remove('pulse-animation');
+                userInput.placeholder = "Type your message...";
+                userInput.disabled = false;
+                sendMessage(transcript);
+            };
+
+            // Event handler for when recognition ends
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove('pulse-animation');
+                userInput.placeholder = "Type your message...";
+                userInput.disabled = false;
+            };
+
+            // Event handler for errors
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isListening = false;
+                micBtn.classList.remove('pulse-animation');
+                userInput.placeholder = "Type your message...";
+                userInput.disabled = false;
+                displayBotMessage("Sorry, I couldn't hear you. Can you please type your message?");
+            };
+        }
+    </script>
 </body>
 </html>
