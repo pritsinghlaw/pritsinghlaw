@@ -1,175 +1,141 @@
 <!DOCTYPE html>
-<!-- Client Intake — centered + wider form, mobile-first width -->
+<!-- Client Intake (uses Reviews Page layout) -->
 <html data-wf-domain="sterlingelysium.webflow.io" data-wf-page="649d51207bcfb13155239b27" data-wf-site="64785fe0a8b931af3b0da218">
 <head>
   <meta charset="utf-8">
-  <title>Secure Client Intake Form - Law Offices of Pritpal Singh</title>
-  <meta name="description" content="Start your matter with the Law Offices of Pritpal Singh. Share a few details about your real estate issue, timeline, and goals.">
+  <title>Client Intake Form - Law Offices of Pritpal Singh</title>
+  <meta name="description" content="Start your client intake. Share a few details about your real estate matter so our team can help quickly.">
+  <meta property="og:title" content="Client Intake - Law Offices of Pritpal Singh">
+  <meta property="og:description" content="Tell us about your matter to get matched with the right attorney fast.">
+  <meta property="og:image" content="https://cdn.prod.website-files.com/64785fe0a8b931af3b0da218/649b0c387fa3267cc8c16488_Group%201-min%20(1).webp">
+  <meta property="twitter:title" content="Client Intake - Law Offices of Pritpal Singh">
+  <meta property="twitter:description" content="Tell us about your matter to get matched with the right attorney fast.">
+  <meta property="twitter:image" content="/pritcover.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-
-  <!-- Base CSS from your site -->
-  <link href="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="image/png" href="/icon.png"><link rel="apple-touch-icon" href="/icon.png">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-
+  <link href="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+  <link rel="canonical" href="https://pritsinghlaw.com/reviews">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-  <script>WebFont.load({google:{families:["Open Sans:300,400,600,700,800","Geologica:500,600"]}});</script>
+  <script>WebFont.load({google:{families:["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"]}});</script>
   <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
-  <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
+  <link href="/icon.png" rel="shortcut icon" type="image/png">
+  <link href="/icon.png" rel="apple-touch-icon">
 
+  <!-- Styles (same as reviews page, plus tiny tweaks for intake form) -->
   <style>
-    body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    .w-webflow-badge{display:none!important}
+    body {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+    .header, .hero-width-home-v2 { max-width: 100% !important; overflow: hidden !important; box-sizing: border-box !important; }
+    .link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
+    .w-webflow-badge { display:none!important; visibility:hidden!important; }
 
-    /* -------- NAV dropdown behavior (closed by default on desktop) -------- */
-    .navbar-menu-dropdown .navbar-dropdown-list-container{display:none!important}
-    .navbar-menu-dropdown.w--open .navbar-dropdown-list-container{display:block!important}
-    @media (hover:hover) and (pointer:fine){
-      .navbar-menu-dropdown:hover .navbar-dropdown-list-container{display:block!important}
+    /* Animated background */
+    .animated-background{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden;}
+    .floating-icon{position:absolute; opacity:.1; animation:float 20s infinite linear;}
+    .floating-icon.orange{color:#FF8C00;} .floating-icon.navy{color:#001f54;}
+    .floating-icon:nth-child(1){animation-delay:0s; left:10%;}
+    .floating-icon:nth-child(2){animation-delay:2s; left:20%;}
+    .floating-icon:nth-child(3){animation-delay:4s; left:30%;}
+    .floating-icon:nth-child(4){animation-delay:6s; left:40%;}
+    .floating-icon:nth-child(5){animation-delay:8s; left:50%;}
+    .floating-icon:nth-child(6){animation-delay:10s; left:60%;}
+    .floating-icon:nth-child(7){animation-delay:12s; left:70%;}
+    .floating-icon:nth-child(8){animation-delay:14s; left:80%;}
+    .floating-icon:nth-child(9){animation-delay:16s; left:90%;}
+    .floating-icon:nth-child(10){animation-delay:18s; left:5%;}
+    @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 10%{opacity:.1;} 90%{opacity:.1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
+
+    /* Search */
+    .navbar-search-container{display:flex; align-items:center; margin-left:20px;}
+    .search-wrapper{position:relative; display:flex; align-items:center; background:rgba(255,255,255,.1); border-radius:25px; padding:8px 15px; transition:.3s; border:1px solid rgba(0,31,84,.2);}
+    .search-wrapper:hover,.search-wrapper:focus-within{background:rgba(255,255,255,.2); border-color:#FF8C00; box-shadow:0 2px 10px rgba(255,140,0,.2);}
+    .search-input{background:transparent; border:none; outline:none; color:#001f54; font-size:14px; width:200px; padding:5px 0;}
+    .search-input::placeholder{color:rgba(0,31,84,.6);}
+    .search-button{background:none; border:none; color:#001f54; cursor:pointer; padding:5px; display:flex; align-items:center; justify-content:center; transition:color .3s; margin-left:10px;}
+    .search-button:hover{color:#FF8C00;}
+
+    /* Buttons */
+    .btn{display:inline-block; font-family:inherit; font-size:1rem; padding:.75rem 1.5rem; border-radius:15px; cursor:pointer; transition:background .3s,color .3s,transform .2s; text-decoration:none; border:none;}
+    .btn-primary,.button{background:#001f54; color:#fff; border:none;}
+    .btn-primary:hover,.btn-primary:focus,.button:hover,.button:focus{background:#00306e; transform:translateY(-2px) scale(1.02);}
+    .btn-secondary{background:#fff; color:#001f54; border:2px solid #001f54;}
+    .btn-secondary:hover,.btn-secondary:focus{background:#f0f4ff; color:#001f54; transform:translateY(-2px) scale(1.02);}
+    .btn-pulse{animation:pulse 1.5s infinite;} @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+
+    /* Keep content visible */
+    .section, .padding-section-large, .blog-component, .testimonial-component-without-images, .contact-form-component,
+    .card-background, .link-card-practice-areas { opacity:1!important; transform:none!important; display:block!important; }
+
+    /* Dropdowns: container size/scroll & CLOSED by default on desktop */
+    .navbar-dropdown-list-container{
+      width:fit-content!important;
+      max-height:70vh!important;
+      overflow-y:auto!important;
+      left:10px!important;
     }
-    @media (max-width:991px){
-      .w-dropdown-list{position:absolute!important;top:100%!important;left:0!important;width:100vw!important;z-index:9999!important;display:none!important}
-      .w-dropdown.w--open .w-dropdown-list{display:block!important}
-      .navbar-dropdown-link{display:block!important;padding:12px 20px!important;border-bottom:1px solid #eee}
-      .navbar-dropdown-link:hover{background:#f5f5f5}
+    @media (min-width: 992px){
+      .navbar-dropdown-list-container{display:none!important;}
+      .w-dropdown.w--open .navbar-dropdown-list-container{display:block!important;}
+      @media (hover: hover) and (pointer: fine){
+        .navbar-menu-dropdown:hover .navbar-dropdown-list-container{display:block!important;}
+      }
+    }
+    /* Mobile/tablet dropdown behavior */
+    @media (max-width: 991px){
+      .w-dropdown-list{position:absolute!important; top:100%!important; left:0!important; width:100vw!important; z-index:9999!important; display:none!important;}
+      .w-dropdown.w--open .w-dropdown-list{display:block!important;}
+      .navbar-dropdown-link{display:block!important; padding:12px 20px!important; text-decoration:none!important; border-bottom:1px solid #eee;}
+      .navbar-dropdown-link:hover{background:#f5f5f5;}
     }
 
-    /* -------- Floating background (unchanged visuals) -------- */
-    .animated-background{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
-    .floating-icon{position:absolute;opacity:.1;animation:float 20s infinite linear}
-    .floating-icon.orange{color:#FF8C00}.floating-icon.navy{color:#001f54}
-    .floating-icon:nth-child(1){animation-delay:0s;left:10%}
-    .floating-icon:nth-child(2){animation-delay:2s;left:20%}
-    .floating-icon:nth-child(3){animation-delay:4s;left:30%}
-    .floating-icon:nth-child(4){animation-delay:6s;left:40%}
-    .floating-icon:nth-child(5){animation-delay:8s;left:50%}
-    .floating-icon:nth-child(6){animation-delay:10s;left:60%}
-    .floating-icon:nth-child(7){animation-delay:12s;left:70%}
-    .floating-icon:nth-child(8){animation-delay:14s;left:80%}
-    .floating-icon:nth-child(9){animation-delay:16s;left:90%}
-    .floating-icon:nth-child(10){animation-delay:18s;left:5%}
-    @keyframes float{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:.1}90%{opacity:.1}100%{transform:translateY(-100px) rotate(360deg);opacity:0}}
+    /* Reviews page stars (kept; unused here) */
+    .star-rating { display:flex; gap:.35rem; align-items:center; }
+    .star-rating input[type="radio"] { display:none; }
+    .star-rating label { cursor:pointer; font-size:1.5rem; line-height:1; color:#ccd8ed; transition: transform .15s ease; }
 
-    /* -------- Buttons -------- */
-    .btn{display:inline-block;font:inherit;font-size:1.05rem;padding:0.9rem 1.35rem;border-radius:16px;border:none;cursor:pointer;transition:transform .2s,background .25s}
-    .btn-primary,.button{background:#001f54;color:#fff}
-    .btn-primary:hover,.button:hover{background:#00306e;transform:translateY(-1px)}
-    .btn-secondary{background:#fff;color:#001f54;border:2px; border-radius:15px; solid #001f54}
-    .btn-secondary:hover{background:#f0f4ff}
-    .btn-cta{background:#ff4900;color:#fff}
+    /* Featured reviews */
+    .featured-reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    .featured-review-card { background:#fff; border:1px solid #eef2f7; border-radius:12px; padding:1rem 1.1rem; box-shadow:0 2px 12px rgba(17,41,76,0.05); }
+    .featured-review-stars { color:#FF8C00; margin-bottom:.35rem; }
+    .featured-review-name { font-weight:700; color:#001f54; margin-top:.5rem; }
+    .featured-review-case { font-size:.95rem; color:#4a5a74; }
+    @media (max-width: 991px){ .featured-reviews-grid{grid-template-columns:1fr 1fr;} }
+    @media (max-width: 600px){ .featured-reviews-grid{grid-template-columns:1fr;} }
 
-    /* ===================== FORM LAYOUT IMPROVEMENTS ===================== */
-    /* ===== Center the entire form area ===== */
-.form-shell{
-  margin: 2rem auto 0;
-  width: min(1100px, 100%);
-  padding-inline: clamp(12px, 3vw, 32px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* centers all children horizontally */
-  text-align: center;    /* centers text across the form area */
-}
+    /* Intake form sizing (centered + slightly wider for usability) */
+    .contact-form._2-column-grid{
+      max-width: 880px; /* wider than default for readability */
+      margin: 0 auto;
+      justify-items: stretch;
+    }
+    .contact-form._2-column-grid .form-input,
+    .contact-form._2-column-grid .select-input,
+    .contact-form._2-column-grid .text-area{
+      font-size: 1.02rem;
+      padding: .9rem 1rem;
+      border-radius: 10px;
+    }
+    .button-group.align-center{ display:flex; justify-content:center; }
+    .eyebrow + .heading-style-h2 + p.text-size-medium { max-width: 820px; margin-left:auto; margin-right:auto; }
 
-/* Ensure the grid itself is centered and uses full available width */
-.intake-grid{
-  width: 100%;
-  max-width: 980px;      /* tweak as desired on desktop */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin: 0 auto;        /* center the grid in the shell */
-}
-.intake-grid .full{ grid-column: 1 / -1; }
-
-/* Center the segmented button groups and any button rows */
-.segmented{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
-.button-group.align-center{ display:flex; justify-content:center; }
-
-/* Inputs/labels slightly larger across all devices */
-.form-input.w-input,
-.form-input.select-input.w-select,
-.form-input.text-area.w-input,
-.w-input, .w-select, .w-textarea{
-  width: 100%;
-  font-size: 1.08rem;      /* slightly larger than before */
-  line-height: 1.4;
-  padding: 1rem 1.05rem;
-  border-radius: 14px;
-  border: 1px solid #ccd4e0;
-  background: #fff;
-}
-.form-label{ font-size: 1rem; margin-bottom: 6px; display: block; }
-
-/* Counters/messages centered now that the form is centered */
-.char-left{ text-align: center; }
-
-/* Make segmented buttons a bit larger for easier tapping everywhere */
-.segmented .seg-btn{
-  border: 1px solid #ccd4e0;
-  background: #fff;
-  border-radius: 14px;
-  padding: 0.75rem 1.1rem;
-  font-size: 1.02rem;
-  cursor: pointer;
-}
-.segmented .seg-btn[aria-pressed="true"]{
-  border-color: #001f54;
-  box-shadow: 0 0 0 2px rgba(0,31,84,.08);
-}
-
-/* Buttons (Submit / CTAs) slightly bigger */
-.btn, .button{
-  font-size: 1.08rem;
-  padding: 1rem 1.25rem;
-  border-radius: 16px;
-}
-
-/* --------- Mobile-first widening + bigger tap targets --------- */
-@media (max-width: 991px){
-  .intake-grid{ grid-template-columns: 1fr; gap: 18px; }
-  .form-shell{ width: min(100%, 760px); }
-}
-
-@media (max-width: 540px){
-  /* Use as much width as possible on phones */
-  .form-shell{ padding-inline: clamp(8px, 4vw, 16px); }
-
-  /* Bigger inputs for thumbs */
-  .form-input.w-input,
-  .form-input.select-input.w-select,
-  .form-input.text-area.w-input,
-  .w-input, .w-select, .w-textarea{
-    font-size: 1.1rem;         /* per your request */
-    padding: 1.05rem 1.1rem;   /* per your request */
-    border-radius: 16px;
-  }
-
-  /* Segmented buttons & CTAs larger on phones */
-  .segmented .seg-btn{
-    font-size: 1.08rem;
-    padding: 0.9rem 1.1rem;
-    border-radius: 16px;
-  }
-  .btn, .button{
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 1.05rem 1.1rem;
-  }
-
-  /* Residential address trio stays comfy on small screens */
-  .inline-3{ grid-template-columns: 1fr 1fr 1fr !important; }
-}
-
-    /* Utility */
-    .hint{font-size:.88rem;color:#4a5a74}
+    /* 2-col to 1-col on mobile */
+    @media (max-width:768px){
+      .contact-form._2-column-grid{ grid-template-columns:1fr!important; }
+    }
   </style>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-SzlrxWNL6+qg1P5+5N1R6N1M4bKCvRLVGVN4uP6Y5XUyxUK85+CbERgqZFsxF0i5fLkW2G4qURy1ovw6aToF3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 </head>
 <body>
-<!-- background icons -->
 <div class="animated-background">
+  <!-- Floating icons -->
   <div class="floating-icon orange"><svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
   <div class="floating-icon navy"><svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
   <div class="floating-icon orange"><svg width="70" height="70" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg></div>
@@ -183,13 +149,13 @@
 </div>
 
 <div class="page-wrapper">
-  <!-- ===== NAV (unchanged) ===== -->
+  <!-- NAV (unchanged from reviews layout) -->
   <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" role="banner" data-duration="400">
     <div class="container-large">
       <div class="navbar-container">
         <a href="/" class="navbar-logo-link w-nav-brand" aria-label="home">
-          <img src="/colornobg.svg" width="200" alt="Pritpal Singh logo" class="navbar-logo hide-tablet">
-          <img src="/icon.png" width="80" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop">
+          <img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet">
+          <img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop">
         </a>
 
         <nav role="navigation" class="navbar-menu page-height-tablet w-nav-menu">
@@ -211,6 +177,7 @@
                       <a href="/about" class="navbar-dropdown-link w-dropdown-link">Company Profile</a>
                       <a href="/knowledge-base" target="_blank" class="navbar-dropdown-link w-dropdown-link">Knowledge Base</a>
                       <a href="https://newsroom.pritsinghlaw.com" target="_blank" class="navbar-dropdown-link w-dropdown-link">News & Insights</a>
+                      <br>
                     </div>
                   </div>
                   <div class="menu-title-wrapper"><div class="heading-style-h6 text-color-navy">Our Team</div></div>
@@ -256,11 +223,21 @@
           </div>
 
           <a href="/contact" class="navbar-link w-nav-link">Contact</a>
+
+          <!-- Search -->
+          <div class="navbar-search-container">
+            <div class="search-wrapper">
+              <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+              <button class="search-button" onclick="performSearch()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21L16.514 16.506M19 10.5C19 15.194 15.194 19 10.5 19S2 15.194 2 10.5 5.806 2 10.5 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
         </nav>
 
         <div class="navbar-button-wrapper">
-          <a style="font-size:10px!important;background-color:#001f54!important;color:#fff!important" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
-          <a href="#" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important;font-size:9.5px!important"><b>CLIENT PORTAL</b></a>
+          <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
+          <a href="#" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important; font-size:9.5px!important;"><b>CLIENT PORTAL</b></a>
           <div class="navbar-menu-button w-nav-button" aria-label="menu" role="button" tabindex="0">
             <div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div>
           </div>
@@ -271,209 +248,237 @@
   </div>
 
   <main class="main-wrapper">
-    <!-- ===== HERO ===== -->
+    <!-- HERO -->
     <header class="header">
       <div class="padding-global">
         <div class="container-small">
           <div class="padding-section-large">
-            <div class="text-align-center">
-              <div class="max-width-large align-center">
-                <div class="margin-bottom margin-xsmall"><div class="eyebrow">Start your matter faster</div></div>
-                <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Client Intake — Real Estate Law</h1></div>
-                <p class="text-size-medium">Share a few details so our team can quickly assess your issue and offer next steps.</p>
-                <div class="button-group align-center" style="margin-top:.5rem">
-                  <a href="tel:+15102259220" class="btn btn-cta"><i class="fa-solid fa-phone"></i> Book Quicker</a>
-                  <a href="/contact" class="btn btn-secondary">Use Contact Page</a>
+            <div class="margin-bottom margin-large">
+              <div class="text-align-center">
+                <div class="max-width-large align-center">
+                  <div class="margin-bottom margin-xsmall"><div class="eyebrow">Start Your Intake</div></div>
+                  <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Client Intake Form</h1></div>
+                  <p class="text-size-medium">Tell us a few details about your real estate matter so we can route you to the right attorney quickly.</p>
+                  <div class="margin-top margin-small">
+                    <a href="tel:+15102259220" class="btn btn-secondary">Prefer to book quicker? Call (510) 225-9220</a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- ===== CENTERED, WIDER FORM ===== -->
-            <div class="form-shell">
-              <div class="form-component w-form">
-                <form action="https://formspree.io/f/XXXXXXXX" method="POST" id="intake-form" class="contact-form" novalidate>
-                  <!-- Formspree helpers -->
-                  <input type="hidden" name="_subject" value="New Client Intake — pritsinghlaw.com">
+              <!-- TRUSTPILOT PLACEHOLDER (kept to match layout) -->
+              <div class="margin-bottom margin-large">
+                <div class="trustpilot-placeholder">
+                  <strong>Trustpilot Widget Placeholder</strong>
+                  <div class="text-size-regular" style="margin-top:.5rem;">Paste your Trustpilot embed script here.</div>
+                </div>
+              </div>
+
+              <!-- FEATURED REVIEWS (kept to match layout) -->
+              <section aria-labelledby="featured-reviews-heading" class="margin-bottom margin-large">
+                <h2 id="featured-reviews-heading" class="heading-style-h4 text-color-navy">Featured Client Reviews</h2>
+                <div class="featured-reviews-grid">
+                  <article class="featured-review-card">
+                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
+                    <p>“Clear, decisive guidance on a boundary dispute. The team handled everything—from survey review to negotiations—with professionalism and care.”</p>
+                    <div class="featured-review-name">— J. Alvarez</div>
+                    <div class="featured-review-case">Boundary Dispute • Oakland, CA</div>
+                  </article>
+                  <article class="featured-review-card">
+                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
+                    <p>“They resolved a complex landlord-tenant issue quickly. Communication was consistent and strategy was on point.”</p>
+                    <div class="featured-review-name">— R. Chen</div>
+                    <div class="featured-review-case">Landlord/Tenant • Fremont, CA</div>
+                  </article>
+                  <article class="featured-review-card">
+                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
+                    <p>“In a stressful quiet title matter, they protected my rights and explained each step. Highly recommend.”</p>
+                    <div class="featured-review-name">— S. Patel</div>
+                    <div class="featured-review-case">Quiet Title • San Jose, CA</div>
+                  </article>
+                </div>
+              </section>
+
+              <!-- INTAKE FORM (Formspree with redirect) -->
+              <div class="form-component w-form" style="margin-top:1.5rem;">
+                <form id="wf-form-Intake-Form" class="contact-form _2-column-grid"
+                      action="https://formspree.io/f/your_form_id" method="POST" autocomplete="on" novalidate>
+                  <input type="hidden" name="form_name" value="Client Intake (pritsinghlaw.com)">
+                  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                  <!-- Server-side fallback redirect (Formspree) -->
                   <input type="hidden" name="_redirect" value="https://pritsinghlaw.com/thank-you">
 
-                  <div class="intake-grid">
-                    <!-- Names -->
-                    <div class="form-field-wrapper">
-                      <label class="form-label" for="firstName">First Name *</label>
-                      <input class="form-input w-input" id="firstName" name="First Name" type="text" required autocomplete="given-name">
-                    </div>
-                    <div class="form-field-wrapper">
-                      <label class="form-label" for="lastName">Last Name *</label>
-                      <input class="form-input w-input" id="lastName" name="Last Name" type="text" required autocomplete="family-name">
-                    </div>
+                  <!-- First Name -->
+                  <div class="form-field-wrapper">
+                    <label for="first-name" class="form-label">First Name *</label>
+                    <input class="form-input w-input" maxlength="100" name="first_name" id="first-name" type="text" required autocomplete="given-name" />
+                  </div>
 
-                    <!-- Company -->
-                    <div class="form-field-wrapper">
-                      <label class="form-label" for="company">Company (if applicable)</label>
-                      <input class="form-input w-input" id="company" name="Company" type="text" autocomplete="organization">
-                    </div>
+                  <!-- Last Name -->
+                  <div class="form-field-wrapper">
+                    <label for="last-name" class="form-label">Last Name *</label>
+                    <input class="form-input w-input" maxlength="100" name="last_name" id="last-name" type="text" required autocomplete="family-name" />
+                  </div>
 
-                    <!-- Email / Phone -->
-                    <div class="form-field-wrapper">
-                      <label class="form-label" for="email">Email Address *</label>
-                      <input class="form-input w-input" id="email" name="Email" type="email" required autocomplete="email" inputmode="email" placeholder="you@example.com">
-                    </div>
-                    <div class="form-field-wrapper">
-                      <label class="form-label" for="phone">Phone Number *</label>
-                      <input class="form-input w-input" id="phone" name="Phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555">
-                      <div class="hint">We’ll only use this to contact you about your inquiry.</div>
-                    </div>
+                  <!-- Company (optional) -->
+                  <div class="form-field-wrapper">
+                    <label for="company" class="form-label">Company (if applicable)</label>
+                    <input class="form-input w-input" maxlength="150" name="company" id="company" type="text" autocomplete="organization" />
+                  </div>
 
-                    <!-- Residential Address -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label">Residential Address (City, State, Zip) *</label>
-                      <div class="inline-3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px">
-                        <input class="form-input w-input" id="resCity" name="Residential City" type="text" required placeholder="City">
-                        <input class="form-input w-input" id="resState" name="Residential State" type="text" required placeholder="CA">
-                        <input class="form-input w-input" id="resZip" name="Residential Zip" type="text" required inputmode="numeric" pattern="\\d{5}(-\\d{4})?" placeholder="94105">
-                      </div>
-                    </div>
+                  <!-- Email -->
+                  <div class="form-field-wrapper">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input class="form-input w-input" maxlength="200" name="email" id="email" type="email" required autocomplete="email" inputmode="email" />
+                  </div>
 
-                    <!-- Subject Property Address -->
-                    <div class="form-field-wrapper full" id="propertyAddressWrap" hidden>
-                      <label class="form-label" for="propAddress">Subject Property Address (if applicable)</label>
-                      <input class="form-input w-input" id="propAddress" name="Subject Property Address" type="text" placeholder="Street, City, State, Zip">
-                    </div>
+                  <!-- Phone -->
+                  <div class="form-field-wrapper">
+                    <label for="phone" class="form-label">Phone Number *</label>
+                    <input class="form-input w-input" maxlength="25" name="phone" id="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(###) ###-####" />
+                  </div>
 
-                    <!-- Legal Service Needed (options previously mirrored) -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label" for="service">Legal Service Needed? *</label>
-                      <select id="service" name="Legal Service Needed" required class="form-input select-input w-select">
-                        <option value="">Select a legal service…</option>
-                        <option>Purchase Agreements</option>
-                        <option>Real Estate Closings</option>
-                        <option>Property Financing Documents</option>
-                        <option>Sale & Acquisition</option>
-                        <option>Refinancing</option>
-                        <option>1031 Exchanges</option>
-                        <option>Real Estate Litigation</option>
-                        <option>Boundary Disputes</option>
-                        <option>Title & Escrow Disputes</option>
-                        <option>Quiet Title Actions</option>
-                        <option>Adverse Possession Claims</option>
-                        <option>Easements & Encroachments</option>
-                        <option>Property Broker Disputes</option>
-                        <option>Landlord Tenant Law</option>
-                        <option>Evictions</option>
-                        <option>Lease Disputes</option>
-                        <option>Rent Control Issues</option>
-                        <option>Habitability Claims</option>
-                        <option>Security Deposit Disputes</option>
-                        <option>Contract Drafting & Review</option>
-                        <option>Contract Disputes</option>
-                        <option>Business Agreements</option>
-                        <option>Employment Contracts</option>
-                        <option>Breach of Contract Claims</option>
-                        <option>Foreclosure Defense</option>
-                        <option>Mortgage Fraud</option>
-                        <option>Loan Modifications</option>
-                        <option>Short Sales</option>
-                        <option>Deed in Lieu</option>
-                        <option>Premises Liability</option>
-                        <option>Personal Injury on Property</option>
-                        <option>Slip & Fall Cases</option>
-                        <option>Property Damage Claims</option>
-                        <option>Legal Consultation</option>
-                        <option>Case Evaluation</option>
-                        <option>Second Opinion</option>
-                        <option>Ongoing Legal Representation</option>
-                        <option>Settlement Negotiations</option>
-                      </select>
-                    </div>
+                  <!-- Residential Address -->
+                  <div class="form-field-wrapper">
+                    <label for="res-address" class="form-label">Residential Address (City, State, Zip) *</label>
+                    <input class="form-input w-input" maxlength="200" name="residential_address" id="res-address" type="text" required placeholder="City, State, ZIP" autocomplete="on" />
+                  </div>
 
-                    <!-- Describe matter -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label" for="matter">Please Describe Your Legal Matter: *</label>
-                      <textarea id="matter" name="Describe Your Legal Matter" class="form-input text-area w-input" rows="6" maxlength="5000" required placeholder="Provide key facts, dates, and documents involved."></textarea>
-                      <div class="char-left" id="matterCount">0 / 5000</div>
-                    </div>
+                  <!-- Subject Property Address (optional) -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="subject-address" class="form-label">Subject Property Address (if applicable)</label>
+                    <input class="form-input w-input" maxlength="220" name="subject_property_address" id="subject-address" type="text" placeholder="Street, City, State, ZIP" autocomplete="on" />
+                  </div>
 
-                    <!-- Desired outcome -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label" for="outcome">What Is Your Desired Outcome? *</label>
-                      <textarea id="outcome" name="Desired Outcome" class="form-input text-area w-input" rows="4" maxlength="1500" required placeholder="Tell us the best-case result you’re aiming for."></textarea>
-                      <div class="char-left" id="outcomeCount">0 / 1500</div>
-                    </div>
+                  <!-- Legal Service Needed (from contact page) -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="service-needed" class="form-label">Legal Service Needed? *</label>
+                    <select id="service-needed" name="legal_service_needed" class="form-input select-input w-select" required>
+                      <option value="">Select a legal service…</option>
+                      <option>Purchase Agreements</option>
+                      <option>Real Estate Closings</option>
+                      <option>Property Financing Documents</option>
+                      <option>Sale &amp; Acquisition</option>
+                      <option>Refinancing</option>
+                      <option>1031 Exchanges</option>
+                      <option>Real Estate Litigation</option>
+                      <option>Boundary Disputes</option>
+                      <option>Title &amp; Escrow Disputes</option>
+                      <option>Quiet Title Actions</option>
+                      <option>Adverse Possession Claims</option>
+                      <option>Easements &amp; Encroachments</option>
+                      <option>Property Broker Disputes</option>
+                      <option>Landlord Tenant Law</option>
+                      <option>Evictions</option>
+                      <option>Lease Disputes</option>
+                      <option>Rent Control Issues</option>
+                      <option>Habitability Claims</option>
+                      <option>Security Deposit Disputes</option>
+                      <option>Contract Drafting &amp; Review</option>
+                      <option>Contract Disputes</option>
+                      <option>Business Agreements</option>
+                      <option>Employment Contracts</option>
+                      <option>Breach of Contract Claims</option>
+                      <option>Foreclosure Defense</option>
+                      <option>Mortgage Fraud</option>
+                      <option>Loan Modifications</option>
+                      <option>Short Sales</option>
+                      <option>Deed in Lieu</option>
+                      <option>Premises Liability</option>
+                      <option>Personal Injury on Property</option>
+                      <option>Slip &amp; Fall Cases</option>
+                      <option>Property Damage Claims</option>
+                      <option>Legal Consultation</option>
+                      <option>Case Evaluation</option>
+                      <option>Second Opinion</option>
+                      <option>Ongoing Legal Representation</option>
+                      <option>Settlement Negotiations</option>
+                    </select>
+                  </div>
 
-                    <!-- Urgency (segmented) -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label">How Urgent Is Your Matter? *</label>
-                      <div class="segmented" role="group" aria-label="Urgency">
-                        <button class="seg-btn" type="button" data-value="Very Urgent (24h)">Very Urgent (24h)</button>
-                        <button class="seg-btn" type="button" data-value="Soon (Within a week)">Soon (Within a week)</button>
-                        <button class="seg-btn" type="button" data-value="Flexible">Flexible</button>
-                      </div>
-                      <input type="hidden" name="Urgency" id="urgency" required>
-                    </div>
+                  <!-- Describe Your Legal Matter (same format as contact page) -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="matter-desc" class="form-label">Please Describe Your Legal Matter *</label>
+                    <textarea id="matter-desc" name="matter_description" maxlength="2000" class="form-input text-area w-input" required placeholder="Share the key facts, timeline, and any deadlines."></textarea>
+                  </div>
 
-                    <!-- Consultation type (segmented) -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label">What consultation type suits you best? *</label>
-                      <div class="segmented" role="group" aria-label="Consultation Type">
-                        <button class="seg-btn" type="button" data-value="Free 15-minute consultation">Free 15-minute consultation</button>
-                        <button class="seg-btn" type="button" data-value="1-Hour Consultation">1-Hour Consultation</button>
-                      </div>
-                      <input type="hidden" name="Consultation Type" id="consultType" required>
-                    </div>
+                  <!-- Desired Outcome -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="desired-outcome" class="form-label">What Is Your Desired Outcome? *</label>
+                    <textarea id="desired-outcome" name="desired_outcome" maxlength="1200" class="form-input text-area w-input" required placeholder="Tell us what ‘success’ looks like to you."></textarea>
+                  </div>
 
-                    <!-- How did you find us? (optional; adjust to match your contact page if needed) -->
-                    <div class="form-field-wrapper full">
-                      <label class="form-label" for="referral">How did you find us? (Optional)</label>
-                      <select id="referral" name="How did you find us?" class="form-input select-input w-select">
-                        <option value="">Please select…</option>
-                        <option>Google Search</option>
-                        <option>Referral</option>
-                        <option>Yelp</option>
-                        <option>Social Media</option>
-                        <option>Other</option>
-                      </select>
+                  <!-- Urgency (from contact page) -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label class="form-label">How Urgent Is Your Matter? *</label>
+                    <div class="w-layout-grid form-radio-2col" role="radiogroup" aria-label="Urgency">
+                      <label class="form-radio w-radio"><input type="radio" name="urgency" value="Very Urgent (24h)" required style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Very Urgent (24h)</span></label>
+                      <label class="form-radio w-radio"><input type="radio" name="urgency" value="Soon (Within a week)" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Soon (Within a week)</span></label>
+                      <label class="form-radio w-radio"><input type="radio" name="urgency" value="Flexible" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Flexible</span></label>
                     </div>
+                  </div>
 
-                    <!-- Disclaimer -->
-                    <div class="form-field-wrapper full">
-                      <label class="w-checkbox form-checkbox">
-                        <input id="disclaimer" type="checkbox" name="Disclaimer Acknowledgment" required style="opacity:0;position:absolute;z-index:-1">
-                        <span class="form-checkbox-label text-size-small w-form-label">
-                          I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Christine Chigbu, PC (the "Firm") unless and until a retainer agreement has been executed between myelf and the Firm. I further I acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions. *
-                        </span>
-                      </label>
+                  <!-- Consultation type -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label class="form-label">What consultation type suits you best? *</label>
+                    <div class="w-layout-grid form-radio-2col" role="radiogroup" aria-label="Consultation type">
+                      <label class="form-radio w-radio"><input type="radio" name="consultation_type" value="Free 15-minute consultation" required style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Free 15-minute consultation</span></label>
+                      <label class="form-radio w-radio"><input type="radio" name="consultation_type" value="1-Hour Consultation" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">1-Hour Consultation</span></label>
                     </div>
+                  </div>
 
-                    <!-- Submit -->
-                    <div class="button-group align-center full">
-                      <button type="submit" class="button w-button">Submit Intake</button>
-                    </div>
+                  <!-- How did you find us? (options placeholder if not on contact page) -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="find-us" class="form-label">How did you find us? (Optional)</label>
+                    <select id="find-us" name="how_did_you_find_us" class="form-input select-input w-select">
+                      <option value="">Select…</option>
+                      <!-- If you have exact options on /contact, replace the list below with those -->
+                      <option>Google Search</option>
+                      <option>Referral (Friend/Professional)</option>
+                      <option>Social Media</option>
+                      <option>Yelp</option>
+                      <option>Repeat Client</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <!-- Disclaimer checkbox (as requested; update firm name if needed) -->
+                  <label class="w-checkbox form-checkbox" style="grid-column:1 / -1;">
+                    <input id="intake-disclaimer" type="checkbox" name="intake_disclaimer" required style="opacity:0;position:absolute;z-index:-1">
+                    <span class="form-checkbox-label text-size-small w-form-label">
+                      I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Christine Chigbu, PC (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions. *
+                    </span>
+                  </label>
+
+                  <!-- Submit -->
+                  <div class="button-group align-center" style="grid-column:1 / -1;">
+                    <button type="submit" class="button w-button">Submit Intake</button>
                   </div>
                 </form>
 
-                <div class="success-message w-form-done">
+                <!-- Fallback messages (unused if redirect occurs) -->
+                <div class="success-message w-form-done" style="display:none;">
                   <div class="success-text">Thank you! Your intake has been received.</div>
                 </div>
-                <div class="error-message w-form-fail">
+                <div class="error-message w-form-fail" style="display:none;">
                   <div class="error-text">Oops! Something went wrong while submitting the form.</div>
                 </div>
               </div>
-            </div>
-            <!-- /form-shell -->
 
+            </div>
           </div>
         </div>
       </div>
     </header>
   </main>
 
-  <!-- ===== FOOTER (unchanged) ===== -->
+  <!-- FOOTER (unchanged from reviews layout) -->
   <footer class="footer-component"><div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer-top-wrapper"><div class="footer-left-wrapper"><a href="#" class="footer-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh Law Offices logo"></a><div class="spacer-medium"></div><div class="footer-details-wrapper"><div class="text-size-small"><span class="text-weight-semibold text-color-navy">Head Office:<br></span><span class="text-weight-light text-color-navy">509 13th St, Oakland, CA 94612</span><br>&zwj;<br><span class="text-weight-semibold text-color-navy">Contact:<br></span>+<a href="tel:(510) 225-9220" class="footer-link text-weight-light">1 (510) 225-9220<br></a>info<a href="mailto:info@pritsinghlaw.com" class="footer-link text-weight-light">@pritsinghlaw.com</a></div></div><div class="spacer-medium"></div><div class="w-layout-grid footer-social-list">
-    <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block" aria-label="Facebook"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
-    <a href="https://www.instagram.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Instagram"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 21 21 16 21H8C6.20735 21 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
-    <a href="https://twitter.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="X/Twitter"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
-    <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block" aria-label="LinkedIn"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
-    <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="YouTube"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
+    <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
+    <a href="https://www.instagram.com/pritsinghlaw" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
+    <a href="https://twitter.com/pritsinghlaw" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
+    <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
+    <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
+    <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
   </div></div><div class="w-layout-grid footer-menu-wrapper"><div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div><div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div><div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="/coming-soon" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div><div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div><div class="w-layout-grid footer-legal-list"><a href="/privacy" class="footer-legal-link text-color-navy">Privacy</a><a href="/terms" class="footer-legal-link text-color-navy">Terms</a><a href="/cookies" class="footer-legal-link text-color-navy">Cookies</a></div></div></div></div></footer>
 </div>
 
@@ -490,98 +495,56 @@ document.addEventListener('DOMContentLoaded', function() {
       toggle.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation();
         const dropdown = this.closest('.navbar-menu-dropdown');
-        const list = dropdown.querySelector('.w-dropdown-list');
+        const dropdownList = dropdown.querySelector('.w-dropdown-list');
         const isOpen = dropdown.classList.contains('w--open');
-        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-          dd.classList.remove('w--open');
-          const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none';
-        });
-        if (!isOpen) { dropdown.classList.add('w--open'); list.style.display = 'block'; }
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => { dd.classList.remove('w--open'); const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none'; });
+        if (!isOpen) { dropdown.classList.add('w--open'); dropdownList.style.display = 'block'; }
       });
     });
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.navbar-menu-dropdown')) {
-        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-          dd.classList.remove('w--open');
-          const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none';
-        });
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => { dd.classList.remove('w--open'); const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none'; });
       }
     });
   }
 });
 
-/* Simple search demo (kept minimal) */
-function performSearch(){
-  const el=document.getElementById('searchInput');
-  const term=(el?.value||'').trim();
-  if(term) alert('Searching for: '+term);
+/* Simple search demo */
+function performSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const term = (searchInput?.value || '').trim();
+  if (term) alert('Searching for: ' + term);
 }
 
-/* ====== Intake UX logic ====== */
-(function(){
-  const phone = document.getElementById('phone');
-  const resZip = document.getElementById('resZip');
-  const service = document.getElementById('service');
-  const propWrap = document.getElementById('propertyAddressWrap');
-  const urgencyInput = document.getElementById('urgency');
-  const consultInput = document.getElementById('consultType');
-  const matter = document.getElementById('matter');
-  const outcome = document.getElementById('outcome');
-  const matterCount = document.getElementById('matterCount');
-  const outcomeCount = document.getElementById('outcomeCount');
+/* Formspree AJAX submit with JS redirect (also has server-side fallback) */
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('wf-form-Intake-Form');
+  const done = document.querySelector('.w-form-done');
+  const fail = document.querySelector('.w-form-fail');
+  if (!form) return;
 
-  // Phone mask (US)
-  phone.addEventListener('input', function(){
-    let x = this.value.replace(/\D/g,'').slice(0,10);
-    const a=x.substring(0,3), b=x.substring(3,6), c=x.substring(6,10);
-    this.value = x.length>6 ? `(${a}) ${b}-${c}` : x.length>3 ? `(${a}) ${b}` : x.length?`(${a}`:'';
-  });
-
-  // ZIP guard
-  resZip.addEventListener('input', function(){ this.value = this.value.replace(/[^0-9-]/g,'').slice(0,10); });
-
-  // Reveal property address when relevant
-  const propertyServices = new Set([
-    'Purchase Agreements','Real Estate Closings','Property Financing Documents','Sale & Acquisition','Refinancing','1031 Exchanges',
-    'Boundary Disputes','Title & Escrow Disputes','Quiet Title Actions','Adverse Possession Claims','Easements & Encroachments',
-    'Property Broker Disputes','Premises Liability','Personal Injury on Property','Slip & Fall Cases','Property Damage Claims',
-    'Foreclosure Defense','Short Sales','Deed in Lieu','Real Estate Litigation','Landlord Tenant Law','Evictions','Lease Disputes',
-    'Rent Control Issues','Habitability Claims','Security Deposit Disputes'
-  ]);
-  function updatePropertyVisibility(){ propWrap.hidden = !propertyServices.has(service.value); }
-  service.addEventListener('change', updatePropertyVisibility); updatePropertyVisibility();
-
-  // Segmented control writers
-  function wireSegmented(groupSelector, hiddenInput){
-    document.querySelectorAll(groupSelector + ' .seg-btn').forEach(btn=>{
-      btn.addEventListener('click', function(){
-        const group=this.closest(groupSelector);
-        group.querySelectorAll('.seg-btn').forEach(b=>b.setAttribute('aria-pressed','false'));
-        this.setAttribute('aria-pressed','true');
-        hiddenInput.value=this.dataset.value;
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    fail.style.display = 'none';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
       });
-    });
-  }
-  wireSegmented('[aria-label="Urgency"]', urgencyInput);
-  wireSegmented('[aria-label="Consultation Type"]', consultInput);
-
-  // Character counters
-  function count(el,label){ label.textContent = `${el.value.length} / ${el.maxLength}`; }
-  ['input','keyup','change'].forEach(evt=>{
-    matter.addEventListener(evt, ()=>count(matter, matterCount));
-    outcome.addEventListener(evt, ()=>count(outcome, outcomeCount));
-  });
-  count(matter, matterCount); count(outcome, outcomeCount);
-
-  // Basic validation for segmented selections
-  document.getElementById('intake-form').addEventListener('submit', function(e){
-    if(!urgencyInput.value || !consultInput.value){
-      e.preventDefault();
-      alert('Please select your Urgency and preferred Consultation Type.');
-      return false;
+      if (res.ok) {
+        window.location.href = 'https://pritsinghlaw.com/thank-you';
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const msg = data.errors ? data.errors.map(x => x.message).join(', ') : 'Submission failed.';
+        throw new Error(msg);
+      }
+    } catch (err) {
+      fail.querySelector('.error-text').textContent = 'Oops! ' + (err.message || 'Something went wrong.');
+      fail.style.display = 'block';
     }
   });
-})();
+});
 </script>
 </body>
 </html>
