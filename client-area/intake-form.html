@@ -62,58 +62,106 @@
     .btn-cta{background:#ff4900;color:#fff}
 
     /* ===================== FORM LAYOUT IMPROVEMENTS ===================== */
-    /* Center the form block and let it breathe on large screens */
-    .form-shell{
-      margin: 2rem auto 0;
-      width: min(1100px, 100%);
-      padding-inline: clamp(12px, 3vw, 32px);
-    }
-    /* Make the internal form full-width; remove any legacy max-width */
-    .contact-form{max-width:none!important;width:100%!important}
+    /* ===== Center the entire form area ===== */
+.form-shell{
+  margin: 2rem auto 0;
+  width: min(1100px, 100%);
+  padding-inline: clamp(12px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers all children horizontally */
+  text-align: center;    /* centers text across the form area */
+}
 
-    /* Grid wider and more relaxed spacing */
-    .intake-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .intake-grid .full{grid-column:1 / -1}
+/* Ensure the grid itself is centered and uses full available width */
+.intake-grid{
+  width: 100%;
+  max-width: 980px;      /* tweak as desired on desktop */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 0 auto;        /* center the grid in the shell */
+}
+.intake-grid .full{ grid-column: 1 / -1; }
 
-    /* Inputs bigger + easier to tap */
-    .form-input.w-input,
-    .form-input.select-input.w-select,
-    .form-input.text-area.w-input,
-    .w-input, .w-select, .w-textarea{
-      width:100%;
-      font-size:1.05rem;
-      line-height:1.35;
-      padding: 0.95rem 1rem;
-      border-radius:14px;
-      border:1px solid #ccd4e0;
-      background:#fff;
-    }
-    .form-label{font-size:0.95rem;margin-bottom:6px;display:block}
+/* Center the segmented button groups and any button rows */
+.segmented{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.button-group.align-center{ display:flex; justify-content:center; }
 
-    .text-area{min-height:160px}
-    .char-left{font-size:.85rem;color:#65748b;text-align:right;margin-top:6px}
+/* Inputs/labels slightly larger across all devices */
+.form-input.w-input,
+.form-input.select-input.w-select,
+.form-input.text-area.w-input,
+.w-input, .w-select, .w-textarea{
+  width: 100%;
+  font-size: 1.08rem;      /* slightly larger than before */
+  line-height: 1.4;
+  padding: 1rem 1.05rem;
+  border-radius: 14px;
+  border: 1px solid #ccd4e0;
+  background: #fff;
+}
+.form-label{ font-size: 1rem; margin-bottom: 6px; display: block; }
 
-    /* Segmented buttons bigger */
-    .segmented{display:flex;gap:10px;flex-wrap:wrap}
-    .segmented .seg-btn{
-      border:1px solid #ccd4e0;background:#fff;border-radius:14px;
-      padding:0.65rem 1rem;font-size:1rem;cursor:pointer
-    }
-    .segmented .seg-btn[aria-pressed="true"]{border-color:#001f54;box-shadow:0 0 0 2px rgba(0,31,84,.08)}
+/* Counters/messages centered now that the form is centered */
+.char-left{ text-align: center; }
 
-    /* Make mobile nearly full-viewport width and single column */
-    @media (max-width: 991px){
-      .form-shell{width: min(100%, 760px)}
-      .intake-grid{grid-template-columns:1fr;gap:18px}
-    }
-    @media (max-width: 540px){
-      .form-shell{padding-inline: clamp(10px, 4vw, 20px)}
-      .btn, .button{width:100%}
-    }
+/* Make segmented buttons a bit larger for easier tapping everywhere */
+.segmented .seg-btn{
+  border: 1px solid #ccd4e0;
+  background: #fff;
+  border-radius: 14px;
+  padding: 0.75rem 1.1rem;
+  font-size: 1.02rem;
+  cursor: pointer;
+}
+.segmented .seg-btn[aria-pressed="true"]{
+  border-color: #001f54;
+  box-shadow: 0 0 0 2px rgba(0,31,84,.08);
+}
+
+/* Buttons (Submit / CTAs) slightly bigger */
+.btn, .button{
+  font-size: 1.08rem;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+}
+
+/* --------- Mobile-first widening + bigger tap targets --------- */
+@media (max-width: 991px){
+  .intake-grid{ grid-template-columns: 1fr; gap: 18px; }
+  .form-shell{ width: min(100%, 760px); }
+}
+
+@media (max-width: 540px){
+  /* Use as much width as possible on phones */
+  .form-shell{ padding-inline: clamp(8px, 4vw, 16px); }
+
+  /* Bigger inputs for thumbs */
+  .form-input.w-input,
+  .form-input.select-input.w-select,
+  .form-input.text-area.w-input,
+  .w-input, .w-select, .w-textarea{
+    font-size: 1.1rem;         /* per your request */
+    padding: 1.05rem 1.1rem;   /* per your request */
+    border-radius: 16px;
+  }
+
+  /* Segmented buttons & CTAs larger on phones */
+  .segmented .seg-btn{
+    font-size: 1.08rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 16px;
+  }
+  .btn, .button{
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 1.05rem 1.1rem;
+  }
+
+  /* Residential address trio stays comfy on small screens */
+  .inline-3{ grid-template-columns: 1fr 1fr 1fr !important; }
+}
 
     /* Utility */
     .hint{font-size:.88rem;color:#4a5a74}
