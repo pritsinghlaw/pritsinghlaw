@@ -540,6 +540,7 @@ visibility:hidden!important;
   color:#fff!important; padding:.75rem 1.25rem;
   border-radius:15px; display:flex;align-items:center;gap:.5rem;
   font-weight:600; transition:background .25s;
+  
 }
 .call-btn:hover{background:#176e35;}
 /* CLIENT PORTAL gets a user icon */
@@ -2104,10 +2105,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!---GEMINI AI SUPPORT AGENT POPUP--->
 
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-   <script src="https://cdn.tailwindcss.com"></script>
+
+  /* New rule: This makes the container completely unclickable when inactive */
+    #chat-widget-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+        pointer-events: none; /* Prevents all clicks from going through it */
+    }
+    
+    /* New class: This overrides the pointer-events rule when the chat is open */
+    #chat-widget-container.is-active {
+        pointer-events: auto;
+    }
+    
+    
+      <script src="https://cdn.tailwindcss.com"></script>
    <style>
        :root {
            --brand-blue: #001f54;
