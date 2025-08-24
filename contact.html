@@ -7,254 +7,401 @@
   <meta name="description"
         content="Get in touch with the Law Offices of Pritpal Singh. Book a consultation or ask about any real-estate-related legal service in California." />
 
-  <!--  NAVY / ORANGE CORE COLOURS  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PritAI Legal Assistant</title>
+  <!-- Use Inter font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Load Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{
-      --navy:#001f54;
-      --orange:#ff7b00;
-      --navy-dark:#001737;
-      --white:#ffffff;
-      --grey-light:#f5f7fa;
-      --border:#dce1e8;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+      /* Define brand colors as CSS variables for easy reuse */
+      :root {
+          --brand-blue: #001f54; /* Navy Blue from pritsinghlaw.com */
+          --brand-gold: #ff4900; /* Orange from pritsinghlaw.com */
+      }
 
-    body{background:var(--grey-light);color:var(--navy-dark);line-height:1.6;}
+      body {
+          font-family: 'Inter', sans-serif;
+      }
 
-    /* ----------  LAYOUT  ---------- */
-    .wrapper{max-width:1200px;padding:1.5rem;margin:auto;}
-    header{text-align:center;padding-bottom:1.5rem;}
-    header img.logo{width:190px;height:auto;margin-bottom:.75rem}
-    nav.breadcrumbs{font-size:.9rem;margin-top:.5rem;}
-    nav.breadcrumbs a{color:var(--orange);text-decoration:none}
-    nav.breadcrumbs a:hover{text-decoration:underline}
+      /* Custom scrollbar for a cleaner look */
+      #chat-container::-webkit-scrollbar {
+          width: 6px;
+      }
+      #chat-container::-webkit-scrollbar-track {
+          background: #f1f1f1;
+      }
+      #chat-container::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 10px;
+      }
+      #chat-container::-webkit-scrollbar-thumb:hover {
+          background: #aaa;
+      }
 
-    main{background:var(--white);border-radius:14px;padding:1.5rem;box-shadow:0 18px 40px rgba(0,0,0,.08);}
+      /* Animation for message entry */
+      .message-fade-in {
+          animation: fadeIn 0.4s ease-in-out;
+      }
 
-    form{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-    form .full{grid-column:1/-1}
-    label{font-weight:600;margin-bottom:.4rem;font-size:.92rem;color:var(--navy);}
-    .required{color:var(--orange)}
-    input,select,textarea{
-      padding:.75rem;border:2px solid var(--border);border-radius:8px;font-size:1rem;background:#fff;transition:border .2s,box-shadow .2s;
-    }
-    input:focus,select:focus,textarea:focus{
-      border-color:var(--orange);outline:none;box-shadow:0 0 0 3px rgb(255 123 0 / .25);
-    }
-    textarea{min-height:130px;resize:vertical}
+      @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(15px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+     
+      /* Typing indicator animation */
+      .dot {
+          animation: bounce 1.4s ease-in-out infinite both;
+      }
+      .dot:nth-child(1) { animation-delay: 0s; }
+      .dot:nth-child(2) { animation-delay: 0.2s; }
+      .dot:nth-child(3) { animation-delay: 0.4s; }
+     
+      @keyframes bounce {
+          0%, 80%, 100% { transform: scale(0); }
+          40% { transform: scale(1.0); }
+      }
 
-    /*  radio / checkbox  */
-    .radio-row{display:flex;flex-wrap:wrap;gap:1rem}
-    .radio-box{display:flex;align-items:center;border:2px solid var(--border);border-radius:8px;padding:.65rem 1rem;cursor:pointer;transition:.2s}
-    .radio-box:hover{border-color:var(--orange);background:var(--grey-light)}
-    .radio-box input{margin-right:.55rem;transform:scale(1.15)}
-    .radio-box:has(input:checked){border-color:var(--orange);background:var(--grey-light)}
+      /* Microphone pulse animation */
+      .pulse-animation {
+           box-shadow: 0 0 0 0 rgba(27, 61, 104, 1);
+           animation: pulse-effect 2s infinite;
+      }
 
-    .check-wrap{display:flex;align-items:flex-start;margin:.6rem 0}
-    .check-wrap input{margin-right:.55rem;transform:scale(1.2);margin-top:.15rem}
-
-    /* buttons */
-    .btn{
-      grid-column:1/-1;text-align:center;border:none;color:#fff;
-      background:linear-gradient(135deg,var(--navy) 0%,var(--orange) 100%);
-      padding:1rem 2.2rem;border-radius:8px;font-size:1.05rem;font-weight:600;cursor:pointer;
-      transition:transform .15s,box-shadow .15s;
-    }
-    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.2)}
-    .btn:active{transform:translateY(0)}
-
-    /*  success / error  */
-    .notice{grid-column:1/-1;border-radius:8px;padding:1rem 1.25rem;font-size:.95rem;display:none}
-    .notice.success{background:#d4edda;color:#155724}
-    .notice.error{background:#f8d7da;color:#721c24}
-
-    /*  footer  */
-    footer{margin-top:3rem;text-align:center;padding:2rem 0;background:var(--navy-dark);color:var(--white);font-size:.9rem}
-
-    @media(max-width:760px){
-      form{grid-template-columns:1fr}
-    }
+      @keyframes pulse-effect {
+           0% {
+               transform: scale(0.95);
+               box-shadow: 0 0 0 0 rgba(27, 61, 104, 0.7);
+           }
+           70% {
+               transform: scale(1);
+               box-shadow: 0 0 0 10px rgba(27, 61, 104, 0);
+           }
+           100% {
+               transform: scale(0.95);
+               box-shadow: 0 0 0 0 rgba(27, 61, 104, 0);
+           }
+       }
   </style>
-
-  <!--  Font Awesome (icons)  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-dzsWcrFNLrAEV1l1MkTozT19NTr7q27J0X5rURlMaFevS3f6Pokyk8ElgKvqb8JDtMoekSCzhKbltCxK1WG+sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-  <div class="wrapper">
+<body class="bg-slate-100 flex items-center justify-center min-h-screen">
 
-    <!-- =========  HEADER  ========= -->
-    <header>
-      <!--  LOGO PLACEHOLDER  -->
-      <img src="https://pritsinghlaw.com/colornobg.svg"
-           alt="Law Offices of Pritpal Singh Logo" class="logo"/>
-
-      <h1 style="color:var(--navy);font-size:2.4rem;">
-        <i class="fas fa-balance-scale"></i> Contact Our Team
-      </h1>
-      <p style="font-size:1.1rem;color:var(--navy-dark);opacity:.85">
-        Real-estate law specialists serving California
-      </p>
-
-      <!--  BREADCRUMBS  -->
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="https://pritsinghlaw.com/">Home</a> › <span><b>Contact Our Team</b></span>
-      </nav>
-    </header>
-
-    <!-- =========  MAIN / FORM  ========= -->
-    <main>
-      <form id="contactForm" action="https://formspree.io/f/mblkgrpo" method="POST" novalidate>
-        <input type="hidden" name="_subject" value="New Contact Form Submission">
-
-        <!-- personal -->
-        <div>
-          <label for="first">First Name <span class="required">*</span></label>
-          <input id="first" name="first" required maxlength="50" placeholder="John">
-        </div>
-
-        <div>
-          <label for="last">Last Name <span class="required">*</span></label>
-          <input id="last" name="last" required maxlength="50" placeholder="Doe">
-        </div>
-
-        <div>
-          <label for="email">Email Address <span class="required">*</span></label>
-          <input id="email" name="email" type="email" required maxlength="100" placeholder="john.doe@example.com">
-        </div>
-
-        <div>
-          <label for="phone">Phone Number <span class="required">*</span></label>
-          <input id="phone" name="phone" type="tel" required maxlength="20" placeholder="(555) 123-4567">
-        </div>
-
-        <!-- service -->
-        <div class="full">
-          <label for="service">Legal Service Needed <span class="required">*</span></label>
-          <select id="service" name="service" required>
-            <option value="">Select a legal service…</option>
-            <optgroup label="Real Estate Transactions">
-              <option>Purchase Agreements</option>
-              <option>Real Estate Closings</option>
-              <option>Property Financing Documents</option>
-              <option>Sale & Acquisition</option>
-              <option>Refinancing</option>
-              <option>1031 Exchanges</option>
-            </optgroup>
-            <optgroup label="Real Estate Litigation">
-              <option>Real Estate Litigation</option>
-              <option>Boundary Disputes</option>
-              <option>Title & Escrow Disputes</option>
-              <option>Quiet Title Actions</option>
-              <option>Adverse Possession Claims</option>
-              <option>Easements & Encroachments</option>
-              <option>Property Broker Disputes</option>
-            </optgroup>
-            <optgroup label="Landlord Tenant Law">
-              <option>Landlord Tenant Law</option>
-              <option>Evictions</option>
-              <option>Lease Disputes</option>
-              <option>Rent Control Issues</option>
-              <option>Habitability Claims</option>
-              <option>Security Deposit Disputes</option>
-            </optgroup>
-            <optgroup label="Contract Law">
-              <option>Contract Drafting & Review</option>
-              <option>Contract Disputes</option>
-              <option>Business Agreements</option>
-              <option>Employment Contracts</option>
-              <option>Breach of Contract Claims</option>
-            </optgroup>
-            <optgroup label="Foreclosure & Mortgage">
-              <option>Foreclosure Defense</option>
-              <option>Mortgage Fraud</option>
-              <option>Loan Modifications</option>
-              <option>Short Sales</option>
-              <option>Deed in Lieu</option>
-            </optgroup>
-            <optgroup label="Liability & Disputes">
-              <option>Premises Liability</option>
-              <option>Personal Injury on Property</option>
-              <option>Slip & Fall Cases</option>
-              <option>Property Damage Claims</option>
-            </optgroup>
-            <optgroup label="Consultation Services">
-              <option>Legal Consultation</option>
-              <option>Case Evaluation</option>
-              <option>Second Opinion</option>
-              <option>Ongoing Legal Representation</option>
-              <option>Settlement Negotiations</option>
-            </optgroup>
-          </select>
-        </div>
-
-        <!-- urgency -->
-        <div class="full">
-          <label>How urgent is your matter?</label>
-          <div class="radio-row">
-            <label class="radio-box"><input type="radio" name="urgency" value="Very Urgent" />Very Urgent (24h)</label>
-            <label class="radio-box"><input type="radio" name="urgency" value="Soon" checked/>Soon (Within a week)</label>
-            <label class="radio-box"><input type="radio" name="urgency" value="Flexible" />Flexible</label>
+  <!-- Chatbot Main Container -->
+  <div class="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-lg mx-4 md:mx-auto lg:max-w-xl flex flex-col h-[95vh] md:h-[90vh]">
+     
+      <!-- Chatbot Header -->
+      <header class="bg-white border-b-2 border-slate-100 p-4 flex items-center justify-between flex-shrink-0">
+          <div class="flex items-center space-x-4">
+              <!-- Using a more descriptive placeholder for the logo -->
+              <img src="https://pritsinghlaw.com/colornobg.svg" alt="Pritpal Singh Law Logo" class="w-28 h-auto rounded-lg">
+              <div>
+                   <h1 class="text-lg font-bold text-gray-800">Welcome to PritAI</h1>
+                   <p class="text-xs text-gray-500">Virtual Legal Support Agent</p>
+              </div>
           </div>
-        </div>
+          <div id="status-indicator" class="w-3 h-3 bg-green-500 rounded-full" title="Online"></div>
+      </header>
 
-        <!-- message -->
-        <div class="full">
-          <label for="message">Describe Your Legal Matter <span class="required">*</span></label><br><br>
-          <textarea id="message" style="width:400px;" name="message" required maxlength="2000"
-            placeholder="Provide any relevant details, dates and questions…"></textarea>
-        </div>
+      <!-- Chat Messages Container -->
+      <div id="chat-container" class="flex-grow p-4 space-y-4 overflow-y-auto">
+          <!-- Initial greeting message -->
+          <div class="flex justify-start items-start space-x-3 message-fade-in">
+               <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">PS</div>
+               <div class="bg-[#001f54] text-[#ffffff] p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
+                  <p>Hello! I am PritAI, your virtual support agent for the Law Offices of Pritpal Singh. How can I assist you with your real estate legal questions, comments or requests today?</p>
+              </div>
+          </div>
+      </div>
 
-        <!-- terms / newsletter -->
-        <div class="full check-wrap">
-          <input id="terms" type="checkbox" required>
-          <label for="terms">I accept the <a href="/terms" target="_blank">Terms of Service</a> &amp; <a href="/privacy" target="_blank">Privacy Policy</a> <span class="required">*</span></label>
-        </div>
+      <!-- Chat Input and Action Bar -->
+      <div class="p-4 bg-white border-t-2 border-slate-100 flex items-center space-x-2 flex-shrink-0">
+          <input type="text" id="user-input" placeholder="Type your message..." class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c39a67] transition-all duration-200">
+         
+          <!-- Microphone button with inline SVG -->
+          <button id="mic-btn" class="p-3 bg-[#001f54] text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-200 flex-shrink-0">
+               <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+               </svg>
+          </button>
 
-        <div class="full check-wrap">
-          <input id="news" name="newsletter" type="checkbox">
-          <label for="news">Send me occasional updates and legal news</label>
-        </div>
-
-        <!-- notices -->
-        <div class="notice success" id="successMsg"><strong>Thank you!</strong> Your message has been sent.</div>
-        <div class="notice error" id="errorMsg">Please correct the errors and try again.</div>
-
-        <!-- submit -->
-        <button class="btn" type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
-      </form>
-    </main>
-
-    <!-- =========  FOOTER  ========= -->
-    <footer>
-      &copy; <?=date('Y')?> Law Offices of Pritpal Singh. All rights reserved.
-    </footer>
-
+          <!-- Send button with inline SVG -->
+          <button id="send-btn" class="p-3 bg-[#ff4900] text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-200 flex-shrink-0">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+               </svg>
+          </button>
+      </div>
+     
+      <!-- Footer -->
+      <footer class="p-3 bg-slate-50 border-t-2 border-slate-100 text-center text-xs text-gray-400 flex-shrink-0">
+          <p>This AI-powered support agent provides general information and is not a substitute for legal advice.</p>
+          <p>© 2025 Law Offices of Pritpal Singh. All rights reserved.</p>
+      </footer>
   </div>
+ 
+  <!-- JavaScript Section -->
+  <script>
+      const chatContainer = document.getElementById('chat-container');
+      const userInput = document.getElementById('user-input');
+      const sendBtn = document.getElementById('send-btn');
+      const micBtn = document.getElementById('mic-btn');
+      const statusIndicator = document.getElementById('status-indicator');
 
-<!-- =====  BASIC JS FOR VALIDATION / UX  ===== -->
-<script>
-  const form = document.getElementById('contactForm'),
-        successMsg = document.getElementById('successMsg'),
-        errorMsg   = document.getElementById('errorMsg');
+      // --- CORE CHATBOT LOGIC ---
 
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    errorMsg.style.display = successMsg.style.display = 'none';
+      // Define the chatbot's system instructions. This sets the persona and rules.
+      const systemInstructions = {
+          role: "system",
+          parts: [{ text: `
+           You are an intuitive client support chatbot for a real estate law firm based in the state of California,
+           designed to serve as a knowledgeable and helpful virtual assistant for website visitors engaging with the Law Offices of Pritpal Singh.
 
-    if(!form.checkValidity()){ errorMsg.style.display='block'; return; }
+           Answer general real estate law questions relevant to California, and provide accurate, up-to-date information about the firm, its team,
+           especially lead attorney Pritpal Singh (profile at https://www.pritsinghlaw.com/team/pritpal-singh),
+           areas of practice (see https://www.pritsinghlaw.com/services), contact details, consultation options, and billing procedures.
 
-    const data = Object.fromEntries(new FormData(form).entries());
-    try{
-      const r = await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
-      if(r.ok){
-        successMsg.style.display='block';
-        form.reset();
-      }else throw new Error();
-    }catch{
-      errorMsg.textContent='Something went wrong. Please try again.';
-      errorMsg.style.display='block';
-    }
-  });
-</script>
+           Whenever you respond, first reason through the user’s question or concern step by step. Only after thoroughly considering all aspects,
+           produce a clear, concise, and accurate answer that addresses the user’s needs.
+
+           Persist in clarifying the user’s requests if any necessary information is unclear or missing.
+           Think step-by-step before composing your reply. Ensure you never provide legal advice, but only general legal information and firm-specific details.
+
+           Details to Incorporate:
+           - About the Firm: Provide a well-rounded understanding of the Law Offices of Pritpal Singh, including its history, values, achievements,
+           contact info, and areas of practice. Refer to all relevant pages at https://www.pritsinghlaw.com for details.
+
+           - Attorney Profile: Accurately respond to questions about Pritpal Singh, using details from https://www.pritsinghlaw.com/team/pritpal-singh.
+
+           - Consultation Options: Advise clients about:
+           1) Free 15-minute phone or Zoom consultations
+           2) Paid 1-hour consultations for $500, in person or via Zoom
+           Refer to our dedicated booking form at https://www.pritsinghlaw.com/client-area/intake-form or they can call (510) 443-2123 to book over the phone.
+
+           - Contact Details: Share basic details (address, phone number, email, social media) as per the firm’s website
+           (see https://www.pritsinghlaw.com for details). The phone number is (510) 225-9220 and email is info@pritsinghlaw.com.
+
+           - Billing Instructions: Provide clear steps for paying through our secure payment portal powered by LawPay, our preferred payment provider
+           which supports credit/debit card payments, echecks and payment plans through Affirm (subject to credit check) or, upon request, via our dedicated Stripe Checkout page.
+           Clarify the payment process if users have questions. The payment portal is at https://pritsinghlaw.com/pay-my-bill.
+
+           Output Format:
+           - Begin with a friendly response like “Thanks for your query, followed by the answer”.
+           - Use clear, professional and respectful language suitable for a legal services website.
+           - Keep answers concise (1–3 paragraphs); break down longer answers for clarity.
+           - If a user asks a question not explicitly covered in the provided details, acknowledge the limits of your knowledge and refer them to
+           contact the firm’s legal assistant, Michael, directly for more information (refer them to Michael’s profile page at https://pritsinghlaw.com/team/michael-chigbu),
+           or call the office at (510) 225-9220 during working hours or send an email to info@pritsinghlaw.com.
+          `}]
+      };
+
+      // Initialize chat history. It will be sent with each API request to maintain context.
+      let chatHistory = [];
+
+      // Function to add a message to the chat interface
+      function addMessage(text, isUser = false) {
+          const messageWrapper = document.createElement('div');
+          messageWrapper.className = `w-full flex ${isUser ? 'justify-end' : 'justify-start'} message-fade-in`;
+
+          let messageContent;
+          if (isUser) {
+              messageContent = `
+                  <div class="bg-[#1b3d68] text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[80%] shadow-md">
+                      <p>${text}</p>
+                  </div>
+              `;
+          } else {
+              messageContent = `
+                  <div class="flex items-start space-x-3">
+                      <div class="w-8 h-8 rounded-full bg-[#c39a67] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+                      <div class="bg-[#c39a67] text-[#1b3d68] p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
+                          <p>${text}</p>
+                      </div>
+                  </div>
+              `;
+          }
+         
+          messageWrapper.innerHTML = messageContent;
+          chatContainer.appendChild(messageWrapper);
+          chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the latest message
+      }
+
+      // Function to show/hide the typing indicator
+      function toggleTypingIndicator(show = false) {
+          let indicator = document.getElementById('typing-indicator');
+          if (show) {
+              if (!indicator) {
+                  indicator = document.createElement('div');
+                  indicator.id = 'typing-indicator';
+                  indicator.className = 'flex justify-start items-start space-x-3';
+                  indicator.innerHTML = `
+                      <div class="w-8 h-8 rounded-full bg-[#c39a67] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+                      <div class="bg-[#c39a67] text-[#1b3d68] p-4 rounded-r-xl rounded-bl-xl shadow-md flex space-x-1 items-center">
+                          <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
+                          <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
+                          <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
+                      </div>
+                  `;
+                  chatContainer.appendChild(indicator);
+                  chatContainer.scrollTop = chatContainer.scrollHeight;
+              }
+          } else {
+              if (indicator) {
+                  indicator.remove();
+              }
+          }
+      }
+
+      // --- API COMMUNICATION ---
+
+      // Function to send a message to the Gemini API
+      async function sendMessageToAPI(prompt) {
+          if (!prompt.trim()) return;
+
+          addMessage(prompt, true);
+          userInput.value = '';
+          toggleTypingIndicator(true);
+          statusIndicator.classList.replace('bg-green-500', 'bg-yellow-500'); // Indicate processing
+
+          // Add user message to chat history for context
+          chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
+
+          try {
+              // The API key is provided by the runtime environment.
+              const apiKey = "";
+              const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+              const payload = {
+                  contents: chatHistory,
+                  systemInstruction: systemInstructions.parts.length > 0 ? systemInstructions : undefined,
+                  generationConfig: {
+                       temperature: 0.7,
+                       topK: 1,
+                       topP: 1,
+                       maxOutputTokens: 2048,
+                   },
+              };
+             
+              // Using exponential backoff for retries
+              let response;
+              let retries = 3;
+              let delay = 1000;
+              for (let i = 0; i < retries; i++) {
+                  response = await fetch(apiUrl, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(payload)
+                  });
+                  if (response.status !== 429) break; // Not a rate limit error
+                  await new Promise(resolve => setTimeout(resolve, delay));
+                  delay *= 2; // Double the delay for the next retry
+              }
+
+              if (!response.ok) {
+                  throw new Error(`API Error: ${response.status} ${response.statusText}`);
+              }
+
+              const result = await response.json();
+              const botText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+              if (botText) {
+                  addMessage(botText, false);
+                  // Add bot response to history for context in next turn
+                  chatHistory.push({ role: 'model', parts: [{ text: botText }] });
+              } else {
+                  throw new Error("Invalid response structure from API.");
+              }
+
+          } catch (error) {
+              console.error('Error fetching from Gemini API:', error);
+              addMessage("I'm sorry, I'm having trouble connecting to my services right now. Please try again in a moment.", false);
+              statusIndicator.classList.replace('bg-yellow-500', 'bg-red-500'); // Indicate error
+          } finally {
+              toggleTypingIndicator(false);
+              if (!statusIndicator.classList.contains('bg-red-500')) {
+                   statusIndicator.classList.replace('bg-yellow-500', 'bg-green-500'); // Back to online
+              }
+          }
+      }
+     
+      // --- EVENT LISTENERS ---
+
+      sendBtn.addEventListener('click', () => sendMessageToAPI(userInput.value));
+      userInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              sendMessageToAPI(userInput.value);
+          }
+      });
+
+      // --- SPEECH RECOGNITION ---
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      let recognition;
+      let isListening = false;
+
+      if (SpeechRecognition) {
+          recognition = new SpeechRecognition();
+          recognition.continuous = false;
+          recognition.lang = 'en-US';
+          recognition.interimResults = false;
+
+          micBtn.addEventListener('click', () => {
+              if (isListening) {
+                  recognition.stop();
+              } else {
+                  try {
+                      recognition.start();
+                  } catch (error) {
+                      console.error("Speech recognition could not be started: ", error);
+                      addMessage("Sorry, I couldn't start the microphone. Please check your browser settings.", false);
+                  }
+              }
+          });
+
+          recognition.onstart = () => {
+              isListening = true;
+              micBtn.classList.add('pulse-animation');
+              userInput.placeholder = "Listening...";
+              userInput.disabled = true;
+          };
+
+          recognition.onend = () => {
+              isListening = false;
+              micBtn.classList.remove('pulse-animation');
+              userInput.placeholder = "Type your message...";
+              userInput.disabled = false;
+          };
+
+          recognition.onresult = (event) => {
+              const transcript = event.results[0][0].transcript;
+              userInput.value = transcript;
+              // Automatically send the message after successful transcription
+              sendMessageToAPI(transcript);
+          };
+
+          recognition.onerror = (event) => {
+              console.error('Speech recognition error:', event.error);
+              let errorMessage = "Sorry, I couldn't hear you. Please type your message.";
+              if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                  errorMessage = "Microphone access was denied. Please enable it in your browser settings to use voice input.";
+              } else if (event.error === 'no-speech') {
+                  errorMessage = "I didn't hear anything. Please try again.";
+              }
+              addMessage(errorMessage, false);
+          };
+
+      } else {
+          // Hide mic button if Speech Recognition is not supported
+          micBtn.style.display = 'none';
+          console.warn("Speech Recognition is not supported in this browser.");
+      }
+
+  </script>
 </body>
 </html>
