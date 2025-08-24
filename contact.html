@@ -136,263 +136,548 @@
       </footer>
   </div>
  
-  <!-- JavaScript Section -->
-  <script>
-      const chatContainer = document.getElementById('chat-container');
-      const userInput = document.getElementById('user-input');
-      const sendBtn = document.getElementById('send-btn');
-      const micBtn = document.getElementById('mic-btn');
-      const statusIndicator = document.getElementById('status-indicator');
+  <!-- Gemini Conversational AI Chatbot (Enhanced: streaming, STT+TTS, limits, Calendly+Zapier hooks) -->
+<script type="module">
+  // ====== ELEMENT HOOKS ======
+  const chatContainer     = document.getElementById('chat-container');
+  const userInput         = document.getElementById('user-input');
+  const sendBtn           = document.getElementById('send-btn');
+  const micBtn            = document.getElementById('mic-btn');
+  const statusIndicator   = document.getElementById('status-indicator'); // small online/processing LED
+  const voiceToggle       = document.getElementById('voice-toggle');     // optional <input type="checkbox" id="voice-toggle">
 
-      // --- CORE CHATBOT LOGIC ---
+  // ====== CONFIG ======
+  const CONFIG = {
+    MODEL_ID: "gemini-2.5-flash-preview-05-20", // fast + good for chat; supports streaming
+    API_BASE: "https://generativelanguage.googleapis.com/v1beta/models",
+    GEMINI_API_KEY: "AlzaSyBq--8va284aUQj29kmnXIL4LIZhWxa0xg",    // ⚠️ Do not commit your live key. Inject securely in prod.
+    // Firm constants
+    LAW_PAY_URL: "https://pritsinghlaw.com/pay-my-bill",
+    INTAKE_URL: "https://www.pritsinghlaw.com/client-area/intake-form",
+    SERVICES_URL: "https://www.pritsinghlaw.com/services",
+    ATTY_URL: "https://www.pritsinghlaw.com/team/pritpal-singh",
+    MICHAEL_URL: "https://pritsinghlaw.com/team/michael-chigbu",
+    PHONE_DIRECT: "(510) 225-9220",     // legal team direct office
+    PHONE_GENERAL: "(510) 443-2123",    // bookings & general assistance
+    EMAIL: "info@pritsinghlaw.com",
+    // Integrations (placeholders)
+    CALENDLY_URL: "<YOUR_CALENDLY_SCHEDULING_LINK>", // e.g., https://calendly.com/yourorg/15min
+    ZAPIER_HOOK_URL: "<YOUR_ZAPIER_CATCH_HOOK>",     // e.g., https://hooks.zapier.com/hooks/catch/xxxx/yyyy
+    // Generation config
+    generation: {
+      temperature: 0.6,
+      topK: 1,
+      topP: 0.9,
+      maxOutputTokens: 1024,
+    },
+    // Usage limits (client-side guard rails; reinforce with server quotas if possible)
+    LIMITS: {
+      PER_MINUTE: 20,
+      PER_DAY: 400,
+      MAX_USER_CHARS: 2000,
+      MAX_HISTORY_TURNS: 50
+    }
+  };
 
-      // Define the chatbot's system instructions. This sets the persona and rules.
-      const systemInstructions = {
-          role: "system",
-          parts: [{ text: `
-           You are an intuitive client support chatbot for a real estate law firm based in the state of California,
-           designed to serve as a knowledgeable and helpful virtual assistant for website visitors engaging with the Law Offices of Pritpal Singh.
+  // ====== SYSTEM INSTRUCTIONS (Gemini systemInstruction content) ======
+  const SYSTEM_TEXT = `
+You are an intuitive client-support chatbot for a California real estate law firm, the Law Offices of Pritpal Singh. You are a knowledgeable, helpful, and human-sounding virtual assistant for website visitors.
 
-           Answer general real estate law questions relevant to the state of California, and provide accurate, up-to-date information about the firm, its team,
-           especially lead attorney Pritpal Singh (profile at https://www.pritsinghlaw.com/team/pritpal-singh),
-           areas of practice (see https://www.pritsinghlaw.com/services), contact details, consultation options, and billing procedures.
+SCOPE
+- Provide general real estate law information relevant to California. Do not provide legal advice. If asked for advice, give general information and invite the user to book a consultation.
+- Provide accurate, up-to-date firm details: attorneys (especially lead attorney Pritpal Singh), services, consultation options, billing, contact info, and website navigation help.
+- Your authoritative sources are pages on https://www.pritsinghlaw.com, including:
+  - Attorney profile: ${CONFIG.ATTY_URL}
+  - Services/practice areas: ${CONFIG.SERVICES_URL}
+  - Intake/booking form: ${CONFIG.INTAKE_URL}
+  - Billing portal (LawPay): ${CONFIG.LAW_PAY_URL}
 
-           Whenever you respond, first reason through the user’s question or concern step by step. Only after thoroughly considering all aspects,
-           produce a clear, concise, and accurate answer that addresses the user’s needs.
+TONE & STYLE
+- Sound like a warm, professional human—natural and conversational. Avoid repeating stock phrases. Use plain, respectful language, short sentences, and concrete steps.
+- Keep answers concise (1–3 short paragraphs). If longer content is needed, break it into brief bullet points. Avoid legalese unless requested.
 
-           Persist in clarifying the user’s requests if any necessary information is unclear or missing.
-           Think step-by-step before composing your reply. Ensure you never provide legal advice, but only general legal information and firm-specific details.
+REASONING POLICY
+- Always think step-by-step internally before replying; never show your chain-of-thought. Output only the final answer.
+- Ask clarifying questions only when essential to move the user forward.
 
-           Details to Incorporate:
-           - About the Firm: Provide a well-rounded understanding of the Law Offices of Pritpal Singh, including its history, values, achievements,
-           contact info, and areas of practice. Refer to all relevant pages at https://www.pritsinghlaw.com for details.
+GUARDRAILS
+- No legal advice; only general information and firm specifics. This chat does not create an attorney–client relationship.
+- Do not accept service of process, discuss confidential case facts, or collect sensitive personal data. For confidential matters, direct to the intake form or phone.
+- Do not quote fees beyond consultation pricing unless clearly stated on the site.
 
-           - Attorney Profile: Accurately respond to questions about Pritpal Singh, using details from https://www.pritsinghlaw.com/team/pritpal-singh.
+CORE FACTS
+- Consultations:
+  • Free 15-minute consultation (phone or Zoom)
+  • Paid 1-hour consultation ($500; in person or Zoom)
+  • Book via ${CONFIG.INTAKE_URL}
+  • Phone scheduling: ${CONFIG.PHONE_GENERAL}
 
-           - Consultation Options: Advise clients about:
-           1) Free 15-minute phone or Zoom consultations
-           2) Paid 1-hour consultations for $500, in person or via Zoom
-           Refer to our dedicated booking form at https://www.pritsinghlaw.com/client-area/intake-form or they can call (510) 443-2123 to book over the phone.
+- Billing:
+  • Pay securely via LawPay: ${CONFIG.LAW_PAY_URL}
+  • Supports card/eCheck; payment plans via Affirm when available (subject to credit check)
+  • Stripe available upon request; if asked, explain we can send a Stripe checkout link
 
-           - Contact Details: Share basic details (address, phone number, email, social media) as per the firm’s website
-           (see https://www.pritsinghlaw.com for details). The phone number is (510) 225-9220 and email is info@pritsinghlaw.com.
+- Contact:
+  • Legal team (direct office): ${CONFIG.PHONE_DIRECT}
+  • Bookings & general assistance: ${CONFIG.PHONE_GENERAL}
+  • Email: ${CONFIG.EMAIL}
+  • Staff reference (if asked): ${CONFIG.MICHAEL_URL}
 
-           - Billing Instructions: Provide clear steps for paying through our secure payment portal powered by LawPay, our preferred payment provider
-           which supports credit/debit card payments, echecks and payment plans through Affirm (subject to credit check) or, upon request, via our dedicated Stripe Checkout page.
-           Clarify the payment process if users have questions. The payment portal is at https://pritsinghlaw.com/pay-my-bill.
+ESCALATION
+- For matters needing attorney/staff review, say: “Our legal team typically responds within 4–8 hours during normal office hours.” Provide phone/email/intake links.
 
-           Output Format:
-           - Begin with a friendly response like “Thanks for your query, followed by the answer”.
-           - Use clear, professional and respectful language suitable for a legal services website.
-           - Keep answers concise (1–3 paragraphs); break down longer answers for clarity.
-           - If a user asks a question not explicitly covered in the provided details, acknowledge the limits of your knowledge and refer them to
-           contact the firm’s legal assistant, Michael, directly for more information (refer them to Michael’s profile page at https://pritsinghlaw.com/team/michael-chigbu),
-           or call the office at (510) 225-9220 during working hours or send an email to info@pritsinghlaw.com.
-          `}]
-      };
+OUTPUT
+- Do NOT include internal reasoning. Provide only the final, natural-sounding answer.
+- Start conversationally; avoid formulaic greetings.
+- If information is unknown or not on the site, say so and offer phone/email/intake form.
 
-      // Initialize chat history. It will be sent with each API request to maintain context.
-      let chatHistory = [];
+INTENT SHORTCUTS (non-exhaustive)
+- If user intent is clearly “book” → provide ${CONFIG.INTAKE_URL} and offer to open Calendly.
+- If user intent is “pay” → provide ${CONFIG.LAW_PAY_URL}; offer Stripe link by request.
+- If urgent or complex matter → provide ${CONFIG.PHONE_DIRECT} and ${CONFIG.EMAIL} and escalation guidance.
 
-      // Function to add a message to the chat interface
-      function addMessage(text, isUser = false) {
-          const messageWrapper = document.createElement('div');
-          messageWrapper.className = `w-full flex ${isUser ? 'justify-end' : 'justify-start'} message-fade-in`;
+EXAMPLES (no reasoning shown)
+- Billing: “You can pay securely here: ${CONFIG.LAW_PAY_URL}. If you prefer Stripe, I can request a checkout link.”
+- Consult: “We offer a free 15-minute call/Zoom or a 1-hour consult for $500 (in person/Zoom). Book here: ${CONFIG.INTAKE_URL} or call ${CONFIG.PHONE_GENERAL}.”
+- Escalation: “Please call ${CONFIG.PHONE_DIRECT} or email ${CONFIG.EMAIL}. Our legal team typically responds within 4–8 hours during office hours.”
+`;
 
-          let messageContent;
-          if (isUser) {
-              messageContent = `
-                  <div class="bg-[#001f54] text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[80%] shadow-md">
-                      <p>${text}</p>
-                  </div>
-              `;
-          } else {
-              messageContent = `
-                  <div class="flex items-start space-x-3">
-                      <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
-                      <div class="bg-[#ff4900] text-[#ffffff] p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
-                          <p>${text}</p>
-                      </div>
-                  </div>
-              `;
-          }
-         
-          messageWrapper.innerHTML = messageContent;
-          chatContainer.appendChild(messageWrapper);
-          chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to the latest message
+  const systemInstruction = { role: "system", parts: [{ text: SYSTEM_TEXT }] };
+
+  // ====== STATE ======
+  let chatHistory = []; // [{role:'user'|'model', parts:[{text}]}]
+  let inFlight = false;
+
+  // ====== UTILITIES ======
+  function nowISO() { return new Date().toISOString(); }
+  function loadUsage() {
+    const raw = localStorage.getItem("chat_usage") || "{}";
+    const parsed = JSON.parse(raw);
+    return {
+      minuteWindowStart: parsed.minuteWindowStart || Date.now(),
+      minuteCount: parsed.minuteCount || 0,
+      dayWindowStart: parsed.dayWindowStart || Date.now(),
+      dayCount: parsed.dayCount || 0
+    };
+  }
+  function saveUsage(data) { localStorage.setItem("chat_usage", JSON.stringify(data)); }
+
+  function enforceUsageLimits(userText) {
+    if (userText.length > CONFIG.LIMITS.MAX_USER_CHARS) {
+      addMessage("Let’s keep messages shorter to protect your privacy and keep things snappy. Try splitting that into a couple of shorter questions.", false);
+      return false;
+    }
+    const usage = loadUsage();
+    const now = Date.now();
+
+    // Minute window (rolling 60s)
+    if (now - usage.minuteWindowStart >= 60_000) {
+      usage.minuteWindowStart = now;
+      usage.minuteCount = 0;
+    }
+    // Day window (rolling 24h)
+    if (now - usage.dayWindowStart >= 86_400_000) {
+      usage.dayWindowStart = now;
+      usage.dayCount = 0;
+    }
+
+    if (usage.minuteCount >= CONFIG.LIMITS.PER_MINUTE) {
+      addMessage("You’ve hit the per-minute limit. Give it a few seconds and try again.", false);
+      return false;
+    }
+    if (usage.dayCount >= CONFIG.LIMITS.PER_DAY) {
+      addMessage("You’ve reached today’s usage cap. Please come back tomorrow or contact support.", false);
+      return false;
+    }
+
+    // Increment now; persist
+    usage.minuteCount += 1;
+    usage.dayCount += 1;
+    saveUsage(usage);
+    return true;
+  }
+
+  function sanitize(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // ====== UI RENDERING ======
+  function addMessage(text, isUser = false, append = false, messageId = null) {
+    const safe = sanitize(text);
+    if (append && messageId) {
+      const target = document.querySelector(`[data-mid="${messageId}"] .msg-text`);
+      if (target) {
+        target.innerHTML = sanitize(target.textContent + safe);
       }
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      return;
+    }
 
-      // Function to show/hide the typing indicator
-      function toggleTypingIndicator(show = false) {
-          let indicator = document.getElementById('typing-indicator');
-          if (show) {
-              if (!indicator) {
-                  indicator = document.createElement('div');
-                  indicator.id = 'typing-indicator';
-                  indicator.className = 'flex justify-start items-start space-x-3';
-                  indicator.innerHTML = `
-                      <div class="w-8 h-8 rounded-full bg-[#c39a67] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
-                      <div class="bg-[#c39a67] text-[#1b3d68] p-4 rounded-r-xl rounded-bl-xl shadow-md flex space-x-1 items-center">
-                          <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
-                          <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
-                          <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
-                      </div>
-                  `;
-                  chatContainer.appendChild(indicator);
-                  chatContainer.scrollTop = chatContainer.scrollHeight;
-              }
-          } else {
-              if (indicator) {
-                  indicator.remove();
-              }
-          }
+    const wrapper = document.createElement('div');
+    wrapper.className = `w-full flex ${isUser ? 'justify-end' : 'justify-start'} message-fade-in`;
+    const bubble =
+      isUser
+        ? `
+          <div class="bg-[#001f54] text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[80%] shadow-md">
+            <p class="msg-text">${safe}</p>
+          </div>`
+        : `
+          <div class="flex items-start space-x-3" data-mid="${messageId || ''}">
+            <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+            <div class="bg-[#ff4900] text-[#ffffff] p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
+              <p class="msg-text">${safe}</p>
+            </div>
+          </div>`;
+    wrapper.innerHTML = bubble;
+    chatContainer.appendChild(wrapper);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  function toggleTypingIndicator(show = false) {
+    let indicator = document.getElementById('typing-indicator');
+    if (show) {
+      if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.id = 'typing-indicator';
+        indicator.className = 'flex justify-start items-start space-x-3';
+        indicator.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-[#c39a67] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+          <div class="bg-[#001f54] text-[#ffffff] p-4 rounded-r-xl rounded-bl-xl shadow-md flex space-x-1 items-center">
+            <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
+            <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
+            <span class="dot w-2 h-2 bg-[#1b3d68] rounded-full"></span>
+          </div>`;
+        chatContainer.appendChild(indicator);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
       }
+    } else {
+      if (indicator) indicator.remove();
+    }
+  }
 
-      // --- API COMMUNICATION ---
+  function setStatus(colorClass) {
+    if (!statusIndicator) return;
+    const classes = ["bg-green-500","bg-yellow-500","bg-red-500"];
+    classes.forEach(c => statusIndicator.classList.remove(c));
+    statusIndicator.classList.add(colorClass);
+  }
 
-      // Function to send a message to the Gemini API
-      async function sendMessageToAPI(prompt) {
-          if (!prompt.trim()) return;
+  // ====== TEXT-TO-SPEECH (optional) ======
+  function speak(text) {
+    if (!window.speechSynthesis || !voiceToggle || !voiceToggle.checked) return;
+    try {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 1.0;
+      utter.pitch = 1.0;
+      utter.lang = 'en-US';
+      window.speechSynthesis.speak(utter);
+    } catch (e) {
+      console.warn("TTS failed:", e);
+    }
+  }
 
-          addMessage(prompt, true);
-          userInput.value = '';
-          toggleTypingIndicator(true);
-          statusIndicator.classList.replace('bg-green-500', 'bg-yellow-500'); // Indicate processing
+  // ====== INTENT SHORTCUTS / CTA BUTTONS ======
+  function injectCTA(intent) {
+    const ctaWrap = document.createElement('div');
+    ctaWrap.className = 'w-full flex justify-start mt-2';
 
-          // Add user message to chat history for context
-          chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
+    let html = '';
+    if (intent === 'book') {
+      html = `
+        <div class="bg-white/90 border border-[#ff4900]/30 text-[#1b3d68] p-3 rounded-lg text-xs shadow-sm space-x-2">
+          <button id="cta-calendly" class="px-3 py-1 rounded-md bg-[#ff4900] text-white">Open Calendly</button>
+          <button id="cta-intake" class="px-3 py-1 rounded-md bg-[#001f54] text-white">Open Intake Form</button>
+          <span class="ml-2 text-[11px] opacity-80">Or call ${CONFIG.PHONE_GENERAL}</span>
+        </div>`;
+    } else if (intent === 'pay') {
+      html = `
+        <div class="bg-white/90 border border-[#ff4900]/30 text-[#1b3d68] p-3 rounded-lg text-xs shadow-sm space-x-2">
+          <button id="cta-lawpay" class="px-3 py-1 rounded-md bg-[#ff4900] text-white">Pay via LawPay</button>
+          <button id="cta-stripe" class="px-3 py-1 rounded-md bg-[#001f54] text-white">Request Stripe Link</button>
+          <span class="ml-2 text-[11px] opacity-80">Questions? ${CONFIG.EMAIL}</span>
+        </div>`;
+    }
+    ctaWrap.innerHTML = html;
+    chatContainer.appendChild(ctaWrap);
 
-          try {
-              // The API key is provided by the runtime environment.
-              const apiKey = "AIzaSyBq--8va284aUQj29kmnXlL4LlZhWxa0xg";
-              const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+    if (intent === 'book') {
+      document.getElementById('cta-calendly')?.addEventListener('click',() => openCalendly());
+      document.getElementById('cta-intake')?.addEventListener('click',() => window.open(CONFIG.INTAKE_URL, '_blank'));
+    } else if (intent === 'pay') {
+      document.getElementById('cta-lawpay')?.addEventListener('click',() => openLawPay());
+      document.getElementById('cta-stripe')?.addEventListener('click',() => requestStripeCheckout());
+    }
+  }
 
-              const payload = {
-                  contents: chatHistory,
-                  systemInstruction: systemInstructions.parts.length > 0 ? systemInstructions : undefined,
-                  generationConfig: {
-                       temperature: 0.7,
-                       topK: 1,
-                       topP: 1,
-                       maxOutputTokens: 2048,
-                   },
-              };
-             
-              // Using exponential backoff for retries
-              let response;
-              let retries = 3;
-              let delay = 1000;
-              for (let i = 0; i < retries; i++) {
-                  response = await fetch(apiUrl, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(payload)
-                  });
-                  if (response.status !== 429) break; // Not a rate limit error
-                  await new Promise(resolve => setTimeout(resolve, delay));
-                  delay *= 2; // Double the delay for the next retry
-              }
+  function detectIntent(text) {
+    const t = text.toLowerCase();
+    if (/(book|schedule|consult|appointment|meeting)/.test(t)) return 'book';
+    if (/(pay|payment|invoice|bill|stripe|lawpay|affirm)/.test(t)) return 'pay';
+    return null;
+  }
 
-              if (!response.ok) {
-                  throw new Error(`API Error: ${response.status} ${response.statusText}`);
-              }
-
-              const result = await response.json();
-              const botText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-              if (botText) {
-                  addMessage(botText, false);
-                  // Add bot response to history for context in next turn
-                  chatHistory.push({ role: 'model', parts: [{ text: botText }] });
-              } else {
-                  throw new Error("Invalid response structure from API.");
-              }
-
-          } catch (error) {
-              console.error('Error fetching from Gemini API:', error);
-              addMessage("I'm sorry, I'm having trouble connecting to my services right now. Please try again in a moment.", false);
-              statusIndicator.classList.replace('bg-yellow-500', 'bg-red-500'); // Indicate error
-          } finally {
-              toggleTypingIndicator(false);
-              if (!statusIndicator.classList.contains('bg-red-500')) {
-                   statusIndicator.classList.replace('bg-yellow-500', 'bg-green-500'); // Back to online
-              }
-          }
-      }
-     
-      // --- EVENT LISTENERS ---
-
-      sendBtn.addEventListener('click', () => sendMessageToAPI(userInput.value));
-      userInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              sendMessageToAPI(userInput.value);
-          }
-      });
-
-      // --- SPEECH RECOGNITION ---
-
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      let recognition;
-      let isListening = false;
-
-      if (SpeechRecognition) {
-          recognition = new SpeechRecognition();
-          recognition.continuous = false;
-          recognition.lang = 'en-US';
-          recognition.interimResults = false;
-
-          micBtn.addEventListener('click', () => {
-              if (isListening) {
-                  recognition.stop();
-              } else {
-                  try {
-                      recognition.start();
-                  } catch (error) {
-                      console.error("Speech recognition could not be started: ", error);
-                      addMessage("Sorry, I couldn't start the microphone. Please check your browser settings.", false);
-                  }
-              }
-          });
-
-          recognition.onstart = () => {
-              isListening = true;
-              micBtn.classList.add('pulse-animation');
-              userInput.placeholder = "Listening...";
-              userInput.disabled = true;
-          };
-
-          recognition.onend = () => {
-              isListening = false;
-              micBtn.classList.remove('pulse-animation');
-              userInput.placeholder = "Type your message...";
-              userInput.disabled = false;
-          };
-
-          recognition.onresult = (event) => {
-              const transcript = event.results[0][0].transcript;
-              userInput.value = transcript;
-              // Automatically send the message after successful transcription
-              sendMessageToAPI(transcript);
-          };
-
-          recognition.onerror = (event) => {
-              console.error('Speech recognition error:', event.error);
-              let errorMessage = "Sorry, I couldn't hear you. Please type your message.";
-              if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-                  errorMessage = "Microphone access was denied. Please enable it in your browser settings to use voice input.";
-              } else if (event.error === 'no-speech') {
-                  errorMessage = "I didn't hear anything. Please try again.";
-              }
-              addMessage(errorMessage, false);
-          };
-
+  // ====== INTEGRATIONS ======
+  function openCalendly() {
+    try {
+      // If Calendly embed script exists:
+      // https://assets.calendly.com/assets/external/widget.js
+      if (window.Calendly && CONFIG.CALENDLY_URL && CONFIG.CALENDLY_URL.startsWith('http')) {
+        window.Calendly.initPopupWidget({ url: CONFIG.CALENDLY_URL });
+      } else if (CONFIG.CALENDLY_URL && CONFIG.CALENDLY_URL.startsWith('http')) {
+        window.open(CONFIG.CALENDLY_URL, '_blank');
       } else {
-          // Hide mic button if Speech Recognition is not supported
-          micBtn.style.display = 'none';
-          console.warn("Speech Recognition is not supported in this browser.");
+        addMessage("Scheduling link isn’t configured yet. Please use the intake form or call " + CONFIG.PHONE_GENERAL + ".", false);
+      }
+      // Fire Zap for analytics
+      zap("booking_intent", { source: "chat", ts: nowISO() });
+    } catch (e) {
+      console.warn("Calendly open failed:", e);
+      addMessage("I couldn’t open the scheduling link right now. Please use the intake form instead.", false);
+    }
+  }
+
+  function openLawPay() {
+    window.open(CONFIG.LAW_PAY_URL, '_blank');
+    zap("payment_portal_opened", { portal: "LawPay", ts: nowISO() });
+  }
+
+  async function requestStripeCheckout() {
+    addMessage("Got it — I’ll request a Stripe checkout link now. You’ll receive it by email shortly.", false);
+    try {
+      await zap("stripe_checkout_request", {
+        source: "chat",
+        email: CONFIG.EMAIL, // or collect from user with consent
+        ts: nowISO()
+      });
+    } catch (e) {
+      addMessage("I couldn’t reach our automation service. You can still pay via LawPay here: " + CONFIG.LAW_PAY_URL, false);
+    }
+  }
+
+  async function zap(event, payload = {}) {
+    if (!CONFIG.ZAPIER_HOOK_URL || !CONFIG.ZAPIER_HOOK_URL.startsWith("http")) return;
+    try {
+      await fetch(CONFIG.ZAPIER_HOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event, ...payload })
+      });
+    } catch (e) {
+      console.warn("Zapier hook failed:", e);
+    }
+  }
+
+  // ====== GEMINI API (Streaming) ======
+  async function streamGenerateContent(contents) {
+    const url = `${CONFIG.API_BASE}/${encodeURIComponent(CONFIG.MODEL_ID)}:streamGenerateContent?key=${CONFIG.GEMINI_API_KEY}`;
+    const body = {
+      contents,
+      systemInstruction,
+      generationConfig: CONFIG.generation
+    };
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      throw new Error(`API Error: ${res.status} ${res.statusText}`);
+    }
+    return res.body; // ReadableStream
+  }
+
+  // Fallback non-stream call
+  async function generateContent(contents) {
+    const url = `${CONFIG.API_BASE}/${encodeURIComponent(CONFIG.MODEL_ID)}:generateContent?key=${CONFIG.GEMINI_API_KEY}`;
+    const body = {
+      contents,
+      systemInstruction,
+      generationConfig: CONFIG.generation
+    };
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(`API Error: ${res.status} ${res.statusText}`);
+    return res.json();
+  }
+
+  // ====== SEND MESSAGE (with streaming, TTS, limits, CTA) ======
+  async function sendMessageToAPI(prompt) {
+    if (!prompt || !prompt.trim() || inFlight) return;
+    if (!enforceUsageLimits(prompt)) return;
+
+    // Truncate history to avoid oversized payloads
+    if (chatHistory.length > CONFIG.LIMITS.MAX_HISTORY_TURNS * 2) {
+      chatHistory = chatHistory.slice(-CONFIG.LIMITS.MAX_HISTORY_TURNS * 2);
+    }
+
+    addMessage(prompt, true);
+    userInput.value = '';
+
+    toggleTypingIndicator(true);
+    setStatus('bg-yellow-500');
+    inFlight = true;
+
+    chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
+
+    // Prepare a recipient bubble for streaming
+    const messageId = `m_${Math.random().toString(36).slice(2)}`;
+    addMessage("", false, false, messageId);
+
+    try {
+      // Try streaming first
+      const bodyStream = await streamGenerateContent(chatHistory);
+      const reader = bodyStream.getReader();
+      const decoder = new TextDecoder();
+      let assistantText = "";
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+
+        // The API returns newline-delimited JSON chunks. Parse lines safely.
+        const lines = chunk.split("\n").filter(Boolean);
+        for (const line of lines) {
+          try {
+            const json = JSON.parse(line);
+            const piece = json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+            if (piece) {
+              assistantText += piece;
+              addMessage(piece, false, true, messageId);
+            }
+          } catch {
+            // Sometimes lines may be partial; ignore parse errors and continue
+          }
+        }
       }
 
-  </script>
+      if (!assistantText.trim()) {
+        // If stream yielded nothing, fall back to non-stream call
+        const result = await generateContent(chatHistory);
+        const botText = result?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+        if (!botText) throw new Error("Invalid response structure from API.");
+        addMessage(botText, false, true, messageId);
+        speak(botText);
+        chatHistory.push({ role: 'model', parts: [{ text: botText }] });
+      } else {
+        speak(assistantText);
+        chatHistory.push({ role: 'model', parts: [{ text: assistantText }] });
+      }
+
+      // Intent-based CTAs
+      const intent = detectIntent(prompt);
+      if (intent) injectCTA(intent);
+
+    } catch (error) {
+      console.error('Gemini API error:', error);
+      addMessage("I’m having trouble reaching our services. Please try again, or call " + CONFIG.PHONE_GENERAL + " for quick help.", false);
+      setStatus('bg-red-500');
+    } finally {
+      toggleTypingIndicator(false);
+      if (!statusIndicator?.classList.contains('bg-red-500')) setStatus('bg-green-500');
+      inFlight = false;
+    }
+  }
+
+  // ====== EVENT LISTENERS ======
+  sendBtn?.addEventListener('click', () => sendMessageToAPI(userInput.value));
+  userInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessageToAPI(userInput.value);
+    }
+  });
+
+  // ====== SPEECH RECOGNITION (STT) ======
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition;
+  let isListening = false;
+
+  if (SpeechRecognition && micBtn) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    micBtn.addEventListener('click', () => {
+      if (isListening) {
+        recognition.stop();
+      } else {
+        try { recognition.start(); }
+        catch (error) {
+          console.error("Speech recognition could not be started: ", error);
+          addMessage("I couldn’t start the microphone. Please check your browser settings.", false);
+        }
+      }
+    });
+
+    recognition.onstart = () => {
+      isListening = true;
+      micBtn.classList.add('pulse-animation');
+      if (userInput) { userInput.placeholder = "Listening..."; userInput.disabled = true; }
+    };
+
+    recognition.onend = () => {
+      isListening = false;
+      micBtn.classList.remove('pulse-animation');
+      if (userInput) { userInput.placeholder = "Type your message..."; userInput.disabled = false; }
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      if (userInput) userInput.value = transcript;
+      sendMessageToAPI(transcript);
+    };
+
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+      let msg = "I couldn’t hear you. Please type your message.";
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        msg = "Microphone access was denied. Enable it in your browser settings to use voice input.";
+      } else if (event.error === 'no-speech') {
+        msg = "I didn’t hear anything. Please try again.";
+      }
+      addMessage(msg, false);
+    };
+  } else {
+    if (micBtn) micBtn.style.display = 'none';
+    console.warn("Speech Recognition is not supported in this browser.");
+  }
+
+  // ====== ON LOAD: DISCLAIMER + QUICK HELP ======
+  (function init() {
+    setStatus('bg-green-500');
+    // One-time disclaimer
+    const shown = sessionStorage.getItem("disclaimer_shown");
+    if (!shown) {
+      addMessage(
+        "I can share general California real estate law information and firm details. This chat isn’t legal advice. For confidential matters, use the intake form or call " +
+        `${CONFIG.PHONE_DIRECT}.`, false
+      );
+      sessionStorage.setItem("disclaimer_shown", "1");
+    }
+  })();
+
+  // ====== PUBLIC HELPERS (optional: expose to window for custom buttons) ======
+  window.__lawChat = {
+    book: () => { injectCTA('book'); openCalendly(); },
+    pay: ()  => { injectCTA('pay'); openLawPay(); },
+    escalate: () => {
+      addMessage(
+        `If this requires attorney review, our legal team typically responds within 4–8 hours during normal office hours. You can call ${CONFIG.PHONE_DIRECT} or email ${CONFIG.EMAIL}.`,
+        false
+      );
+    }
+  };
+</script>
 </body>
 </html>
