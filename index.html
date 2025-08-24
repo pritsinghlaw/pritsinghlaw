@@ -2120,7 +2120,7 @@ document.addEventListener('DOMContentLoaded', function() {
            position: fixed;
            bottom: 20px;
            right: 20px;
-           z-index: 10050;
+           z-index: 9998;
        }
        #chat-popup {
            height: 70vh;
@@ -2168,7 +2168,7 @@ document.addEventListener('DOMContentLoaded', function() {
            <!-- Header -->
            <header class="bg-white border-b-2 border-slate-100 p-4 flex items-center justify-between flex-shrink-0">
                <div class="flex items-center space-x-3">
-                   <img src="https://placehold.co/120x40/001f54/ffffff?text=Pritpal+Law" alt="Logo" class="w-24 h-auto rounded-md">
+                   <img src="/colornobg.svg" alt="Logo" class="w-24 h-auto rounded-md">
                    <div>
                        <h1 class="text-md font-bold text-gray-800">PritAI Assistant</h1>
                        <p class="text-xs text-gray-500">Virtual Legal Assistant</p>
@@ -2182,7 +2182,7 @@ document.addEventListener('DOMContentLoaded', function() {
            <!-- Messages -->
            <div id="chat-container" class="flex-grow p-4 space-y-4 overflow-y-auto">
                <div class="flex justify-start items-start space-x-3 message-fade-in">
-                   <div class="w-8 h-8 rounded-full bg-[var(--brand-orange)] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+                   <div class="w-8 h-8 rounded-full bg-[var(--brand-orange)] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">PS</div>
                    <div class="bg-[var(--brand-orange)] text-white p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
                        <p>Hello! I am PritAI. How can I assist you with your real estate legal questions today?</p>
                    </div>
@@ -2285,7 +2285,7 @@ document.addEventListener('DOMContentLoaded', function() {
            chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
 
            try {
-               const apiKey = ""; // Provided by runtime
+               const apiKey = "AIzaSyBq--8va284aUQj29kmnXlL4LlZhWxa0xg"; // Provided by runtime
                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                const payload = { contents: chatHistory, systemInstruction: systemInstructions.parts.length > 0 ? systemInstructions : undefined };
                
