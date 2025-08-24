@@ -47,11 +47,24 @@
 
 
 <style>
+
+/* MODIFICATION: Set nav link font weight to normal and prevent wrapping */
+    .navbar-link.w-nav-link {
+        font-weight: 400 !important; /* Use 400 for normal font weight */
+        white-space: nowrap !important; /* Keep 'Practice Areas' on one line */
+        font-family:'Open Sans',sans-serif!important;
+    }
+
+      .hero__subtitle, .footer-main, .card__text, p {
+        font-weight: 400 !important; /* Use 400 for normal font weight */
+        font-family:'Open Sans',sans-serif!important;
+    }
+
 /* Search functionality styles */
 .navbar-search-container {
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .search-wrapper {
@@ -294,12 +307,12 @@
           
             <a href="/about" class="navbar-link w-nav-link">About</a>
           
-            <a href="/services" class="navbar-link w-nav-link">Services</a>
+            <a href="/services" class="navbar-link w-nav-link">Practice Areas</a>
 
           <a href="/contact" class="navbar-link w-nav-link">Contact</a>
 
-          <!-- Search (optional) --->
-          <div class="navbar-search-container" style="margin-left:20px">
+          <!-- Search (optional)-->
+          <div class="navbar-search-container" style="margin-left:5px">
             <div class="search-wrapper" style="position:relative;display:flex;align-items:center;background:rgba(255,255,255,.1);border-radius:25px;padding:8px 15px;border:1px solid rgba(0,31,84,.2)">
               <input type="text" class="search-input" placeholder="Search..." id="searchInput" style="background:transparent;border:none;outline:none;color:#001f54;font-size:14px;width:200px;padding:5px 0">
               <button class="search-button" onclick="performSearch()" style="background:none;border:none;color:#001f54;cursor:pointer;padding:5px;margin-left:10px">
@@ -312,8 +325,8 @@
         </nav> 
 
         <div class="navbar-button-wrapper">
-          <a style="font-size:10px!important;background-color:#001f54!important;color:#fff!important" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL NOW</b></a>
-          <a href="/client-area/intake-form" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important;font-size:9.5px!important;"><b>BOOK ONLINE</b></a>
+          <a style="font-size:9px!important;background-color:#001f54!important;color:#fff!important; white-space:nowrap!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
+          <a href="/client-area/intake-form" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important;font-size:9px!important; white-space:nowrap!important;"><b>CLIENT PORTAL</b></a>
           <div class="navbar-menu-button w-nav-button" style="-webkit-user-select:text;" aria-label="menu" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false">
             <div class="menu-icon">
               <div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div>
@@ -325,7 +338,6 @@
     </div>
   </div>
   <!-- /NEW HEADER NAV -->
-
 
   
   <!-- HERO -->
