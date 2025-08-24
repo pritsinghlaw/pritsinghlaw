@@ -112,7 +112,7 @@
 
       <!-- Chat Input and Action Bar -->
       <div class="p-4 bg-white border-t-2 border-slate-100 flex items-center space-x-2 flex-shrink-0">
-          <input type="text" id="user-input" placeholder="Type your message..." class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#c39a67] transition-all duration-200">
+          <input type="text" id="user-input" placeholder="Type your message..." class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ff4900] transition-all duration-200">
          
           <!-- Microphone button with inline SVG -->
           <button id="mic-btn" class="p-3 bg-[#001f54] text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-200 flex-shrink-0">
@@ -153,7 +153,7 @@
            You are an intuitive client support chatbot for a real estate law firm based in the state of California,
            designed to serve as a knowledgeable and helpful virtual assistant for website visitors engaging with the Law Offices of Pritpal Singh.
 
-           Answer general real estate law questions relevant to California, and provide accurate, up-to-date information about the firm, its team,
+           Answer general real estate law questions relevant to the state of California, and provide accurate, up-to-date information about the firm, its team,
            especially lead attorney Pritpal Singh (profile at https://www.pritsinghlaw.com/team/pritpal-singh),
            areas of practice (see https://www.pritsinghlaw.com/services), contact details, consultation options, and billing procedures.
 
@@ -202,15 +202,15 @@
           let messageContent;
           if (isUser) {
               messageContent = `
-                  <div class="bg-[#1b3d68] text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[80%] shadow-md">
+                  <div class="bg-[#001f54] text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[80%] shadow-md">
                       <p>${text}</p>
                   </div>
               `;
           } else {
               messageContent = `
                   <div class="flex items-start space-x-3">
-                      <div class="w-8 h-8 rounded-full bg-[#c39a67] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
-                      <div class="bg-[#c39a67] text-[#1b3d68] p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
+                      <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+                      <div class="bg-[#ff4900] text-[#ffffff] p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
                           <p>${text}</p>
                       </div>
                   </div>
@@ -264,7 +264,7 @@
 
           try {
               // The API key is provided by the runtime environment.
-              const apiKey = "";
+              const apiKey = "AIzaSyBq--8va284aUQj29kmnXlL4LlZhWxa0xg";
               const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
               const payload = {
