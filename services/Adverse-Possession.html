@@ -15,6 +15,92 @@
   <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 
   <!-- Page styles (kept from your styled template) -->
+
+<style>
+  :root {
+    --navy: #0a2a6b;
+    --orange: #ff4900;
+    --overlay: rgba(0, 0, 0, 0.65);
+    --radius: 16px;
+  }
+
+  /* Base reset-ish */
+  * { box-sizing: border-box; }
+  body.no-scroll { overflow: hidden; }
+  img { max-width: 100%; display: block; }
+
+  /* Trigger button demo (style to taste or remove) */
+  .trigger-btn {
+    padding: 0.85rem 1.2rem;
+    border: 1px solid var(--navy);
+    background: white;
+    color: var(--navy);
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    z-index: 9999;
+
+    /* hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Dialog */
+  .modal-dialog {
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    padding: clamp(1rem, 2.5vw, 2rem);
+    position: relative;
+    transform: translateY(10px) scale(0.98);
+    transition: transform 220ms ease, opacity 220ms ease;
+    opacity: 0;
+  }
+  .modal-overlay.open .modal-dialog {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* Close button */
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280; /* slate-500 */
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+  }
+  .modal-close:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* Content */
+  .logo-wrap {
+    display: grid;
+    place-items: center;
+  }
+</style>
+
   <style>
     :root{--navy:#001f54;--accent:#ff4900;--white:#fff;--gray:#f5f5f7;--shadow:0 2px 12px rgba(17,41,76,0.05)}
     body{background:var(--white);color:var(--navy);font-family:'Geologica',sans-serif;margin:0}
@@ -328,7 +414,7 @@
 
         <div class="navbar-button-wrapper">
           <a style="font-size:9px!important;background-color:#001f54!important;color:#fff!important; white-space:nowrap!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
-          <a href="/client-area/intake-form" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important;font-size:9px!important; white-space:nowrap!important;"><b>CLIENT PORTAL</b></a>
+          <a href="#" id="open-intake-modal" type="button" aria-haspopup="dialog" aria-controls="intake-modal" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important;font-size:9px!important; white-space:nowrap!important;"><b>CLIENT PORTAL</b></a>
           <div class="navbar-menu-button w-nav-button" style="-webkit-user-select:text;" aria-label="menu" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false">
             <div class="menu-icon">
               <div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div>
@@ -348,7 +434,7 @@
       <p class="hero__subtitle">
         When a neighbor treats your land like their own, California’s adverse possession laws can put your property rights at serious risk. Our team defends owners facing adverse possession claims and, when justified, asserts valid claims for rightful ownership. Protect your investment with attorneys who know the nuances of California property law.
       </p>
-      <a style="background:#ff4900!important;color:#fff!important" href="https://pritsinghlaw.com/client-area/intake-form" class="btn">Schedule a Property Rights Consultation</a>
+      <a href="#" id="open-intake-modal" type="button" aria-haspopup="dialog" aria-controls="intake-modal" class="btn" style="background:#ff4900!important;color:#fff!important">Schedule a Property Rights Consultation</a>
     </div>
   </header>
 
