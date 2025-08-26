@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Secure Client Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 1rem;
+        }
+        .title {
+            font-size: 2rem;
+            color: #001f54;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: #ff4900;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #001f54;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004080;
+        }
+        .help-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="/colornobg.svg" alt="Logo" class="logo">
+        <div class="title">Welcome</div>
+        <div class="subtitle">SECURE CLIENT PORTAL</div>
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="help-text">
+            Need help? Contact our support team at support@pritsinghlaw.com, visit our support center to log a support ticket, or call (510) 443-2123 for assistance.
+        </div>
+    </div>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple frontend check to simulate authentication (Not secure)
+            if (username === 'client' && password === 'Singh101$') {
+                alert('Login successful!');
+                // Redirect or show a success message, as needed
+            } else {
+                alert('Invalid credentials, please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
