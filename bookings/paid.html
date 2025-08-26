@@ -120,6 +120,48 @@
     @media (max-width:768px){
       .contact-form._2-column-grid{ grid-template-columns:1fr!important; }
     }
+    
+    
+    /* Full-bleed wrapper that escapes Webflow's container width */
+.calendly-card {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important; /* center the full-bleed area */
+  margin-right: calc(50% - 50vw) !important;
+}
+
+/* Make the section itself fill the screen height */
+#schedule-heading-section {
+  min-height: 100vh;              /* fallback */
+  min-height: 100dvh;             /* modern mobile (no address-bar jump) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;        /* keeps it tidy if more content is added */
+}
+
+/* Calendly iframe should fill available space, not scroll internally */
+.calendly-inline-widget {
+  width: 100% !important;
+  min-width: 320px;               /* Calendly’s recommended floor */
+  height: 100vh !important;       /* fallback */
+  height: 100dvh !important;      /* modern mobile */
+  border: 0;                      /* optional: remove any border flash */
+}
+
+/* Make sure no ancestor constrains the height */
+.calendly-card,
+.calendly-card > .calendly-inline-widget {
+  overflow: visible !important;
+}
+
+/* Optional: trim extra vertical whitespace on small screens */
+@media (max-width: 767px) {
+  #schedule-heading-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+    
   </style>
 
   <link rel="stylesheet"
@@ -279,19 +321,19 @@
               </section>--->
 
               <!-- INTAKE FORM with Calendly (Paid Consultation) -->
-<section aria-labelledby="schedule-heading" style="margin-top:3rem; height:fit-content; width:auto;" class="margin-bottom margin-large">
- <!-- <h2 id="schedule-heading" class="heading-style-h4 text-color-navy text-align-center" style="margin-bottom:1rem;">
-    Book Your Paid Consultation
-  </h2> --->
+
+    <section id="schedule-heading-section" aria-labelledby="schedule-heading" class="margin-bottom margin-large" style="margin-top:3rem;">
   <div class="calendly-card" role="region" aria-label="Schedule paid consultation">
     <!-- Calendly inline widget begin -->
     <div
       class="calendly-inline-widget"
+      style="height:100vh;min-width:320px;"  <!-- inline fallback height; CSS will upgrade to 100dvh where supported -->
       data-url="https://calendly.com/pritsinghlaw/paid-consultation?hide_event_type_details=1&primary_color=001f54">
     </div>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <!-- Calendly inline widget end -->
   </div>
+
   <p class="text-size-small text-align-center" style="color:#4a5a74; margin-top:.75rem;">
     Having trouble? Call <a href="tel:+15104432123" class="footer-link"> (510) 443-2123</a> and we’ll get you scheduled in no time.
   </p>
