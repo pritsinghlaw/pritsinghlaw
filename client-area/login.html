@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Secure Client Portal | Law Offices of Pritpal Singh</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
         body {
             margin: 0;
             min-height: 100vh;
@@ -16,22 +14,16 @@
                 radial-gradient(40% 50% at 15% 10%, rgba(11,42,85,.12), transparent 60%),
                 radial-gradient(35% 45% at 90% 85%, rgba(255,122,24,.14), transparent 65%),
                 #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            position: relative;
-            overflow-x: hidden;
+            display: grid;
+            place-items: center;
+            padding: 24px;
         }
         .card {
-            width: 100%;
-            max-width: 480px;
+            width: min(480px, 94vw);
             background: #fff;
             border-radius: 22px;
             box-shadow: 0 10px 28px rgba(11,42,85,.1);
-            padding: 32px;
-            margin: auto;
-            position: relative;
+            padding: 36px;
         }
         .logo {
             text-align: center;
@@ -57,10 +49,10 @@
         }
         .field input {
             width: 100%;
-            padding: 14px;
+            padding: 14px 14px;
             border-radius: 15px;
             border: 1px solid #ddd;
-            font-size: 16px; /* Prevents zoom on iOS */
+            font-size: 15px;
             box-sizing: border-box;
         }
         .btn-primary {
@@ -85,19 +77,17 @@
             font-size: 13px;
         }
         .providers {
-            display: flex;
-            justify-content: center;
+            display: grid;
             gap: 12px;
         }
         .provider {
-            width: 44px; /* Uniform button size */
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 12px;
             background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
             transition: box-shadow .2s;
         }
@@ -130,104 +120,11 @@
         .help-text a:hover {
             text-decoration: underline;
         }
-
-        /* Mobile optimizations */
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .card {
-                padding: 24px 20px;
-                border-radius: 16px;
-                max-width: 100%;
-                width: 100%;
-                margin: 0;
-            }
-            h1 {
-                font-size: 22px;
-                margin: 0 0 8px;
-            }
-            .sub {
-                font-size: 13px;
-                margin-bottom: 20px;
-            }
-            .field input {
-                padding: 12px 14px;
-                font-size: 16px; /* Prevents zoom on iOS */
-                border-radius: 12px;
-            }
-            .btn-primary {
-                padding: 12px;
-                font-size: 14px;
-                border-radius: 12px;
-            }
-            .providers {
-                gap: 10px;
-            }
-            .provider {
-                padding: 10px;
-                border-radius: 12px;
-                font-size: 14px;
-            }
-            .help-text {
-                font-size: 11px;
-                margin-top: 16px;
-            }
-            .logo img {
-                width: 60px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 8px;
-            }
-            .card {
-                padding: 20px 16px;
-                border-radius: 14px;
-            }
-            h1 {
-                font-size: 20px;
-            }
-            .sub {
-                font-size: 12px;
-            }
-        }
-
-        /* Landscape mobile */
-        @media (max-height: 600px) and (orientation: landscape) {
-            body {
-                padding: 8px;
-            }
-            .card {
-                padding: 16px;
-                max-width: 90vw;
-            }
-            h1 {
-                font-size: 18px;
-                margin-bottom: 6px;
-            }
-            .sub {
-                font-size: 12px;
-                margin-bottom: 16px;
-            }
-            .field {
-                margin-bottom: 10px;
-            }
-            .help-text {
-                margin-top: 12px;
-                font-size: 10px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="logo"><img src="/icon.png" width="150" height="auto" alt="Law Offices of Pritpal Singh Logo"></div>
+        <div class="logo"><img src="/colornobg.svg" width="80" height="auto" alt="Law Offices of Pritpal Singh Logo"></div>
         <h1>Secure Client Portal</h1>
         <p class="sub">
             View your account information, send/request updates on your matter, store important legal
@@ -287,15 +184,15 @@
 
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
+    
     <!-- Facebook SDK -->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/en_US/sdk.js"></script>
-
+    
     <!-- Apple Sign-In -->
     <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
-
+    
     <script>
         // Demo Authentication Function
         function handleLogin(event) {
@@ -315,10 +212,10 @@
                 // Show error message
                 errorMessage.textContent = 'Invalid credentials. Please try again.';
                 errorMessage.style.display = 'block';
-
+                
                 // Clear the password field
                 document.getElementById('password').value = '';
-
+                
                 // Focus back on username field
                 document.getElementById('username').focus();
             }
