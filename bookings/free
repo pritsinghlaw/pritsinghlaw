@@ -3,7 +3,7 @@
 <html data-wf-domain="sterlingelysium.webflow.io" data-wf-page="649d51207bcfb13155239b27" data-wf-site="64785fe0a8b931af3b0da218">
 <head>
   <meta charset="utf-8">
-  <title>15-Minute Consultation - Law Offices of Pritpal Singh</title>
+  <title>Book A 1-Hour Consultation - Law Offices of Pritpal Singh</title>
   <meta name="description" content="Start your client intake. Share a few details about your real estate matter so our team can help quickly.">
   <meta property="og:title" content="Client Intake Form - Law Offices of Pritpal Singh">
   <meta property="og:description" content="Tell us about your matter to get matched with the right attorney fast.">
@@ -31,22 +31,18 @@
     .link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
     .w-webflow-badge { display:none!important; visibility:hidden!important; }
 
-    /* Animated background */
-    .animated-background{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden;}
-    .floating-icon{position:absolute; opacity:.1; animation:float 20s infinite linear;}
-    .floating-icon.orange{color:#FF8C00;} .floating-icon.navy{color:#001f54;}
-    .floating-icon:nth-child(1){animation-delay:0s; left:10%;}
-    .floating-icon:nth-child(2){animation-delay:2s; left:20%;}
-    .floating-icon:nth-child(3){animation-delay:4s; left:30%;}
-    .floating-icon:nth-child(4){animation-delay:6s; left:40%;}
-    .floating-icon:nth-child(5){animation-delay:8s; left:50%;}
-    .floating-icon:nth-child(6){animation-delay:10s; left:60%;}
-    .floating-icon:nth-child(7){animation-delay:12s; left:70%;}
-    .floating-icon:nth-child(8){animation-delay:14s; left:80%;}
-    .floating-icon:nth-child(9){animation-delay:16s; left:90%;}
-    .floating-icon:nth-child(10){animation-delay:18s; left:5%;}
-    @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 10%{opacity:.1;} 90%{opacity:.1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
 
+   .navbar-link, .w-nav-link, .navbar-menu-dropdown {
+        font-weight:500 !important; /* Use 400 for normal font weight */
+        white-space: nowrap !important; /* Keep 'Practice Areas' on one line */
+        font-family:'Open Sans',sans-serif!important;
+    }
+
+   .btn {
+     white-space: nowrap !important;
+   }
+
+    
     /* Search */
     .navbar-search-container{display:flex; align-items:center; margin-left:20px;}
     .search-wrapper{position:relative; display:flex; align-items:center; background:rgba(255,255,255,.1); border-radius:25px; padding:8px 15px; transition:.3s; border:1px solid rgba(0,31,84,.2);}
@@ -124,6 +120,48 @@
     @media (max-width:768px){
       .contact-form._2-column-grid{ grid-template-columns:1fr!important; }
     }
+    
+    
+    /* Full-bleed wrapper that escapes Webflow's container width */
+.calendly-card {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important; /* center the full-bleed area */
+  margin-right: calc(50% - 50vw) !important;
+}
+
+/* Make the section itself fill the screen height */
+#schedule-heading-section {
+  min-height: 100vh;              /* fallback */
+  min-height: 100dvh;             /* modern mobile (no address-bar jump) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;        /* keeps it tidy if more content is added */
+}
+
+/* Calendly iframe should fill available space, not scroll internally */
+.calendly-inline-widget {
+  width: 100% !important;
+  min-width: 320px;               /* Calendly’s recommended floor */
+  height: 100vh !important;       /* fallback */
+  height: 100dvh !important;      /* modern mobile */
+  border: 0;                      /* optional: remove any border flash */
+}
+
+/* Make sure no ancestor constrains the height */
+.calendly-card,
+.calendly-card > .calendly-inline-widget {
+  overflow: visible !important;
+}
+
+/* Optional: trim extra vertical whitespace on small screens */
+@media (max-width: 767px) {
+  #schedule-heading-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+    
   </style>
 
   <link rel="stylesheet"
@@ -134,19 +172,7 @@
   <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 </head>
 <body>
-<div class="animated-background">
-  <!-- Floating icons -->
-  <div class="floating-icon orange"><svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
-  <div class="floating-icon navy"><svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-  <div class="floating-icon orange"><svg width="70" height="70" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg></div>
-  <div class="floating-icon navy"><svg width="55" height="55" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586l-8 8-8-8V4z M3 8.414V19a1 1 0 001 1h16a1 1 0 001-1V8.414l-8 8-8-8z"/></svg></div>
-  <div class="floating-icon orange"><svg width="65" height="65" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
-  <div class="floating-icon navy"><svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor"><path d="M8 14v3a2 2 0 002 2h4a2 2 0 002-2v-3m-6 0V9a2 2 0 012-2h4a2 2 0 012 2v5m-6 0h6"/></svg></div>
-  <div class="floating-icon orange"><svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-  <div class="floating-icon navy"><svg width="55" height="55" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-  <div class="floating-icon orange"><svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/></svg></div>
-  <div class="floating-icon navy"><svg width="65" height="65" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z"/></svg></div>
-</div>
+
 
 <div class="page-wrapper">
   <!-- NAV (unchanged from reviews layout) -->
@@ -256,8 +282,8 @@
             <div class="margin-bottom margin-large">
               <div class="text-align-center">
                 <div class="max-width-large align-center">
-                  <div class="margin-bottom margin-xsmall"><div class="eyebrow">Start Your Intake</div></div>
-                  <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Client Intake Form</h1></div>
+                  <div class="margin-bottom margin-xsmall"><div class="eyebrow">Getting Started</div></div>
+                  <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Secure Client Intake Form</h1></div>
                   <p class="text-size-medium">Tell us a few details about your real estate matter so we can route you to the right attorney quickly.</p>
                   <br> <span class="form-checkbox-label text-size-small w-form-label">
                       By clicking the "Submit Now" button below, I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions. *
@@ -294,174 +320,22 @@
                 </div>
               </section>--->
 
-              <!-- INTAKE FORM (Formspree with redirect) -->
-              <div class="form-component w-form" style="margin-top:3rem;">
-                <form id="wf-form-Intake-Form" class="contact-form _2-column-grid"
-                      action="https://formspree.io/f/your_form_id" method="POST" autocomplete="on" novalidate>
-                  <input type="hidden" name="form_name" value="Client Intake (pritsinghlaw.com)">
-                  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-                  <!-- Server-side fallback redirect (Formspree) -->
-                  <input type="hidden" name="_redirect" value="https://pritsinghlaw.com/thank-you">
+              <!-- INTAKE FORM with Calendly (Free Consultation) -->
 
-                  <!-- First Name -->
-                  <div class="form-field-wrapper">
-                    <label for="first-name" class="form-label">First Name *</label>
-                    <input class="form-input w-input" maxlength="100" name="first_name" id="first-name" type="text" required autocomplete="given-name" />
-                  </div>
+  <section id="schedule-heading-section" aria-labelledby="schedule-heading" class="margin-bottom margin-large" style="margin-top:3rem;">
+  <div class="calendly-card" role="region" aria-label="Schedule paid consultation">
 
-                  <!-- Last Name -->
-                  <div class="form-field-wrapper">
-                    <label for="last-name" class="form-label">Last Name *</label>
-                    <input class="form-input w-input" maxlength="100" name="last_name" id="last-name" type="text" required autocomplete="family-name" />
-                  </div>
+ <!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/pritsinghlaw/free?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
 
-                  <!-- Company (optional) -->
-                  <div class="form-field-wrapper">
-                    <label for="company" class="form-label">Company (if applicable)</label>
-                    <input class="form-input w-input" maxlength="150" name="company" id="company" type="text" autocomplete="organization" />
-                  </div>
+ </div>
 
-                  <!-- Email -->
-                  <div class="form-field-wrapper">
-                    <label for="email" class="form-label">Email Address *</label>
-                    <input class="form-input w-input" maxlength="200" name="email" id="email" type="email" required autocomplete="email" inputmode="email" />
-                  </div>
-
-                  <!-- Phone -->
-                  <div class="form-field-wrapper">
-                    <label for="phone" class="form-label">Phone Number *</label>
-                    <input class="form-input w-input" maxlength="25" name="phone" id="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(###) ###-####" />
-                  </div>
-
-                  <!-- Residential Address -->
-                  <div class="form-field-wrapper">
-                    <label for="res-address" class="form-label">Residential Address (City, State, Zip) *</label>
-                    <input class="form-input w-input" maxlength="200" name="residential_address" id="res-address" type="text" required placeholder="City, State, ZIP" autocomplete="on" />
-                  </div>
-
-                  <!-- Subject Property Address (optional) -->
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label for="subject-address" class="form-label">Subject Property Address (if applicable)</label>
-                    <input class="form-input w-input" maxlength="220" name="subject_property_address" id="subject-address" type="text" placeholder="Street, City, State, ZIP" autocomplete="on" />
-                  </div>
-
-                  <!-- Legal Service Needed (from contact page) -->
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label for="service-needed" class="form-label">Legal Service Needed? *</label>
-                    <select id="service-needed" name="legal_service_needed" class="form-input select-input w-select" required>
-                      <option value="">Select a legal service…</option>
-                      <option>Purchase Agreements</option>
-                      <option>Real Estate Closings</option>
-                      <option>Property Financing Documents</option>
-                      <option>Sale &amp; Acquisition</option>
-                      <option>Refinancing</option>
-                      <option>1031 Exchanges</option>
-                      <option>Real Estate Litigation</option>
-                      <option>Boundary Disputes</option>
-                      <option>Title &amp; Escrow Disputes</option>
-                      <option>Quiet Title Actions</option>
-                      <option>Adverse Possession Claims</option>
-                      <option>Easements &amp; Encroachments</option>
-                      <option>Property Broker Disputes</option>
-                      <option>Landlord Tenant Law</option>
-                      <option>Evictions</option>
-                      <option>Lease Disputes</option>
-                      <option>Rent Control Issues</option>
-                      <option>Habitability Claims</option>
-                      <option>Security Deposit Disputes</option>
-                      <option>Contract Drafting &amp; Review</option>
-                      <option>Contract Disputes</option>
-                      <option>Business Agreements</option>
-                      <option>Employment Contracts</option>
-                      <option>Breach of Contract Claims</option>
-                      <option>Foreclosure Defense</option>
-                      <option>Mortgage Fraud</option>
-                      <option>Loan Modifications</option>
-                      <option>Short Sales</option>
-                      <option>Deed in Lieu</option>
-                      <option>Premises Liability</option>
-                      <option>Personal Injury on Property</option>
-                      <option>Slip &amp; Fall Cases</option>
-                      <option>Property Damage Claims</option>
-                      <option>Legal Consultation</option>
-                      <option>Case Evaluation</option>
-                      <option>Second Opinion</option>
-                      <option>Ongoing Legal Representation</option>
-                      <option>Settlement Negotiations</option>
-                    </select>
-                  </div>
-
-                  <!-- Describe Your Legal Matter (same format as contact page) -->
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label for="matter-desc" class="form-label">Please Describe Your Legal Matter *</label>
-                    <textarea id="matter-desc" name="matter_description" maxlength="2000" class="form-input text-area w-input" required placeholder="Share the key facts, timeline, and any deadlines."></textarea>
-                  </div>
-
-                  <!-- Desired Outcome -->
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label for="desired-outcome" class="form-label">What Is Your Desired Outcome? *</label>
-                    <textarea id="desired-outcome" name="desired_outcome" maxlength="1200" class="form-input text-area w-input" required placeholder="Tell us what ‘success’ looks like to you."></textarea>
-                  </div>
-
-                  <!-- Urgency (from contact page) 
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label class="form-label">How Urgent Is Your Matter? *</label>
-                    <div class="w-layout-grid form-radio-2col" role="radiogroup" aria-label="Urgency">
-                      <label class="form-radio w-radio"><input type="radio" name="urgency" value="Very Urgent (24h)" required style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Very Urgent (24h)</span></label>
-                      <label class="form-radio w-radio"><input type="radio" name="urgency" value="Soon (Within a week)" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Soon (Within a week)</span></label>
-                      <label class="form-radio w-radio"><input type="radio" name="urgency" value="Flexible" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Flexible</span></label>
-                    </div>
-                  </div>
-                  --->
-                  <!-- Consultation type
-                  
-                
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label class="form-label">What consultation type suits you best? *</label>
-                    <div class="w-layout-grid form-radio-2col" role="radiogroup" aria-label="Consultation type">
-                      <label class="form-radio w-radio"><input type="radio" name="consultation_type" value="Free 15-minute consultation" required style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Free 15-minute consultation</span></label>
-                      <label class="form-radio w-radio"><input type="radio" name="consultation_type" value="1-Hour Consultation" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">1-Hour Consultation</span></label>
-                    </div>
-                  </div>
---->
-                  <!-- How did you find us? (options placeholder if not on contact page) -->
-                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
-                    <label for="find-us" class="form-label">How did you find us? (Optional)</label>
-                    <select id="find-us" name="how_did_you_find_us" class="form-input select-input w-select">
-                      <option value="">Select…</option>
-                      <!-- If you have exact options on /contact, replace the list below with those -->
-                      <option>Google Search</option>
-                      <option>Referral (Friend/Professional)</option>
-                      <option>Social Media</option>
-                      <option>Yelp</option>
-                      <option>Repeat Client</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-
-                  <!-- Disclaimer checkbox (as requested; update firm name if needed)
-                  <label class="w-checkbox form-checkbox" style="grid-column:1 / -1;">
-                    <input id="intake-disclaimer" type="checkbox" name="intake_disclaimer" required style="opacity:0;position:absolute;z-index:-1">
-                    <span class="form-checkbox-label text-size-small w-form-label">
-                      By clicking the "Submit Now" button below, I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions. *
-                    </span>
-                  </label>
---->
-
-                  <!-- Submit -->
-                  <div class="button-group align-center" style="grid-column:1 / -1;">
-                    <button type="submit" class="button w-button">Submit Intake</button>
-                  </div>
-                </form>
-
-                <!-- Fallback messages (unused if redirect occurs) -->
-                <div class="success-message w-form-done" style="display:none;">
-                  <div class="success-text">Thank you! Your intake has been received.</div>
-                </div>
-                <div class="error-message w-form-fail" style="display:none;">
-                  <div class="error-text">Oops! Something went wrong while submitting the form.</div>
-                </div>
-              </div>
+  <p class="text-size-small text-align-center" style="color:#4a5a74; margin-top:.75rem;">
+    Having trouble? Call <a href="tel:+15104432123" class="footer-link"> (510) 443-2123</a> and we’ll get you scheduled in no time.
+  </p>
+</section>
 
             </div>
           </div>
@@ -515,35 +389,5 @@ function performSearch() {
   if (term) alert('Searching for: ' + term);
 }
 
-/* Formspree AJAX submit with JS redirect (also has server-side fallback) */
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('wf-form-Intake-Form');
-  const done = document.querySelector('.w-form-done');
-  const fail = document.querySelector('.w-form-fail');
-  if (!form) return;
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    fail.style.display = 'none';
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(form)
-      });
-      if (res.ok) {
-        window.location.href = 'https://pritsinghlaw.com/thank-you';
-      } else {
-        const data = await res.json().catch(() => ({}));
-        const msg = data.errors ? data.errors.map(x => x.message).join(', ') : 'Submission failed.';
-        throw new Error(msg);
-      }
-    } catch (err) {
-      fail.querySelector('.error-text').textContent = 'Oops! ' + (err.message || 'Something went wrong.');
-      fail.style.display = 'block';
-    }
-  });
-});
-</script>
 </body>
 </html>
