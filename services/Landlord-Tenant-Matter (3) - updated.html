@@ -23,7 +23,7 @@
     h1,h2,h3,h4,h5,.hero__title,.card__title,.section__title{font-family:'Geologica',sans-serif!important;font-weight:500!important}
   </style>
 
-  <!---MOBILE NAVIGATION--->
+  <!--- MOBILE NAVIGATION--->
   <style>
 /* ==== Mobile drawer + hamburger ==== */
 .navbar{ background:var(--navy); color:var(--white); }
@@ -45,8 +45,7 @@
 .nav-menu.open{ transform:translateX(0); }
 .drawer-overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.35);
-  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important;
-}
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important; }
 .drawer-overlay.show{ opacity:1;
   pointer-events:auto;
   /* carve out the drawer width so overlay never covers it (iOS-safe) */
@@ -79,7 +78,7 @@
 .btn-secondary{ background:#fff; color:#001f54; border:2px solid #001f54; }
 .btn-secondary:hover{ background:#f0f4ff; color:#001f54; }
 
-  
+
   /* --- Drawer: default closed state (mobile) --- */
 #nav-menu{
   position:fixed; top:0; right:0;
@@ -107,7 +106,7 @@
 /* Overlay */
 .drawer-overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.35);
-  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important; 
+  opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:10010 !important;
 }
 .drawer-overlay.show{ opacity:1; pointer-events:auto; }
 
@@ -119,9 +118,9 @@
     background:transparent; box-shadow:none; padding:0;
   }
 }
-  
+
   </style>
-    
+
 
   <!-- Webflow/Nav styles from sample -->
   <link href="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css" rel="stylesheet" type="text/css">
@@ -172,10 +171,10 @@
           <a href="/about" class="navbar-link w-nav-link">About</a>
           <a href="/services" class="navbar-link w-nav-link">Services</a>
           <a href="/contact" class="navbar-link w-nav-link">Contact</a>
-        </nav> 
+        </nav>
         <div class="navbar-button-wrapper">
           <a style="font-size:10px!important;background-color:#001f54!important;color:#fff!important" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL NOW</b></a>
-          <a href="/client-area/intake-form" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important;font-size:9.5px!important;"><b>BOOK ONLINE</b></a>
+          <a href="#" id="open-intake-modal" class="btn btn-primary w-button" type="button" aria-haspopup="dialog" aria-controls="intake-modal" style="background-color:#ff4900!important;font-size:9.5px!important;"><b>BOOK ONLINE</b></a>
           <div class="navbar-menu-button w-nav-button" style="-webkit-user-select:text;" aria-label="menu" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false">
             <div class="menu-icon">
               <div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div>
@@ -190,14 +189,14 @@
 
 
 
- 
+
 
   <!-- HERO -->
   <header class="hero">
     <div class="container">
       <h1 class="hero__title" style="color:white!important;">Landlord‑Tenant Matters</h1>
       <p class="hero__subtitle">Evictions, rent control, habitability, and compliance—our firm represents landlords exclusively with strategic, results‑driven counsel.</p>
-      <a href="https://pritsinghlaw.com/client-area/intake-form" class="btn" style="background:#ff4900!important;color:#fff!important;">Book a Landlord Consultation</a>
+      <a href="#" id="open-intake-modal" class="btn" type="button" aria-haspopup="dialog" aria-controls="intake-modal" style="background:#ff4900!important;color:#fff!important;">Book a Landlord Consultation</a>
     </div>
   </header>
 
@@ -211,9 +210,9 @@
   <section class="section section--services"><div class="container">
     <h2 class="section__title">Key Landlord‑Tenant Issues We Handle</h2>
     <div class="card-grid">
-      <article class="card"><h3 class="card__title">Evictions & Unlawful Detainers</h3><p class="card__text">From notice to lockout—full compliance, minimal delays.</p><a href="https://pritsinghlaw.com/client-area/intake-form" class="btn btn--secondary">Request eviction help</a></article>
-      <article class="card"><h3 class="card__title">Rent Control & Local Compliance</h3><p class="card__text">SF, Oakland, Berkeley, Richmond, and Alameda rules—navigated.</p><a href="https://pritsinghlaw.com/client-area/intake-form" class="btn btn--secondary">Get compliance advice</a></article>
-      <article class="card"><h3 class="card__title">Defense Against Tenant Claims</h3><p class="card__text">Habitability, retaliation, wrongful eviction—defended aggressively.</p><a href="https://pritsinghlaw.com/client-area/intake-form" class="btn btn--secondary">Protect your property</a></article>
+      <article class="card"><h3 class="card__title">Evictions & Unlawful Detainers</h3><p class="card__text">From notice to lockout—full compliance, minimal delays.</p><a href="#" id="open-intake-modal" class="btn btn--secondary" type="button" aria-haspopup="dialog" aria-controls="intake-modal">Request eviction help</a></article>
+      <article class="card"><h3 class="card__title">Rent Control & Local Compliance</h3><p class="card__text">SF, Oakland, Berkeley, Richmond, and Alameda rules—navigated.</p><a href="#" id="open-intake-modal" class="btn btn--secondary" type="button" aria-haspopup="dialog" aria-controls="intake-modal">Get compliance advice</a></article>
+      <article class="card"><h3 class="card__title">Defense Against Tenant Claims</h3><p class="card__text">Habitability, retaliation, wrongful eviction—defended aggressively.</p><a href="#" id="open-intake-modal" class="btn btn--secondary" type="button" aria-haspopup="dialog" aria-controls="intake-modal">Protect your property</a></article>
     </div>
   </div></section>
 
@@ -221,7 +220,7 @@
   <section class="section section--why-us"><div class="container">
     <h2 class="section__title">Why Choose Us</h2>
     <p>We represent landlords—period. Fast action, deep legal knowledge, and courtroom experience to keep your investment secure.</p>
-    <a href="https://pritsinghlaw.com/client-area/intake-form" style="color:white!important;" class="btn">Book Your Strategy Session</a>
+    <a href="#" id="open-intake-modal" style="color:white!important;" class="btn" type="button" aria-haspopup="dialog" aria-controls="intake-modal">Book Your Strategy Session</a>
   </div></section>
 
 
@@ -237,7 +236,7 @@
     <div class="footer-bottom"><p>&copy; 2025, Law Offices of Pritpal Singh. All rights reserved.</p><div class="footer-legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div></div>
   </div></footer>
 
-    <!---MOBILE NAVIGATION SNIPPET--->
+    <!--- MOBILE NAVIGATION SNIPPET--->
 
 
 <script>
@@ -325,10 +324,10 @@
 
 
 
-    
+
   <script src="main.js"></script>
-  
-  
+
+
   <!-- === Client Intake (Real Estate Law) — Popup Modal === -->
 <style>
   :root{
@@ -691,6 +690,53 @@
     </div>
   </div>
 </div>
+
+<!--- CLIENT INTAKE POPUP CTA --->
+
+  <!-- Modal -->
+  <div id="intake-overlay" class="modal-overlay" aria-hidden="true">
+    <div
+      id="intake-modal"
+      class="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="intake-title"
+      aria-describedby="intake-subtitle"
+      tabindex="-1"
+    >
+      <button class="modal-close" id="close-intake-modal" type="button" aria-label="Close dialog">&times;</button>
+
+      <div class="logo-wrap">
+        <img class="modal-logo" src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh logo" width="250" height="auto" />
+      </div>
+
+      <h2 id="intake-title" class="title">Schedule A Consultation</h2>
+
+      <p id="intake-subtitle" class="subtitle">
+        Choose one of the consultation options below to schedule a consultation with an attorney in minutes.
+        You will receive a confirmation email and/or SMS within an hour after your booking request is received by our legal team.
+        Please note that free 15-minute consultations can only be scheduled once per client and all paid consultations will take priority in the unlikely event of a scheduling conflict.
+      </p>
+
+      <div class="cta-stack">
+        <a
+          class="cta cta-outline"
+          href="https://pritsinghlaw.com/bookings/free"
+          target="_blank"
+          rel="noopener noreferrer"
+        >15-Minute Consultation - FREE</a>
+        <div class="help-text">Consultation will take place via Zoom or telephonically</div>
+
+        <a
+          class="cta cta-solid animated-cta"
+          href="https://pritsinghlaw.com/bookings/paid"
+          target="_blank"
+          rel="noopener noreferrer"
+        >1-Hour Consultation - $500</a>
+        <div class="help-text">Consultation will take place via Zoom or in-person. Document reviews may be included for additional fee</div>
+      </div>
+    </div>
+  </div>
 
 <script>
 (() => {
