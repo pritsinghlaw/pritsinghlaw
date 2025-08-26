@@ -52,13 +52,182 @@
   rel="apple-touch-icon">
   
   
-  <!--BOTPRESS--->
+  <!--BOTPRESS
   
     <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
 <script src="https://files.bpcontent.cloud/2025/08/25/18/20250825182235-SVMPKQSO.js" defer></script>
-    
+--->
   
   
+  <style>
+  :root {
+    --navy: #0a2a6b;
+    --orange: #ff4900;
+    --overlay: rgba(0, 0, 0, 0.65);
+    --radius: 16px;
+  }
+
+  /* Base reset-ish */
+  * { box-sizing: border-box; }
+  body.no-scroll { overflow: hidden; }
+  img { max-width: 100%; display: block; }
+
+  /* Trigger button demo (style to taste or remove) */
+  .trigger-btn {
+    padding: 0.85rem 1.2rem;
+    border: 1px solid var(--navy);
+    background: white;
+    color: var(--navy);
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    z-index: 9999;
+
+    /* hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Dialog */
+  .modal-dialog {
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    padding: clamp(1rem, 2.5vw, 2rem);
+    position: relative;
+    transform: translateY(10px) scale(0.98);
+    transition: transform 220ms ease, opacity 220ms ease;
+    opacity: 0;
+  }
+  .modal-overlay.open .modal-dialog {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* Close button */
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280; /* slate-500 */
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+  }
+  .modal-close:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* Content */
+  .logo-wrap {
+    display: grid;
+    place-items: center;
+    margin-top: 0.25rem;
+  }
+  .logo {
+    width: min(220px, 55%);
+    height: auto;
+  }
+  .title {
+    text-align: center;
+    font-weight: 800;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    margin: 1rem 0 0.5rem;
+    color: #111827; /* gray-900 */
+  }
+  .subtitle {
+    text-align: center;
+    color: #4b5563; /* gray-600 */
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    line-height: 1.6;
+    max-width: 62ch;
+    margin: 0 auto 1.25rem;
+  }
+
+  .cta-stack {
+    display: grid;
+    gap: 0.9rem;
+    margin: 1.25rem auto 0.25rem;
+    max-width: 560px;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+    padding: 0.9rem 1.1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    will-change: transform;
+  }
+  .cta:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* First button: navy outline */
+  .cta-outline {
+    background: #fff;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  }
+  .cta-outline:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(10,42,107,0.12); }
+
+  /* Second button: solid orange with animation */
+  .cta-solid {
+    background: #ff4900;
+    color: #fff;
+    border: 2px solid var(--orange);
+    box-shadow: 0 6px 16px rgba(255,73,0,0.25);
+  }
+  .cta-solid:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 10px 26px rgba(255,73,0,0.35); }
+
+  /* Subtext */
+  .help-text {
+    font-size: 0.85rem;
+    color: #6b7280; /* gray-500 */
+    text-align: center;
+    margin-top: -0.5rem;
+  }
+
+  /* Gentle attention animation for the paid CTA */
+  @keyframes gentlePulse {
+    0% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px rgba(255,73,0,0.25); }
+    50% { transform: translateY(-1px) scale(1.015); box-shadow: 0 12px 28px rgba(255,73,0,0.38); }
+    100% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px rgba(255,73,0,0.25); }
+  }
+  .animated-cta {
+    animation: gentlePulse 2200ms ease-in-out infinite;
+    animation-delay: 1.4s;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .modal-overlay, .modal-dialog, .cta, .animated-cta { transition: none !important; animation: none !important; }
+  }
+</style>
   
   
   <style>
@@ -66,7 +235,7 @@
 
 
 /* MODIFICATION: Set nav link font weight to normal and prevent wrapping */
-    .navbar-link.w-nav-link {
+    .navbar-link, .w-nav-link, .navbar-menu-dropdown {
         font-weight:500 !important; /* Use 400 for normal font weight */
         white-space: nowrap !important; /* Keep 'Practice Areas' on one line */
         font-family:'Open Sans',sans-serif!important;
@@ -750,61 +919,7 @@ visibility:hidden!important;
 
 
     
-   <!--- <div class="animated-background">
   
-  <div class="floating-icon orange">
-    <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
-    </svg>
-  </div>
-  <div class="floating-icon navy">
-    <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-    </svg>
-  </div>
-  <div class="floating-icon orange">
-    <svg width="70" height="70" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-    </svg>
-  </div>
-  <div class="floating-icon navy">
-    <svg width="55" height="55" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586l-8 8-8-8V4z M3 8.414V19a1 1 0 001 1h16a1 1 0 001-1V8.414l-8 8-8-8z"/>
-    </svg>
-  </div>
-  <div class="floating-icon orange">
-    <svg width="65" height="65" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-    </svg>
-  </div>
-  <div class="floating-icon navy">
-    <svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M8 14v3a2 2 0 002 2h4a2 2 0 002-2v-3m-6 0V9a2 2 0 012-2h4a2 2 0 012 2v5m-6 0h6"/>
-    </svg>
-  </div>
-  <div class="floating-icon orange">
-    <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-    </svg>
-  </div>
-  <div class="floating-icon navy">
-    <svg width="55" height="55" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-    </svg>
-  </div>
-  <div class="floating-icon orange">
-    <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-    </svg>
-  </div>
-  <div class="floating-icon navy">
-    <svg width="65" height="65" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z"/>
-    </svg>
-  </div>
-</div>
-
----->
     
     <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
   
@@ -1033,7 +1148,7 @@ visibility:hidden!important;
     
     
     
-    <div id="w-node-_0f073428-b57b-6ea2-8058-59401c6643de-55239b46" data-w-id="0f073428-b57b-6ea2-8058-59401c6643de" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="content-wrapper"><p class="text-size-medium">At the <b>Law Offices of Pritpal Singh</b>, we do more than close deals—we unlock potential.&nbsp;</p><p class="text-size-medium"><br></p><p class="text-size-medium">Whether you're buying your first home in San Francisco, developing a mixed-use space in Oakland, or untangling a title dispute in San Jose, we’re your sharpest legal advantage in California’s complex real estate terrain.</p><div class="spacer-medium"></div><div class="button-group"><a href="/client-area/intake-form" data-ps-intake-open class="btn btn-primary btn-pulse w-button">Book A Consultation</a><a href="https://pritsinghlaw.com/contact" class="btn btn-secondary w-button">Get In Touch</a></div></div></div><div class="spacer-xxl"></div><div class="header-image-wrapper"><img src="/lakemerritt.jpeg" loading="eager" sizes="(max-width: 479px) 92vw, (max-width: 767px) 95vw, (max-width: 991px) 92vw, 94vw" srcset="/lakemerritt.jpeg 500w, /lakemerritt.jpeg 800w, /lakemerritt.jpeg 1080w, /lakemerritt.jpeg 1600w, /lakemerritt.jpeg 2000w, /lakemerritt.jpeg 2560w" alt="A Picture Of Lake Merritt" class="header-image"></div></div></div></div></div></header>
+    <div id="w-node-_0f073428-b57b-6ea2-8058-59401c6643de-55239b46" data-w-id="0f073428-b57b-6ea2-8058-59401c6643de" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="content-wrapper"><p class="text-size-medium">At the <b>Law Offices of Pritpal Singh</b>, we do more than close deals—we unlock potential.&nbsp;</p><p class="text-size-medium"><br></p><p class="text-size-medium">Whether you're buying your first home in San Francisco, developing a mixed-use space in Oakland, or untangling a title dispute in San Jose, we’re your sharpest legal advantage in California’s complex real estate terrain.</p><div class="spacer-medium"></div><div class="button-group"><a href="#" id="open-intake-modal" type="button" aria-haspopup="dialog" aria-controls="intake-modal" class="btn button btn-primary btn-pulse w-button">Book A Consultation</a><a href="https://pritsinghlaw.com/contact" class="btn btn-secondary w-button">Support Center</a></div></div></div><div class="spacer-xxl"></div><div class="header-image-wrapper"><img src="/lakemerritt.jpeg" loading="eager" sizes="(max-width: 479px) 92vw, (max-width: 767px) 95vw, (max-width: 991px) 92vw, 94vw" srcset="/lakemerritt.jpeg 500w, /lakemerritt.jpeg 800w, /lakemerritt.jpeg 1080w, /lakemerritt.jpeg 1600w, /lakemerritt.jpeg 2000w, /lakemerritt.jpeg 2560w" alt="A Picture Of Lake Merritt" class="header-image"></div></div></div></div></div></header>
     
     
     <section class="section background-color-navy"><div class="padding-global"><div class="container-large"><div class="padding-section-large"><div data-w-id="7bc523dd-87bb-af2d-a1ef-1e163e4f3b83" class="text-align-center"><div data-w-id="7bc523dd-87bb-af2d-a1ef-1e163e4f3b84" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="max-width-large align-center"><div class="eyebrow text-color-white">OUR PROCESS</div><div class="spacer-xs"></div><h2 class="heading-style-h2 text-color-white">What makes us better?</h2><div class="spacer-small"></div><p class="text-size-medium">We outline exactly what legal services you need, what it will take to move forward, and how we’ll align with your timelines, budget, and communication preferences. </p></div></div><div class="spacer-xxl"></div><div data-w-id="3996f924-daf0-bf26-5b2b-305492e8fed8" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="w-layout-grid _3-column-grid _2-column-tablet">
@@ -1497,6 +1612,140 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+
+ <!---CLIENT INTAKE POPUP CTA--->
+  
+  <!-- Modal -->
+  <div id="intake-overlay" class="modal-overlay" aria-hidden="true">
+    <div
+      id="intake-modal"
+      class="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="intake-title"
+      aria-describedby="intake-subtitle"
+      tabindex="-1"
+    >
+      <button class="modal-close" id="close-intake-modal" type="button" aria-label="Close dialog">&times;</button>
+
+      <div class="logo-wrap">
+        <img class="modal-logo" src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh logo" width="250" height="auto" />
+      </div>
+
+      <h2 id="intake-title" class="title">Schedule A Consultation</h2>
+
+      <p id="intake-subtitle" class="subtitle">
+        Choose one of the consultation options below to schedule a consultation with an attorney in minutes.
+        You will receive a confirmation email and/or SMS within an hour after your booking request is received by our legal team.
+        Please note that free 15-minute consultations can only be scheduled once per client and all paid consultations will take priority in the unlikely event of a scheduling conflict.
+      </p>
+
+      <div class="cta-stack">
+        <a
+          class="cta cta-outline"
+          href="https://pritsinghlaw.com/bookings/free"
+          target="_blank"
+          rel="noopener noreferrer"
+        >15-Minute Consultation - FREE</a>
+        <div class="help-text">Consultation will take place via Zoom or telephonically</div>
+
+        <a
+          class="cta cta-solid animated-cta"
+          href="https://pritsinghlaw.com/bookings/paid"
+          target="_blank"
+          rel="noopener noreferrer"
+        >1-Hour Consultation - $500</a>
+        <div class="help-text">Consultation will take place via Zoom or in-person. Document reviews may be included for additional fee</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const openBtn = document.getElementById('open-intake-modal');
+  const overlay = document.getElementById('intake-overlay');
+  const dialog = document.getElementById('intake-modal');
+  const closeBtn = document.getElementById('close-intake-modal');
+  let lastFocused = null;
+
+  const focusableSelectors = [
+    'a[href]',
+    'area[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ];
+
+  function getFocusable(container) {
+    return Array.from(container.querySelectorAll(focusableSelectors.join(',')))
+      .filter(el => el.offsetParent !== null || el === document.activeElement);
+  }
+
+  function openModal() {
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+
+    // Focus first focusable element inside dialog
+    const focusables = getFocusable(dialog);
+    (focusables[0] || dialog).focus();
+
+    // Trap focus
+    document.addEventListener('keydown', trapFocus);
+    document.addEventListener('keydown', onEsc);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+
+    document.removeEventListener('keydown', trapFocus);
+    document.removeEventListener('keydown', onEsc);
+
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+      lastFocused.focus();
+    }
+  }
+
+  function trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    const focusables = getFocusable(dialog);
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function onEsc(e) {
+    if (e.key === 'Escape') closeModal();
+  }
+
+  // Click outside to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+})();
+</script>
 
 
 
