@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Secure Client Portal</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, sans-serif;
+      background:
+        radial-gradient(40% 50% at 15% 10%, rgba(11,42,85,.12), transparent 60%),
+        radial-gradient(35% 45% at 90% 85%, rgba(255,122,24,.14), transparent 65%),
+        #fff;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: min(480px, 94vw);
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(11,42,85,.1);
+      padding: 36px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #0b2a55;
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      margin: 0 0 10px;
+    }
+    .sub {
+      font-size: 14px;
+      text-align: center;
+      color: #555;
+      margin-bottom: 24px;
+      line-height: 1.45;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 15px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      border-radius: 15px;
+      background: #000;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .divider {
+      margin: 20px 0;
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+    }
+    .providers {
+      display: grid;
+      gap: 12px;
+    }
+    .provider {
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      padding: 12px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: box-shadow .2s;
+    }
+    .provider:hover {
+      box-shadow: 0 6px 16px rgba(255,122,24,.15);
+      border-color: #0b2a55;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo"><img src="/icon.png" width="80" height="auto"></div>
+    <h1>Secure Client Portal</h1>
+    <p class="sub">
+      View your account information, send/request updates on your matter, store important legal
+      documents, manage or pay your bills and view your transaction history. More features coming soon.
+    </p>
+
+    <form id="loginForm">
+      <div class="field">
+        <input type="email" placeholder="Email" required />
+      </div>
+      <div class="field">
+        <input type="password" placeholder="Password" required />
+      </div>
+      <button class="btn-primary">LAUNCH THE DASHBOARD</button>
+    </form>
+
+    <div class="divider">Or sign in with</div>
+
+    <div class="providers">
+      <!-- Google -->
+      <div id="g_id_onload"
+        data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleGoogle"
+        data-auto_prompt="false">
+      </div>
+      <div class="provider">
+        <div class="g_id_signin"
+          data-type="standard"
+          data-shape="rectangular"
+          data-theme="outline"
+          data-text="signin_with"
+          data-size="large"
+          data-logo_alignment="left"
+          style="width:100%">
+        </div>
+      </div>
+
+      <!-- Facebook -->
+      <div class="provider" onclick="fbLogin()">
+        Continue with Facebook
+      </div>
+
+      <!-- Apple -->
+      <div class="provider" id="appleid-signin"
+        data-color="black" data-border="true" data-type="sign in">
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    function handleGoogle(response){
+      console.log("Google JWT:", response.credential);
+      // send token to backend
+    }
+  </script>
+
+  <!-- Facebook SDK -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : 'YOUR_FACEBOOK_APP_ID',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v18.0'
+      });
+    };
+
+    function fbLogin(){
+      FB.login(function(response) {
+        if (response.authResponse) {
+          console.log('Facebook token:', response.authResponse.accessToken);
+        }
+      }, {scope: 'public_profile,email'});
+    }
+  </script>
+
+  <!-- Apple Sign-In -->
+  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+  <script>
+    AppleID.auth.init({
+      clientId : 'YOUR_APPLE_CLIENT_ID',
+      scope : 'name email',
+      redirectURI : 'https://yourdomain.com/callback',
+      usePopup : true
+    });
+  </script>
+</body>
+</html>
