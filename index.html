@@ -1749,5 +1749,399 @@ document.addEventListener('DOMContentLoaded', function() {
                
 
   
+<!-- GEMINI AI CHATBOT POPUP MODAL -->
+  <div id="gemini-chat-widget-container">
+    <!-- Chat Popup Modal -->
+    <div id="gemini-chat-popup" class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col gemini-hidden-popup">
+      <!-- Header -->
+      <header class="bg-white border-b-2 border-slate-100 p-4 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center space-x-3">
+          <img src="/colornobg.svg" alt="Logo" class="w-24 h-auto rounded-md">
+          <div>
+            <h1 class="text-md font-bold text-gray-800">PritAI Assistant</h1>
+            <p class="text-xs text-gray-500">Virtual Legal Assistant</p>
+          </div>
+        </div>
+        <button id="gemini-close-btn" class="text-gray-400 hover:text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </header>
+
+      <!-- Messages -->
+      <div id="gemini-chat-container" class="flex-grow p-4 space-y-4 overflow-y-auto">
+        <div class="flex justify-start items-start space-x-3 gemini-message-fade-in">
+          <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+          <div class="bg-[#ff4900] text-white p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
+            <p>Hello! I am a virtual assistant for the Law Offices of Pritpal Singh. What real estate matter can I assist you with today?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="p-3 bg-white border-t-2 border-slate-100 flex items-center space-x-2 flex-shrink-0">
+        <input type="text" id="gemini-user-input" placeholder="Type your message..." class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ff4900]">
+        <button id="gemini-mic-btn" class="p-3 bg-[#001f54] text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all"><svg id="gemini-mic-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg></button>
+        <button id="gemini-send-btn" class="p-3 bg-[#ff4900] text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg></button>
+      </div>
+    </div>
+
+    <!-- Trigger Button -->
+    <button id="gemini-chat-trigger-btn" class="bg-[#ff4900] text-white font-bold py-3 px-5 rounded-full shadow-lg flex items-center space-x-3 hover:bg-opacity-90 transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <span>AI Assistant</span>
+    </button>
+  </div>
+
+  <style>
+    /* Gemini Chatbot Styles - Scoped to avoid conflicts */
+    #gemini-chat-widget-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 10000;
+    }
+    #gemini-chat-popup {
+      height: 70vh;
+      max-height: 600px;
+      width: 90vw;
+      max-width: 400px;
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .gemini-hidden-popup {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+    }
+    #gemini-chat-container::-webkit-scrollbar { width: 6px; }
+    #gemini-chat-container::-webkit-scrollbar-track { background: #f1f1f1; }
+    #gemini-chat-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+    #gemini-chat-container::-webkit-scrollbar-thumb:hover { background: #aaa; }
+    .gemini-message-fade-in { animation: geminiMessageFadeIn 0.4s ease-in-out; }
+    @keyframes geminiMessageFadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gemini-dot { animation: geminiBounce 1.4s ease-in-out infinite both; }
+    .gemini-dot:nth-child(1) { animation-delay: 0s; }
+    .gemini-dot:nth-child(2) { animation-delay: 0.2s; }
+    .gemini-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes geminiBounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+    .gemini-pulse-animation {
+      box-shadow: 0 0 0 0 rgba(0, 31, 84, 1);
+      animation: geminiPulseEffect 2s infinite;
+    }
+    @keyframes geminiPulseEffect {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 31, 84, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 31, 84, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 31, 84, 0); }
+    }
+  </style>
+
+  <script>
+    (function() {
+      const chatContainer = document.getElementById('gemini-chat-container');
+      const userInput = document.getElementById('gemini-user-input');
+      const sendBtn = document.getElementById('gemini-send-btn');
+      const micBtn = document.getElementById('gemini-mic-btn');
+      const chatPopup = document.getElementById('gemini-chat-popup');
+      const chatTriggerBtn = document.getElementById('gemini-chat-trigger-btn');
+      const closeBtn = document.getElementById('gemini-close-btn');
+      let audioContext;
+      
+      // --- POPUP VISIBILITY ---
+      chatTriggerBtn.addEventListener('click', () => {
+        chatPopup.classList.remove('gemini-hidden-popup');
+        chatTriggerBtn.classList.add('hidden');
+      });
+      closeBtn.addEventListener('click', () => {
+        chatPopup.classList.add('gemini-hidden-popup');
+        chatTriggerBtn.classList.remove('hidden');
+      });
+
+      // --- CORE CHATBOT LOGIC ---
+      const systemInstructions = { role: "system", parts: [{ text: `
+        You are an intuitive client-support agent for a California real estate law firm, the Law Offices of Pritpal Singh. You are a knowledgeable, helpful, and human-sounding virtual assistant for website visitors.
+
+SCOPE
+- Provide general real estate law information relevant to California. Do not provide legal advice. When users ask for advice, give general information and invite them to book a consultation.
+- Provide accurate, up-to-date firm details: attorneys (especially Pritpal Singh), services, consultation options, billing, contact info, and website navigation help.
+- Your authoritative sources are pages on https://www.pritsinghlaw.com, including:
+  - Attorney profile: https://www.pritsinghlaw.com/team/pritpal-singh
+  - Services/practice areas: https://www.pritsinghlaw.com/services
+  - Intake/Consultation Booking Form: https://www.pritsinghlaw.com/client-area/intake-form
+  - Online Payment Portal (Powered by LawPay + Stripe Payments Supported): https://pritsinghlaw.com/pay-my-bill
+
+TONE & STYLE
+- Sound like a warm, professional human—not robotic. Avoid repeating stock phrases like "Thanks for your query." Use plain, respectful language, short sentences, and concrete steps.
+- Keep answers concise (1–3 short paragraphs). If longer content is needed, break it into brief bullet points or sections. Avoid legalese unless specifically requested.
+
+REASONING POLICY
+- Always think step-by-step internally before replying; do not show your reasoning or chain-of-thought. Output only the final answer.
+- Ask clarifying questions only when essential to move the user forward (e.g., missing facts that change the answer).
+
+GUARDRAILS
+- No legal advice; only general legal information and firm-specific facts.
+- This chat does not create an attorney–client relationship and is for general information only.
+- Do not accept service of process, discuss confidential case facts, or collect sensitive personal data in chat. For confidential matters, direct users to the intake form or phone.
+- Do not quote fees beyond what is explicitly provided here (consultation pricing). If asked about other fees, route to the legal team.
+
+CORE FACTS TO USE
+- Consultations:
+  • Free 15-minute consultation (phone or Zoom)
+  • Paid 1-hour consultation ($500; in person or Zoom)
+  • Clients are welcome to book a consultation online via the secure client intake form: https://www.pritsinghlaw.com/client-area/intake-form
+  • Or call (510) 443-2123 to schedule an appointment by phone using our AI-powered virtual receptionist 
+
+- Billing:
+  • Primary payment method: secure LawPay portal at https://pritsinghlaw.com/pay-my-bill
+  • Supports credit/debit cards and eChecks; payment plans via Affirm when available (subject to credit check)
+  • Stripe checkout available upon request; if asked, explain we'll send a Stripe payment request and provide next steps
+
+- Contact:
+  • Direct office (legal team): (510) 225-9220
+  • Bookings & general assistance: (510) 443-2123
+  • Email: info@pritsinghlaw.com
+  • Website: https://www.pritsinghlaw.com
+  • For additional staff details, refer to pages on the site (e.g., legal assistant Michael Chigbu: https://pritsinghlaw.com/team/michael-chigbu)
+
+ESCALATION & RESPONSE TIMES
+- If a question requires attorney review or human action, reassure the user the legal team typically responds within 4–8 hours during normal office hours.
+- Provide phone and email for quicker follow-up; encourage the intake form for new matters.
+
+OUTPUT PATTERN
+- Do NOT include "Reasoning"/"Conclusion" sections in replies. Provide only the final, user-facing answer.
+- Start naturally (e.g., "Here's how you can do that…", "Happy to explain."). No repetitive greetings.
+- When citing firm info, prefer actionable steps and direct links.
+- If information is unknown or not on the site, say so and invite contact via phone, email, or the intake form.
+      `}]};
+      let chatHistory = [];
+
+      function addMessage(text, isUser = false) {
+        const messageWrapper = document.createElement('div');
+        messageWrapper.className = `w-full flex ${isUser ? 'justify-end' : 'justify-start'} gemini-message-fade-in`;
+        let messageContent;
+        if (isUser) {
+          messageContent = `<div class="bg-[#001f54] text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[80%] shadow-md"><p>${text}</p></div>`;
+        } else {
+          messageContent = `
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+              <div class="bg-[#ff4900] text-white p-3 rounded-r-xl rounded-bl-xl text-sm max-w-[80%] shadow-md">
+                <p>${text}</p>
+              </div>
+              <button class="gemini-play-audio-btn p-2 rounded-full text-[#001f54] hover:bg-blue-100" data-text="${text}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg>
+              </button>
+            </div>`;
+        }
+        messageWrapper.innerHTML = messageContent;
+        chatContainer.appendChild(messageWrapper);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+
+      function toggleTypingIndicator(show = false) {
+        let indicator = document.getElementById('gemini-typing-indicator');
+        if (show) {
+          if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.id = 'gemini-typing-indicator';
+            indicator.className = 'flex justify-start items-start space-x-3';
+            indicator.innerHTML = `
+              <div class="w-8 h-8 rounded-full bg-[#ff4900] flex-shrink-0 flex items-center justify-center font-bold text-white text-sm">AI</div>
+              <div class="bg-[#ff4900] p-4 rounded-r-xl rounded-bl-xl shadow-md flex space-x-1 items-center">
+                <span class="gemini-dot w-2 h-2 bg-white rounded-full"></span>
+                <span class="gemini-dot w-2 h-2 bg-white rounded-full"></span>
+                <span class="gemini-dot w-2 h-2 bg-white rounded-full"></span>
+              </div>`;
+            chatContainer.appendChild(indicator);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          }
+        } else {
+          indicator?.remove();
+        }
+      }
+
+      // --- API COMMUNICATION ---
+      async function sendMessageToAPI(prompt) {
+        if (!prompt.trim()) return;
+        addMessage(prompt, true);
+        userInput.value = '';
+        toggleTypingIndicator(true);
+        chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
+
+        try {
+          // Use environment variable for API key
+          const apiKey = typeof process !== 'undefined' && process.env ? process.env.GEMINI_API_KEY : window.GEMINI_API_KEY;
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+          const payload = { contents: chatHistory, systemInstruction: systemInstructions.parts.length > 0 ? systemInstructions : undefined };
+          
+          const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!response.ok) throw new Error(`API Error: ${response.status}`);
+          
+          const result = await response.json();
+          const botText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+          if (botText) {
+            addMessage(botText, false);
+            chatHistory.push({ role: 'model', parts: [{ text: botText }] });
+            // Automatically play the voice for the new message
+            playTextToSpeech(botText);
+          } else {
+            throw new Error("Invalid API response.");
+          }
+        } catch (error) {
+          console.error('Error fetching from Gemini API:', error);
+          addMessage("Sorry, I'm having trouble connecting. Please try again.", false);
+        } finally {
+          toggleTypingIndicator(false);
+        }
+      }
+
+      // --- TEXT-TO-SPEECH (TTS) ---
+      async function playTextToSpeech(text, button) {
+        if (button) {
+          button.disabled = true; // Prevent multiple clicks
+        }
+        try {
+          if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          const apiKey = typeof process !== 'undefined' && process.env ? process.env.GEMINI_API_KEY : window.GEMINI_API_KEY;
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+          const payload = {
+            contents: [{ parts: [{ text: text }] }],
+            generationConfig: {
+              responseModalities: ["AUDIO"],
+              speechConfig: {
+                voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } } // A friendly, upbeat voice
+              }
+            },
+            model: "gemini-2.5-flash-preview-tts"
+          };
+
+          const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!response.ok) throw new Error(`TTS API Error: ${response.status}`);
+
+          const result = await response.json();
+          const audioData = result?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+          if (!audioData) throw new Error("No audio data in response.");
+
+          const pcmData = base64ToArrayBuffer(audioData);
+          const pcm16 = new Int16Array(pcmData);
+          const wavBlob = pcmToWav(pcm16, 24000); // Gemini TTS uses a 24000Hz sample rate
+          const audioUrl = URL.createObjectURL(wavBlob);
+          
+          const audio = new Audio(audioUrl);
+          audio.play();
+          audio.onended = () => {
+            if (button) button.disabled = false;
+            URL.revokeObjectURL(audioUrl);
+          };
+
+        } catch (error) {
+          console.error("TTS Error:", error);
+          if (button) button.disabled = false;
+        }
+      }
+      
+      // Add event listener to the chat container for delegation
+      chatContainer.addEventListener('click', function(event) {
+        const playButton = event.target.closest('.gemini-play-audio-btn');
+        if (playButton) {
+          const textToPlay = playButton.dataset.text;
+          playTextToSpeech(textToPlay, playButton);
+        }
+      });
+
+      // --- UTILITY FUNCTIONS for TTS ---
+      function base64ToArrayBuffer(base64) {
+        const binaryString = window.atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes.buffer;
+      }
+
+      function pcmToWav(pcmData, sampleRate) {
+        const numChannels = 1;
+        const bitsPerSample = 16;
+        const blockAlign = (numChannels * bitsPerSample) / 8;
+        const byteRate = sampleRate * blockAlign;
+        const dataSize = pcmData.length * (bitsPerSample / 8);
+        const buffer = new ArrayBuffer(44 + dataSize);
+        const view = new DataView(buffer);
+
+        function writeString(view, offset, string) {
+          for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+          }
+        }
+
+        writeString(view, 0, 'RIFF');
+        view.setUint32(4, 36 + dataSize, true);
+        writeString(view, 8, 'WAVE');
+        writeString(view, 12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, byteRate, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitsPerSample, true);
+        writeString(view, 36, 'data');
+        view.setUint32(40, dataSize, true);
+
+        for (let i = 0; i < pcmData.length; i++) {
+          view.setInt16(44 + i * 2, pcmData[i], true);
+        }
+
+        return new Blob([view], { type: 'audio/wav' });
+      }
+
+      // --- EVENT LISTENERS & SPEECH RECOGNITION ---
+      sendBtn.addEventListener('click', () => sendMessageToAPI(userInput.value));
+      userInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessageToAPI(userInput.value);
+        }
+      });
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        micBtn.addEventListener('click', () => recognition.start());
+        recognition.onstart = () => { micBtn.classList.add('gemini-pulse-animation'); userInput.placeholder = "Listening..."; };
+        recognition.onend = () => { micBtn.classList.remove('gemini-pulse-animation'); userInput.placeholder = "Type your message..."; };
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          userInput.value = transcript;
+          sendMessageToAPI(transcript);
+        };
+        recognition.onerror = (event) => { console.error('Speech recognition error:', event.error); };
+      } else {
+        micBtn.style.display = 'none';
+      }
+
+      // Expose API key to window for client-side access if environment variable isn't available
+      if (typeof process === 'undefined' || !process.env) {
+        // This will need to be set through Replit secrets
+        fetch('/api/get-gemini-key').then(r => r.json()).then(data => {
+          window.GEMINI_API_KEY = data.key;
+        }).catch(() => {
+          console.warn('Gemini API key not found. Please set GEMINI_API_KEY in Replit secrets.');
+        });
+      }
+    })();
+  </script>
+  <!-- END OF GEMINI CHATBOT CODE -->
+
 </body>
 </html>
