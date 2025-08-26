@@ -61,7 +61,7 @@
             padding: 14px 14px;
             border-radius: 15px;
             border: 1px solid #ddd;
-            font-size: 15px;
+            font-size: 16px;
             box-sizing: border-box;
         }
         .btn-primary {
@@ -86,19 +86,27 @@
             font-size: 13px;
         }
         .providers {
-            display: grid;
-            gap: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
         }
         .provider {
+            width: 44px;
+            height: 44px;
             border: 1px solid #ddd;
-            border-radius: 15px;
-            padding: 12px;
+            border-radius: 50%;
             background: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: box-shadow .2s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        .provider img {
+            width: 24px;
+            height: 24px;
         }
         .provider:hover {
             box-shadow: 0 6px 16px rgba(255,122,24,.15);
