@@ -1,0 +1,213 @@
+require('dotenv').config();
+const express = require('express');
+const cookie = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const jwkToPem = require('jwk-to-pem');
+const path = require('path');
+
+const app = express();
+app.use(express.json());
+app.use(cookie());
+
+const {
+  PORT = 3000,
+  SESSION_SECRET,
+  SESSION_COOKIE_NAME = 'sid',
+  GOOGLE_CLIENT_ID,
+  FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRET,
+  APPLE_TEAM_ID,
+  APPLE_KEY_ID,
+  APPLE_CLIENT_ID
+} = process.env;
+
+const APPLE_PRIVATE_KEY = (process.env.APPLE_PRIVATE_KEY || '').replace(/\\n/g, '\n');
+
+function setSession(res, user) {
+  // Create your own session JWT (do NOT put sensitive provider tokens in here)
+  const token = jwt.sign(
+    {
+      sub: user.id,           // your internal user id
+      iss: 'secure-client-portal',
+      name: user.name,
+      email: user.email,
+      picture: user.picture || null,
+      provider: user.provider
+    },
+    SESSION_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  const isProd = process.env.NODE_ENV === 'production';
+  res.cookie(SESSION_COOKIE_NAME, token, {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: 'lax',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: '/'
+  });
+}
+
+function ok(res, data) { res.status(200).json({ ok: true, ...data }); }
+function fail(res, code, message) { res.status(code).json({ ok: false, message }); }
+
+/* ---------- GOOGLE: verify ID token ---------- */
+async function verifyGoogle(idToken) {
+  // Hit Google tokeninfo endpoint (simple server-side validation)
+  const r = await axios.get('https://oauth2.googleapis.com/tokeninfo', { params: { id_token: idToken }});
+  const p = r.data;
+  if (p.aud !== GOOGLE_CLIENT_ID) throw new Error('audience mismatch');
+  if (p.iss !== 'https://accounts.google.com' && p.iss !== 'accounts.google.com') throw new Error('issuer mismatch');
+  return {
+    id: `google:${p.sub}`,
+    name: p.name || '',
+    email: p.email,
+    picture: p.picture,
+    emailVerified: p.email_verified === 'true' || p.email_verified === true
+  };
+}
+
+/* ---------- FACEBOOK: verify access token ---------- */
+async function verifyFacebook(accessToken) {
+  // 1) Debug token
+  const appAccessToken = `${FACEBOOK_APP_ID}|${FACEBOOK_APP_SECRET}`;
+  const debug = await axios.get('https://graph.facebook.com/debug_token', {
+    params: { input_token: accessToken, access_token: appAccessToken }
+  });
+  if (!debug.data.data.is_valid) throw new Error('invalid facebook token');
+
+  // 2) Fetch profile
+  const me = await axios.get('https://graph.facebook.com/v17.0/me', {
+    params: { fields: 'id,name,email,picture', access_token: accessToken }
+  });
+  const p = me.data;
+  return {
+    id: `facebook:${p.id}`,
+    name: p.name || '',
+    email: p.email || '',
+    picture: p.picture?.data?.url || null
+  };
+}
+
+/* ---------- APPLE: exchange code -> tokens, then verify id_token ---------- */
+function buildAppleClientSecret() {
+  // Sign JWT with ES256 (Apple requires 'kid' in header)
+  const payload = {
+    iss: APPLE_TEAM_ID,
+    iat: Math.floor(Date.now() / 1000),
+    exp: Math.floor(Date.now() / 1000) + (60 * 5), // 5 minutes
+    aud: 'https://appleid.apple.com',
+    sub: APPLE_CLIENT_ID
+  };
+  return jwt.sign(payload, APPLE_PRIVATE_KEY, {
+    algorithm: 'ES256',
+    keyid: APPLE_KEY_ID,
+    header: { alg: 'ES256', kid: APPLE_KEY_ID }
+  });
+}
+
+async function exchangeAppleCode(code) {
+  const clientSecret = buildAppleClientSecret();
+  const form = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    client_id: APPLE_CLIENT_ID,
+    client_secret: clientSecret
+  });
+
+  const r = await axios.post('https://appleid.apple.com/auth/token', form.toString(), {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  });
+  return r.data; // { id_token, access_token, refresh_token, ... }
+}
+
+async function verifyAppleIdToken(idToken) {
+  // Get Apple's JWKS and verify the id_token
+  const { data } = await axios.get('https://appleid.apple.com/auth/keys');
+  const header = JSON.parse(Buffer.from(idToken.split('.')[0], 'base64url').toString('utf8'));
+  const jwk = data.keys.find(k => k.kid === header.kid && k.alg === header.alg);
+  if (!jwk) throw new Error('Apple key not found for token');
+  const pem = jwkToPem(jwk);
+  const verified = jwt.verify(idToken, pem, {
+    algorithms: ['RS256'],
+    audience: APPLE_CLIENT_ID
+  });
+  return {
+    id: `apple:${verified.sub}`,
+    name: verified.name || '', // may be missing after first login
+    email: verified.email || '',
+    emailVerified: !!verified.email_verified
+  };
+}
+
+/* ---------- Routes ---------- */
+
+// Serve the static UI
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Current user (simple demo)
+app.get('/api/me', (req, res) => {
+  try {
+    const token = req.cookies[SESSION_COOKIE_NAME];
+    if (!token) return ok(res, { user: null });
+    const me = jwt.verify(token, SESSION_SECRET);
+    return ok(res, { user: me });
+  } catch {
+    return ok(res, { user: null });
+  }
+});
+
+// Google
+app.post('/api/auth/google', async (req, res) => {
+  try {
+    const { credential } = req.body || {};
+    if (!credential) return fail(res, 400, 'Missing Google credential');
+    const profile = await verifyGoogle(credential);
+    // TODO: lookup or create user in DB here
+    setSession(res, { id: profile.id, name: profile.name, email: profile.email, picture: profile.picture, provider: 'google' });
+    ok(res, { provider: 'google' });
+  } catch (e) {
+    fail(res, 401, e.message);
+  }
+});
+
+// Facebook
+app.post('/api/auth/facebook', async (req, res) => {
+  try {
+    const { accessToken } = req.body || {};
+    if (!accessToken) return fail(res, 400, 'Missing Facebook access token');
+    const profile = await verifyFacebook(accessToken);
+    setSession(res, { id: profile.id, name: profile.name, email: profile.email, picture: profile.picture, provider: 'facebook' });
+    ok(res, { provider: 'facebook' });
+  } catch (e) {
+    fail(res, 401, e.message);
+  }
+});
+
+// Apple (popup flow)
+app.post('/api/auth/apple', async (req, res) => {
+  try {
+    const { code, id_token } = req.body || {};
+    // If we got an auth code, exchange it. If we received id_token directly, use it.
+    let idToken = id_token;
+    if (code && !idToken) {
+      const tokens = await exchangeAppleCode(code);
+      idToken = tokens.id_token;
+    }
+    if (!idToken) return fail(res, 400, 'Missing Apple credentials');
+    const profile = await verifyAppleIdToken(idToken);
+    setSession(res, { id: profile.id, name: profile.name, email: profile.email, provider: 'apple' });
+    ok(res, { provider: 'apple' });
+  } catch (e) {
+    fail(res, 401, e.message);
+  }
+});
+
+// Logout
+app.post('/api/auth/logout', (req, res) => {
+  res.clearCookie(SESSION_COOKIE_NAME, { path: '/' });
+  ok(res, { message: 'logged out' });
+});
+
+app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
