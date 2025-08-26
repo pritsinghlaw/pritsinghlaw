@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Secure Client Portal</title>
+    <title>Login - Secure Client Portal | Law Offices of Pritpal Singh</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,8 +24,8 @@
             text-align: center;
         }
         .logo {
-            width: 150px;
-            margin-bottom: 1rem;
+            width: 200px;
+            margin-bottom: 2rem;
         }
         .title {
             font-size: 2rem;
@@ -34,7 +33,7 @@
         }
         .subtitle {
             font-size: 1rem;
-            color: #ff4900;
+            color: #001f54;
             margin-bottom: 2rem;
             letter-spacing: 1px;
         }
@@ -46,19 +45,19 @@
             padding: 0.5rem;
             margin-top: 0.3rem;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 10px;
         }
         button {
-            background-color: #001f54;
+            background-color: #ff4900;
             color: white;
             border: none;
             padding: 0.7rem;
             width: 100%;
-            border-radius: 8px;
+            border-radius: 15px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #004080;
+            background-color: #b7410e;
         }
         .help-text {
             font-size: 0.8rem;
@@ -69,8 +68,8 @@
 </head>
 <body>
     <div class="login-container">
-        <img src="/colornobg.svg" alt="Logo" class="logo">
-        <div class="title">Welcome</div>
+        <img src="/colornobg.svg" alt="Law Offices of Pritpal Singh Logo" class="logo">
+        <div class="title">Welcome ⚖️</div>
         <div class="subtitle">SECURE CLIENT PORTAL</div>
         <form id="login-form" onsubmit="handleLogin(event)">
             <div class="form-group">
@@ -84,7 +83,7 @@
             <button type="submit">Login</button>
         </form>
         <div class="help-text">
-            Need help? Contact our support team at support@pritsinghlaw.com, visit our support center to log a support ticket, or call (510) 443-2123 for assistance.
+            Need help? Contact our support team at <a href="mailto:info@pritsinghlaw.com"><b>info@pritsinghlaw.com</b></a>, visit our support center to log a support ticket, or call <a href="tel:+15104432123"><b>(510) 443-2123</b></a> for assistance.
         </div>
     </div>
     <script>
@@ -96,7 +95,7 @@
             // Simple frontend check to simulate authentication (Not secure)
             if (username === 'client' && password === 'Singh101$') {
                 alert('Login successful!');
-                window.location.href = 'https://pritsinghlaw.com/portal';
+                window.location.href = 'https://pritsinghlaw.com/client-area/portal';
             } else {
                 alert('Invalid credentials, please try again.');
             }
