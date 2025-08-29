@@ -6,99 +6,261 @@
     <title>Login - Secure Client Portal | Law Offices of Pritpal Singh</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, sans-serif;
+            background:
+                radial-gradient(40% 50% at 15% 10%, rgba(11,42,85,.12), transparent 60%),
+                radial-gradient(35% 45% at 90% 85%, rgba(255,122,24,.14), transparent 65%),
+                #fff;
+            display: grid;
+            place-items: center;
+            padding: 24px;
         }
-        .login-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
+        .card {
+            width: min(480px, 94vw);
+            background:
+                radial-gradient(40% 50% at 15% 10%, rgba(11,42,85,.12), transparent 60%),
+                radial-gradient(35% 45% at 90% 85%, rgba(255,122,24,.14), transparent 65%),
+                #fff;
+            border-radius: 22px;
+            box-shadow: 0 10px 28px rgba(11,42,85,.1);
+            padding: 36px;
         }
         .logo {
-            width: 200px;
-            margin-bottom: 2rem;
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: 20px;
+            color: #0b2a55;
         }
-        .title {
-            font-size: 2rem;
-            color: #001f54;
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin: 0 0 10px;
         }
-        .subtitle {
-            font-size: 1rem;
-            color: #001f54;
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
+        .sub {
+            font-size: 14px;
+            text-align: center;
+            color: #555;
+            margin-bottom: 24px;
+            line-height: 1.45;
         }
-        .form-group {
-            margin-bottom: 1rem;
+        .field {
+            margin-bottom: 14px;
         }
-        input[type="text"], input[type="password"] {
+        .field input {
             width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.3rem;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        button {
-            background-color: #ff4900;
-            color: white;
-            border: none;
-            padding: 0.7rem;
-            width: 100%;
+            padding: 14px 14px;
             border-radius: 15px;
+            border: 1px solid #ddd;
+            font-size: 16px; /* Updated font size to prevent zoom */
+            box-sizing: border-box;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border-radius: 15px;
+            background: #000;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            border: none;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #b7410e;
+        .btn-primary:hover { 
+            opacity: 0.9; 
+        }
+        .divider {
+            margin: 20px 0;
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+        }
+        .providers {
+            display: grid;
+            gap: 12px;
+        }
+        .provider {
+            width: 100%; /* Ensure uniform width */
+            height: 50px; /* Set a fixed height for uniform size */
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 0; /* Updated padding for uniform button size */
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: box-shadow .2s;
+        }
+        .provider:hover {
+            box-shadow: 0 6px 16px rgba(255,122,24,.15);
+            border-color: #0b2a55;
+        }
+        .error-message {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 14px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
         }
         .help-text {
-            font-size: 0.8rem;
+            font-size: 12px;
             color: #666;
-            margin-top: 1rem;
+            margin-top: 20px;
+            text-align: center;
+            line-height: 1.4;
+        }
+        .help-text a {
+            color: #0b2a55;
+            text-decoration: none;
+        }
+        .help-text a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <img src="/colornobg.svg" alt="Law Offices of Pritpal Singh Logo" class="logo">
-        <div class="title">Welcome ⚖️</div>
-        <div class="subtitle">SECURE CLIENT PORTAL</div>
-        <form id="login-form" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
+    <div class="card">
+        <div class="logo"><img src="/icon.png" width="140" height="auto" alt="Law Offices of Pritpal Singh Logo"></div>
+        <h1>SECURE CLIENT PORTAL</h1>
+        <p class="sub">
+            View your account information, send/request updates on your matter, store important legal
+            documents, manage or pay your bills and view your transaction history. More features coming soon.
+        </p>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="field">
+                <input type="text" id="username" placeholder="Username" required />
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
+            <div class="field">
+                <input type="password" id="password" placeholder="Password" required />
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" class="btn-primary">LAUNCH THE DASHBOARD</button>
         </form>
+
+        <div class="divider">Or sign in with</div>
+
+        <div class="providers">
+            <!-- Google -->
+            <div id="g_id_onload"
+                data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-callback="handleGoogle"
+                data-auto_prompt="false">
+            </div>
+            <div class="provider">
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="rectangular"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left"
+                    style="width:100%">
+                </div>
+            </div>
+
+            <!-- Facebook -->
+            <div class="provider" onclick="fbLogin()">
+                Continue with Facebook
+            </div>
+
+            <!-- Apple Sign-In -->
+            <div class="provider" id="appleid-signin"
+                data-color="black" data-border="true" data-type="sign in">
+            </div>
+        </div>
+
         <div class="help-text">
             Need help? Contact our support team at <a href="mailto:info@pritsinghlaw.com"><b>info@pritsinghlaw.com</b></a>, visit our support center to log a support ticket, or call <a href="tel:+15104432123"><b>(510) 443-2123</b></a> for assistance.
         </div>
     </div>
+
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Facebook SDK -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <!-- Apple Sign-In -->
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
     <script>
+        // Demo Authentication Function
         function handleLogin(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
 
-            // Simple frontend check to simulate authentication (Not secure)
+            // Hide any previous error messages
+            errorMessage.style.display = 'none';
+
+            // Demo credentials check
             if (username === 'client' && password === 'Singh101$') {
-                alert('Login successful!');
+                // Success - redirect to portal
                 window.location.href = 'https://pritsinghlaw.com/client-area/portal';
             } else {
-                alert('Invalid credentials, please try again.');
+                // Show error message
+                errorMessage.textContent = 'Invalid credentials. Please try again.';
+                errorMessage.style.display = 'block';
+
+                // Clear the password field
+                document.getElementById('password').value = '';
+
+                // Focus back on username field
+                document.getElementById('username').focus();
             }
+        }
+
+        // Google Sign-In Handler
+        function handleGoogle(response) {
+            console.log("Google JWT:", response.credential);
+            // TODO: Send token to backend for verification
+            alert('Google Sign-In not yet implemented. Use demo credentials for now.');
+        }
+
+        // Facebook SDK Initialization
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : 'YOUR_FACEBOOK_APP_ID',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v18.0'
+            });
+        };
+
+        // Facebook Login Handler
+        function fbLogin() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Facebook token:', response.authResponse.accessToken);
+                    // TODO: Send token to backend for verification
+                    alert('Facebook Sign-In not yet implemented. Use demo credentials for now.');
+                }
+            }, {scope: 'public_profile,email'});
+        }
+
+        // Apple Sign-In Initialization
+        if (typeof AppleID !== 'undefined') {
+            AppleID.auth.init({
+                clientId : 'YOUR_APPLE_CLIENT_ID',
+                scope : 'name email',
+                redirectURI : 'https://yourdomain.com/callback',
+                usePopup : true
+            });
         }
     </script>
 </body>
