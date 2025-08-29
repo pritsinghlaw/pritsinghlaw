@@ -45,7 +45,7 @@
           from { opacity: 0; transform: translateY(15px); }
           to { opacity: 1; transform: translateY(0); }
       }
-
+     
       /* Typing indicator animation */
       .dot {
           animation: bounce 1.4s ease-in-out infinite both;
@@ -53,7 +53,7 @@
       .dot:nth-child(1) { animation-delay: 0s; }
       .dot:nth-child(2) { animation-delay: 0.2s; }
       .dot:nth-child(3) { animation-delay: 0.4s; }
-
+     
       @keyframes bounce {
           0%, 80%, 100% { transform: scale(0); }
           40% { transform: scale(1.0); }
@@ -85,7 +85,7 @@
 
   <!-- Chatbot Main Container -->
   <div class="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-lg mx-4 md:mx-auto lg:max-w-xl flex flex-col h-[95vh] md:h-[90vh]">
-
+     
       <!-- Chatbot Header -->
       <header class="bg-white border-b-2 border-slate-100 p-4 flex items-center justify-between flex-shrink-0">
           <div class="flex items-center space-x-4">
@@ -113,7 +113,7 @@
       <!-- Chat Input and Action Bar -->
       <div class="p-4 bg-white border-t-2 border-slate-100 flex items-center space-x-2 flex-shrink-0">
           <input type="text" id="user-input" placeholder="Type your message..." class="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ff4900] transition-all duration-200">
-
+         
           <!-- Microphone button with inline SVG -->
           <button id="mic-btn" class="p-3 bg-[#001f54] text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-200 flex-shrink-0">
                <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -128,18 +128,14 @@
                </svg>
           </button>
       </div>
-
+     
       <!-- Footer -->
       <footer class="p-3 bg-slate-50 border-t-2 border-slate-100 text-center text-xs text-gray-400 flex-shrink-0">
           <p>This AI-powered support agent provides general information and is not a substitute for legal advice.</p>
           <p>© 2025 Law Offices of Pritpal Singh. All rights reserved.</p>
-          <!-- Client Portal Link in Footer -->
-          <div class="mt-2">
-              <a href="https://pritsinghlaw.com/client-area/login" target="_blank" class="text-[#ff4900] hover:underline font-semibold">Client Portal</a>
-          </div>
       </footer>
   </div>
-
+ 
   <!-- Gemini Conversational AI Chatbot (Enhanced: streaming, STT+TTS, limits, Calendly+Zapier hooks) -->
 <script type="module">
   // ====== ELEMENT HOOKS ======
@@ -218,7 +214,7 @@ CORE FACTS
 
 - Billing:
   • Pay securely via LawPay: ${CONFIG.LAW_PAY_URL}
-  • Supports card eCheck; payment plans via Affirm when available (subject to credit check)
+  • Supports card/eCheck; payment plans via Affirm when available (subject to credit check)
   • Stripe available upon request; if asked, explain we can send a Stripe checkout link
 
 - Contact:
@@ -644,7 +640,7 @@ EXAMPLES (no reasoning shown)
 
     recognition.onerror = (event) => {
       console.error('Speech recognition error:', event.error);
-      let msg = "I couldn’t hear you. Please try again.";
+      let msg = "I couldn’t hear you. Please type your message.";
       if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
         msg = "Microphone access was denied. Enable it in your browser settings to use voice input.";
       } else if (event.error === 'no-speech') {
