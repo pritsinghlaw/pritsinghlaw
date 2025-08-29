@@ -94,7 +94,7 @@
   --font-size-3xl: 24px;
   --font-size-4xl: 30px;
   --font-weight-normal: 400;
-  --font-weight-medium: 500;
+  --font-weight-medium: 400;
   --font-weight-semibold: 550;
   --font-weight-bold: 600;
   --line-height-tight: 1.2;
@@ -785,7 +785,7 @@ select.form-control {
 .nav__link {
   color: var(--color-cream-50);
   text-decoration: none;
-  font-weight: var(--font-weight-medium);
+  font-weight: 400;
   font-size: var(--font-size-lg);
   padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-base);

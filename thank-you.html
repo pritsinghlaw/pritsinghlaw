@@ -30,21 +30,6 @@
     .header, .hero-width-home-v2 { max-width: 100% !important; overflow: hidden !important; box-sizing: border-box !important; }
     .w-webflow-badge { display:none!important; visibility:hidden!important; }
 
-    /* Animated background */
-    .animated-background{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden;}
-    .floating-icon{position:absolute; opacity:.1; animation:float 20s infinite linear;}
-    .floating-icon.orange{color:#FF8C00;} .floating-icon.navy{color:#001f54;}
-    .floating-icon:nth-child(1){animation-delay:0s; left:10%;}
-    .floating-icon:nth-child(2){animation-delay:2s; left:20%;}
-    .floating-icon:nth-child(3){animation-delay:4s; left:30%;}
-    .floating-icon:nth-child(4){animation-delay:6s; left:40%;}
-    .floating-icon:nth-child(5){animation-delay:8s; left:50%;}
-    .floating-icon:nth-child(6){animation-delay:10s; left:60%;}
-    .floating-icon:nth-child(7){animation-delay:12s; left:70%;}
-    .floating-icon:nth-child(8){animation-delay:14s; left:80%;}
-    .floating-icon:nth-child(9){animation-delay:16s; left:90%;}
-    .floating-icon:nth-child(10){animation-delay:18s; left:5%;}
-    @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 10%{opacity:.1;} 90%{opacity:.1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
 
     /* Search + Buttons */
     .navbar-search-container{display:flex; align-items:center; margin-left:20px;}
@@ -99,19 +84,6 @@
   <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 </head>
 <body>
-<div class="animated-background">
-  <!-- Floating icons (same set as reviews page) -->
-  <div class="floating-icon orange"><svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
-  <div class="floating-icon navy"><svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-  <div class="floating-icon orange"><svg width="70" height="70" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg></div>
-  <div class="floating-icon navy"><svg width="55" height="55" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586l-8 8-8-8V4z M3 8.414V19a1 1 0 001 1h16a1 1 0 001-1V8.414l-8 8-8-8z"/></svg></div>
-  <div class="floating-icon orange"><svg width="65" height="65" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
-  <div class="floating-icon navy"><svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor"><path d="M8 14v3a2 2 0 002 2h4a2 2 0 002-2v-3m-6 0V9a2 2 0 012-2h4a2 2 0 012 2v5m-6 0h6"/></svg></div>
-  <div class="floating-icon orange"><svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-  <div class="floating-icon navy"><svg width="55" height="55" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-  <div class="floating-icon orange"><svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/></svg></div>
-  <div class="floating-icon navy"><svg width="65" height="65" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z"/></svg></div>
-</div>
 
 <div class="page-wrapper">
   <!-- NAV (same as reviews page) -->
@@ -201,8 +173,8 @@
         </nav>
 
         <div class="navbar-button-wrapper">
-          <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
-          <a href="#" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important; font-size:9.5px!important;"><b>CLIENT PORTAL</b></a>
+          <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
+          <a href="https://pritsinghlaw.com/client-area/login" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important; font-size:9.5px!important;"><b>CLIENT PORTAL</b></a>
           <div class="navbar-menu-button w-nav-button" aria-label="menu" role="button" tabindex="0">
             <div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div>
           </div>
@@ -275,7 +247,7 @@
     <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block" aria-label="LinkedIn"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
     <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="YouTube"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
     <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
-  </div></div><div class="w-layout-grid footer-menu-wrapper"><div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div><div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div><div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="/coming-soon" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div><div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div><div class="w-layout-grid footer-legal-list"><a href="/privacy" class="footer-legal-link text-color-navy">Privacy</a><a href="/terms" class="footer-legal-link text-color-navy">Terms</a><a href="/cookies" class="footer-legal-link text-color-navy">Cookies</a></div></div></div></div></footer>
+  </div></div><div class="w-layout-grid footer-menu-wrapper"><div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div><div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div><div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="https://pritsinghlaw.com/client-area/login" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div><div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div><div class="w-layout-grid footer-legal-list"><a href="/privacy" class="footer-legal-link text-color-navy">Privacy</a><a href="/terms" class="footer-legal-link text-color-navy">Terms</a><a href="/cookies" class="footer-legal-link text-color-navy">Cookies</a></div></div></div></div></footer>
 </div>
 
 <!-- Scripts -->

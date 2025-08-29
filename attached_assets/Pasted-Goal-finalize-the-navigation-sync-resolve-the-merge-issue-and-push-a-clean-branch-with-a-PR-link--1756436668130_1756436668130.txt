@@ -1,3 +1,27 @@
+Goal: finalize the navigation sync, resolve the merge issue, and push a clean branch with a PR link.
+
+Constraints:
+- Work only inside the current repo.
+- Do not modify files outside: about.html, services/**, scripts/sync-nav.js.
+- If a merge is in progress, abort it cleanly.
+- Be deterministic; show a concise summary at the end.
+
+Steps:
+1) Abort any merge/rebase in progress (ignore if none).
+2) Create/switch to a branch named chore/sync-header-nav.
+3) Ensure the sync script exists at scripts/sync-nav.js with EXACT content below (overwrite if needed). If a file named sync-nav.js exists at repo root, move it to scripts/sync-nav.js.
+4) Run: node scripts/sync-nav.js
+5) Report:
+   - Number of services/*.html files updated
+   - git status
+   - git diff --name-only
+6) Stage all changes and commit with:
+   chore(nav): unify services/* header from about.html; set nav links font-weight: 400
+7) Push the branch to origin. If push fails due to permissions, stop and tell me precisely what to click in the Replit Git panel (no shell).
+8) Derive the origin repo slug from `git remote -v` and print the PR compare URL in this form:
+   https://github.com/<owner>/<repo>/compare/main...chore/sync-header-nav
+
+---FILE: scripts/sync-nav.js---
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -75,3 +99,4 @@ async function listHtmlInServices(dir){
   }
   console.log('Done. Updated', changed, 'file(s).');
 })();
+---END FILE---
