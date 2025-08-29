@@ -1,9 +1,9 @@
 /**
- * PritAI Chatbot - Law Offices of Pritpal Singh, PC
+ * AI Legal Assistant Chatbot - Law Offices of Pritpal Singh, PC
  * AI-powered virtual assistant for client intake and support
  */
 
-class PritAIChatbot {
+class AILegalAssistantChatbot {
     constructor() {
         this.isOpen = false;
         this.conversation = [];
@@ -28,7 +28,7 @@ class PritAIChatbot {
         chatbotContainer.innerHTML = `
             <!-- Floating Button -->
             <div id="pritai-button" class="pritai-floating-btn">
-                <img src="/pritai_1756438925507.png" alt="PritAI Assistant" class="pritai-icon">
+                <img src="/pritai_1756438925507.png" alt="AI Legal Assistant" class="pritai-icon">
                 <div class="pritai-notification-dot" id="pritai-notification"></div>
             </div>
 
@@ -36,9 +36,9 @@ class PritAIChatbot {
             <div id="pritai-chat-window" class="pritai-chat-window">
                 <div class="pritai-header">
                     <div class="pritai-header-content">
-                        <img src="/pritai_1756438925507.png" alt="PritAI" class="pritai-header-icon">
+                        <img src="/pritai_1756438925507.png" alt="AI Legal Assistant" class="pritai-header-icon">
                         <div class="pritai-header-text">
-                            <h3>PritAI Assistant</h3>
+                            <h3>AI Legal Assistant</h3>
                             <p>California Real Estate Law Help</p>
                         </div>
                     </div>
@@ -48,10 +48,10 @@ class PritAIChatbot {
                 <div class="pritai-chat-body" id="pritai-chat-body">
                     <div class="pritai-welcome-message">
                         <div class="pritai-avatar">
-                            <img src="/pritai_1756438925507.png" alt="PritAI">
+                            <img src="/pritai_1756438925507.png" alt="AI Legal Assistant">
                         </div>
                         <div class="pritai-message-content">
-                            <p>👋 Hello! I'm PritAI, your virtual assistant for the Law Offices of Pritpal Singh, PC.</p>
+                            <p>👋 Hello! I'm your AI Legal Assistant for the Law Offices of Pritpal Singh, PC.</p>
                             <p>I can help you with:</p>
                             <ul>
                                 <li>🏡 California real estate law questions</li>
@@ -91,7 +91,7 @@ class PritAIChatbot {
                         <span></span>
                         <span></span>
                         <span></span>
-                        PritAI is typing...
+                        AI Legal Assistant is typing...
                     </div>
                     <div class="pritai-input-container">
                         <input type="text" id="pritai-message-input" placeholder="Type your message here..." autocomplete="off">
@@ -312,7 +312,7 @@ class PritAIChatbot {
         if (sender === 'bot') {
             messageDiv.innerHTML = `
                 <div class="pritai-avatar">
-                    <img src="/pritai_1756438925507.png" alt="PritAI">
+                    <img src="/pritai_1756438925507.png" alt="AI Legal Assistant">
                 </div>
                 <div class="pritai-message-content">
                     ${this.formatMessage(content)}
@@ -376,8 +376,8 @@ class PritAIChatbot {
 
 // Initialize chatbot when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new PritAIChatbot();
+    new AILegalAssistantChatbot();
 });
 
 // Export for potential use in other scripts
-window.PritAIChatbot = PritAIChatbot;
+window.AILegalAssistantChatbot = AILegalAssistantChatbot;
