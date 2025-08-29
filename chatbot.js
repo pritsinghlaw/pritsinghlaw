@@ -139,15 +139,19 @@ class PritAIChatbot {
             }
         });
 
-        // Close chat when clicking outside
+        // Close chat when clicking outside - use capture phase to avoid blocking other events
         document.addEventListener('click', (e) => {
             const chatWindow = document.getElementById('pritai-chat-window');
             const floatingBtn = document.getElementById('pritai-button');
             
+            // Only handle if chat is open and click is outside chatbot elements
             if (this.isOpen && !chatWindow.contains(e.target) && !floatingBtn.contains(e.target)) {
-                this.closeChat();
+                // Use timeout to ensure other click handlers execute first
+                setTimeout(() => {
+                    this.closeChat();
+                }, 0);
             }
-        });
+        }, true); // Use capture phase
     }
 
     setupAutoExpand() {
