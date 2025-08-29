@@ -5,152 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Secure Client Portal | Law Offices of Pritpal Singh</title>
     <style>
-        body {
+        * {
             margin: 0;
-            min-height: 100vh;
-            font-family: system-ui, sans-serif;
-            background:
-                radial-gradient(40% 50% at 15% 10%, rgba(11,42,85,.12), transparent 60%),
-                radial-gradient(35% 45% at 90% 85%, rgba(255,122,24,.14), transparent 65%),
-                #fff;
-            display: grid;
-            place-items: center;
-            padding: 24px;
-        }
-        .card {
-            width: min(480px, 94vw);
-            background:
-                radial-gradient(40% 50% at 15% 10%, rgba(11,42,85,.12), transparent 60%),
-                radial-gradient(35% 45% at 90% 85%, rgba(255,122,24,.14), transparent 65%),
-                #fff;
-            border-radius: 22px;
-            box-shadow: 0 10px 28px rgba(11,42,85,.1);
-            padding: 36px;
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 16px;
-            font-weight: 700;
-            font-size: 20px;
-            color: #0b2a55;
-        }
-        h1 {
-            text-align: center;
-            font-size: 26px;
-            margin: 0 0 10px;
-        }
-        .sub {
-            font-size: 14px;
-            text-align: center;
-            color: #555;
-            margin-bottom: 24px;
-            line-height: 1.45;
-        }
-        .field {
-            margin-bottom: 14px;
-        }
-        .field input {
-            width: 100%;
-            padding: 14px 14px;
-            border-radius: 15px;
-            border: 1px solid #ddd;
-            font-size: 16px; /* Updated font size to prevent zoom */
+            padding: 0;
             box-sizing: border-box;
         }
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            border-radius: 15px;
-            background: #000;
-            color: #fff;
-            font-weight: 700;
-            letter-spacing: .5px;
-            text-transform: uppercase;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover { 
-            opacity: 0.9; 
-        }
-        .divider {
-            margin: 20px 0;
-            text-align: center;
-            color: #777;
-            font-size: 13px;
-        }
-        .providers {
-            display: grid;
-            gap: 12px;
-        }
-        .provider {
-            width: 100%; /* Ensure uniform width */
-            height: 50px; /* Set a fixed height for uniform size */
-            border: 1px solid #ddd;
-            border-radius: 15px;
-            padding: 0; /* Updated padding for uniform button size */
-            background: #fff;
+
+        body {
+            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            cursor: pointer;
-            transition: box-shadow .2s;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
         }
-        .provider:hover {
-            box-shadow: 0 6px 16px rgba(255,122,24,.15);
-            border-color: #0b2a55;
+
+        .login-container {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 31, 84, 0.1);
+            padding: 40px;
+            border: 1px solid rgba(0, 31, 84, 0.08);
         }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo {
+            width: 250px;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .portal-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #001f54;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
         .error-message {
             background: #fee2e2;
             border: 1px solid #fca5a5;
             color: #dc2626;
-            padding: 12px;
-            border-radius: 15px;
-            margin-bottom: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
             display: none;
         }
-        .help-text {
-            font-size: 12px;
-            color: #666;
-            margin-top: 20px;
-            text-align: center;
-            line-height: 1.4;
+
+        .form-group {
+            margin-bottom: 20px;
         }
-        .help-text a {
-            color: #0b2a55;
+
+        .form-input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #ffffff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff4900;
+            box-shadow: 0 0 0 3px rgba(255, 73, 0, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: #ff4900;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary:hover {
+            background: #e63f00;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(255, 73, 0, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+            z-index: 1;
+        }
+
+        .divider span {
+            background: #ffffff;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             text-decoration: none;
         }
+
+        .btn-social:hover {
+            border-color: #ff4900;
+            background: #fff8f6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 73, 0, 0.15);
+        }
+
+        .btn-google {
+            color: #1f2937;
+        }
+
+        .btn-apple {
+            color: #1f2937;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .apple-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .help-text {
+            margin-top: 32px;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .help-text a {
+            color: #001f54;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
         .help-text a:hover {
             text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 24px;
+                margin: 10px;
+            }
+
+            .portal-title {
+                font-size: 20px;
+            }
+
+            .logo {
+                width: 200px;
+            }
+
+            .form-input, .btn-primary, .btn-social {
+                padding: 14px 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo {
+                width: 180px;
+            }
+
+            .portal-title {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="logo"><img src="/icon.png" width="140" height="auto" alt="Law Offices of Pritpal Singh Logo"></div>
-        <h1>SECURE CLIENT PORTAL</h1>
-        <p class="sub">
-            View your account information, send/request updates on your matter, store important legal
-            documents, manage or pay your bills and view your transaction history. More features coming soon.
+    <div class="login-container">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <img src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh" class="logo">
+        </div>
+
+        <!-- Title Section -->
+        <h1 class="portal-title">SECURE CLIENT PORTAL</h1>
+        <p class="subtitle">
+            Access your account, manage documents, view case progress, and communicate securely with our legal team.
         </p>
 
+        <!-- Error Message -->
         <div class="error-message" id="errorMessage"></div>
 
+        <!-- Login Form -->
         <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="field">
-                <input type="text" id="username" placeholder="Username" required />
+            <div class="form-group">
+                <input type="text" id="username" class="form-input" placeholder="Username" required autocomplete="username">
             </div>
-            <div class="field">
-                <input type="password" id="password" placeholder="Password" required />
+            <div class="form-group">
+                <input type="password" id="password" class="form-input" placeholder="Password" required autocomplete="current-password">
             </div>
-            <button type="submit" class="btn-primary">LAUNCH THE DASHBOARD</button>
+            <button type="submit" class="btn-primary">Access Portal</button>
         </form>
 
-        <div class="divider">Or sign in with</div>
+        <!-- Divider -->
+        <div class="divider">
+            <span>Or continue with</span>
+        </div>
 
-        <div class="providers">
-            <!-- Google -->
+        <!-- Social Login Buttons -->
+        <div class="social-buttons">
+            <!-- Google Login -->
             <div id="g_id_onload"
                 data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
                 data-context="signin"
@@ -158,41 +284,35 @@
                 data-callback="handleGoogle"
                 data-auto_prompt="false">
             </div>
-            <div class="provider">
-                <div class="g_id_signin"
-                    data-type="standard"
-                    data-shape="rectangular"
-                    data-theme="outline"
-                    data-text="signin_with"
-                    data-size="large"
-                    data-logo_alignment="left"
-                    style="width:100%">
-                </div>
-            </div>
+            
+            <button type="button" class="btn-social btn-google" onclick="initiateGoogleLogin()">
+                <svg class="google-icon" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Continue with Google
+            </button>
 
-            <!-- Facebook -->
-            <div class="provider" onclick="fbLogin()">
-                Continue with Facebook
-            </div>
-
-            <!-- Apple Sign-In -->
-            <div class="provider" id="appleid-signin"
-                data-color="black" data-border="true" data-type="sign in">
-            </div>
+            <!-- Apple Login -->
+            <button type="button" class="btn-social btn-apple" id="appleid-signin" onclick="initiateAppleLogin()">
+                <svg class="apple-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Continue with Apple
+            </button>
         </div>
 
+        <!-- Help Text -->
         <div class="help-text">
-            Need help? Contact our support team at <a href="mailto:info@pritsinghlaw.com"><b>info@pritsinghlaw.com</b></a>, visit our support center to log a support ticket, or call <a href="tel:+15104432123"><b>(510) 443-2123</b></a> for assistance.
+            Need assistance? Contact our support team at <a href="mailto:info@pritsinghlaw.com">info@pritsinghlaw.com</a> 
+            or call <a href="tel:+15102259220">(510) 225-9220</a> for help accessing your account.
         </div>
     </div>
 
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <!-- Facebook SDK -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js"></script>
 
     <!-- Apple Sign-In -->
     <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
@@ -214,7 +334,7 @@
                 window.location.href = 'https://pritsinghlaw.com/client-area/portal';
             } else {
                 // Show error message
-                errorMessage.textContent = 'Invalid credentials. Please try again.';
+                errorMessage.textContent = 'Invalid credentials. Please check your username and password and try again.';
                 errorMessage.style.display = 'block';
 
                 // Clear the password field
@@ -229,28 +349,25 @@
         function handleGoogle(response) {
             console.log("Google JWT:", response.credential);
             // TODO: Send token to backend for verification
-            alert('Google Sign-In not yet implemented. Use demo credentials for now.');
+            showMessage('Google Sign-In functionality is being configured. Please use your username and password for now.');
         }
 
-        // Facebook SDK Initialization
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : 'YOUR_FACEBOOK_APP_ID',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v18.0'
-            });
-        };
+        // Initiate Google Login
+        function initiateGoogleLogin() {
+            if (typeof google !== 'undefined' && google.accounts) {
+                google.accounts.id.prompt();
+            } else {
+                showMessage('Google Sign-In is loading. Please try again in a moment.');
+            }
+        }
 
-        // Facebook Login Handler
-        function fbLogin() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    console.log('Facebook token:', response.authResponse.accessToken);
-                    // TODO: Send token to backend for verification
-                    alert('Facebook Sign-In not yet implemented. Use demo credentials for now.');
-                }
-            }, {scope: 'public_profile,email'});
+        // Apple Sign-In Handler
+        function initiateAppleLogin() {
+            if (typeof AppleID !== 'undefined') {
+                AppleID.auth.signIn();
+            } else {
+                showMessage('Apple Sign-In functionality is being configured. Please use your username and password for now.');
+            }
         }
 
         // Apple Sign-In Initialization
@@ -258,10 +375,32 @@
             AppleID.auth.init({
                 clientId : 'YOUR_APPLE_CLIENT_ID',
                 scope : 'name email',
-                redirectURI : 'https://yourdomain.com/callback',
+                redirectURI : window.location.origin + '/client-area/auth/apple/callback',
                 usePopup : true
             });
         }
+
+        // Utility function to show messages
+        function showMessage(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Initialize Google Sign-In when the page loads
+        window.addEventListener('load', function() {
+            if (typeof google !== 'undefined' && google.accounts) {
+                google.accounts.id.initialize({
+                    client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+                    callback: handleGoogle
+                });
+            }
+        });
     </script>
 </body>
 </html>
