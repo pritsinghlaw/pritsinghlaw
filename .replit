@@ -11,33 +11,5 @@ run = ["sh", "-c", "start"]
 localPort = 3001
 externalPort = 80
 
-[[ports]]
-localPort = 5000
-externalPort = 80
-
 [agent]
 expertMode = true
-
-[workflows]
-runButton = "Project"
-
-[[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Website"
-
-[[workflows.workflow]]
-name = "Website"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npx http-server . -p 5000 --host 0.0.0.0 -c-1"
-waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
