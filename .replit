@@ -3,6 +3,7 @@ run = "start"
 
 [nix]
 channel = "stable-25_05"
+packages = ["jq"]
 
 [deployment]
 run = ["sh", "-c", "start"]
@@ -34,10 +35,10 @@ args = "Law Firm Website"
 name = "Law Firm Website"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "node api-key-server.js"
 waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
