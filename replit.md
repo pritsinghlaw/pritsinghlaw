@@ -1,78 +1,39 @@
-# Law Offices of Pritpal Singh Website
+# Overview
 
-## Overview
+This is a professional law firm website for the Law Offices of Pritpal Singh, PC, specializing in California real estate law. The website is built on Webflow with custom HTML/CSS/JavaScript components and includes modern features like an AI-powered legal assistant chatbot, client portal, online payment system, and various client engagement tools. The site serves as both a marketing platform and a comprehensive client service hub for Bay Area real estate legal services.
 
-This repository contains the website codebase for the Law Offices of Pritpal Singh, a California-based real estate law firm. The project is built as a static website with modern web technologies, featuring multiple client-facing pages, interactive components, and AI-powered legal assistance tools. The site serves as both a marketing platform and a client portal for the law firm's real estate legal services.
-
-## User Preferences
+# User Preferences
 
 Preferred communication style: Simple, everyday language.
 
-## System Architecture
+# System Architecture
 
-### Frontend Architecture
-The website follows a **multi-page static architecture** using vanilla HTML, CSS, and JavaScript. Key design decisions include:
+## Frontend Architecture
+The website uses a **hybrid static/dynamic approach** combining Webflow's visual editor with custom HTML/CSS/JavaScript. Core pages are built in Webflow (index.html, about.html, services.html) while specialized features are implemented as standalone HTML pages with custom styling. The design system uses a consistent color palette (navy #001f54, orange #ff4900) and Inter/Open Sans typography. JavaScript handles interactive features including smooth scrolling, lazy loading, modal systems, and form management.
 
-- **Static HTML Pages**: Individual HTML files for each major section (index.html, about.html, services.html, contact.html, etc.)
-- **Webflow Integration**: The site appears to have been initially built with Webflow, with custom CSS overrides and JavaScript enhancements
-- **Component-Based CSS**: Modular CSS files (prit.css, styles.css, payments.css, portal.css) for different sections
-- **Responsive Design**: Mobile-first approach with viewport meta tags and responsive CSS
-- **Progressive Enhancement**: Core functionality works without JavaScript, with enhanced features added via JS
+## Client Portal System
+A secure client portal provides authenticated access to case information, documents, and communication tools. The portal uses a **session-based authentication system** with JWT tokens stored in HTTP-only cookies. Social login integration supports Google, Facebook, and Apple Sign-In for user convenience. The portal includes dashboard metrics, case tracking, document management, and billing features implemented as a single-page application.
 
-### Interactive Features
-- **AI Chat Assistant (PritAI)**: Custom chatbot integration using Gemini API for legal support
-- **Client Portal**: Secure area with authentication and case management (portal.html)
-- **Contact Forms**: Enhanced contact forms with validation and submission handling
-- **Modal Systems**: Popup modals for consultation booking and client intake
-- **Payment Integration**: LawPay integration for secure payment processing
+## AI Assistant Integration
+The website features "PritAI," an AI-powered legal assistant chatbot built with Google's Gemini API. The chatbot is implemented as a **floating widget** that can be embedded across pages to provide instant legal guidance and support. API key management is handled through a separate Express.js server to maintain security.
 
-### Performance Optimization
-- **Service Worker**: Custom caching strategy implemented in sw.js
-- **Image Optimization**: Lazy loading and compression utilities
-- **Resource Preloading**: Critical resource preloading for faster page loads
-- **Web Fonts**: Google Fonts integration with proper preloading
+## Payment Processing
+Online payment functionality is integrated through LawPay, a legal industry-compliant payment processor. The payment system includes modal-based interfaces, consultation booking workflows, and secure transaction handling. Payment forms include validation, progress tracking, and confirmation systems.
 
-### Brand System
-The site uses a consistent design system with:
-- **Primary Colors**: Navy Blue (#001f54) and Orange (#ff4900)
-- **Typography**: Open Sans and Geologica fonts from Google Fonts
-- **Component Library**: Reusable button styles, form components, and layout patterns
+## Performance Optimization
+The site implements comprehensive **performance optimization strategies** including lazy loading for images, service worker for caching, resource preloading, and Core Web Vitals optimization. A dedicated performance optimizer script handles smooth scrolling, image compression, and critical resource management.
 
-### Client-Side Architecture
-- **Vanilla JavaScript**: No heavy frameworks, using modern ES6+ features
-- **Event-Driven Design**: Modular JS with event listeners for user interactions
-- **Local Storage**: Form data persistence and user preferences
-- **API Integration**: RESTful API calls to external services (Gemini AI, payment processors)
+## Content Management
+The website uses a **multi-modal content approach** with static pages for core content, dynamic booking/intake forms, and specialized features like the knowledge base and review system. Content is organized hierarchically with clear navigation patterns and SEO optimization throughout.
 
-## External Dependencies
+# External Dependencies
 
-### Third-Party Services
-- **Webflow**: Original design and hosting platform integration
-- **Google Fonts**: Typography (Open Sans, Geologica, Inter)
-- **Font Awesome**: Icon library for UI elements
-- **Tailwind CSS**: Utility-first CSS framework (loaded via CDN)
-- **Google Gemini API**: AI chatbot functionality for legal assistance
-- **LawPay**: Secure payment processing for legal services
-
-### CDN Resources
-- **Google WebFont Loader**: Dynamic font loading optimization
-- **Tailwind CSS CDN**: Rapid styling without build process
-- **Font Awesome CDN**: Icon resources
-
-### Development Dependencies
-- **Express.js**: Simple API server for key management (api-key-server.js)
-- **PostCSS**: CSS processing and optimization
-- **Tailwind CSS**: Build-time CSS utilities
-
-### Authentication & Security
-The client portal implements multiple authentication providers:
-- **Google OAuth**: Social login integration
-- **Facebook Login**: Alternative social authentication
-- **Apple Sign-In**: iOS-friendly authentication option
-- **JWT**: Session management with secure tokens
-- **Cookie-based Sessions**: Secure client-side session storage
-
-### Performance & Monitoring
-- **Service Worker**: Offline capability and caching
-- **Web Performance API**: Core Web Vitals monitoring
-- **Intersection Observer**: Efficient lazy loading implementation
+- **Webflow Hosting & CMS** - Primary hosting platform and visual editor
+- **Google Fonts** - Typography (Inter, Open Sans, Geologica fonts)
+- **Google Gemini AI API** - Powers the PritAI chatbot assistant
+- **LawPay Payment Processing** - Secure legal industry payment processing
+- **Font Awesome** - Icon library for UI elements
+- **Tailwind CSS** - Utility-first CSS framework for custom components
+- **Express.js** - Backend server for API key management
+- **Social Login APIs** - Google Sign-In, Facebook Login, Apple Sign-In for client portal authentication
+- **CDN Resources** - External CSS/JS libraries and optimization scripts
