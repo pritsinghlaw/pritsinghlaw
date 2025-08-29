@@ -94,7 +94,7 @@
   --font-size-3xl: 24px;
   --font-size-4xl: 30px;
   --font-weight-normal: 400;
-  --font-weight-medium: 500;
+  --font-weight-medium: 400;
   --font-weight-semibold: 550;
   --font-weight-bold: 600;
   --line-height-tight: 1.2;
@@ -829,7 +829,7 @@ body {
 .nav-link {
   color: var(--law-white);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
   padding: 10px 0;
   transition: color 0.3s ease;
 }
@@ -857,7 +857,7 @@ body {
 .phone-link {
   color: var(--law-white);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .phone-link:hover {
