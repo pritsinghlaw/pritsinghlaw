@@ -18,7 +18,7 @@
     cursor: pointer;
     box-shadow: 0 8px 30px rgba(255, 73, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 9998;
+    z-index: 1000;
     border: none;
     outline: none;
 }
@@ -82,7 +82,7 @@
     box-shadow: 0 20px 60px rgba(0, 31, 84, 0.15);
     display: none;
     flex-direction: column;
-    z-index: 9999;
+    z-index: 1001;
     overflow: hidden;
     transform: translateY(50px) scale(0.95);
     opacity: 0;
