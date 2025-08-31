@@ -10,11 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "node-fetch": "^3.3.2",
-    "openai": "^5.16.0"
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.12",
