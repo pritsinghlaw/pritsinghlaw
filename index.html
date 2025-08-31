@@ -301,6 +301,7 @@ visibility:hidden!important;
 
   
 /* Animated Background Icons */
+.animated-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -311,17 +312,47 @@ visibility:hidden!important;
   overflow: hidden;
 }
 
+.floating-icon {
   position: absolute;
   opacity: 0.1;
+  animation: float 20s infinite linear;
 }
 
+.floating-icon.orange {
   color: #FF8C00;
 }
 
+.floating-icon.navy {
   color: #001f54;
 }
 
+.floating-icon:nth-child(1) { animation-delay: 0s; left: 10%; }
+.floating-icon:nth-child(2) { animation-delay: 2s; left: 20%; }
+.floating-icon:nth-child(3) { animation-delay: 4s; left: 30%; }
+.floating-icon:nth-child(4) { animation-delay: 6s; left: 40%; }
+.floating-icon:nth-child(5) { animation-delay: 8s; left: 50%; }
+.floating-icon:nth-child(6) { animation-delay: 10s; left: 60%; }
+.floating-icon:nth-child(7) { animation-delay: 12s; left: 70%; }
+.floating-icon:nth-child(8) { animation-delay: 14s; left: 80%; }
+.floating-icon:nth-child(9) { animation-delay: 16s; left: 90%; }
+.floating-icon:nth-child(10) { animation-delay: 18s; left: 5%; }
 
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
 
 /* Search functionality styles */
 .navbar-search-container {
@@ -1445,7 +1476,7 @@ visibility:hidden!important;
   </div>     <div class="w-layout-grid footer-menu-wrapper">
     <div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div>
     <div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div>
-    <div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="https://pritsinghlaw.com/client-area/login" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div>
+    <div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="/coming-soon" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div>
     
     
     <div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div>

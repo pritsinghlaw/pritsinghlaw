@@ -32,6 +32,400 @@
     .w-webflow-badge { display:none!important; visibility:hidden!important; }
 
     /* Animated background */
+    .animated-background{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden;}
+    .floating-icon{position:absolute; opacity:.1; animation:float 20s infinite linear;}
+    .floating-icon.orange{color:#FF8C00;} .floating-icon.navy{color:#001f54;}
+    .floating-icon:nth-child(1){animation-delay:0s; left:10%;}
+    .floating-icon:nth-child(2){animation-delay:2s; left:20%;}
+    .floating-icon:nth-child(3){animation-delay:4s; left:30%;}
+    .floating-icon:nth-child(4){animation-delay:6s; left:40%;}
+    .floating-icon:nth-child(5){animation-delay:8s; left:50%;}
+    .floating-icon:nth-child(6){animation-delay:10s; left:60%;}
+    .floating-icon:nth-child(7){animation-delay:12s; left:70%;}
+    .floating-icon:nth-child(8){animation-delay:14s; left:80%;}
+    .floating-icon:nth-child(9){animation-delay:16s; left:90%;}
+    .floating-icon:nth-child(10){animation-delay:18s; left:5%;}
+    @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 10%{opacity:.1;} 90%{opacity:.1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
+
+    /* Search */
+    .navbar-search-container{display:flex; align-items:center; margin-left:20px;}
+    .search-wrapper{position:relative; display:flex; align-items:center; background:rgba(255,255,255,.1); border-radius:25px; padding:8px 15px; transition:.3s; border:1px solid rgba(0,31,84,.2);}
+    .search-wrapper:hover,.search-wrapper:focus-within{background:rgba(255,255,255,.2); border-color:#FF8C00; box-shadow:0 2px 10px rgba(255,140,0,.2);}
+    .search-input{background:transparent; border:none; outline:none; color:#001f54; font-size:14px; width:200px; padding:5px 0;}
+    .search-input::placeholder{color:rgba(0,31,84,.6);}
+    .search-button{background:none; border:none; color:#001f54; cursor:pointer; padding:5px; display:flex; align-items:center; justify-content:center; transition:color .3s; margin-left:10px;}
+    .search-button:hover{color:#FF8C00;}
+    .colored-social-icon{transition:transform .3s ease;} .colored-social-icon:hover{transform:scale(1.2);}
+
+    /* Buttons */
+    .btn{display:inline-block; font-family:inherit; font-size:1rem; padding:.75rem 1.5rem; border-radius:15px; cursor:pointer; transition:background .3s,color .3s,transform .2s; text-decoration:none; border:none;}
+    .btn-primary,.button{background:#001f54; color:#fff; border:none;}
+    .btn-primary:hover,.btn-primary:focus,.button:hover,.button:focus{background:#00306e; transform:translateY(-2px) scale(1.02);}
+    .btn-secondary{background:#fff; color:#001f54; border:2px solid #001f54;}
+    .btn-secondary:hover,.btn-secondary:focus{background:#f0f4ff; color:#001f54; transform:translateY(-2px) scale(1.02);}
+    .btn-pulse{animation:pulse 1.5s infinite;} @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+
+    /* Keep content visible */
+    .section, .padding-section-large, .blog-component, .testimonial-component-without-images, .contact-form-component,
+    .card-background, .link-card-practice-areas { opacity:1!important; transform:none!important; display:block!important; }
+
+    /* Dropdown container size/scroll */
+    .navbar-dropdown-list-container{
+      width:fit-content!important;
+      max-height:70vh!important;
+      overflow-y:auto!important;
+      left:10px!important;
+    }
+
+    /* Desktop dropdowns CLOSED by default */
+    @media (min-width: 992px){
+      .navbar-dropdown-list-container{display:none!important;}
+      .w-dropdown.w--open .navbar-dropdown-list-container{display:block!important;}
+      @media (hover: hover) and (pointer: fine){
+        .navbar-menu-dropdown:hover .navbar-dropdown-list-container{display:block!important;}
+      }
+    }
+    /* Mobile/tablet dropdown behavior */
+    @media (max-width: 991px){
+      .w-dropdown-list{position:absolute!important; top:100%!important; left:0!important; width:100vw!important; z-index:9999!important; display:none!important;}
+      .w-dropdown.w--open .w-dropdown-list{display:block!important;}
+      .navbar-dropdown-link{display:block!important; padding:12px 20px!important; text-decoration:none!important; border-bottom:1px solid #eee;}
+      .navbar-dropdown-link:hover{background:#f5f5f5;}
+    }
+
+    /* Reviews page stars */
+    .star-rating { display:flex; gap:.35rem; align-items:center; }
+    .star-rating input[type="radio"] { display:none; }
+    .star-rating label { cursor:pointer; font-size:1.5rem; line-height:1; color:#ccd8ed; transition: transform .15s ease; }
+    .star-rating label:hover { transform: translateY(-1px) scale(1.05); }
+    .star-rating input#rating-1:checked ~ label[for="rating-1"],
+    .star-rating input#rating-2:checked ~ label[for="rating-1"],
+    .star-rating input#rating-2:checked ~ label[for="rating-2"],
+    .star-rating input#rating-3:checked ~ label[for="rating-1"],
+    .star-rating input#rating-3:checked ~ label[for="rating-2"],
+    .star-rating input#rating-3:checked ~ label[for="rating-3"],
+    .star-rating input#rating-4:checked ~ label[for="rating-1"],
+    .star-rating input#rating-4:checked ~ label[for="rating-2"],
+    .star-rating input#rating-4:checked ~ label[for="rating-3"],
+    .star-rating input#rating-4:checked ~ label[for="rating-4"],
+    .star-rating input#rating-5:checked ~ label[for="rating-1"],
+    .star-rating input#rating-5:checked ~ label[for="rating-2"],
+    .star-rating input#rating-5:checked ~ label[for="rating-3"],
+    .star-rating input#rating-5:checked ~ label[for="rating-4"],
+    .star-rating input#rating-5:checked ~ label[for="rating-5"] { color:#FF8C00; }
+
+    .review-summary-input { width:100%; padding:.75rem; border:1px solid #ccd8ed; border-radius:8px; }
+    .trustpilot-placeholder { border:1px dashed rgba(0,31,84,.25); border-radius:12px; padding:1.25rem; text-align:center; color:#001f54; background:#f8fafc; }
+
+    /* Featured reviews */
+    .featured-reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    .featured-review-card { background:#fff; border:1px solid #eef2f7; border-radius:12px; padding:1rem 1.1rem; box-shadow:0 2px 12px rgba(17,41,76,0.05); }
+    .featured-review-stars { color:#FF8C00; margin-bottom:.35rem; }
+    .featured-review-name { font-weight:700; color:#001f54; margin-top:.5rem; }
+    .featured-review-case { font-size:.95rem; color:#4a5a74; }
+    @media (max-width: 991px){ .featured-reviews-grid{grid-template-columns:1fr 1fr;} }
+    @media (max-width: 600px){ .featured-reviews-grid{grid-template-columns:1fr;} }
+  </style>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-SzlrxWNL6+qg1P5+5N1R6N1M4bKCvRLVGVN4uP6Y5XUyxUK85+CbERgqZFsxF0i5fLkW2G4qURy1ovw6aToF3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
+</head>
+<body>
+
+
+<div class="page-wrapper">
+  <!-- NAV -->
+  <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" role="banner" data-duration="400">
+    <div class="container-large">
+      <div class="navbar-container">
+        <a href="/" class="navbar-logo-link w-nav-brand" aria-label="home">
+          <img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet">
+          <img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop">
+        </a>
+
+        <nav role="navigation" class="navbar-menu page-height-tablet w-nav-menu">
+          <a href="/" class="navbar-link w-nav-link">Home</a>
+
+          <!-- ABOUT -->
+          <div data-hover="true" data-delay="200" class="navbar-menu-dropdown w-dropdown">
+            <div class="navbar-dropdwn-toggle w-dropdown-toggle">
+              <div class="dropdown-icon w-embed">
+                <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/></svg>
+              </div>
+              <div>About</div>
+            </div>
+            <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
+              <div class="navbar-dropdown-list-wrapper flex-horizontal">
+                <div class="navbar-dropdown-list">
+                  <div class="menu-item-container flex-horizontal">
+                    <div class="menu-item-wrapper">
+                      <a href="/about" class="navbar-dropdown-link w-dropdown-link">Company Profile</a>
+                      <a href="/knowledge-base" target="_blank" class="navbar-dropdown-link w-dropdown-link">Knowledge Base</a>
+                      <a href="https://newsroom.pritsinghlaw.com" target="_blank" class="navbar-dropdown-link w-dropdown-link">News & Insights</a>
+                      <br>
+                    </div>
+                  </div>
+                  <div class="menu-title-wrapper"><div class="heading-style-h6 text-color-navy">Our Team</div></div>
+                  <div class="menu-item-container flex-horizontal">
+                    <div class="menu-item-wrapper">
+                      <a href="https://pritsinghlaw.com/team/pritpal-singh" target="_blank" class="navbar-dropdown-link w-dropdown-link">Pritpal Singh, Esq - Lead Attorney</a>
+                      <a href="https://pritsinghlaw.com/team/michael-chigbu" target="_blank" class="navbar-dropdown-link w-dropdown-link">Michael E. Chigbu - Legal Assistant</a>
+                      <a href="https://pritsinghlaw.com/careers" target="_blank" class="navbar-dropdown-link w-dropdown-link">Careers/Vacancies - Work With Us</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <!-- PRACTICE AREAS -->
+          <div data-hover="true" data-delay="200" class="navbar-menu-dropdown w-dropdown">
+            <div class="navbar-dropdwn-toggle w-dropdown-toggle">
+              <div class="dropdown-icon w-embed">
+                <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/></svg>
+              </div>
+              <div>Practice Areas</div>
+            </div>
+            <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
+              <div class="navbar-dropdown-list-wrapper flex-horizontal">
+                <div class="navbar-dropdown-list">
+                  <div class="menu-item-container flex-horizontal">
+                    <div class="menu-item-wrapper">
+                      <a href="/services/real-estate-litigation" class="navbar-dropdown-link w-dropdown-link">Real Estate Litigation</a>
+                      <a href="/services/Landlord-Tenant-Matter" class="navbar-dropdown-link w-dropdown-link">Landlord Tenant Law</a>
+                      <a href="/services/Premises-Liability" class="navbar-dropdown-link w-dropdown-link">Premises Liability</a>
+                      <a href="/services/Boundary-Disputes" class="navbar-dropdown-link w-dropdown-link">Boundary Disputes</a>
+                      <a href="/services/Quiet-Title" class="navbar-dropdown-link w-dropdown-link">Quiet Title Actions</a>
+                      <a href="/services/Contract-Drafting-Review" class="navbar-dropdown-link w-dropdown-link">Contract Drafting &amp; Review</a>
+                      <a href="/services/Purchase-Agreements" class="navbar-dropdown-link w-dropdown-link">Purchase Agreements</a>
+                      <a href="/services/Adverse-Possession" class="navbar-dropdown-link w-dropdown-link">Adverse Possession Claims</a>
+                      <a href="/services" class="navbar-dropdown-link w-dropdown-link"><b>Browse All Practice Areas →</b></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <a href="/contact" class="navbar-link w-nav-link">Contact</a>
+
+          <!-- Search -->
+          <div class="navbar-search-container">
+            <div class="search-wrapper">
+              <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+              <button class="search-button" onclick="performSearch()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21L16.514 16.506M19 10.5C19 15.194 15.194 19 10.5 19S2 15.194 2 10.5 5.806 2 10.5 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        <div class="navbar-button-wrapper">
+          <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
+          <a href="#" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important; font-size:9.5px!important;"><b>CLIENT PORTAL</b></a>
+          <div class="navbar-menu-button w-nav-button" aria-label="menu" role="button" tabindex="0">
+            <div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-nav-overlay" data-wf-ignore=""></div>
+  </div>
+
+  <main class="main-wrapper">
+    <!-- HERO -->
+    <header class="header">
+      <div class="padding-global">
+        <div class="container-small">
+          <div class="padding-section-large">
+            <div class="margin-bottom margin-large">
+              <div class="text-align-center">
+                <div class="max-width-large align-center">
+                  <div class="margin-bottom margin-xsmall"><div class="eyebrow">We value your experience</div></div>
+                  <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Leave a Review or Share Your Feedback</h1></div>
+                  <p class="text-size-medium">Your insight helps us serve Bay Area property owners better. Tell us how we helped with your real estate matter, leave a star rating, or report any problems with our website or services. Thank you for trusting the Law Offices of Pritpal Singh.</p>
+                </div>
+              </div>
+
+              <!-- TRUSTPILOT PLACEHOLDER -->
+              <div class="margin-bottom margin-large">
+                <div class="trustpilot-placeholder">
+                 <!-- <strong>Trustpilot Widget Placeholder</strong>
+                  <div class="text-size-regular" style="margin-top:.5rem;">Paste your Trustpilot embed script here.</div> -->
+               
+                <img src="/review.PNG" width="400" height="auto" alt="Review us on Trustpilot">
+                
+                </div>
+              </div>
+
+              <!-- FEATURED REVIEWS -->
+              <section aria-labelledby="featured-reviews-heading" class="margin-bottom margin-large">
+                <h2 id="featured-reviews-heading" class="heading-style-h4 text-color-navy">Featured Client Reviews</h2>
+                <div class="featured-reviews-grid">
+                  <article class="featured-review-card">
+                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
+                    <p>“Clear, decisive guidance on a boundary dispute. The team handled everything—from survey review to negotiations—with professionalism and care.”</p>
+                    <div class="featured-review-name">— J. Alvarez</div>
+                    <div class="featured-review-case">Boundary Dispute • Oakland, CA</div>
+                  </article>
+                  <article class="featured-review-card">
+                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
+                    <p>“They resolved a complex landlord-tenant issue quickly. Communication was consistent and strategy was on point.”</p>
+                    <div class="featured-review-name">— R. Chen</div>
+                    <div class="featured-review-case">Landlord/Tenant • Fremont, CA</div>
+                  </article>
+                  <article class="featured-review-card">
+                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
+                    <p>“In a stressful quiet title matter, they protected my rights and explained each step. Highly recommend.”</p>
+                    <div class="featured-review-name">— S. Patel</div>
+                    <div class="featured-review-case">Quiet Title • San Jose, CA</div>
+                  </article>
+                </div>
+              </section>
+
+              <!-- SOCIAL LINKS (same as footer) -->
+              <div class="spacer-medium"></div>
+              <div class="w-layout-grid footer-social-list" style="justify-items:center;">
+                <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block" aria-label="Facebook"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
+                <a href="https://www.instagram.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Instagram"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
+                <a href="https://twitter.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="X/Twitter"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
+                <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block" aria-label="LinkedIn"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
+                <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="YouTube"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
+                <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
+              </div>
+
+              <!-- REVIEW / FEEDBACK FORM (Formspree with redirect) -->
+              <div class="form-component w-form" style="margin-top:1.5rem;">
+                <form id="wf-form-Reviews-Form" class="contact-form _2-column-grid"
+                      action="https://formspree.io/f/mldlzbva" method="POST">
+                  <input type="hidden" name="form_name" value="Reviews & Feedback (pritsinghlaw.com)">
+                  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                  <!-- Server-side fallback redirect (Formspree) -->
+                  <input type="hidden" name="_redirect" value="https://pritsinghlaw.com/thank-you">
+
+                  <!-- Name -->
+                  <div class="form-field-wrapper">
+                    <label for="reviewer-name" class="form-label">Full Name</label>
+                    <input class="form-input w-input" maxlength="256" name="name" id="reviewer-name" type="text" required>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="form-field-wrapper">
+                    <label for="reviewer-email" class="form-label">Email</label>
+                    <input class="form-input w-input" maxlength="256" name="email" id="reviewer-email" type="email" required>
+                  </div>
+
+                  <!-- Star Rating -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label class="form-label">Your Rating</label>
+                    <div class="star-rating" role="radiogroup" aria-label="Star rating from 1 to 5">
+                      <input type="radio" name="rating" id="rating-5" value="5" required>
+                      <input type="radio" name="rating" id="rating-4" value="4">
+                      <input type="radio" name="rating" id="rating-3" value="3">
+                      <input type="radio" name="rating" id="rating-2" value="2">
+                      <input type="radio" name="rating" id="rating-1" value="1">
+                      <label for="rating-1" aria-label="1 star">★</label>
+                      <label for="rating-2" aria-label="2 stars">★</label>
+                      <label for="rating-3" aria-label="3 stars">★</label>
+                      <label for="rating-4" aria-label="4 stars">★</label>
+                      <label for="rating-5" aria-label="5 stars">★</label>
+                    </div>
+                  </div>
+
+                  <!-- Brief Summary -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="review-summary" class="form-label">Brief Summary (How we helped)</label>
+                    <input class="review-summary-input w-input" maxlength="180" name="summary" id="review-summary" type="text" placeholder="e.g., Resolved a boundary dispute and secured a favorable settlement" required>
+                  </div>
+
+                  <!-- Detailed Feedback -->
+                  <div class="form-field-wrapper" style="grid-column:1 / -1;">
+                    <label for="review-message" class="form-label">Feedback or Issues</label>
+                    <textarea id="review-message" name="message" maxlength="2000" placeholder="Share your experience or report any problems with our website or services..." class="form-input text-area w-input"></textarea>
+                  </div>
+
+                  <!-- Type -->
+                  <div class="form-field-wrapper">
+                    <label for="submission-type" class="form-label">This is a</label>
+                    <select id="submission-type" name="type" class="form-input select-input w-select">
+                      <option value="Review">Review</option>
+                      <option value="General Feedback">General Feedback</option>
+                      <option value="Report a Problem">Report a Problem</option>
+                    </select>
+                  </div>
+
+                  <!-- Consent -->
+                  <label class="w-checkbox form-checkbox" style="grid-column:1 / -1;">
+                    <input id="review-consent" type="checkbox" name="consent" required style="opacity:0;position:absolute;z-index:-1">
+                    <span class="form-checkbox-label text-size-small w-form-label">
+                      I agree that my feedback may be used for quality assurance and marketing in accordance with the
+                      <a href="/privacy" class="text-style-link" target="_blank">Privacy Policy</a>.
+                    </span>
+                  </label>
+
+                  <!-- Submit -->
+                  <div class="button-group align-center" style="grid-column:1 / -1;">
+                    <button type="submit" class="button w-button">Submit Review</button>
+                  </div>
+                </form>
+
+                <!-- Fallback messages (unused if redirect occurs) -->
+                <div class="success-message w-form-done" style="display:none;">
+                  <div class="success-text">Thank you! Your review has been received.</div>
+                </div>
+                <div class="error-message w-form-fail" style="display:none;">
+                  <div class="error-text">Oops! Something went wrong while submitting the form.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </main>
+
+  <!-- FOOTER (same as before) -->
+  <footer class="footer-component"><div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer-top-wrapper"><div class="footer-left-wrapper"><a href="#" class="footer-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh Law Offices logo"></a><div class="spacer-medium"></div><div class="footer-details-wrapper"><div class="text-size-small"><span class="text-weight-semibold text-color-navy">Head Office:<br></span><span class="text-weight-light text-color-navy">509 13th St, Oakland, CA 94612</span><br>&zwj;<br><span class="text-weight-semibold text-color-navy">Contact:<br></span>+<a href="tel:(510) 225-9220" class="footer-link text-weight-light">1 (510) 225-9220<br></a>info<a href="mailto:info@pritsinghlaw.com" class="footer-link text-weight-light">@pritsinghlaw.com</a></div></div><div class="spacer-medium"></div><div class="w-layout-grid footer-social-list">
+    <a href="https://www.facebook.com/people/Law-Offices-of-Pritpal-Singh/61561630893279/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="105%" height="105%" viewBox="0 0 24 24" fill="none"><path d="M16.5 6H13.5C12.9477 6 12.5 6.44772 12.5 7V10H16.5C16.6137 9.99748 16.7216 10.0504 16.7892 10.1419C16.8568 10.2334 16.8758 10.352 16.84 10.46L16.1 12.66C16.0318 12.8619 15.8431 12.9984 15.63 13H12.5V20.5C12.5 20.7761 12.2761 21 12 21H9.5C9.22386 21 9 20.7761 9 20.5V13H7.5C7.22386 13 7 12.7761 7 12.5V10.5C7 10.2239 7.22386 10 7.5 10H9V7C9 4.79086 10.7909 3 13 3H16.5C16.7761 3 17 3.22386 17 3.5V5.5C17 5.77614 16.7761 6 16.5 6Z" fill="#1877F2"/></svg></div></a>
+    <a href="https://www.instagram.com/pritsinghlaw" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#833ab4"/><stop offset="50%" style="stop-color:#fd1d1d"/><stop offset="100%" style="stop-color:#fcb045"/></linearGradient></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="url(#instagram-gradient)"/></svg></div></a>
+    <a href="https://twitter.com/pritsinghlaw" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/></svg></div></a>
+    <a href="https://www.linkedin.com/company/law-offices-of-pritpal-singh" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="85%" height="85%" viewBox="0 0 24 24" fill="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0077B5"/></svg></div></a>
+    <a href="https://www.youtube.com/" target="_blank" class="footer-social-link w-inline-block"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 24 24" fill="none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg></div></a>
+    <a href="https://www.yelp.com/" target="_blank" class="footer-social-link w-inline-block" aria-label="Yelp"><div class="icon-embed-small colored-social-icon w-embed"><svg width="90%" height="90%" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M42.9 240.32l99.62 48.61c19.2 9.4 16.2 37.51-4.5 42.71L30.5 358.45a22.79 22.79 0 0 1-28.21-19.6 197.16 197.16 0 0 1 9-85.32 22.8 22.8 0 0 1 31.61-13.21zm44 239.25a199.45 199.45 0 0 0 79.42 32.11A22.78 22.78 0 0 0 192.94 490l3.9-110.82c.7-21.3-25.5-31.91-39.81-16.1l-74.21 82.4a22.82 22.82 0 0 0 4.09 34.09zm145.34-109.92l58.81 94a22.93 22.93 0 0 0 34 5.5 198.36 198.36 0 0 0 52.71-67.61A23 23 0 0 0 364.17 370l-105.42-34.26c-20.31-6.5-37.81 15.8-26.51 33.91zm148.33-132.23a197.44 197.44 0 0 0-50.41-69.31 22.85 22.85 0 0 0-34 4.4l-62 91.92c-11.9 17.7 4.7 40.61 25.2 34.71L366 268.63a23 23 0 0 0 14.61-31.21zM62.11 30.18a22.86 22.86 0 0 0-9.9 32l104.12 180.44c11.7 20.2 42.61 11.9 42.61-11.4V22.88a22.67 22.67 0 0 0-24.5-22.8 320.37 320.37 0 0 0-112.33 30.1z" fill="currentColor"/></svg></div></a>
+  </div></div><div class="w-layout-grid footer-menu-wrapper"><div class="footer-link-list"><a href="#" class="footer-link">BROWSE</a><a href="/about" class="footer-link">About</a><a href="/services" class="footer-link">Services</a><a href="/contact" class="footer-link">Contact</a></div><div class="footer-link-list"><a href="#" class="footer-link">RESOURCES</a><a href="/pay-my-bill" class="footer-link">Payments</a><a href="#" class="footer-link">Newsroom</a><a href="/careers" class="footer-link">Careers</a><br></div><div class="footer-link-list"><a href="#" class="footer-link">COMPANY</a><a href="/coming-soon" class="footer-link">Client Portal</a><a href="/reviews" class="footer-link">Leave A Review</a><a href="/knowledge-base" class="footer-link">Knowledge Base</a></div></div></div></div><div class="line-divider"></div><div class="spacer-medium"></div><div class="footer-bottom-wrapper"><div class="footer-credit-text text-weight-light">© 2025, Law Offices of <b>Pritpal Singh</b></div><div class="w-layout-grid footer-legal-list"><a href="/privacy" class="footer-legal-link text-color-navy">Privacy</a><a href="/terms" class="footer-legal-link text-color-navy">Terms</a><a href="/cookies" class="footer-legal-link text-color-navy">Cookies</a></div></div></div></div></footer>
+</div>
+
+<!-- Scripts -->
+<script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js" crossorigin="anonymous"></script>
+<script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js"></script>
+
+<script>
+/* Mobile dropdown fixes */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.matchMedia("(max-width: 991px)").matches) {
+    document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]').forEach(el => el.setAttribute('data-hover', 'false'));
+    document.querySelectorAll('.navbar-dropdwn-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        const dropdown = this.closest('.navbar-menu-dropdown');
+        const dropdownList = dropdown.querySelector('.w-dropdown-list');
+        const isOpen = dropdown.classList.contains('w--open');
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => { dd.classList.remove('w--open'); const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none'; });
+        if (!isOpen) { dropdown.classList.add('w--open'); dropdownList.style.display = 'block'; }
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.navbar-menu-dropdown')) {
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => { dd.classList.remove('w--open'); const l = dd.querySelector('.w-dropdown-list'); if (l) l.style.display = 'none'; });
+      }
+    });
+  }
+});
 
 /* Simple search demo */
 function performSearch() {
