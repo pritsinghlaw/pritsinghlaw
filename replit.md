@@ -1,8 +1,8 @@
-# Replit.md
+# Pritsinghlaw.com - California Law Firm Website
 
 ## Overview
 
-This is a law firm website for the Law Offices of Pritpal Singh, specializing in California real estate law. The website is built primarily with static HTML pages using Webflow templates, enhanced with custom JavaScript functionality. The project includes a modern client portal system, AI-powered chat support (PritAI), payment processing integration, and various client interaction tools. The site serves as both a marketing platform and a client service hub for real estate legal services across California.
+This is a static website codebase for the Law Offices of Pritpal Singh, PC, a California-based real estate law firm. The website is built using Webflow templates with custom HTML, CSS, and JavaScript enhancements. It serves as the primary digital presence for the law firm, providing information about legal services, attorney profiles, and client resources with a focus on California real estate law.
 
 ## User Preferences
 
@@ -11,50 +11,64 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### Frontend Architecture
-The website uses a static HTML approach with Webflow-generated templates as the foundation. Custom CSS files (styles.css, prit.css, portal.css, payments.css) provide branded styling with a consistent color scheme using navy blue (#001f54) and orange (#ff4900). JavaScript functionality is modularized across multiple files handling specific features like performance optimization, payment processing, and client portal functionality.
+- **Static HTML Structure**: Multi-page website with individual HTML files for different sections (home, about, services, contact, etc.)
+- **Webflow Integration**: Built on Webflow platform with custom CSS overrides and JavaScript enhancements
+- **Responsive Design**: Mobile-first approach with Tailwind CSS integration for modern styling
+- **CSS Architecture**: Multiple CSS files for different purposes:
+  - `prit.css` - Primary styling
+  - `styles.css` - Component-specific styles with CSS custom properties
+  - `payments.css` and `portal.css` - Feature-specific styling
+- **JavaScript Functionality**: Vanilla JavaScript for interactive features including navigation, forms, and performance optimization
 
-### Client Portal System
-A secure client portal is implemented with session-based authentication using JWT tokens. The portal includes a dashboard view with case management, document handling, and client communication features. The system supports social login integration (Google, Facebook, Apple) and maintains user sessions through HTTP-only cookies for security.
+### Design System
+- **Brand Colors**: Navy blue (#001f54) and orange (#ff4900) as primary brand colors
+- **Typography**: Inter and Open Sans font families with varying weights
+- **Component Library**: Reusable CSS components with consistent spacing, colors, and typography
 
-### AI Chat Integration
-PritAI legal assistant is implemented as a client-side chat widget using the Gemini API. The chat system features a floating widget interface, message history, typing indicators, and integration with the firm's branding. API keys are managed through a separate Express server (api-key-server.js) for security.
-
-### Payment Processing
-LawPay integration handles secure payment processing for legal services. The payment system includes modal dialogs for payment confirmation, client billing pages, and integration with the firm's existing workflow.
+### Interactive Features
+- **AI Chatbot Integration**: Custom chat widget (PritAI) with Gemini API integration for legal support
+- **Client Portal**: Secure login system with session management
+- **Payment Processing**: LawPay integration for secure bill payments
+- **Knowledge Base**: Searchable legal resource center
+- **Contact Forms**: Enhanced contact forms with validation
 
 ### Performance Optimization
-Service worker implementation (sw.js) provides caching strategies for static assets, dynamic content, and images. The website-performance-optimizer.js handles lazy loading, smooth scrolling, and Core Web Vitals optimization.
+- **Service Worker**: Custom caching strategy for static assets and performance optimization
+- **Image Optimization**: Lazy loading and compression for improved load times
+- **Critical Resource Preloading**: Strategic preloading of fonts and critical assets
+- **Core Web Vitals**: Optimized for Google's performance metrics
 
-### Content Management
-The site uses a knowledge base system with searchable legal content, FAQ sections, and client resources. Content is organized hierarchically with proper SEO optimization for California-specific legal services.
+### Navigation and User Experience
+- **Consistent Navigation**: Unified header/navigation across all pages
+- **Modal Systems**: Client intake forms and consultation booking modals
+- **Search Functionality**: Site-wide search with filtering capabilities
+- **Mobile Menu**: Responsive hamburger menu for mobile devices
 
 ## External Dependencies
 
 ### Third-Party Services
-- **Webflow**: Template and hosting infrastructure for the main website
-- **LawPay**: Payment processing for legal fees and consultations
-- **Google Gemini API**: AI-powered chat assistant functionality
-- **Google Fonts**: Typography (Inter, Open Sans, Geologica)
+- **Webflow**: Primary hosting and CMS platform
+- **Google Fonts**: Web fonts (Inter, Open Sans, Geologica)
 - **Font Awesome**: Icon library for UI elements
+- **Tailwind CSS**: Utility-first CSS framework (CDN)
 
-### Authentication Providers
-- **Google OAuth**: Social login integration
-- **Facebook OAuth**: Alternative social login option
-- **Apple Sign-In**: iOS/macOS authentication support
+### APIs and Integrations
+- **Gemini API**: Google's AI API for chatbot functionality
+- **LawPay**: Payment processing for legal services
+- **Google Analytics**: Website analytics and tracking
+- **Webflow Forms**: Form submission handling
 
 ### Development Dependencies
-- **Express.js**: Backend server for API key management
-- **Tailwind CSS**: Utility-first CSS framework for modern components
-- **PostCSS**: CSS processing and optimization
-- **JWT**: JSON Web Token handling for session management
+- **Express.js**: Node.js server for API key management
+- **PostCSS**: CSS processing pipeline
+- **Tailwind CSS**: Build-time CSS utilities
 
-### CDN Resources
-- **Tailwind CSS CDN**: For rapid prototyping and component styling
-- **Google Fonts CDN**: Web font delivery
-- **Font Awesome CDN**: Icon delivery system
+### Content Delivery
+- **Webflow CDN**: Asset delivery for CSS and images
+- **Google Fonts CDN**: Font delivery
+- **External CDNs**: Various libraries and frameworks loaded via CDN
 
-### Browser APIs
-- **Service Worker API**: For caching and offline functionality
-- **Intersection Observer API**: For lazy loading implementation
-- **Web Font Loader**: For optimized font loading
-- **Local Storage/Session Storage**: Client-side data persistence
+### Security and Authentication
+- **JWT Tokens**: Session management for client portal
+- **Cookie-based Sessions**: Secure authentication handling
+- **HTTPS**: Secure communication protocols

@@ -16,6 +16,7 @@ body {
 }
 
 
+
 /* Form Container with Floating Effect */
 .form-container {
     max-width: 600px;
@@ -772,161 +773,14 @@ footer {
         background: rgba(45, 55, 72, 0.95);
         border-color: rgba(74, 85, 104, 0.3);
     }
-
-    .step-header h2 {
-        color: #e2e8f0;
-    }
-
-    .step-header p {
-        color: #cbd5e0;
-    }
-
-    form label {
-        color: #e2e8f0;
-    }
-
-    input, textarea {
-        background: rgba(26, 32, 44, 0.9);
-        border-color: #4a5568;
-        color: #e2e8f0;
-    }
-
-    input:focus, textarea:focus {
-        border-color: #0066cc;
-        background: rgba(26, 32, 44, 1);
-        box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-    }
-
-    .option-card {
-        background: rgba(26, 32, 44, 0.9);
-        border-color: #4a5568;
-        color: #e2e8f0;
-    }
-
-    .option-card.selected {
-        background: linear-gradient(135deg, rgba(0, 102, 204, 0.2), rgba(0, 31, 84, 0.1));
-        border-color: #0066cc;
-    }
-
-    .option-title {
-        color: #e2e8f0;
-    }
-
-    .option-description {
-        color: #cbd5e0;
-    }
-
-    .option-price {
-        color: #0066cc;
-    }
-
-    .addon-card {
-        background: rgba(26, 32, 44, 0.9);
-        border-color: #4a5568;
-    }
-
-    .addon-title {
-        color: #e2e8f0;
-    }
-
-    .addon-description {
-        color: #cbd5e0;
-    }
-
-    .addon-price {
-        color: #0066cc;
-    }
-
-    .checkbox-label input[type="checkbox"]:checked + .checkmark {
-        background: #0066cc;
-        border-color: #0066cc;
-    }
-
-    .total-cost, .summary-section {
-        background: rgba(26, 32, 44, 0.9);
-        border-color: #4a5568;
-    }
-
-    .cost-line {
-        color: #cbd5e0;
-    }
-
-    .cost-total {
-        color: #e2e8f0;
-        border-top-color: #4a5568;
-    }
-
-    .disclaimer-box {
-        background: rgba(45, 25, 16, 0.9);
-        border-color: #d69e2e;
-    }
-
-    .disclaimer-box h4 {
-        color: #fbbf24;
-    }
-
-    .disclaimer-box p {
-        color: #f6e05e;
-    }
-
-    .disclaimer-checkbox {
-        background: rgba(26, 32, 44, 0.9);
-        border-color: #4a5568;
-    }
-
-    .next-steps {
-        background: rgba(15, 47, 31, 0.9);
-        border-color: #38a169;
-    }
-
-    .next-steps h3 {
-        color: #68d391;
-    }
-
-    .next-steps li {
-        color: #9ae6b4;
-    }
-
-    .next-steps li::before {
-        color: #68d391;
-    }
-
-    .back-btn {
-        color: #cbd5e0;
-        border-color: #4a5568;
-    }
-
-    .back-btn:hover {
-        background: rgba(26, 32, 44, 0.5);
-        color: #e2e8f0;
-    }
-
-    footer {
-        background: rgba(45, 55, 72, 0.9);
-        border-top-color: rgba(74, 85, 104, 0.5);
-    }
-
-    .footer-disclaimer {
-        background: rgba(45, 25, 16, 0.9);
-        border-color: #d69e2e;
-    }
-
-    .footer-disclaimer p {
-        color: #fbbf24;
-    }
-
-    .footer-copyright {
-        color: #cbd5e0;
-    }
 }
 
 /* Print Styles */
 @media print {
     .form-container {
         box-shadow: none;
-        animation: none;
     }
-
+    
     button {
         display: none;
     }
