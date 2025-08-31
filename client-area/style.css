@@ -15,78 +15,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Background Animation */
-.background-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.floating-shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.1;
-    animation: float 20s infinite ease-in-out;
-}
-
-.shape-1 {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(45deg, #001f54, #0066cc);
-    top: 10%;
-    left: -10%;
-    animation-delay: 0s;
-    animation-duration: 25s;
-}
-
-.shape-2 {
-    width: 150px;
-    height: 150px;
-    background: linear-gradient(45deg, #FF4900, #ff6b35);
-    top: 60%;
-    right: -10%;
-    animation-delay: -8s;
-    animation-duration: 22s;
-}
-
-.shape-3 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(45deg, #001f54, #004080);
-    bottom: 20%;
-    left: 60%;
-    animation-delay: -15s;
-    animation-duration: 30s;
-}
-
-.shape-4 {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(45deg, #FF4900, #cc3700);
-    top: 30%;
-    left: 70%;
-    animation-delay: -5s;
-    animation-duration: 18s;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-    }
-    25% {
-        transform: translate(30px, -30px) rotate(90deg) scale(1.1);
-    }
-    50% {
-        transform: translate(-20px, 20px) rotate(180deg) scale(0.9);
-    }
-    75% {
-        transform: translate(-30px, -10px) rotate(270deg) scale(1.05);
-    }
-}
 
 /* Form Container with Floating Effect */
 .form-container {
@@ -99,16 +27,6 @@ body {
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
     position: relative;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: containerFloat 6s ease-in-out infinite;
-}
-
-@keyframes containerFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
 }
 
 /* Logo with Dark Mode Support */
@@ -814,20 +732,6 @@ footer {
     .option-price {
         font-size: 1.5rem;
     }
-
-    .floating-shape {
-        opacity: 0.05;
-    }
-
-    .shape-1, .shape-3 {
-        width: 150px;
-        height: 150px;
-    }
-
-    .shape-2, .shape-4 {
-        width: 100px;
-        height: 100px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -851,10 +755,6 @@ footer {
     .primary-btn, button[type="submit"] {
         padding: 0.75rem 1.5rem;
     }
-
-    .floating-shape {
-        display: none;
-    }
 }
 
 /* Dark mode support */
@@ -871,10 +771,6 @@ footer {
     .form-container {
         background: rgba(45, 55, 72, 0.95);
         border-color: rgba(74, 85, 104, 0.3);
-    }
-
-    .floating-shape {
-        opacity: 0.05;
     }
 
     .step-header h2 {
@@ -1026,11 +922,6 @@ footer {
 
 /* Print Styles */
 @media print {
-    .floating-shape,
-    .background-animation {
-        display: none;
-    }
-
     .form-container {
         box-shadow: none;
         animation: none;
