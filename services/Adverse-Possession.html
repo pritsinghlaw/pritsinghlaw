@@ -410,15 +410,18 @@
 
 
 <!--HAMBURGER MENU TO X ICON ANIMATION--->
-<style id="hamburger-to-x">
-/* --- Base sizing for the three bars --- */
-.navbar-menu-button .menu-icon{
+<style id="hamburger-merged">
+/* Hamburger → X with correct default alignment */
+
+/* Base sizing (adjust width/height to taste) */
+.w-nav-button .menu-icon{
   position: relative;
-  width: 28px;   /* tweak if you want a bigger icon */
-  height: 18px;
+  width: 24px;
+  height: 16px;   /* three 2px bars at 2, 7, 12 */
   display: inline-block;
 }
 
+/* Shared bar styles */
 .menu-icon-line-top,
 .menu-icon-line-middle,
 .menu-icon-line-bottom,
@@ -426,7 +429,7 @@
   position: absolute;
   left: 0; right: 0;
   height: 2px;
-  background: #001f54;           /* your navy */
+  background: #001f54;   /* your navy */
   border-radius: 2px;
   transform-origin: center;
   transition:
@@ -436,32 +439,44 @@
     opacity .2s ease;
 }
 
+/* ===== CLOSED (default) state ===== */
+.w-nav-button:not(.w--open) .menu-icon-line-top{
+  top: 2px; transform: none; opacity: 1;
+}
+.w-nav-button:not(.w--open) .menu-icon-line-middle{
+  top: 7px; transform: none; opacity: 1;
+}
+/* Webflow sometimes nests an inner middle line—keep it visible */
+.w-nav-button:not(.w--open) .menu-icon-line-middle-inner{
+  top: 0; bottom: auto; height: 2px; transform: none; opacity: 1;
+}
+.w-nav-button:not(.w--open) .menu-icon-line-bottom{
+  top: 12px; bottom: auto; transform: none; opacity: 1;
+}
 
-
-
-/* --- OPEN STATE → turn into “X” --- */
-/* Webflow adds .w--open on the button when the menu is open */
+/* ===== OPEN state → turn into “X” ===== */
 .w-nav-button.w--open .menu-icon-line-top{
-  top: 8px;                     /* slide to middle */
-  transform: rotate(45deg);
+  top: 7px; transform: rotate(45deg);
 }
 .w-nav-button.w--open .menu-icon-line-middle,
 .w-nav-button.w--open .menu-icon-line-middle-inner{
-  opacity: 0;                   /* hide the middle line */
-  transform: scaleX(0.5);
+  opacity: 0; transform: scaleX(0.5);
 }
 .w-nav-button.w--open .menu-icon-line-bottom{
-  bottom: 8px;                  /* slide to middle */
-  transform: rotate(-45deg);
+  top: 7px; bottom: auto; transform: rotate(-45deg);
 }
 
-/* Optional: slightly thicker “X” on high-DPI phones */
+/* Optional: make the X white on dark overlays (uncomment) */
+/*
+.w-nav-button.w--open .menu-icon-line-top,
+.w-nav-button.w--open .menu-icon-line-bottom{ background: #fff; }
+*/
+
+/* Optional: slightly thicker lines on high-DPI phones */
 @media (min-resolution: 2dppx){
   .menu-icon-line-top,
   .menu-icon-line-middle,
-  .menu-icon-line-bottom{
-    height: 2.25px;
-  }
+  .menu-icon-line-bottom{ height: 2.25px; }
 }
 </style>
 
