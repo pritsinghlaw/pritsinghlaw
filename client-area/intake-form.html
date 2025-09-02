@@ -258,13 +258,22 @@
                 <div class="max-width-large align-center">
                   <div class="margin-bottom margin-xsmall"><div class="eyebrow">Start Your Intake</div></div>
                   <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Client Intake Form</h1></div>
-                  <p class="text-size-medium">Tell us a few details about your real estate matter so we can route you to the right attorney quickly.</p>
-                  <br> <span class="form-checkbox-label text-size-small w-form-label">
-                      By clicking the "Submit Now" button below, I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions. *
-                    </span> <br>
+                  <p class="text-size-medium">Click any of the options below so we can route you to your preferred booking method quickly.</p>
+                <br>
                   <div class="margin-top margin-small">
                     <a href="tel:+15104432123" class="btn btn-secondary">Prefer to book quicker? Call (510) 443-2123</a>
                   </div>
+                  
+                  <br>
+                  <div class="margin-top margin-small">
+                    <a href="/bookings/free" class="btn btn-primary">Book A 15-Minute Consultation Online - FREE</a>
+                  </div>
+                  <br>
+
+                  <div class="margin-top margin-small">
+                    <a style="background-color:#ff4900 !important;" href="/bookings/paid" class="btn btn-primary">Book A 1-Hour Consultation Online - $500</a>
+                  </div>
+                  
                 </div>
               </div>
 
@@ -294,58 +303,58 @@
                 </div>
               </section>--->
 
-              <!-- INTAKE FORM (Formspree with redirect) -->
+              <!-- INTAKE FORM (Formspree with redirect) 
               <div class="form-component w-form" style="margin-top:3rem;">
                 <form id="wf-form-Intake-Form" class="contact-form _2-column-grid"
                       action="https://formspree.io/f/your_form_id" method="POST" autocomplete="on" novalidate>
                   <input type="hidden" name="form_name" value="Client Intake (pritsinghlaw.com)">
                   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-                  <!-- Server-side fallback redirect (Formspree) -->
+                  
                   <input type="hidden" name="_redirect" value="https://pritsinghlaw.com/thank-you">
 
-                  <!-- First Name -->
+                  
                   <div class="form-field-wrapper">
                     <label for="first-name" class="form-label">First Name *</label>
                     <input class="form-input w-input" maxlength="100" name="first_name" id="first-name" type="text" required autocomplete="given-name" />
                   </div>
 
-                  <!-- Last Name -->
+                  
                   <div class="form-field-wrapper">
                     <label for="last-name" class="form-label">Last Name *</label>
                     <input class="form-input w-input" maxlength="100" name="last_name" id="last-name" type="text" required autocomplete="family-name" />
                   </div>
 
-                  <!-- Company (optional) -->
+                  
                   <div class="form-field-wrapper">
                     <label for="company" class="form-label">Company (if applicable)</label>
                     <input class="form-input w-input" maxlength="150" name="company" id="company" type="text" autocomplete="organization" />
                   </div>
 
-                  <!-- Email -->
+                  
                   <div class="form-field-wrapper">
                     <label for="email" class="form-label">Email Address *</label>
                     <input class="form-input w-input" maxlength="200" name="email" id="email" type="email" required autocomplete="email" inputmode="email" />
                   </div>
 
-                  <!-- Phone -->
+                  
                   <div class="form-field-wrapper">
                     <label for="phone" class="form-label">Phone Number *</label>
                     <input class="form-input w-input" maxlength="25" name="phone" id="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(###) ###-####" />
                   </div>
 
-                  <!-- Residential Address -->
+                  
                   <div class="form-field-wrapper">
                     <label for="res-address" class="form-label">Residential Address (City, State, Zip) *</label>
                     <input class="form-input w-input" maxlength="200" name="residential_address" id="res-address" type="text" required placeholder="City, State, ZIP" autocomplete="on" />
                   </div>
 
-                  <!-- Subject Property Address (optional) -->
+                  
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
                     <label for="subject-address" class="form-label">Subject Property Address (if applicable)</label>
                     <input class="form-input w-input" maxlength="220" name="subject_property_address" id="subject-address" type="text" placeholder="Street, City, State, ZIP" autocomplete="on" />
                   </div>
 
-                  <!-- Legal Service Needed (from contact page) -->
+                  
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
                     <label for="service-needed" class="form-label">Legal Service Needed? *</label>
                     <select id="service-needed" name="legal_service_needed" class="form-input select-input w-select" required>
@@ -391,19 +400,19 @@
                     </select>
                   </div>
 
-                  <!-- Describe Your Legal Matter (same format as contact page) -->
+                  
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
                     <label for="matter-desc" class="form-label">Please Describe Your Legal Matter *</label>
                     <textarea id="matter-desc" name="matter_description" maxlength="2000" class="form-input text-area w-input" required placeholder="Share the key facts, timeline, and any deadlines."></textarea>
                   </div>
 
-                  <!-- Desired Outcome -->
+                  
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
                     <label for="desired-outcome" class="form-label">What Is Your Desired Outcome? *</label>
                     <textarea id="desired-outcome" name="desired_outcome" maxlength="1200" class="form-input text-area w-input" required placeholder="Tell us what ‘success’ looks like to you."></textarea>
                   </div>
 
-                  <!-- Urgency (from contact page) 
+                  
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
                     <label class="form-label">How Urgent Is Your Matter? *</label>
                     <div class="w-layout-grid form-radio-2col" role="radiogroup" aria-label="Urgency">
@@ -412,8 +421,7 @@
                       <label class="form-radio w-radio"><input type="radio" name="urgency" value="Flexible" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">Flexible</span></label>
                     </div>
                   </div>
-                  --->
-                  <!-- Consultation type
+                  
                   
                 
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
@@ -423,13 +431,13 @@
                       <label class="form-radio w-radio"><input type="radio" name="consultation_type" value="1-Hour Consultation" style="opacity:0;position:absolute;z-index:-1"><span class="form-radio-label w-form-label">1-Hour Consultation</span></label>
                     </div>
                   </div>
---->
-                  <!-- How did you find us? (options placeholder if not on contact page) -->
+
+                  
                   <div class="form-field-wrapper" style="grid-column:1 / -1;">
                     <label for="find-us" class="form-label">How did you find us? (Optional)</label>
                     <select id="find-us" name="how_did_you_find_us" class="form-input select-input w-select">
                       <option value="">Select…</option>
-                      <!-- If you have exact options on /contact, replace the list below with those -->
+                      
                       <option>Google Search</option>
                       <option>Referral (Friend/Professional)</option>
                       <option>Social Media</option>
@@ -439,22 +447,16 @@
                     </select>
                   </div>
 
-                  <!-- Disclaimer checkbox (as requested; update firm name if needed)
-                  <label class="w-checkbox form-checkbox" style="grid-column:1 / -1;">
-                    <input id="intake-disclaimer" type="checkbox" name="intake_disclaimer" required style="opacity:0;position:absolute;z-index:-1">
-                    <span class="form-checkbox-label text-size-small w-form-label">
-                      By clicking the "Submit Now" button below, I acknowledge and understand that the submission of this form does not create an attorney-client relationship with the Law Offices of Pritpal Singh (the "Firm") unless and until a retainer agreement has been executed between myself and the Firm. I further acknowledge and understand that because the Firm may not be able to fully evaluate a matter within the time frame allotted for the consultation, the Firm's assessment will be based solely on the information I provide without any further investigation. I agree to these foregoing terms and conditions. *
-                    </span>
-                  </label>
---->
+                  
 
-                  <!-- Submit -->
+
+                  
                   <div class="button-group align-center" style="grid-column:1 / -1;">
-                    <button type="submit" class="button w-button">Submit Intake</button>
+                    <button type="submit" class="button w-button">Submit Intake Form</button>
                   </div>
                 </form>
 
-                <!-- Fallback messages (unused if redirect occurs) -->
+                --->
                 <div class="success-message w-form-done" style="display:none;">
                   <div class="success-text">Thank you! Your intake has been received.</div>
                 </div>
