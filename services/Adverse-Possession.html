@@ -405,7 +405,70 @@
   font-weight: 500 !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-</style></head>
+</style>
+
+
+
+<!--HAMBURGER MENU TO X ICON ANIMATION--->
+<style id="hamburger-to-x">
+/* --- Base sizing for the three bars --- */
+.navbar-menu-button .menu-icon{
+  position: relative;
+  width: 28px;   /* tweak if you want a bigger icon */
+  height: 18px;
+  display: inline-block;
+}
+
+.menu-icon-line-top,
+.menu-icon-line-middle,
+.menu-icon-line-bottom,
+.menu-icon-line-middle-inner{
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: #001f54;           /* your navy */
+  border-radius: 2px;
+  transform-origin: center;
+  transition:
+    transform .25s ease,
+    top .25s ease,
+    bottom .25s ease,
+    opacity .2s ease;
+}
+
+/* Default line positions */
+.menu-icon-line-top    { top: 0; }
+.menu-icon-line-middle { top: 8px; }
+.menu-icon-line-bottom { bottom: 0; }
+
+/* --- OPEN STATE → turn into “X” --- */
+/* Webflow adds .w--open on the button when the menu is open */
+.w-nav-button.w--open .menu-icon-line-top{
+  top: 8px;                     /* slide to middle */
+  transform: rotate(45deg);
+}
+.w-nav-button.w--open .menu-icon-line-middle,
+.w-nav-button.w--open .menu-icon-line-middle-inner{
+  opacity: 0;                   /* hide the middle line */
+  transform: scaleX(0.5);
+}
+.w-nav-button.w--open .menu-icon-line-bottom{
+  bottom: 8px;                  /* slide to middle */
+  transform: rotate(-45deg);
+}
+
+/* Optional: slightly thicker “X” on high-DPI phones */
+@media (min-resolution: 2dppx){
+  .menu-icon-line-top,
+  .menu-icon-line-middle,
+  .menu-icon-line-bottom{
+    height: 2.25px;
+  }
+}
+</style>
+
+
+</head>
 <body>
 <!-- NEW HEADER NAV (from your Webflow code)--->
 <div class="navbar-component w-nav" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" fs-scrolldisable-element="smart-nav" role="banner">
