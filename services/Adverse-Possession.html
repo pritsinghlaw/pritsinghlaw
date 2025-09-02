@@ -410,49 +410,58 @@
 
 
 <!--HAMBURGER MENU TO X ICON ANIMATION--->
-<style id="hamburger-merged">
-/* Hamburger → X with correct default alignment */
+<style id="hamburger-fix-v2">
+/* Robust hamburger → X, with guaranteed THREE lines when closed */
 
-/* Base sizing (adjust width/height to taste) */
+/* Size + container */
 .w-nav-button .menu-icon{
   position: relative;
-  width: 24px;
-  height: 16px;   /* three 2px bars at 2, 7, 12 */
+  width: 24px;   /* adjust for size */
+  height: 18px;  /* 3 bars: 0, 8, 16 */
   display: inline-block;
 }
 
-/* Shared bar styles */
-.menu-icon-line-top,
-.menu-icon-line-middle,
-.menu-icon-line-bottom,
-.menu-icon-line-middle-inner{
+/* Bar styling */
+.w-nav-button .menu-icon-line-top,
+.w-nav-button .menu-icon-line-middle,
+.w-nav-button .menu-icon-line-bottom,
+.w-nav-button .menu-icon-line-middle-inner{
   position: absolute;
   left: 0; right: 0;
   height: 2px;
-  background: #001f54;   /* your navy */
+  background: #001f54;      /* navy */
   border-radius: 2px;
   transform-origin: center;
-  transition:
-    transform .25s ease,
-    top .25s ease,
-    bottom .25s ease,
-    opacity .2s ease;
+  transition: transform .25s ease, top .25s ease, bottom .25s ease, opacity .2s ease;
+  display: block;
 }
 
-/* ===== CLOSED (default) state ===== */
+/* ===== CLOSED (default) — show THREE lines ===== */
 .w-nav-button:not(.w--open) .menu-icon-line-top{
-  top: 2px; transform: none; opacity: 1;
+  top: 0 !important; transform: none !important; opacity: 1 !important;
 }
 .w-nav-button:not(.w--open) .menu-icon-line-middle{
-  top: 7px; transform: none; opacity: 1;
-}
-/* Webflow sometimes nests an inner middle line—keep it visible */
-.w-nav-button:not(.w--open) .menu-icon-line-middle-inner{
-  top: 0; bottom: auto; height: 2px; transform: none; opacity: 1;
+  top: 8px !important; transform: none !important; opacity: 1 !important;
 }
 .w-nav-button:not(.w--open) .menu-icon-line-bottom{
-  top: 12px; bottom: auto; transform: none; opacity: 1;
+  top: 16px !important; bottom: auto !important; transform: none !important; opacity: 1 !important;
 }
+/* Some Webflow navs include an extra inner middle bar—hide it so we keep exactly 3 lines */
+.w-nav-button:not(.w--open) .menu-icon-line-middle-inner{ display: none !important; }
+
+/* ===== OPEN — morph to “X” ===== */
+.w-nav-button.w--open .menu-icon-line-top{
+  top: 8px !important; transform: rotate(45deg) !important;
+}
+.w-nav-button.w--open .menu-icon-line-middle,
+.w-nav-button.w--open .menu-icon-line-middle-inner{
+  opacity: 0 !important; transform: scaleX(0.4) !important;
+}
+.w-nav-button.w--open .menu-icon-line-bottom{
+  top: 8px !important; transform: rotate(-45deg) !important;
+}
+
+
 
 /* ===== OPEN state → turn into “X” ===== */
 .w-nav-button.w--open .menu-icon-line-top{
