@@ -410,83 +410,50 @@
 
 
 <!--HAMBURGER MENU TO X ICON ANIMATION--->
-<style id="hamburger-fix-v2">
-/* Robust hamburger → X, with guaranteed THREE lines when closed */
+<style id="hamburger-open-only-x">
+/* Open-state only. No overrides to the closed hamburger. */
 
-/* Size + container */
-.w-nav-button .menu-icon{
-  position: relative;
-  width: 24px;   /* adjust for size */
-  height: 18px;  /* 3 bars: 0, 8, 16 */
-  display: inline-block;
+/* 1) When Webflow toggles the button open, fade out the three bars */
+.w-nav-button.w--open .menu-icon-line-top,
+.w-nav-button.w--open .menu-icon-line-middle,
+.w-nav-button.w--open .menu-icon-line-middle-inner,
+.w-nav-button.w--open .menu-icon-line-bottom{
+  opacity: 0;
+  transition: opacity .2s ease;
 }
 
-/* Bar styling */
-.w-nav-button .menu-icon-line-top,
-.w-nav-button .menu-icon-line-middle,
-.w-nav-button .menu-icon-line-bottom,
-.w-nav-button .menu-icon-line-middle-inner{
+/* 2) Draw an X using pseudo-elements, centered in the icon box */
+.w-nav-button.w--open .menu-icon{
+  position: relative;         /* only in open state */
+  color: #001f54;             /* X color (use #fff if your open menu has a dark overlay) */
+}
+
+.w-nav-button.w--open .menu-icon::before,
+.w-nav-button.w--open .menu-icon::after{
+  content: "";
   position: absolute;
   left: 0; right: 0;
+  top: 50%;
   height: 2px;
-  background: #001f54;      /* navy */
+  background: currentColor;   /* inherits from the rule above */
   border-radius: 2px;
+  pointer-events: none;
   transform-origin: center;
-  transition: transform .25s ease, top .25s ease, bottom .25s ease, opacity .2s ease;
-  display: block;
+  transition: transform .25s ease;
 }
 
-/* ===== CLOSED (default) — show THREE lines ===== */
-.w-nav-button:not(.w--open) .menu-icon-line-top{
-  top: 0 !important; transform: none !important; opacity: 1 !important;
+/* Make the X */
+.w-nav-button.w--open .menu-icon::before{
+  transform: translateY(-50%) rotate(45deg);
 }
-.w-nav-button:not(.w--open) .menu-icon-line-middle{
-  top: 8px !important; transform: none !important; opacity: 1 !important;
-}
-.w-nav-button:not(.w--open) .menu-icon-line-bottom{
-  top: 16px !important; bottom: auto !important; transform: none !important; opacity: 1 !important;
-}
-/* Some Webflow navs include an extra inner middle bar—hide it so we keep exactly 3 lines */
-.w-nav-button:not(.w--open) .menu-icon-line-middle-inner{ display: none !important; }
-
-/* ===== OPEN — morph to “X” ===== */
-.w-nav-button.w--open .menu-icon-line-top{
-  top: 8px !important; transform: rotate(45deg) !important;
-}
-.w-nav-button.w--open .menu-icon-line-middle,
-.w-nav-button.w--open .menu-icon-line-middle-inner{
-  opacity: 0 !important; transform: scaleX(0.4) !important;
-}
-.w-nav-button.w--open .menu-icon-line-bottom{
-  top: 8px !important; transform: rotate(-45deg) !important;
+.w-nav-button.w--open .menu-icon::after{
+  transform: translateY(-50%) rotate(-45deg);
 }
 
-
-
-/* ===== OPEN state → turn into “X” ===== */
-.w-nav-button.w--open .menu-icon-line-top{
-  top: 7px; transform: rotate(45deg);
-}
-.w-nav-button.w--open .menu-icon-line-middle,
-.w-nav-button.w--open .menu-icon-line-middle-inner{
-  opacity: 0; transform: scaleX(0.5);
-}
-.w-nav-button.w--open .menu-icon-line-bottom{
-  top: 7px; bottom: auto; transform: rotate(-45deg);
-}
-
-/* Optional: make the X white on dark overlays (uncomment) */
-/*
-.w-nav-button.w--open .menu-icon-line-top,
-.w-nav-button.w--open .menu-icon-line-bottom{ background: #fff; }
+/* Optional: white X
+.w-nav-button.w--open .menu-icon{ color:#fff; }
 */
 
-/* Optional: slightly thicker lines on high-DPI phones */
-@media (min-resolution: 2dppx){
-  .menu-icon-line-top,
-  .menu-icon-line-middle,
-  .menu-icon-line-bottom{ height: 2.25px; }
-}
 </style>
 
 
