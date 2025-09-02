@@ -48,7 +48,7 @@
     @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 10%{opacity:.1;} 90%{opacity:.1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
 
     /* Search */
-    .navbar-search-container{display:flex; align-items:center; margin-left:20px;}
+    .navbar-search-container{display:flex; align-items:center; margin-left:5px;}
     .search-wrapper{position:relative; display:flex; align-items:center; background:rgba(255,255,255,.1); border-radius:25px; padding:8px 15px; transition:.3s; border:1px solid rgba(0,31,84,.2);}
     .search-wrapper:hover,.search-wrapper:focus-within{background:rgba(255,255,255,.2); border-color:#FF8C00; box-shadow:0 2px 10px rgba(255,140,0,.2);}
     .search-input{background:transparent; border:none; outline:none; color:#001f54; font-size:14px; width:200px; padding:5px 0;}
@@ -57,10 +57,10 @@
     .search-button:hover{color:#FF8C00;}
 
     /* Buttons */
-    .btn{display:inline-block; font-family:inherit; font-size:1rem; padding:.75rem 1.5rem; border-radius:15px; cursor:pointer; transition:background .3s,color .3s,transform .2s; text-decoration:none; border:none;}
-    .btn-primary,.button{background:#001f54; color:#fff; border:none;}
+    .btn{display:inline-block; white-space:nowrap !important; font-family:inherit; font-size:1rem; padding:.75rem 1.5rem; border-radius:15px; cursor:pointer; transition:background .3s,color .3s,transform .2s; text-decoration:none; border:none;}
+    .btn-primary,.button{background:#001f54; white-space:nowrap !important; color:#fff; border:none;}
     .btn-primary:hover,.btn-primary:focus,.button:hover,.button:focus{background:#00306e; transform:translateY(-2px) scale(1.02);}
-    .btn-secondary{background:#fff; color:#001f54; border:2px solid #001f54;}
+    .btn-secondary{background:#fff; color:#001f54; white-space:nowrap !important; border:2px solid #001f54;}
     .btn-secondary:hover,.btn-secondary:focus{background:#f0f4ff; color:#001f54; transform:translateY(-2px) scale(1.02);}
     .btn-pulse{animation:pulse 1.5s infinite;} @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
 
@@ -147,7 +147,7 @@
         </a>
 
         <nav role="navigation" class="navbar-menu page-height-tablet w-nav-menu">
-          <a href="/" class="navbar-link w-nav-link">Home</a>
+          <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/" class="navbar-link w-nav-link">Home</a>
 
           <!-- ABOUT -->
           <div data-hover="true" data-delay="200" class="navbar-menu-dropdown w-dropdown">
@@ -155,7 +155,7 @@
               <div class="dropdown-icon w-embed">
                 <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/></svg>
               </div>
-              <div>About</div>
+              <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">About</div>
             </div>
             <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
               <div class="navbar-dropdown-list-wrapper flex-horizontal">
@@ -187,7 +187,7 @@
               <div class="dropdown-icon w-embed">
                 <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/></svg>
               </div>
-              <div>Practice Areas</div>
+              <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">Practice Areas</div>
             </div>
             <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
               <div class="navbar-dropdown-list-wrapper flex-horizontal">
@@ -210,7 +210,7 @@
             </nav>
           </div>
 
-          <a href="/contact" class="navbar-link w-nav-link">Contact</a>
+          <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/contact" class="navbar-link w-nav-link">Contact</a>
 
           <!-- Search -->
           <div class="navbar-search-container">
@@ -245,8 +245,8 @@
               <div class="text-align-center">
                 <div class="max-width-large align-center">
                   <div class="margin-bottom margin-xsmall"><div class="eyebrow">Start Your Intake</div></div>
-                  <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Client Intake Form</h1></div>
-                  <p class="text-size-medium">Click any of the options below so we can route you to your preferred booking method quickly.</p>
+                  <div class="margin-bottom margin-small"><h1 class="heading-style-h2 text-color-navy">Secure Client Intake</h1></div>
+                  <p class="text-size-medium">Click any of the options below so we can route you to your preferred booking method.</p>
                 <br>
                   <div class="margin-top margin-small">
                     <a href="tel:+15104432123" class="btn btn-secondary">Prefer to book quicker? Call (510) 443-2123</a>
@@ -254,12 +254,12 @@
                   
                   <br>
                   <div class="margin-top margin-small">
-                    <a href="/bookings/free" class="btn btn-primary">Book A 15-Minute Consultation Online - FREE</a>
+                    <a href="/bookings/free" class="btn btn-primary">Book A 15-Minute Consultation Online - <b>FREE</b></a>
                   </div>
                   <br>
 
                   <div class="margin-top margin-small">
-                    <a style="background-color:#ff4900 !important;" href="/bookings/paid" class="btn btn-primary">Book A 1-Hour Consultation Online - $500</a>
+                    <a style="background-color:#ff4900 !important;" href="/bookings/paid" class="btn btn-primary">Book A 1-Hour Consultation Online - <b>$500</b></a>
                   </div>
                   
                 </div>
