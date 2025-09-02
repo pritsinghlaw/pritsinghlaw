@@ -14,6 +14,61 @@
 <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 <!-- Page styles (kept from your styled template) -->
 
+<style id="hamburger-open-only-x-fixed">
+/* OPEN-STATE ONLY: render a fixed-width “X” and hide the three bars.
+   Closed state is untouched and keeps your existing styles. */
+
+/* Tune these to taste */
+.w-nav-button.w--open .menu-icon{
+  position: relative;
+  --x-width: 24px;     /* length of each stroke of the X */
+  --x-thickness: 2px;  /* thickness of the strokes */
+  color: #001f54;      /* X color (set to #fff if overlay is dark) */
+}
+
+/* Hide the default three lines ONLY when open */
+.w-nav-button.w--open .menu-icon-line-top,
+.w-nav-button.w--open .menu-icon-line-middle,
+.w-nav-button.w--open .menu-icon-line-middle-inner,
+.w-nav-button.w--open .menu-icon-line-bottom{
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+/* Draw the X using centered pseudo-elements (fixed width) */
+.w-nav-button.w--open .menu-icon::before,
+.w-nav-button.w--open .menu-icon::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--x-width);
+  height: var(--x-thickness);
+  background: currentColor;
+  border-radius: 2px;
+  pointer-events: none;
+  transform-origin: center;
+  transition: transform .25s ease;
+}
+
+/* Cross it */
+.w-nav-button.w--open .menu-icon::before{
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.w-nav-button.w--open .menu-icon::after{
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Accessibility: reduce motion if the user prefers */
+@media (prefers-reduced-motion: reduce){
+  .w-nav-button.w--open .menu-icon::before,
+  .w-nav-button.w--open .menu-icon::after{
+    transition: none;
+  }
+}
+</style>
+
+
 
   <style>
   :root {
