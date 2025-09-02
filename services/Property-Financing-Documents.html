@@ -576,21 +576,15 @@
 
 
   <!-- Webflow JS (needed for the nav) -->
-  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js" crossorigin="anonymous"></script>
-  <script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js"></script>
-
-  <!-- Optional search helper from your sample -->
-  <script>
+<script crossorigin="anonymous" src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js"></script>
+<script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js"></script>
+<!-- Optional search helper from your sample -->
+<script>
     function performSearch(){
       const i=document.getElementById('searchInput'); const q=(i?.value||'').trim();
       if(q) window.open('https://www.google.com/search?q=site:pritsinghlaw.com '+encodeURIComponent(q),'_blank');
     }
   </script>
-
-
-
-
-  
 <script id="nav-dropdown-fix-js">
 (function(){
   const mq = '(max-width: 991px)';
@@ -642,7 +636,6 @@
   window.addEventListener('resize', setHoverMode);
 })();
 </script>
-
 <script id="nav-dropdown-clickthrough">
 (function(){
   const isDesktop = () => !window.matchMedia('(max-width: 991px)').matches;
@@ -675,7 +668,141 @@
 </script>
 
 
-  <!---SEARCH FUNCTIONALITY--->
+ <!---CLIENT INTAKE POPUP CTA--->
+  
+  <!-- Modal -->
+  <div id="intake-overlay" class="modal-overlay" aria-hidden="true">
+    <div
+      id="intake-modal"
+      class="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="intake-title"
+      aria-describedby="intake-subtitle"
+      tabindex="-1"
+    >
+      <button class="modal-close" id="close-intake-modal" type="button" aria-label="Close dialog">&times;</button>
+
+      <div class="logo-wrap">
+        <img class="modal-logo" src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh logo" width="250" height="auto" />
+      </div>
+
+      <h2 id="intake-title" class="title">Schedule A Consultation</h2>
+
+      <p id="intake-subtitle" class="subtitle">
+        Choose one of the consultation options below to schedule a consultation with an attorney in minutes.
+        You will receive a confirmation email and/or SMS within an hour after your booking request is received by our legal team.
+        Please note that free 15-minute consultations can only be scheduled once per client and all paid consultations will take priority in the unlikely event of a scheduling conflict.
+      </p>
+
+      <div class="cta-stack">
+        <a
+          class="cta cta-outline"
+          href="https://pritsinghlaw.com/bookings/free"
+          target="_blank"
+          rel="noopener noreferrer"
+        >15-Minute Consultation - FREE</a>
+        <div class="help-text">Consultation will take place via Zoom or telephonically</div>
+
+        <a
+          class="cta cta-solid animated-cta"
+          href="https://pritsinghlaw.com/bookings/paid"
+          target="_blank"
+          rel="noopener noreferrer"
+        >1-Hour Consultation - $500</a>
+        <div class="help-text">Consultation will take place via Zoom or in-person. Document reviews may be included for additional fee</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const openBtn = document.getElementById('open-intake-modal');
+  const overlay = document.getElementById('intake-overlay');
+  const dialog = document.getElementById('intake-modal');
+  const closeBtn = document.getElementById('close-intake-modal');
+  let lastFocused = null;
+
+  const focusableSelectors = [
+    'a[href]',
+    'area[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ];
+
+  function getFocusable(container) {
+    return Array.from(container.querySelectorAll(focusableSelectors.join(',')))
+      .filter(el => el.offsetParent !== null || el === document.activeElement);
+  }
+
+  function openModal() {
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+
+    // Focus first focusable element inside dialog
+    const focusables = getFocusable(dialog);
+    (focusables[0] || dialog).focus();
+
+    // Trap focus
+    document.addEventListener('keydown', trapFocus);
+    document.addEventListener('keydown', onEsc);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+
+    document.removeEventListener('keydown', trapFocus);
+    document.removeEventListener('keydown', onEsc);
+
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+      lastFocused.focus();
+    }
+  }
+
+  function trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    const focusables = getFocusable(dialog);
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function onEsc(e) {
+    if (e.key === 'Escape') closeModal();
+  }
+
+  // Click outside to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+})();
+</script>
+
+
+<!---SEARCH FUNCTIONALITY--->
 <script>
 function performSearch() {
   const searchInput = document.getElementById('searchInput');
@@ -708,9 +835,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-
-
+<script src="main.js"></script>
   
-  <script src="main.js"></script>
 </body>
 </html>
