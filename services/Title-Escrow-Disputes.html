@@ -457,7 +457,50 @@
   font-weight: 500 !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-</style></head>
+</style>
+
+
+
+<style id="fonts-like-michael">
+/* Match michael.html fonts: Geologica for display; Open Sans for body/UI */
+:root{
+  --font-display: "Geologica", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Open Sans", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Body text & general UI */
+html, body, p, li, a, input, textarea, select, button {
+  font-family: var(--font-sans) !important;
+  font-weight: 400;
+}
+
+/* Nav + dropdowns + buttons */
+.navbar-link.w-nav-link,
+.navbar-dropdown-link.w-dropdown-link,
+.btn, .w-button,
+.navbar-search-input,
+.footer-link,
+.footer-credit-text {
+  font-family: var(--font-sans) !important;
+  font-weight: 500; /* tweak to 400 if you prefer lighter nav */
+}
+
+/* Headings & “display” text */
+h1, h2, h3, h4, h5, h6,
+.hero__title,
+.section__title,
+.card__title {
+  font-family: var(--font-display) !important;
+  font-weight: 500; /* michael.html loads 500/600 for Geologica */
+}
+
+/* Emphasis */
+b, strong { font-family: var(--font-sans) !important; font-weight: 700; }
+em, i { font-style: italic; }
+</style>
+
+
+</head>
 <body>
 <!-- NEW HEADER NAV (from your Webflow code)--->
 <div class="navbar-component w-nav" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" fs-scrolldisable-element="smart-nav" role="banner">
