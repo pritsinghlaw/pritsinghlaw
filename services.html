@@ -240,6 +240,7 @@ visibility:hidden!important;
     transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
     text-decoration: none;
     border: none;
+    white-space: nowrap !important;
 }
 
 /* Primary button: navy blue background */
@@ -247,6 +248,7 @@ visibility:hidden!important;
     background: #001f54; /* Navy blue */
     color: #ffffff;
     border: none;
+    white-space: nowrap !important;
 }
 
 .btn-primary:hover,
@@ -262,6 +264,7 @@ visibility:hidden!important;
     background: #ffffff;
     color: #001f54;
     border: 2px solid #001f54;
+    white-space: nowrap !important;
 }
 
 .btn-secondary:hover,
@@ -353,7 +356,7 @@ visibility:hidden!important;
 .link-card-practice-areas:hover, .link-card:hover
  .link-card-practice-areas:focus, .link-card:focus  {
   transform:translateY(-4px) scale(1.03) !important;
-  box-shadow:0 0.75rem 1.25rem rgba(0,0,0,.15) !important;
+  
 }   
 
 
@@ -369,9 +372,8 @@ visibility:hidden!important;
     display:flex !important;
     flex-direction:column !important;
     border-radius:12px !important;
-    transition: box-shadow .25s ease, transform .25s ease !important;
-    /* base (no glow) */
-    box-shadow: 0 0 0 rgba(0,0,0,0) !important;
+    transition: transform .25s ease !important;
+  
   }
   .link-card-practice-areas .card-content{
     flex:1 1 auto;
@@ -384,19 +386,13 @@ visibility:hidden!important;
   .link-card-practice-areas:focus .card-background,
   .link-card-practice-areas:focus-within .card-background {
     transform: translateY(-4px);
-    box-shadow:
-      0 0 0 .5px rgba(255,140,0,.35),
-      0 0 12px 2px rgba(255,140,0,.25),
-      0 0 28px 8px rgba(0,31,84,.15) !important;
+    
   }
 
   /* Stronger glow on click */
   .link-card-practice-areas:active .card-background {
     transform: translateY(-2px) scale(.99);
-    box-shadow:
-      0 0 0 1px rgba(255,140,0,.5),
-      0 0 18px 4px rgba(255,140,0,.35),
-      0 0 36px 12px rgba(0,31,84,.20) !important;
+    
   }
 
 
@@ -608,7 +604,7 @@ visibility:hidden!important;
     <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
   
 <nav role="navigation" id="w-node-b62916c8-25c1-48a4-c0e8-4b5699b25d14-99b25d10" class="navbar-menu page-height-tablet w-nav-menu">
-  <a href="/" class="navbar-link w-nav-link">Home</a>
+  <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/" class="navbar-link w-nav-link">Home</a>
 
 <!---  <a href="/about" class="navbar-link w-nav-link">About Us</a> --->
 
@@ -621,7 +617,7 @@ visibility:hidden!important;
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
         </svg>
       </div>
-      <div>About</div>
+      <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">About</div>
     </div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
@@ -669,7 +665,7 @@ visibility:hidden!important;
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
         </svg>
       </div>
-      <div>Practice Areas</div>
+      <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">Practice Areas</div>
     </div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
@@ -719,7 +715,7 @@ visibility:hidden!important;
 
 
   
-  <a href="/contact" class="navbar-link w-nav-link">Contact</a>
+  <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/contact" class="navbar-link w-nav-link">Contact</a>
 
       
   <!-- Search functionality -->
@@ -736,12 +732,12 @@ visibility:hidden!important;
 </nav>
   
   <div class="navbar-button-wrapper"><!-- NEW call button -->
-  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button">
+  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary btn-pulse w-button">
  <b>CALL US</b>
   </a>
 
   <!-- EXISTING portal button, now with a user icon -->
-  <a href="#" target="_blank" class="btn btn-primary w-button"
+  <a href="/coming-soon" target="_blank" class="btn btn-primary w-button"
      style="background-color:#ff4900!important; font-size:9.5px!important;">
   <b>CLIENT PORTAL</b>
   </a>
@@ -1155,7 +1151,7 @@ visibility:hidden!important;
     </main>
   
   
-  <footer class="footer-component"><div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer-top-wrapper"><div class="footer-left-wrapper"><a href="#" class="footer-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh Law Offices logo"></a><div class="spacer-medium"></div><div class="footer-details-wrapper"><div class="text-size-small"><span class="text-weight-semibold text-color-navy">Head Office:<br></span><span class="text-weight-light text-color-navy">509 13th St, Oakland, CA 94612</span><br>&zwj;<br><span class="text-weight-semibold text-color-navy">Contact:<br></span>+<a href="tel:(510) 225-9220" class="footer-link text-weight-light">1 (510) 225-9220<br></a>info<a href="mailto:info@pritsinghlaw.com" class="footer-link text-weight-light">@pritsinghlaw.com</a></div></div>
+  <footer class="footer-component"><div class="padding-global"><div class="container-large"><div class="padding-vertical padding-xxlarge"><div class="padding-bottom padding-xxlarge"><div class="w-layout-grid footer-top-wrapper"><div class="footer-left-wrapper"><a href="#" class="footer-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh Law Offices logo"></a><div class="spacer-medium"></div><div class="footer-details-wrapper"><div class="text-size-small"><span class="text-weight-semibold text-color-navy">Head Office:<br></span><span class="text-weight-light text-color-navy">509 13th St, Oakland, CA 94612</span><br>&zwj;<br><span class="text-weight-semibold text-color-navy">Contact:<br></span>+<a href="tel:+15104432123" class="footer-link text-weight-light">1 (510) 443-2123<br></a>info<a href="mailto:info@pritsinghlaw.com" class="footer-link text-weight-light">@pritsinghlaw.com</a></div></div>
     
      <!--START SOCIALS---->
                     <div class="spacer-medium"></div>
