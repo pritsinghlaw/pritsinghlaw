@@ -15,16 +15,8 @@
   <meta content="width=device-width, initial-scale=1" name=
   "viewport">
   
-  <meta name="keywords" content="California law firm, California lawyer, legal services CA, Real Estate law, Los Angeles, San Diego, Oakland, San Francisco, Property Law">
-<meta name="author" content="Law Offices of Pritpal Singh">
-<meta name="robots" content="index, follow">
 
-<!-- California-Specific Local SEO -->
-<meta name="geo.region" content="US-CA">
-<meta name="geo.placename" content="California">
-<meta name="geo.position" content="34.0522;-118.2437">
-<meta name="ICBM" content="34.0522, -118.2437">
-<meta name="service-areas" content="Los Angeles County, Alameda County, San Diego County, San Francisco County, Orange County, Riverside County, San Bernardino County, Santa Clara County, Alameda County, Sacramento County, Contra Costa County, Fresno County">
+<meta name="robots" content="index, follow">
 
 <!-- Canonical URL -->
 <link rel="canonical" href="https://pritsinghlaw.com/">
@@ -845,7 +837,7 @@ visibility:hidden!important;
 
    
 
-
+<!---
 <script>
   // Set your password here
   const PASSWORD = "IronHorse1901!";
@@ -865,43 +857,12 @@ visibility:hidden!important;
     checkPassword();
   });
 </script>
-
+-->
 
    <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 
 
-<style id="dropdown-clickthrough-fix">
-/* Desktop-only: keep dropdown lists non-interactive when closed */
-@media (min-width: 992px){
-  /* CLOSED state: hide + disable pointer events (wins over earlier display:block !important) */
-  .navbar-menu-dropdown > .w-dropdown-list,
-  .navbar-menu-dropdown > .navbar-dropdown-list-container.w-dropdown-list{
-    position: absolute;       /* take out of flow so it can't block */
-    top: 100%; left: 0;
-    display: none !important; /* hard stop for click-through */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;     /* belt + braces */
-    z-index: 1000;
-  }
-
-  /* OPEN state: show on hover/focus or when Webflow adds .w--open */
-  .navbar-menu-dropdown:hover > .w-dropdown-list,
-  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
-  .navbar-menu-dropdown.w--open > .w-dropdown-list,
-  .navbar-menu-dropdown:hover > .navbar-dropdown-list-container.w-dropdown-list,
-  .navbar-menu-dropdown:focus-within > .navbar-dropdown-list-container.w-dropdown-list,
-  .navbar-menu-dropdown.w--open > .navbar-dropdown-list-container.w-dropdown-list{
-    display: block !important;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-}
-
-/* Mobile keeps your existing logic:
-   - @max-width:991px you already set .w-dropdown-list { display:none!important }
-   - and .w-dropdown.w--open .w-dropdown-list { display:block!important } */
+<style>
   
   @media (min-width: 992px){
   /* closed: invisible + non-interactive */
@@ -920,94 +881,40 @@ visibility:hidden!important;
 </style>
 
 
-<style id="dropdown-clickthrough-hard-stop">
-/* Desktop: a closed dropdown must not be hit-testable */
-@media (min-width: 992px){
-  /* CLOSED state */
-  .navbar-menu-dropdown > .w-dropdown-list,
-  .navbar-menu-dropdown > .navbar-dropdown-list-container.w-dropdown-list{
-    position: absolute;   /* take out of normal flow */
-    top: 100%; left: 0;
-    display: none !important;       /* fully remove from hit-testing */
-    opacity: 0; visibility: hidden; /* visually hidden (for safety) */
-    pointer-events: none;           /* absolutely no clicks */
-  }
 
-  /* OPEN state: show on hover/focus or when Webflow toggles .w--open */
-  .navbar-menu-dropdown:hover > .w-dropdown-list,
-  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
-  .navbar-menu-dropdown.w--open > .w-dropdown-list,
-  .navbar-menu-dropdown:hover > .navbar-dropdown-list-container.w-dropdown-list,
-  .navbar-menu-dropdown:focus-within > .navbar-dropdown-list-container.w-dropdown-list,
-  .navbar-menu-dropdown.w--open > .navbar-dropdown-list-container.w-dropdown-list{
-    display: block !important;
-    opacity: 1; visibility: visible; pointer-events: auto;
-    z-index: 1000;
-  }
+
+<style id="nav-dropdown-core">
+/* --- NAV / DROPDOWNS: single source of truth --- */
+
+/* Sizing/safety: let dropdowns size to content and never exceed viewport height */
+.navbar-dropdown-list-container{
+  width: fit-content !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
 }
-</style>
 
-
-<style id="dropdown-ghostclick-guard">
-/* Desktop: a closed dropdown must not be hit-testable */
-@media (min-width: 992px){
-  /* CLOSED state */
-  .navbar-menu-dropdown > .w-dropdown-list {
-    position: absolute;
-    top: 100%; left: 0;
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    z-index: 1000;
-  }
-
-  /* OPEN state: hover/focus or explicit .w--open */
-  .navbar-menu-dropdown:hover > .w-dropdown-list,
-  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
-  .navbar-menu-dropdown.w--open > .w-dropdown-list{
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-  }
-
-  /* If any inline display:block lingers after close, still neuter it */
-  .navbar-menu-dropdown:not(:hover):not(.w--open) > .w-dropdown-list[style*="display: block"]{
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-}
-</style>
-
-
-  <style id="dropdown-guard-and-visibility">
-/* Desktop: closed lists cannot be clicked */
+/* Desktop behavior: closed lists are invisible & non-interactive */
 @media (min-width: 992px){
   .navbar-menu-dropdown > .w-dropdown-list{
-    position:absolute; top:100%; left:0;
-    display:none !important;
-    opacity:0 !important; visibility:hidden !important;
-    pointer-events:none !important;
-    z-index:1000;
+    position: absolute; top: 100%; left: 0;
+    display: none !important;
+    opacity: 0 !important; visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: 1000;
   }
-  /* Visible when hovered/focused or explicitly opened */
+  /* Open on hover/focus OR when script sets .w--open (also keyboard-accessible) */
   .navbar-menu-dropdown:hover > .w-dropdown-list,
   .navbar-menu-dropdown:focus-within > .w-dropdown-list,
   .navbar-menu-dropdown.w--open > .w-dropdown-list{
-    display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+    display: block !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
   }
 }
 
-/* Tiny tidy-ups that can sabotage overrides if left broken */
-.text-size-large-1 { line-height:1.5 !important; font-size:16px !important; }
-.navbar-dropdown-list-container { width:fit-content !important; } /* fix “fit-contant” typo */
-
-/* Make sure no global “always open” persists anywhere */
-/* .navbar-dropdown-list-container { display:block !important; }  <-- leave REMOVED */
-</style>
+/* Small fixes you’re using elsewhere; keep them in one place */
+.text-size-large-1 { line-height: 1.5 !important; font-size: 16px !important; }
+.link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
+  </style>
+  
   
 </head>
 <body>
@@ -1634,63 +1541,7 @@ visibility:hidden!important;
 
 
 
-  <!---OLD DROPDOWN MENU FIX
-  
-<script>
-/* --- Complete fix for Webflow mobile dropdown issues --- */
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on mobile/tablet
-    if (window.matchMedia("(max-width: 991px)").matches) {
-        
-        // 1. Disable hover behavior on mobile
-        document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]')
-                .forEach(el => el.setAttribute('data-hover', 'false'));
-        
-        // 2. Add click handlers for dropdown toggles
-        document.querySelectorAll('.navbar-dropdwn-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const dropdown = this.closest('.navbar-menu-dropdown');
-                const dropdownList = dropdown.querySelector('.w-dropdown-list');
-                
-                // Toggle the dropdown
-                if (dropdownList.style.display === 'block') {
-                    dropdownList.style.display = 'none';
-                    dropdown.classList.remove('w--open');
-                } else {
-                    // Close other dropdowns first
-                    document.querySelectorAll('.w-dropdown-list').forEach(list => {
-                        list.style.display = 'none';
-                    });
-                    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-                        dd.classList.remove('w--open');
-                    });
-                    
-                    // Open this dropdown
-                    dropdownList.style.display = 'block';
-                    dropdown.classList.add('w--open');
-                }
-            });
-        });
-        
-        // 3. Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.navbar-menu-dropdown')) {
-                document.querySelectorAll('.w-dropdown-list').forEach(list => {
-                    list.style.display = 'none';
-                });
-                document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-                    dd.classList.remove('w--open');
-                });
-            }
-        });
-    }
-});
-</script>
 
---->
 
 <script>
 function performSearch() {
