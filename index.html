@@ -350,7 +350,7 @@ visibility:hidden!important;
 .navbar-search-container {
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .search-wrapper {
@@ -722,40 +722,34 @@ visibility:hidden!important;
 </style>
  
 <style>
-/* Mobile dropdown fixes */
+/* Mobile dropdown (≤991px) — hide by default, show when .w--open */
 @media (max-width: 991px) {
-    .w-dropdown-list {
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100vw !important;
-        z-index: 9999 !important;
-        display: none !important; /* Hidden by default */
-    }
-    
-    .w-dropdown.w--open .w-dropdown-list {
-        display: block !important;
-    }
-    
-    .navbar-dropdwn-toggle {
-        cursor: pointer;
-        user-select: none;
-    }
-    
-    /* Ensure dropdown links are clickable */
-    .navbar-dropdown-link {
-        display: block !important;
-        padding: 12px 20px !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .navbar-dropdown-link:hover {
-        background-color: #f5f5f5;
-    }
+  .navbar-menu-dropdown > .w-dropdown-list {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    /* If you want full-bleed menus on mobile, keep this next line.
+       If not, delete it so the menu matches its content width. */
+    width: 100vw !important;
+
+    z-index: 9999 !important;
+    display: none !important;
+  }
+  .navbar-menu-dropdown.w--open > .w-dropdown-list {
+    display: block !important;
+  }
+
+  .navbar-dropdwn-toggle { cursor: pointer; user-select: none; }
+
+  /* Make links comfortably tappable */
+  .navbar-dropdown-link {
+    display: block !important;
+    padding: 12px 20px !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #eee;
+  }
+  .navbar-dropdown-link:hover { background-color: #f5f5f5; }
 }
-
-
 </style>
 
   
@@ -896,7 +890,7 @@ visibility:hidden!important;
 /* Base positioning for lists controlled by the dropdown container */
 .navbar-menu-dropdown > .w-dropdown-list{
   position: absolute; top: 100%; left: 0;
-  z-index: 1000;
+  z-index: 9999; /* was 1000 */
 }
 
 /* Desktop: closed = invisible & non-interactive */
@@ -921,6 +915,8 @@ visibility:hidden!important;
 /* Small general tweak you already rely on */
 .text-size-large-1 { line-height: 1.5 !important; font-size: 16px !important; }
 .link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
+
+
 </style>
   
   
@@ -1653,6 +1649,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '[tabindex]:not([tabindex="-1"])'
   ];
 
+
   function getFocusable(container) {
     return Array.from(container.querySelectorAll(focusableSelectors.join(',')))
       .filter(el => el.offsetParent !== null || el === document.activeElement);
@@ -1727,30 +1724,32 @@ document.addEventListener('DOMContentLoaded', function() {
 <script defer src="/public/pslaw-chat.js"></script>
 --->
 
+
 <!---FINAL DROPDOWN MENU FIX--->
-<script id="dropdown-controller" data-version="2.1">
+<script id="dropdown-controller" data-version="2.2">
 (function(){
   const DESKTOP = window.matchMedia('(min-width: 992px)');
   const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
   if (!dropdowns.length) return;
 
-  // Ensure Webflow doesn't auto-open on hover
+  // Stop Webflow's built-in hover behavior
   dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
 
   const OPEN_DELAY  = 80;   // ms, hover intent open
   const CLOSE_DELAY = 150;  // ms, hover intent close
 
   const timers = new WeakMap();
+  const pinned = new WeakMap(); // dd -> boolean (click "pinned" on desktop)
 
   function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle'); }
   function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
 
-  function scrubInline(list){
-    if (!list) return;
-    list.style.removeProperty('display');
-    list.style.removeProperty('opacity');
-    list.style.removeProperty('visibility');
-    list.style.removeProperty('pointer-events');
+  function scrubInline(el){
+    if (!el) return;
+    el.style.removeProperty('display');
+    el.style.removeProperty('opacity');
+    el.style.removeProperty('visibility');
+    el.style.removeProperty('pointer-events');
   }
 
   function setExpanded(dd, open){
@@ -1768,66 +1767,118 @@ document.addEventListener('DOMContentLoaded', function() {
     timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
   }
 
-  function closeAll(except){
-    dropdowns.forEach(d => { if (d !== except) hide(d); });
-  }
+  function isOpen(dd){ return dd.classList.contains('w--open'); }
+  function isPinned(dd){ return pinned.get(dd) === true; }
 
   function show(dd){
-    closeAll(dd);
-    dd.classList.add('is-open');
-    scrubInline(getList(dd));
+    // close others
+    dropdowns.forEach(d => { if (d !== dd) hide(d); });
+    dd.classList.add('w--open');           // Webflow-compatible open state
+    scrubInline(getList(dd));              // remove inline styles that might fight CSS
     setExpanded(dd, true);
   }
 
   function hide(dd){
-    dd.classList.remove('is-open');
+    dd.classList.remove('w--open');
     setExpanded(dd, false);
   }
 
+  function unpinAll(){
+    dropdowns.forEach(d => pinned.set(d, false));
+  }
+
   dropdowns.forEach(dd => {
+    pinned.set(dd, false);
     const toggle = getToggle(dd);
     const list   = getList(dd);
 
-    // Desktop hover (with gentle intent)
-    dd.addEventListener('pointerenter', () => { if (DESKTOP.matches) schedule(dd, show, OPEN_DELAY); });
-    dd.addEventListener('pointerleave', () => { if (DESKTOP.matches) schedule(dd, hide, CLOSE_DELAY); });
+    // Desktop hover (with gentle intent). Hover never overrides a pinned state.
+    dd.addEventListener('pointerenter', () => {
+      if (!DESKTOP.matches) return;
+      if (isPinned(dd)) return;
+      schedule(dd, show, OPEN_DELAY);
+    });
 
-    // Click toggles on ALL breakpoints
+    dd.addEventListener('pointerleave', () => {
+      if (!DESKTOP.matches) return;
+      if (isPinned(dd)) return;            // stay open if pinned by click
+      schedule(dd, hide, CLOSE_DELAY);
+    });
+
+    // Click: desktop = pin/unpin; mobile/tablet = simple toggle
     if (toggle){
       toggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         clearTimer(dd);
-        dd.classList.contains('is-open') ? hide(dd) : show(dd);
+
+        if (DESKTOP.matches){
+          const open = isOpen(dd);
+          const pin  = isPinned(dd);
+
+          if (!open){
+            // closed -> open & pin
+            show(dd);
+            pinned.set(dd, true);
+          } else {
+            if (pin){
+              // open & pinned -> unpin & close
+              pinned.set(dd, false);
+              hide(dd);
+            } else {
+              // open via hover -> pin (keep open)
+              pinned.set(dd, true);
+              show(dd);
+            }
+          }
+        } else {
+          // Mobile: regular toggle
+          isOpen(dd) ? hide(dd) : show(dd);
+        }
       });
     }
 
-    // Keyboard: focus in opens (desktop), focus out closes
-    dd.addEventListener('focusin', () => { if (DESKTOP.matches) show(dd); });
-    dd.addEventListener('focusout', (e) => {
-      if (DESKTOP.matches && !dd.contains(e.relatedTarget)) hide(dd);
+    // Keyboard: on desktop, focus opens; leaving the component closes if not pinned
+    dd.addEventListener('focusin', () => {
+      if (DESKTOP.matches && !isPinned(dd)) show(dd);
     });
 
-    // Clicking a link inside closes
+    dd.addEventListener('focusout', (e) => {
+      if (!DESKTOP.matches) return;
+      if (dd.contains(e.relatedTarget)) return;
+      if (!isPinned(dd)) hide(dd);
+    });
+
+    // Clicking any link inside closes & unpins (both modes)
     if (list){
       list.addEventListener('click', (e) => {
-        if (e.target.closest('a')) hide(dd);
+        if (e.target.closest('a')){
+          pinned.set(dd, false);
+          hide(dd);
+        }
       });
     }
   });
 
-  // Outside click closes all
+  // Outside click closes all & clears pins
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.navbar-menu-dropdown')) closeAll();
+    if (e.target.closest('.navbar-menu-dropdown')) return;
+    unpinAll();
+    dropdowns.forEach(hide);
   });
 
-  // Escape closes all
+  // Escape closes all & clears pins
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAll();
+    if (e.key !== 'Escape') return;
+    unpinAll();
+    dropdowns.forEach(hide);
   });
 
-  // Reset state when crossing the breakpoint
-  DESKTOP.addEventListener('change', () => closeAll());
+  // Breakpoint changes: reset state
+  DESKTOP.addEventListener('change', () => {
+    unpinAll();
+    dropdowns.forEach(hide);
+  });
 
   // Initial cleanup of any Webflow inline styles
   dropdowns.forEach(dd => scrubInline(getList(dd)));
