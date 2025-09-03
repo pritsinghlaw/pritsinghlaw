@@ -1,0 +1,104 @@
+ROLE
+
+Act as a senior full-stack engineer. You are updating https://pritsinghlaw.com to add an AI chatbot that opens from a fixed floating button at the bottom-right of the homepage (index.html). You must thoroughly audit the existing DOM/CSS/JS and implement the chatbot in a way that does not interfere with current elements, layout, analytics, or scripts.
+
+REQUIREMENTS (DO ALL)
+	1.	Floating Button (exact style)
+	•	Button sits bottom-right (20px, 20px), position:fixed, z-index: 2147483000, safe on all breakpoints.
+	•	Looks exactly like the provided PNG (rounded square orange tile with white “P” in a square). Use the asset I’ll supply as public/assets/pslaw-chat-icon.png. If the asset is temporarily missing (e.g., during first run), render a pixel-perfect fallback SVG with identical rounded corners and spacing; swap to the PNG when present.
+	•	Accessibility: role="button", aria-label="Open Chat", aria-expanded, aria-controls="pslaw-chat-modal".
+	•	No overlap with existing fixed elements: detect any bottom-right fixed nodes and, if necessary, auto-nudge using CSS custom property --pslaw-fab-offset (computed at runtime).
+	2.	Popup Modal (responsive)
+	•	Opens when the button is clicked; closes with an “×” icon, by pressing Esc, or clicking an overlay.
+	•	Mobile: full-height drawer; Desktop: centered card min(96vw, 420px) × min(80vh, 620px).
+	•	Include focus trap and return focus to the FAB on close. Set aria-modal="true" and role="dialog".
+	•	UI contains:
+	•	Header with firm name, close icon.
+	•	Messages area with streaming bubbles.
+	•	Input row (textarea + Send).
+	•	3–4 suggestion chips at top of the conversation:
+• “Book A Free Consultation” • “How Do I Pay My Bill?” • “What Legal Services Do You Offer?” • “Where Are You Located?”
+	•	Light/dark-mode friendly CSS (prefers-color-scheme). No global CSS collisions.
+	3.	Namespacing & Non-Interference
+	•	Prefix every id/class/data-attr with pslaw- and inject the widget via a single deferred script so index.html markup is not hand-edited.
+	•	All styles in public/pslaw-chat.css scoped under [data-pslaw-root].
+	•	Use a shadow-root for the button to fully isolate styles. Modal may use regular DOM but all styles must be under the root data attribute.
+	•	Avoid library/version collisions; zero new globals except window.pslawChat.
+	4.	OpenAI wiring (server-side proxy)
+	•	Backend: server.js (Node + Express). Route POST /api/chat: {messages: [...], tools?:[]} and stream responses to the client (SSE or fetch stream). Never expose the API key client-side.
+	•	Read key from Replit Secrets: OPENAI_API_KEY.
+	•	Model: use process.env.OPENAI_MODEL || "gpt-5-mini"; if unavailable, fallback to "gpt-4o-mini" (document the fallback in console). Temperature 0.4, max tokens ~1,500, JSON-safe tool calls enabled.
+	5.	System Instructions & Firm Knowledge
+	•	Load system prompt from docs/system_instructions.md using the attached “PRITSINGHLAW CHATBOT SYSTEM INSTRUCTIONS.pdf” (convert to markdown verbatim and include).
+	•	Also include condensed operating/training content from “AI Chatbot System Instructions for Law Offices of Pritpal Singh.pdf” (as docs/training_script.md) and reference it as secondary context.    
+	•	Augment with a small site knowledge base built at install time:
+	•	Script scripts/build-knowledge.mjs crawls and extracts clean text from:
+	1.	https://pritsinghlaw.com
+	2.	https://pritsinghlaw.com/services and every practice-area link found on that page
+	3.	https://pritsinghlaw.com/about
+	•	Output data/knowledge.json with {url, title, text} entries, stripped of nav/boilerplate.
+	•	Client includes this file and sends brief, page-ranked snippets (BM25 or cosine on mini-embeddings) with each user query as retrieval context. Cache in localStorage.
+	6.	Calendly & Zapier integration (placeholders ready)
+	•	Environment secrets: CALENDLY_API_KEY (optional), ZAPIER_WEBHOOK_URL (optional).
+	•	Provide helper actions:
+	•	book_consultation tool: Opens embedded Calendly or links to /client-area/intake-form with tracking UTM. If CALENDLY_API_KEY present, fetch next 3 open slots and present as buttons.
+	•	intake_webhook tool: POST the chat transcript, contact info, and intent to ZAPIER_WEBHOOK_URL when user indicates booking intent or shares contact details.
+	•	Include quick-action buttons in the chat for: Consultation, Pay Bill (links to /pay-my-bill), Services, Contact.
+	7.	Legal guardrails
+	•	Bake the disclaimers and response policy into the system prompt: general info only, no legal advice, no attorney-client relationship formed via chat, route to intake form/phone for confidential matters, no fees quoted beyond what’s specified. Use the exact policy text from the provided PDFs.    
+	8.	Files to create
+	•	public/pslaw-chat.css – fully scoped styles (no global resets).
+	•	public/pslaw-chat.js – widget bootstrap; DOM creation; event handlers; focus trap; suggestion chips.
+	•	public/assets/pslaw-chat-icon.png – use the supplied PNG; rounded corners preserved.
+	•	server.js – Express proxy for OpenAI + optional Calendly/Zapier helpers.
+	•	docs/system_instructions.md – from PRITSINGHLAW CHATBOT SYSTEM INSTRUCTIONS (exact content).
+	•	docs/training_script.md – from AI Chatbot System Instructions for Law Offices of Pritpal Singh (condensed; section headings preserved).
+	•	scripts/build-knowledge.mjs and data/knowledge.json.
+	•	README.md – setup, secrets, and local dev notes.
+	9.	Security & performance
+	•	CORS locked to this origin.
+	•	Never log secrets; redact PII in logs.
+	•	Lazy-load the widget (inject the loader via <script defer src="/public/pslaw-chat.js">).
+	•	Total added JS on first paint ≤ 45KB gzipped (excluding streaming). Knowledge file loads on first open, not at page load.
+	10.	UX polish
+
+	•	Show typing indicator dots while streaming.
+	•	Persist last 10 messages in sessionStorage.
+	•	Graceful error messages if network/model fails, with a retry button.
+	•	Analytics hooks: dispatch window.dispatchEvent(new CustomEvent("pslaw:chat", {detail:{type:"open|close|send|tool"}})) for downstream tracking.
+
+IMPLEMENTATION NOTES
+	•	Use only one global mount point: <div id="pslaw-root" data-pslaw-root hidden></div> injected at document.body end; toggle hidden attribute.
+	•	Prefix CSS variables under :root[data-pslaw-root].
+	•	For conflict checks, scan computed styles for any bottom-right fixed elements (getBoundingClientRect() + z-index) and auto-apply --pslaw-fab-offset if overlap < 12px.
+	•	Test keyboard nav (Tab/Shift-Tab), screen readers (aria labels), and high-contrast mode.
+
+ACCEPTANCE TESTS (must pass before you’re done)
+	1.	The floating button renders with the exact PNG look (rounded corners), stays fixed at bottom-right on desktop and mobile, and never overlaps existing sticky elements (auto-nudges if needed).
+	2.	Clicking the button opens a responsive modal; Esc, overlay click, or the close icon dismisses it; focus returns to the button.
+	3.	Suggestion chips show the four prompts; clicking a chip sends that message.
+	4.	The client never sees the OpenAI key; requests go to /api/chat and stream back assistant text.
+	5.	System prompt includes the firm’s guardrails/policies from the PDFs; bot refuses to give legal advice and routes to the intake form or phone for specifics.    
+	6.	“Book A Free Consultation” opens embedded Calendly or links to the Client Intake Form, “How Do I Pay My Bill?” links to /pay-my-bill, and “What Legal Services Do You Offer?” summarizes from the Services pages.
+	7.	Lighthouse check: no layout shift on load; CSS/JS are scoped; no console errors.
+	8.	No global CSS collisions; site nav/hero/footers behave exactly as before.
+
+ENV / SECRETS TO SET IN REPLIT
+	•	OPENAI_API_KEY = (provided)
+	•	OPENAI_MODEL = gpt-5-mini (optional; fallback handled)
+	•	CALENDLY_API_KEY = (optional)
+	•	ZAPIER_WEBHOOK_URL = (optional)
+
+LINKS TO INDEX & CONTENT
+	•	Home: https://pritsinghlaw.com
+	•	Services (+ all practice area subpages): https://pritsinghlaw.com/services
+	•	About: https://pritsinghlaw.com/about
+	•	Intake/Booking: https://pritsinghlaw.com/client-area/intake-form
+	•	Billing: https://pritsinghlaw.com/pay-my-bill
+
+⸻
+
+Notes for you (the agent):
+I will upload https://pritsinghlaw.com/chatbot-icon.png (the orange rounded-square “P” icon) for the FAB. Use it as the background image with background-size: cover; border-radius: 16px;. If the file is absent at build time, render the fallback SVG you create to match it and then switch to the PNG when it appears.
+
+Also, include a short disclaimer line in the chat footer: “General information only. No attorney–client relationship is formed through this chat.” (sourced from the system instructions).
