@@ -285,7 +285,7 @@
   border: 1px solid var(--pslaw-border) !important;
   border-radius: 20px !important;
   resize: none !important;
-  font-size: 14px !important;
+  font-size: 1rem !important;
   font-family: 'Open Sans', sans-serif !important;
   background: var(--pslaw-white) !important;
   color: var(--pslaw-text) !important;
