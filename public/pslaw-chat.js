@@ -156,7 +156,25 @@
         <br>
          <span class="pslaw-status">Online</span>
         <button class="pslaw-modal-close" aria-label="Close chat">&times;</button>
-      </div>
+     <div class="pslaw-header-actions">
+        <button class="pslaw-action-btn pslaw-expand" aria-label="Expand">
+          <!-- expand arrows -->
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+        </button>
+        <button class="pslaw-action-btn pslaw-darkmode" aria-label="Toggle dark mode">
+          <!-- moon icon -->
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M21 12.79A9 9 0 0 1 11.21 3 
+                     7 7 0 1 0 21 12.79z"/>
+          </svg>
+        </button>
+      
+       </div>
       <div class="pslaw-suggestions">${CONFIG.suggestions.map(s => `<button class="pslaw-chip" data-suggestion="${s}">${s}</button>`).join('')}</div>
       <div class="pslaw-messages" id="pslaw-messages"></div>
       <div class="pslaw-quick-actions">
@@ -542,3 +560,68 @@
   };
 
 })();
+
+
+
+//ENHANCED FUNCTIONALITY //
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root      = document.querySelector("[data-pslaw-root]");
+  const modal     = root.querySelector(".pslaw-modal");
+  const overlay   = root.querySelector(".pslaw-modal-overlay");
+  const fab       = root.querySelector("#pslaw-chat-fab");
+  const closeBtn  = root.querySelector(".pslaw-modal-close");
+  const expandBtn = root.querySelector(".pslaw-expand");
+  const darkBtn   = root.querySelector(".pslaw-darkmode");
+  const input     = root.querySelector(".pslaw-input");
+  const sendBtn   = root.querySelector(".pslaw-send-btn");
+  const messages  = root.querySelector("#pslaw-messages");
+
+  function openModal() {
+    modal.classList.add("pslaw-active");
+    overlay.classList.add("pslaw-active");
+  }
+  function closeModal() {
+    modal.classList.remove("pslaw-active", "pslaw-expanded");
+    overlay.classList.remove("pslaw-active");
+    modal.removeAttribute("style"); // in case expanded applied inline styles
+  }
+
+  fab.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
+
+  // Toggle full-screen expand/collapse (app-like)
+  expandBtn.addEventListener("click", () => {
+    modal.classList.toggle("pslaw-expanded");
+    if (modal.classList.contains("pslaw-expanded")) {
+      // in expanded, we let CSS handle layout; no inline style needed
+    } else {
+      modal.removeAttribute("style");
+    }
+  });
+
+  // Toggle dark/light mode
+  darkBtn.addEventListener("click", () => {
+    root.classList.toggle("pslaw-dark");
+  });
+
+  // Demo: send button appends a user bubble
+  sendBtn.addEventListener("click", () => {
+    const text = input.value.trim();
+    if (!text) return;
+    const wrap = document.createElement("div");
+    wrap.className = "pslaw-message pslaw-user";
+    wrap.innerHTML = `<div class="pslaw-message-bubble"></div>`;
+    wrap.querySelector(".pslaw-message-bubble").textContent = text;
+    messages.appendChild(wrap);
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
+  });
+
+  // Auto-grow textarea
+  input.addEventListener("input", () => {
+    input.style.height = "auto";
+    input.style.height = Math.min(input.scrollHeight, 120) + "px";
+  });
+});
