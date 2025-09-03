@@ -628,7 +628,6 @@ visibility:hidden!important;
 
 /* Fix navigation dropdown */
 .navbar-dropdown-list-container {
-    display: block !important;
     height: auto !important;
     left:10px !important;
 }
@@ -636,7 +635,7 @@ visibility:hidden!important;
   .text-size-large-1 {
     line-height: 1.5 !important;
     font-size: 16px !important;
-    )
+    }
 
 /* Ensure practice area cards are visible */
 .link-card-practice-areas {
@@ -660,7 +659,7 @@ visibility:hidden!important;
 <style>
 /* ---------- GENERIC RESETS ---------- */
 .navbar-dropdown-list-container{
-  width:fit-contant !important;           /* let it span parent */
+  width:fit-content !important;           /* let it span parent */
  
 }
 
@@ -881,7 +880,54 @@ visibility:hidden!important;
    <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 
 
+<style id="dropdown-clickthrough-fix">
+/* Desktop-only: keep dropdown lists non-interactive when closed */
+@media (min-width: 992px){
+  /* CLOSED state: hide + disable pointer events (wins over earlier display:block !important) */
+  .navbar-menu-dropdown > .w-dropdown-list,
+  .navbar-menu-dropdown > .navbar-dropdown-list-container.w-dropdown-list{
+    position: absolute;       /* take out of flow so it can't block */
+    top: 100%; left: 0;
+    display: none !important; /* hard stop for click-through */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;     /* belt + braces */
+    z-index: 1000;
+  }
 
+  /* OPEN state: show on hover/focus or when Webflow adds .w--open */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list,
+  .navbar-menu-dropdown:hover > .navbar-dropdown-list-container.w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .navbar-dropdown-list-container.w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .navbar-dropdown-list-container.w-dropdown-list{
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+/* Mobile keeps your existing logic:
+   - @max-width:991px you already set .w-dropdown-list { display:none!important }
+   - and .w-dropdown.w--open .w-dropdown-list { display:block!important } */
+  
+  @media (min-width: 992px){
+  /* closed: invisible + non-interactive */
+  .navbar-menu-dropdown > .w-dropdown-list{ 
+    display:none !important; opacity:0; visibility:hidden; pointer-events:none;
+  }
+  /* open (hover/focus OR .w--open): visible + interactive */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display:block !important; opacity:1; visibility:visible; pointer-events:auto;
+  }
+}
+
+  
+</style>
   
 </head>
 <body>
