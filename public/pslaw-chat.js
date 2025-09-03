@@ -152,11 +152,13 @@
     
     modal.innerHTML = `
       <div class="pslaw-modal-header">
-        <span><img src="/icon.png" width="24" height="auto"/></span><h2 id="pslaw-modal-title" class="pslaw-modal-title">  AI Legal Assistance</h2> 
-        <br>
+        <span><img src="/icon.png" width="24" height="auto"/></span><h3 id="pslaw-modal-title" class="pslaw-modal-title"> AI Legal Assistant
+        
          <span class="pslaw-status">Online</span>
-        <button class="pslaw-modal-close" aria-label="Close chat">&times;</button>
-     <div class="pslaw-header-actions">
+        </h3>
+        
+        
+ <div class="pslaw-header-actions">
         <button class="pslaw-action-btn pslaw-expand" aria-label="Expand">
           <!-- expand arrows -->
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
@@ -168,13 +170,13 @@
         </button>
         <button class="pslaw-action-btn pslaw-darkmode" aria-label="Toggle dark mode">
           <!-- moon icon -->
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M21 12.79A9 9 0 0 1 11.21 3 
-                     7 7 0 1 0 21 12.79z"/>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/>
           </svg>
         </button>
+        <button class="pslaw-modal-close" aria-label="Close">×</button>
+      </div>
       
-       </div>
       <div class="pslaw-suggestions">${CONFIG.suggestions.map(s => `<button class="pslaw-chip" data-suggestion="${s}">${s}</button>`).join('')}</div>
       <div class="pslaw-messages" id="pslaw-messages"></div>
       <div class="pslaw-quick-actions">
@@ -187,7 +189,7 @@
         <textarea class="pslaw-input" id="pslaw-input" placeholder="Type your message..." aria-label="Type your message" rows="1"></textarea>
         <button class="pslaw-send-btn" id="pslaw-send" aria-label="Send message"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <div class="pslaw-footer">General information only. No attorney–client relationship is formed through this chat.</div>
+      <div class="pslaw-footer">This chat may be kept in our records for quality assurance and training purposes. No attorney–client relationship is formed through this chat.</div>
     `;
     
     root.appendChild(overlay);
