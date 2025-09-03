@@ -981,6 +981,33 @@ visibility:hidden!important;
   }
 }
 </style>
+
+
+  <style id="dropdown-guard-and-visibility">
+/* Desktop: closed lists cannot be clicked */
+@media (min-width: 992px){
+  .navbar-menu-dropdown > .w-dropdown-list{
+    position:absolute; top:100%; left:0;
+    display:none !important;
+    opacity:0 !important; visibility:hidden !important;
+    pointer-events:none !important;
+    z-index:1000;
+  }
+  /* Visible when hovered/focused or explicitly opened */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+  }
+}
+
+/* Tiny tidy-ups that can sabotage overrides if left broken */
+.text-size-large-1 { line-height:1.5 !important; font-size:16px !important; }
+.navbar-dropdown-list-container { width:fit-content !important; } /* fix “fit-contant” typo */
+
+/* Make sure no global “always open” persists anywhere */
+/* .navbar-dropdown-list-container { display:block !important; }  <-- leave REMOVED */
+</style>
   
 </head>
 <body>
@@ -1607,6 +1634,7 @@ visibility:hidden!important;
 
 
 
+  <!---OLD DROPDOWN MENU FIX
   
 <script>
 /* --- Complete fix for Webflow mobile dropdown issues --- */
@@ -1662,7 +1690,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-
+--->
 
 <script>
 function performSearch() {
@@ -1840,44 +1868,85 @@ document.addEventListener('DOMContentLoaded', function() {
 <script defer src="/public/pslaw-chat.js"></script>
 --->
 
-
-<script id="dropdown-ghostclick-sanitizer">
+<!---FINAL DROPDOWN MENU FIX--->
+<script id="dropdown-controller">
 (function(){
   const DESKTOP = window.matchMedia('(min-width: 992px)');
+  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
+  if (!dropdowns.length) return;
 
-  function sanitizeAll(){
-    if (!DESKTOP.matches) return;
-    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
-      // Remove any "open" class that might persist
-      dd.classList.remove('w--open');
-
-      // Strip inline styles Webflow or mobile JS may have left behind
-      const list = dd.querySelector('.w-dropdown-list');
-      if (list){
-        list.style.removeProperty('display');
-        list.style.removeProperty('opacity');
-        list.style.removeProperty('visibility');
-        list.style.removeProperty('pointer-events');
-      }
-    });
+  function isDesktop(){ return DESKTOP.matches; }
+  function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle'); }
+  function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
+  function setExpanded(dd, open){
+    const t = getToggle(dd); if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function scrubInline(list){
+    if (!list) return;
+    list.style.removeProperty('display');
+    list.style.removeProperty('opacity');
+    list.style.removeProperty('visibility');
+    list.style.removeProperty('pointer-events');
+  }
+  function closeDropdown(dd){
+    dd.classList.remove('w--open');
+    setExpanded(dd, false);
+    scrubInline(getList(dd));
+  }
+  function closeAllExcept(ex){
+    dropdowns.forEach(d => { if (d !== ex) closeDropdown(d); });
+  }
+  function openDropdown(dd){
+    closeAllExcept(dd);
+    dd.classList.add('w--open');
+    setExpanded(dd, true);
   }
 
-  // After each dropdown “area” is exited with the mouse, sanitize
-  document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
-    dd.addEventListener('mouseleave', sanitizeAll);
+  // Bind once per dropdown
+  dropdowns.forEach(dd=>{
+    const toggle = getToggle(dd);
+    const list   = getList(dd);
+
+    // Hover/focus behavior for desktop
+    dd.addEventListener('mouseenter', ()=>{ if (isDesktop()) openDropdown(dd); });
+    dd.addEventListener('mouseleave', ()=>{ if (isDesktop()) closeDropdown(dd); });
+    dd.addEventListener('focusin',     ()=>{ if (isDesktop()) openDropdown(dd); });
+    dd.addEventListener('focusout', (e)=>{ if (isDesktop() && !dd.contains(e.relatedTarget)) closeDropdown(dd); });
+
+    // Toggle click: prevent on desktop (hover handles it), toggle on mobile
+    if (toggle){
+      toggle.addEventListener('click', function(e){
+        if (isDesktop()){ e.preventDefault(); return; }
+        e.preventDefault();
+        const willOpen = !dd.classList.contains('w--open');
+        willOpen ? openDropdown(dd) : closeDropdown(dd);
+      });
+    }
+
+    // Clicking any link inside closes all (both modes)
+    if (list){
+      list.addEventListener('click', function(e){
+        const a = e.target.closest('a');
+        if (a){ dropdowns.forEach(closeDropdown); }
+      });
+    }
   });
 
-  // Prevent click-toggling on desktop (hover handles open/close)
-  document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"] .w-dropdown-toggle')
-    .forEach(tg=>{
-      tg.addEventListener('click', function(e){
-        if (DESKTOP.matches){ e.preventDefault(); e.stopPropagation(); }
-      }, true);
-    });
+  // Click outside closes all (both modes)
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.navbar-menu-dropdown')) dropdowns.forEach(closeDropdown);
+  });
 
-  // Also sanitize on load and when resizing up to desktop
-  window.addEventListener('load', sanitizeAll);
-  window.addEventListener('resize', sanitizeAll);
+  // Escape closes all
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') dropdowns.forEach(closeDropdown);
+  });
+
+  // On layout mode change, reset state & scrub inline styles
+  DESKTOP.addEventListener('change', ()=> dropdowns.forEach(closeDropdown));
+
+  // Initial scrub (handles any pre-existing inline styles)
+  dropdowns.forEach(dd => scrubInline(getList(dd)));
 })();
 </script>
 
