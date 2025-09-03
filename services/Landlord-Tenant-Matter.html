@@ -32,7 +32,7 @@
 .w-nav-button.w--open .menu-icon-line-middle-inner,
 .w-nav-button.w--open .menu-icon-line-bottom{
   opacity: 0;
-  transition: opacity .50s ease;
+  transition: opacity .45s ease;
 }
 
 /* Draw the X using centered pseudo-elements (fixed width) */
@@ -48,7 +48,7 @@
   border-radius: 2px;
   pointer-events: none;
   transform-origin: center;
-  transition: transform .75s ease;
+  transition: transform .6s cubic-bezier(.2,.8,.2,1);
 }
 
 /* Cross it */
@@ -157,11 +157,11 @@
     font-weight: 800;
     font-size: clamp(1.4rem, 2.4vw, 2rem);
     margin: 1rem 0 0.5rem;
-    color: #111827; /* gray-900 */
+    color: #001f54; /* gray-900 */
   }
   .subtitle {
     text-align: center;
-    color: #4b5563; /* gray-600 */
+    color: #001f54; /* gray-600 */
     font-size: clamp(0.95rem, 1.6vw, 1.05rem);
     line-height: 1.6;
     max-width: 62ch;
@@ -211,7 +211,7 @@
 
   /* Subtext */
   .help-text {
-    font-size: 0.85rem;
+    font-size: 0.65rem;
     color: #6b7280; /* gray-500 */
     text-align: center;
     margin-top: -0.5rem;
@@ -626,7 +626,7 @@ em, i { font-style: italic; }
     <div class="container">
       <h1 class="hero__title" style="color:white!important;">Landlord‑Tenant Matters</h1>
       <p class="hero__subtitle">Evictions, rent control, habitability, and compliance—our firm represents landlords exclusively with strategic, results‑driven counsel.</p>
-      <a href="https://pritsinghlaw.com/client-area/intake-form" class="btn" style="background:#ff4900!important;color:#fff!important;">Book a Landlord Consultation</a>
+      <a href="#" id="open-intake-modal" type="button" aria-haspopup="dialog" aria-controls="intake-modal" class="btn button" style="background:#ff4900!important;color:#fff!important;">BOOK A LANDLORD CONSULTATION</a>
     </div>
   </header>
 
@@ -930,3 +930,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
