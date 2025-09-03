@@ -212,6 +212,13 @@
 .pslaw-modal-close:hover { background: rgba(255,255,255,0.15) !important; opacity: 1 !important; }
 .pslaw-action-btn svg { display: block; }
 
+
+/* Expand/collapse icons swap */
+.pslaw-expand .collapse-icon { display: none; }
+.pslaw-expanded .pslaw-expand .expand-icon { display: none; }
+.pslaw-expanded .pslaw-expand .collapse-icon { display: block; }
+
+
 /* ===========================
    Suggestion Chips
    =========================== */
