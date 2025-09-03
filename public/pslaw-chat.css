@@ -10,21 +10,12 @@
   --pslaw-fab-offset: 0px;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  [data-pslaw-root] {
-    --pslaw-white: #1a1a1a;
-    --pslaw-gray: #2a2a2a;
-    --pslaw-text: #e0e0e0;
-    --pslaw-border: #404040;
-    --pslaw-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  }
-}
+
 
 /* Floating Action Button */
 #pslaw-chat-fab {
   position: fixed !important;
-  bottom: calc(20px + var(--pslaw-fab-offset)) !important;
+  bottom: 20px !important;
   right: 20px !important;
   width: 60px !important;
   height: 60px !important;
@@ -71,9 +62,9 @@
 /* Modal Overlay */
 .pslaw-modal-overlay {
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  top: 20 !important;
+  left: 20 !important;
+  right: 20 !important;
   bottom: 0 !important;
   background: rgba(0, 0, 0, 0.5) !important;
   z-index: 2147483001 !important;
@@ -127,9 +118,9 @@
 @media (max-width: 767px) {
   .pslaw-modal {
     bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 100vh !important;
+    left: 20 !important;
+    right: 20 !important;
+    height: 70vh !important;
     border-radius: 0 !important;
     transform: translateY(100%) !important;
   }
@@ -294,7 +285,7 @@
   border: 1px solid var(--pslaw-border) !important;
   border-radius: 20px !important;
   resize: none !important;
-  font-size: 14px !important;
+  font-size: 1rem !important;
   font-family: 'Open Sans', sans-serif !important;
   background: var(--pslaw-white) !important;
   color: var(--pslaw-text) !important;
