@@ -24,10 +24,10 @@
   right: 20px !important;
   width: 60px !important;
   height: 60px !important;
-  border-radius: 16px !important;
+  border-radius: 15px !important;
   background-color: var(--pslaw-primary) !important;
   background-image: url('/public/assets/pslaw-chat-icon.png');
-  background-size: 60% !important;
+  background-size: 90% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   border: none !important;
@@ -57,7 +57,7 @@
   align-items: center !important;
   justify-content: center !important;
   background: var(--pslaw-primary) !important;
-  border-radius: 16px !important;
+  border-radius: 15px !important;
   color: #fff !important;
 }
 
@@ -387,7 +387,7 @@
   padding: 6px 12px !important;
   background: var(--pslaw-white) !important;
   border: 1px solid var(--pslaw-navy-ink) !important;
-  border-radius: 16px !important;
+  border-radius: 15px !important;
   color: var(--pslaw-navy-ink) !important;
   font-size: 12px !important;
   text-decoration: none !important;
@@ -438,10 +438,75 @@
   outline-offset: 2px !important;
 }
 
+
+
+
+
+/* ===========================
+   Header Actions (Expand + Dark mode)
+   =========================== */
+.pslaw-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.pslaw-action-btn {
+  background: none !important;
+  border: none !important;
+  padding: 4px !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+  color: #e7ecff !important;
+  opacity: 0.9 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background 0.2s, opacity 0.2s !important;
+}
+
+.pslaw-action-btn:hover {
+  background: rgba(255,255,255,0.15) !important;
+  opacity: 1 !important;
+}
+
+.pslaw-action-btn svg {
+  display: block;
+}
+
+/* Dark mode (toggle-ready) */
+[data-pslaw-root].pslaw-dark {
+  --pslaw-white: #0e1624;
+  --pslaw-gray: #1b2231;
+  --pslaw-text: #e0e6f5;
+  --pslaw-border: #2a3244;
+}
+
+[data-pslaw-root].pslaw-dark .pslaw-modal-header {
+  background: #000d2b !important;
+}
+
+[data-pslaw-root].pslaw-dark .pslaw-footer {
+  background: #1b2231 !important;
+  color: #aab3cc !important;
+}
+
+
+
+.pslaw-modal.pslaw-expanded {
+  border-radius: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+
+
 /* Hide when not active */
 [data-pslaw-root][hidden] {
   display: none !important;
 }
+
+
+
 
 /* ===========================
    Animations
@@ -455,3 +520,5 @@
   0%, 60%, 100% { opacity: 0.4; }
   30% { opacity: 1; }
 }
+
+
