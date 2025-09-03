@@ -1,18 +1,23 @@
-/* PSLaw Chat Widget Styles - Fully Scoped */
+/* ===========================
+   PSLaw Chat Widget – Starkly-style (Navy + Orange)
+   =========================== */
+
+/* Root theme tokens */
 [data-pslaw-root] {
-  --pslaw-primary: #ff4900;
-  --pslaw-navy: #001f54;
+  --pslaw-primary: #ff4900;        /* orange */
+  --pslaw-navy: #001f54;           /* deep navy */
+  --pslaw-navy-ink: #0b2a6a;       /* slightly lighter ink for borders/icons */
   --pslaw-white: #ffffff;
-  --pslaw-gray: #f5f5f5;
-  --pslaw-text: #333333;
-  --pslaw-border: #e0e0e0;
-  --pslaw-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --pslaw-gray: #f5f6f8;           /* softer chat bg */
+  --pslaw-text: #343b4a;
+  --pslaw-border: #e6e8ee;
+  --pslaw-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
   --pslaw-fab-offset: 0px;
 }
 
-
-
-/* Floating Action Button */
+/* ===========================
+   Floating Action Button (FAB)
+   =========================== */
 #pslaw-chat-fab {
   position: fixed !important;
   bottom: 20px !important;
@@ -22,7 +27,8 @@
   border-radius: 16px !important;
   background-color: var(--pslaw-primary) !important;
   background-image: url('/public/assets/pslaw-chat-icon.png');
-  background-size: cover !important;
+  background-size: 60% !important;
+  background-repeat: no-repeat !important;
   background-position: center !important;
   border: none !important;
   cursor: pointer !important;
@@ -36,7 +42,7 @@
 
 #pslaw-chat-fab:hover {
   transform: scale(1.05) !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25) !important;
 }
 
 #pslaw-chat-fab:active {
@@ -52,6 +58,7 @@
   justify-content: center !important;
   background: var(--pslaw-primary) !important;
   border-radius: 16px !important;
+  color: #fff !important;
 }
 
 #pslaw-chat-fab .pslaw-fab-fallback svg {
@@ -59,14 +66,16 @@
   height: 32px !important;
 }
 
-/* Modal Overlay */
+/* ===========================
+   Modal Overlay
+   =========================== */
 .pslaw-modal-overlay {
   position: fixed !important;
-  top: 20 !important;
-  left: 20 !important;
-  right: 20 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.45) !important;
   z-index: 2147483001 !important;
   opacity: 0 !important;
   transition: opacity 0.3s ease !important;
@@ -78,11 +87,15 @@
   pointer-events: all !important;
 }
 
-/* Modal Container */
+/* ===========================
+   Modal Container
+   =========================== */
 .pslaw-modal {
   position: fixed !important;
-  z-index: 2147483002 !important;
+  z-index: 2147483002 !important; /* (unchanged by request) */
   background: var(--pslaw-white) !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
   box-shadow: var(--pslaw-shadow) !important;
   display: flex !important;
   flex-direction: column !important;
@@ -103,97 +116,140 @@
   .pslaw-modal {
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, calc(-50% + 20px)) !important;
+    transform: translate(-50%, calc(-50% + 16px)) !important;
     width: min(96vw, 420px) !important;
     height: min(80vh, 620px) !important;
-    border-radius: 12px !important;
   }
-  
   .pslaw-modal.pslaw-active {
     transform: translate(-50%, -50%) !important;
   }
 }
 
-/* Mobile Modal (Full Height Drawer) */
+/* Mobile Modal (floating drawer look) */
 @media (max-width: 767px) {
   .pslaw-modal {
-    bottom: 0 !important;
-    left: 20 !important;
-    right: 20 !important;
-    height: 85vh !important;
-    border-radius: 0 !important;
-    transform: translateY(100%) !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    height: 72vh !important;
+    border-radius: 18px !important;
+    transform: translateY(110%) !important;
   }
-  
   .pslaw-modal.pslaw-active {
     transform: translateY(0) !important;
   }
 }
 
-/* Modal Header */
+/* ===========================
+   Modal Header – Navy bar
+   =========================== */
 .pslaw-modal-header {
-  padding: 16px 20px !important;
-  border-bottom: 1px solid var(--pslaw-border) !important;
+  padding: 14px 16px !important;
+  border-bottom: none !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
   flex-shrink: 0 !important;
+  background: var(--pslaw-navy) !important;
+  color: var(--pslaw-white) !important;
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.06) !important;
 }
 
 .pslaw-modal-title {
   font-size: 18px !important;
-  font-weight: 600 !important;
-  color: var(--pslaw-navy) !important;
+  font-weight: 700 !important;
+  color: var(--pslaw-white) !important;
   margin: 0 !important;
   font-family: 'Geologica', sans-serif !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+/* Online status pill (as in screenshot) */
+.pslaw-status {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 2px 8px !important;
+  font-size: 12px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.12) !important;
+  color: #c8d6ff !important;
+}
+.pslaw-status::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #27c93f;
+  box-shadow: 0 0 0 2px rgba(39,201,63,.15);
+  display: inline-block;
 }
 
 .pslaw-modal-close {
   background: none !important;
   border: none !important;
   font-size: 24px !important;
-  color: var(--pslaw-text) !important;
+  color: #e7ecff !important;
   cursor: pointer !important;
   padding: 4px !important;
   line-height: 1 !important;
-  opacity: 0.7 !important;
+  opacity: 0.9 !important;
   transition: opacity 0.2s !important;
 }
+.pslaw-modal-close:hover { opacity: 1 !important; }
 
-.pslaw-modal-close:hover {
-  opacity: 1 !important;
-}
-
-/* Suggestion Chips */
+/* ===========================
+   Suggestion Chips (row)
+   =========================== */
 .pslaw-suggestions {
-  padding: 12px 16px !important;
+  padding: 12px 14px !important;
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 8px !important;
+  border-top: 1px solid var(--pslaw-border) !important;
   border-bottom: 1px solid var(--pslaw-border) !important;
+  background: var(--pslaw-white) !important;
   flex-shrink: 0 !important;
 }
 
 .pslaw-chip {
   padding: 8px 14px !important;
-  background: var(--pslaw-gray) !important;
-  border: 1px solid var(--pslaw-border) !important;
-  border-radius: 15px !important;
-  font-size: 11.5px !important;
-  color: var(--pslaw-navy) !important;
+  border-radius: 14px !important;
+  font-size: 13px !important;
   cursor: pointer !important;
   transition: all 0.2s !important;
   white-space: nowrap !important;
   font-family: 'Open Sans', sans-serif !important;
+
+  background: #f0f4ff !important;     /* light navy tint */
+  border: 1px solid #dfe6f5 !important;
+  color: #10356d !important;
+}
+
+.pslaw-chip:nth-child(2) {
+  background: #fff3ea !important;      /* light orange tint */
+  border-color: #ffe1cf !important;
+  color: #7a2a00 !important;
+}
+
+.pslaw-chip:nth-child(3) {
+  background: #f6f7fb !important;      /* neutral */
+  border-color: #e9edf6 !important;
+  color: #2c3552 !important;
 }
 
 .pslaw-chip:hover {
-  background: var(--pslaw-navy) !important;
-  color: var(--pslaw-white) !important;
+  background: var(--pslaw-primary) !important;
+  border-color: var(--pslaw-primary) !important;
+  color: #fff !important;
   transform: translateY(-1px) !important;
 }
 
-/* Messages Area */
+/* ===========================
+   Messages Area & Bubbles
+   =========================== */
 .pslaw-messages {
   flex: 1 !important;
   overflow-y: auto !important;
@@ -201,22 +257,17 @@
   display: flex !important;
   flex-direction: column !important;
   gap: 12px !important;
+  background: var(--pslaw-white) !important;
 }
 
-/* Message Bubbles */
 .pslaw-message {
   display: flex !important;
   gap: 8px !important;
   animation: pslaw-fadeIn 0.3s ease !important;
 }
 
-.pslaw-message.pslaw-user {
-  justify-content: flex-end !important;
-}
-
-.pslaw-message.pslaw-assistant {
-  justify-content: flex-start !important;
-}
+.pslaw-message.pslaw-user { justify-content: flex-end !important; }
+.pslaw-message.pslaw-assistant { justify-content: flex-start !important; }
 
 .pslaw-message-bubble {
   max-width: 75% !important;
@@ -230,13 +281,14 @@
 
 .pslaw-user .pslaw-message-bubble {
   background: var(--pslaw-navy) !important;
-  color: white !important;
+  color: #fff !important;
   border-bottom-right-radius: 4px !important;
 }
 
 .pslaw-assistant .pslaw-message-bubble {
   background: var(--pslaw-gray) !important;
   color: var(--pslaw-text) !important;
+  border: 1px solid var(--pslaw-border) !important;
   border-bottom-left-radius: 4px !important;
 }
 
@@ -245,7 +297,8 @@
   display: flex !important;
   gap: 4px !important;
   padding: 12px !important;
-  background: var(--pslaw-gray) !important;
+  background: #eef3ff !important;
+  border: 1px solid #d9e3ff !important;
   border-radius: 12px !important;
   width: fit-content !important;
 }
@@ -258,23 +311,20 @@
   opacity: 0.4 !important;
   animation: pslaw-pulse 1.4s infinite !important;
 }
+.pslaw-typing-dot:nth-child(2) { animation-delay: 0.2s !important; }
+.pslaw-typing-dot:nth-child(3) { animation-delay: 0.4s !important; }
 
-.pslaw-typing-dot:nth-child(2) {
-  animation-delay: 0.2s !important;
-}
-
-.pslaw-typing-dot:nth-child(3) {
-  animation-delay: 0.4s !important;
-}
-
-/* Input Area */
+/* ===========================
+   Input Area
+   =========================== */
 .pslaw-input-container {
-  padding: 12px 16px 16px !important;
+  padding: 12px 12px 14px !important;
   border-top: 1px solid var(--pslaw-border) !important;
   display: flex !important;
   gap: 8px !important;
   align-items: flex-end !important;
   flex-shrink: 0 !important;
+  background: #f9fbff !important;
 }
 
 .pslaw-input {
@@ -282,8 +332,8 @@
   min-height: 40px !important;
   max-height: 120px !important;
   padding: 10px 14px !important;
-  border: 1px solid var(--pslaw-border) !important;
-  border-radius: 20px !important;
+  border: 1px solid #dfe3ee !important;
+  border-radius: 18px !important;
   resize: none !important;
   font-size: 1rem !important;
   font-family: 'Open Sans', sans-serif !important;
@@ -292,16 +342,13 @@
   outline: none !important;
   transition: border-color 0.2s !important;
 }
-
-.pslaw-input:focus {
-  border-color: var(--pslaw-navy) !important;
-}
+.pslaw-input:focus { border-color: var(--pslaw-navy) !important; }
 
 .pslaw-send-btn {
-  width: 40px !important;
-  height: 40px !important;
+  width: 42px !important;
+  height: 42px !important;
   border-radius: 50% !important;
-  background: #ff4900 !important;
+  background: var(--pslaw-navy) !important;
   border: none !important;
   color: white !important;
   cursor: pointer !important;
@@ -310,30 +357,24 @@
   justify-content: center !important;
   transition: background 0.2s !important;
   flex-shrink: 0 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12) !important;
 }
+.pslaw-send-btn:hover:not(:disabled) { background: var(--pslaw-primary) !important; }
+.pslaw-send-btn:disabled { opacity: 0.5 !important; cursor: not-allowed !important; }
 
-.pslaw-send-btn:hover:not(:disabled) {
-  background: var(--pslaw-primary) !important;
-}
-
-.pslaw-send-btn:disabled {
-  opacity: 0.5 !important;
-  cursor: not-allowed !important;
-}
-
-/* Footer Disclaimer */
+/* ===========================
+   Footer & Quick Actions
+   =========================== */
 .pslaw-footer {
   padding: 8px 16px !important;
-  background: var(--pslaw-gray) !important;
-  font-size: 10px !important;
-  color: var(--pslaw-text) !important;
-  opacity: 0.7 !important;
+  background: #f6f7fb !important;
+  font-size: 11px !important;
+  color: #5b6478 !important;
   text-align: center !important;
   border-top: 1px solid var(--pslaw-border) !important;
   font-family: 'Open Sans', sans-serif !important;
 }
 
-/* Quick Actions */
 .pslaw-quick-actions {
   display: flex !important;
   gap: 8px !important;
@@ -345,45 +386,25 @@
 .pslaw-quick-action {
   padding: 6px 12px !important;
   background: var(--pslaw-white) !important;
-  border: 1px solid var(--pslaw-navy) !important;
+  border: 1px solid var(--pslaw-navy-ink) !important;
   border-radius: 16px !important;
-  color: var(--pslaw-navy) !important;
+  color: var(--pslaw-navy-ink) !important;
   font-size: 12px !important;
   text-decoration: none !important;
   transition: all 0.2s !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-
 .pslaw-quick-action:hover {
   background: var(--pslaw-navy) !important;
   color: var(--pslaw-white) !important;
 }
 
-/* Animations */
-@keyframes pslaw-fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pslaw-pulse {
-  0%, 60%, 100% {
-    opacity: 0.4;
-  }
-  30% {
-    opacity: 1;
-  }
-}
-
-/* Error Message */
+/* ===========================
+   Error Message
+   =========================== */
 .pslaw-error {
   padding: 12px !important;
-  background: #ff4900 !important;
+  background: #fee2e2 !important;
   border: 1px solid #fca5a5 !important;
   border-radius: 8px !important;
   color: #dc2626 !important;
@@ -395,20 +416,19 @@
 .pslaw-retry-btn {
   margin-top: 8px !important;
   padding: 6px 12px !important;
-  background: #ffffff !important;
-  color: #000000 !important;
+  background: #dc2626 !important;
+  color: white !important;
   border: none !important;
   border-radius: 4px !important;
   cursor: pointer !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-family: 'Open Sans', sans-serif !important;
 }
+.pslaw-retry-btn:hover { background: #b91c1c !important; }
 
-.pslaw-retry-btn:hover {
-  background: #ffffff !important;
-}
-
-/* Accessibility Focus Styles */
+/* ===========================
+   Accessibility Focus Styles
+   =========================== */
 #pslaw-chat-fab:focus-visible,
 .pslaw-modal-close:focus-visible,
 .pslaw-chip:focus-visible,
@@ -421,4 +441,17 @@
 /* Hide when not active */
 [data-pslaw-root][hidden] {
   display: none !important;
+}
+
+/* ===========================
+   Animations
+   =========================== */
+@keyframes pslaw-fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pslaw-pulse {
+  0%, 60%, 100% { opacity: 0.4; }
+  30% { opacity: 1; }
 }
