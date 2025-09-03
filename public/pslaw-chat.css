@@ -120,7 +120,7 @@
     bottom: 0 !important;
     left: 20 !important;
     right: 20 !important;
-    height: 70vh !important;
+    height: 85vh !important;
     border-radius: 0 !important;
     transform: translateY(100%) !important;
   }
@@ -178,8 +178,8 @@
   padding: 8px 14px !important;
   background: var(--pslaw-gray) !important;
   border: 1px solid var(--pslaw-border) !important;
-  border-radius: 20px !important;
-  font-size: 13px !important;
+  border-radius: 15px !important;
+  font-size: 11.5px !important;
   color: var(--pslaw-navy) !important;
   cursor: pointer !important;
   transition: all 0.2s !important;
@@ -301,7 +301,7 @@
   width: 40px !important;
   height: 40px !important;
   border-radius: 50% !important;
-  background: var(--pslaw-navy) !important;
+  background: #ff4900 !important;
   border: none !important;
   color: white !important;
   cursor: pointer !important;
@@ -325,7 +325,7 @@
 .pslaw-footer {
   padding: 8px 16px !important;
   background: var(--pslaw-gray) !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
   color: var(--pslaw-text) !important;
   opacity: 0.7 !important;
   text-align: center !important;
@@ -383,7 +383,7 @@
 /* Error Message */
 .pslaw-error {
   padding: 12px !important;
-  background: #fee2e2 !important;
+  background: #ff4900 !important;
   border: 1px solid #fca5a5 !important;
   border-radius: 8px !important;
   color: #dc2626 !important;
@@ -395,17 +395,17 @@
 .pslaw-retry-btn {
   margin-top: 8px !important;
   padding: 6px 12px !important;
-  background: #dc2626 !important;
-  color: white !important;
+  background: #ffffff !important;
+  color: #000000 !important;
   border: none !important;
   border-radius: 4px !important;
   cursor: pointer !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   font-family: 'Open Sans', sans-serif !important;
 }
 
 .pslaw-retry-btn:hover {
-  background: #b91c1c !important;
+  background: #ffffff !important;
 }
 
 /* Accessibility Focus Styles */
