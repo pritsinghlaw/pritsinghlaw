@@ -153,7 +153,10 @@ Direct users to call (510) 443-2123 or book a consultation for specific legal ma
 
 // Calendly integration endpoint
 app.get('/api/calendly-slots', async (req, res) => {
-  if (!process.env.CALENDLY_API_KEY) {
+  const calendlyToken = process.env.CALENDLY_ACCESS_TOKEN;
+  const calendlyUserUri = process.env.CALENDLY_USER_URI;
+  
+  if (!calendlyToken || !calendlyUserUri) {
     return res.json({ 
       available: false,
       message: 'Please call (510) 443-2123 or use our online intake form',
@@ -161,15 +164,111 @@ app.get('/api/calendly-slots', async (req, res) => {
     });
   }
   
-  // TODO: Implement actual Calendly API integration
-  res.json({
-    available: true,
-    slots: [
-      { time: 'Tomorrow at 10:00 AM', available: true },
-      { time: 'Tomorrow at 2:00 PM', available: true },
-      { time: 'Friday at 11:00 AM', available: true }
-    ]
-  });
+  try {
+    // Get user's event types
+    const eventTypesResponse = await fetch(`https://api.calendly.com/event_types?user=${calendlyUserUri}&active=true`, {
+      headers: {
+        'Authorization': `Bearer ${calendlyToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!eventTypesResponse.ok) {
+      throw new Error('Failed to fetch event types');
+    }
+    
+    const eventTypesData = await eventTypesResponse.json();
+    const eventTypes = eventTypesData.collection || [];
+    
+    // Get the first available event type (usually consultation)
+    const consultationEvent = eventTypes.find(e => 
+      e.name.toLowerCase().includes('consultation') || 
+      e.name.toLowerCase().includes('meeting')
+    ) || eventTypes[0];
+    
+    if (!consultationEvent) {
+      return res.json({
+        available: false,
+        message: 'No consultation slots available. Please call (510) 443-2123',
+        fallbackUrl: '/client-area/intake-form'
+      });
+    }
+    
+    // Return the consultation event details with scheduling URL
+    // Note: Event Type Available Times API requires additional permissions
+    // For now, we'll provide the direct scheduling link
+    res.json({
+      available: true,
+      eventType: {
+        name: consultationEvent.name,
+        duration: consultationEvent.duration,
+        description: consultationEvent.description_plain || consultationEvent.description_html,
+        schedulingUrl: consultationEvent.scheduling_url
+      },
+      bookingUrl: consultationEvent.scheduling_url,
+      message: `Schedule your ${consultationEvent.duration}-minute ${consultationEvent.name}`,
+      instructions: 'Click the button below to view available times and book your consultation directly on Calendly.'
+    });
+    
+  } catch (error) {
+    console.error('Calendly API error:', error);
+    res.json({
+      available: false,
+      message: 'Unable to fetch available times. Please call (510) 443-2123 or use our online intake form',
+      fallbackUrl: '/client-area/intake-form',
+      calendlyUrl: 'https://calendly.com/pritsinghlaw'
+    });
+  }
+});
+
+// Create Calendly booking endpoint
+app.post('/api/calendly-booking', async (req, res) => {
+  const { name, email, eventTypeUri, startTime } = req.body;
+  const calendlyToken = process.env.CALENDLY_ACCESS_TOKEN;
+  
+  if (!calendlyToken) {
+    return res.status(400).json({ 
+      success: false,
+      message: 'Booking system not configured. Please call (510) 443-2123'
+    });
+  }
+  
+  try {
+    // Create invitee for the booking
+    const response = await fetch('https://api.calendly.com/scheduled_events', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${calendlyToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        event_type: eventTypeUri,
+        start_time: startTime,
+        invitee: {
+          name: name,
+          email: email
+        }
+      })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      res.json({
+        success: true,
+        message: 'Consultation booked successfully!',
+        eventUri: data.resource.uri,
+        joinUrl: data.resource.join_url
+      });
+    } else {
+      throw new Error('Failed to create booking');
+    }
+  } catch (error) {
+    console.error('Calendly booking error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Unable to complete booking. Please call (510) 443-2123'
+    });
+  }
 });
 
 // Zapier webhook endpoint

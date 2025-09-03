@@ -68,7 +68,7 @@ Preferred communication style: Simple, everyday language.
 - **Google Fonts**: Typography using Open Sans and Geologica font families
 - **Font Awesome**: Icon system for UI elements
 - **LawPay**: Secure payment processing for legal services
-- **Calendly**: Appointment scheduling integration (planned)
+- **Calendly**: Appointment scheduling integration with real-time API (active)
 - **Zapier**: Webhook integration for form submissions and workflow automation
 
 ### Development Tools

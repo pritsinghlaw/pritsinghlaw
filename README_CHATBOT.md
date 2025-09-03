@@ -9,15 +9,21 @@ Production-ready AI chatbot for Law Offices of Pritpal Singh website with OpenAI
 - **OpenAI Integration**: Server-side proxy for secure API calls
 - **Knowledge Base**: Pre-loaded information about firm services
 - **Suggestion Chips**: Quick action buttons for common queries
-- **Calendly Integration**: Placeholder for appointment booking
-- **Zapier Webhook**: Placeholder for lead capture
+- **Calendly Integration**: Real-time availability and direct booking links
+- **Zapier Webhook**: Lead capture for follow-up
 
 ## Environment Variables
 Required in Replit Secrets:
 - `OPENAI_API_KEY` - Your OpenAI API key (REQUIRED)
 - `OPENAI_MODEL` - Model to use (optional, defaults to gpt-4o-mini)
-- `CALENDLY_API_KEY` - For appointment scheduling (optional)
+- `CALENDLY_ACCESS_TOKEN` - Calendly Personal Access Token (REQUIRED for booking)
+- `CALENDLY_USER_URI` - Your Calendly user URI from API (REQUIRED for booking)
 - `ZAPIER_WEBHOOK_URL` - For lead capture (optional)
+
+### Setting Up Calendly Integration
+1. Get your Personal Access Token from [Calendly Developer Portal](https://developer.calendly.com/api-docs/005832c83e164-get-current-user)
+2. Get your User URI by calling the `/users/me` endpoint with your token
+3. Add both values to Replit Secrets
 
 ## Architecture
 
