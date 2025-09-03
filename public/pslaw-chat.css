@@ -1,14 +1,14 @@
 /* ===========================
-   PSLaw Chat Widget – Starkly-style (Navy + Orange)
+   PSLaw Chat Widget – Navy + Orange (merged)
    =========================== */
 
 /* Root theme tokens */
 [data-pslaw-root] {
   --pslaw-primary: #ff4900;        /* orange */
   --pslaw-navy: #001f54;           /* deep navy */
-  --pslaw-navy-ink: #0b2a6a;       /* slightly lighter ink for borders/icons */
+  --pslaw-navy-ink: #0b2a6a;       /* lighter ink */
   --pslaw-white: #ffffff;
-  --pslaw-gray: #f5f6f8;           /* softer chat bg */
+  --pslaw-gray: #f5f6f8;           /* soft chat bg */
   --pslaw-text: #343b4a;
   --pslaw-border: #e6e8ee;
   --pslaw-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
@@ -24,7 +24,7 @@
   right: 20px !important;
   width: 60px !important;
   height: 60px !important;
-  border-radius: 15px !important;
+  border-radius: 16px !important;
   background-color: var(--pslaw-primary) !important;
   background-image: url('/public/assets/pslaw-chat-icon.png');
   background-size: 90% !important;
@@ -57,7 +57,7 @@
   align-items: center !important;
   justify-content: center !important;
   background: var(--pslaw-primary) !important;
-  border-radius: 15px !important;
+  border-radius: 16px !important;
   color: #fff !important;
 }
 
@@ -92,7 +92,7 @@
    =========================== */
 .pslaw-modal {
   position: fixed !important;
-  z-index: 2147483002 !important; /* (unchanged by request) */
+  z-index: 2147483002 !important; /* per request, unchanged */
   background: var(--pslaw-white) !important;
   border-radius: 18px !important;
   border: 1px solid rgba(0,0,0,.06) !important;
@@ -111,7 +111,7 @@
   pointer-events: all !important;
 }
 
-/* Desktop Modal */
+/* Desktop default size */
 @media (min-width: 768px) {
   .pslaw-modal {
     top: 50% !important;
@@ -125,7 +125,7 @@
   }
 }
 
-/* Mobile Modal (floating drawer look) */
+/* Mobile floating drawer */
 @media (max-width: 767px) {
   .pslaw-modal {
     left: 12px !important;
@@ -167,7 +167,7 @@
   gap: 10px !important;
 }
 
-/* Online status pill (as in screenshot) */
+/* Online status pill */
 .pslaw-status {
   display: inline-flex !important;
   align-items: center !important;
@@ -187,21 +187,33 @@
   display: inline-block;
 }
 
+/* Header actions (expand + dark mode + close) */
+.pslaw-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.pslaw-action-btn,
 .pslaw-modal-close {
   background: none !important;
   border: none !important;
-  font-size: 24px !important;
-  color: #e7ecff !important;
-  cursor: pointer !important;
   padding: 4px !important;
-  line-height: 1 !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+  color: #e7ecff !important;
   opacity: 0.9 !important;
-  transition: opacity 0.2s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background 0.2s, opacity 0.2s !important;
+  line-height: 1 !important;
 }
-.pslaw-modal-close:hover { opacity: 1 !important; }
+.pslaw-action-btn:hover,
+.pslaw-modal-close:hover { background: rgba(255,255,255,0.15) !important; opacity: 1 !important; }
+.pslaw-action-btn svg { display: block; }
 
 /* ===========================
-   Suggestion Chips (row)
+   Suggestion Chips
    =========================== */
 .pslaw-suggestions {
   padding: 12px 14px !important;
@@ -222,24 +234,20 @@
   transition: all 0.2s !important;
   white-space: nowrap !important;
   font-family: 'Open Sans', sans-serif !important;
-
   background: #f0f4ff !important;     /* light navy tint */
   border: 1px solid #dfe6f5 !important;
   color: #10356d !important;
 }
-
 .pslaw-chip:nth-child(2) {
-  background: #fff3ea !important;      /* light orange tint */
+  background: #fff3ea !important;      /* light orange */
   border-color: #ffe1cf !important;
   color: #7a2a00 !important;
 }
-
 .pslaw-chip:nth-child(3) {
   background: #f6f7fb !important;      /* neutral */
   border-color: #e9edf6 !important;
   color: #2c3552 !important;
 }
-
 .pslaw-chip:hover {
   background: var(--pslaw-primary) !important;
   border-color: var(--pslaw-primary) !important;
@@ -265,7 +273,6 @@
   gap: 8px !important;
   animation: pslaw-fadeIn 0.3s ease !important;
 }
-
 .pslaw-message.pslaw-user { justify-content: flex-end !important; }
 .pslaw-message.pslaw-assistant { justify-content: flex-start !important; }
 
@@ -278,13 +285,11 @@
   word-wrap: break-word !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-
 .pslaw-user .pslaw-message-bubble {
   background: var(--pslaw-navy) !important;
   color: #fff !important;
   border-bottom-right-radius: 4px !important;
 }
-
 .pslaw-assistant .pslaw-message-bubble {
   background: var(--pslaw-gray) !important;
   color: var(--pslaw-text) !important;
@@ -302,7 +307,6 @@
   border-radius: 12px !important;
   width: fit-content !important;
 }
-
 .pslaw-typing-dot {
   width: 8px !important;
   height: 8px !important;
@@ -326,7 +330,6 @@
   flex-shrink: 0 !important;
   background: #f9fbff !important;
 }
-
 .pslaw-input {
   flex: 1 !important;
   min-height: 40px !important;
@@ -374,7 +377,6 @@
   border-top: 1px solid var(--pslaw-border) !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-
 .pslaw-quick-actions {
   display: flex !important;
   gap: 8px !important;
@@ -382,12 +384,11 @@
   flex-wrap: wrap !important;
   justify-content: center !important;
 }
-
 .pslaw-quick-action {
   padding: 6px 12px !important;
   background: var(--pslaw-white) !important;
   border: 1px solid var(--pslaw-navy-ink) !important;
-  border-radius: 15px !important;
+  border-radius: 16px !important;
   color: var(--pslaw-navy-ink) !important;
   font-size: 12px !important;
   text-decoration: none !important;
@@ -412,7 +413,6 @@
   margin: 8px 16px !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-
 .pslaw-retry-btn {
   margin-top: 8px !important;
   padding: 6px 12px !important;
@@ -433,80 +433,14 @@
 .pslaw-modal-close:focus-visible,
 .pslaw-chip:focus-visible,
 .pslaw-send-btn:focus-visible,
-.pslaw-quick-action:focus-visible {
+.pslaw-quick-action:focus-visible,
+.pslaw-action-btn:focus-visible {
   outline: 2px solid var(--pslaw-navy) !important;
   outline-offset: 2px !important;
 }
 
-
-
-
-
-/* ===========================
-   Header Actions (Expand + Dark mode)
-   =========================== */
-.pslaw-header-actions {
-  display: flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-}
-
-.pslaw-action-btn {
-  background: none !important;
-  border: none !important;
-  padding: 4px !important;
-  cursor: pointer !important;
-  border-radius: 6px !important;
-  color: #e7ecff !important;
-  opacity: 0.9 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: background 0.2s, opacity 0.2s !important;
-}
-
-.pslaw-action-btn:hover {
-  background: rgba(255,255,255,0.15) !important;
-  opacity: 1 !important;
-}
-
-.pslaw-action-btn svg {
-  display: block;
-}
-
-/* Dark mode (toggle-ready) */
-[data-pslaw-root].pslaw-dark {
-  --pslaw-white: #0e1624;
-  --pslaw-gray: #1b2231;
-  --pslaw-text: #e0e6f5;
-  --pslaw-border: #2a3244;
-}
-
-[data-pslaw-root].pslaw-dark .pslaw-modal-header {
-  background: #000d2b !important;
-}
-
-[data-pslaw-root].pslaw-dark .pslaw-footer {
-  background: #1b2231 !important;
-  color: #aab3cc !important;
-}
-
-
-
-.pslaw-modal.pslaw-expanded {
-  border-radius: 0 !important;
-  transition: all 0.3s ease !important;
-}
-
-
-
 /* Hide when not active */
-[data-pslaw-root][hidden] {
-  display: none !important;
-}
-
-
-
+[data-pslaw-root][hidden] { display: none !important; }
 
 /* ===========================
    Animations
@@ -515,10 +449,113 @@
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes pslaw-pulse {
   0%, 60%, 100% { opacity: 0.4; }
   30% { opacity: 1; }
 }
 
+/* ===========================
+   Dark Mode Variants
+   =========================== */
+[data-pslaw-root].pslaw-dark {
+  --pslaw-white: #0e1624;       /* background base */
+  --pslaw-gray: #1b2231;        /* bubble & drawer bg */
+  --pslaw-text: #e0e6f5;        /* body text */
+  --pslaw-border: #2a3244;
+}
+[data-pslaw-root].pslaw-dark .pslaw-modal-header {
+  background: #000d2b !important;
+  color: var(--pslaw-text) !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-modal-title { color: #f0f4ff !important; }
+[data-pslaw-root].pslaw-dark .pslaw-status {
+  background: rgba(255,255,255,.08) !important;
+  color: #c4d0f7 !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-suggestions {
+  background: #121a2b !important;
+  border-color: var(--pslaw-border) !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-chip {
+  background: #1b2539 !important;
+  border-color: #2a3244 !important;
+  color: #d1d9f0 !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-chip:hover {
+  background: var(--pslaw-primary) !important;
+  border-color: var(--pslaw-primary) !important;
+  color: #fff !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-messages { background: #0e1624 !important; }
+[data-pslaw-root].pslaw-dark .pslaw-assistant .pslaw-message-bubble {
+  background: #1b2231 !important; border-color: #2a3244 !important; color: #d9e2f8 !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-user .pslaw-message-bubble {
+  background: var(--pslaw-primary) !important; color: #fff !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-typing { background: #1b2231 !important; border-color: #2a3244 !important; }
+[data-pslaw-root].pslaw-dark .pslaw-typing-dot { background: #d9e2f8 !important; }
+[data-pslaw-root].pslaw-dark .pslaw-input-container {
+  background: #121a2b !important; border-top: 1px solid var(--pslaw-border) !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-input {
+  background: #1b2231 !important; border: 1px solid #2a3244 !important; color: #e0e6f5 !important;
+}
+[data-pslaw-root].pslaw-dark .pslaw-input::placeholder { color: #7f8dab !important; }
+[data-pslaw-root].pslaw-dark .pslaw-send-btn { background: var(--pslaw-primary) !important; }
+[data-pslaw-root].pslaw-dark .pslaw-send-btn:hover { background: #ff7236 !important; }
+[data-pslaw-root].pslaw-dark .pslaw-footer { background: #121a2b !important; color: #aab3cc !important; }
+[data-pslaw-root].pslaw-dark .pslaw-quick-action { border-color: #4b5a7a !important; color: #c9d2ec !important; }
+[data-pslaw-root].pslaw-dark .pslaw-quick-action:hover { background: var(--pslaw-primary) !important; color: #fff !important; }
 
+/* ===========================
+   Expanded (App-like) Mode
+   =========================== */
+.pslaw-modal.pslaw-expanded {
+  /* edge-to-edge app layout */
+  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100vw !important; height: 100dvh !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;                 /* app-like: no outer shadow */
+  border: none !important;
+}
+
+/* When expanded, make header + input sticky for app feel */
+.pslaw-modal.pslaw-expanded .pslaw-modal-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1 !important;
+  border-radius: 0 !important;
+}
+.pslaw-modal.pslaw-expanded .pslaw-suggestions {
+  position: sticky !important;
+  top: 56px !important; /* sits just below header */
+  z-index: 1 !important;
+}
+.pslaw-modal.pslaw-expanded .pslaw-input-container,
+.pslaw-modal.pslaw-expanded .pslaw-footer {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 1 !important;
+}
+.pslaw-modal.pslaw-expanded .pslaw-messages {
+  padding: 16px clamp(12px, 2vw, 20px) !important;
+}
+
+/* Expanded + Dark: remove subtle dividers for cleaner canvas */
+[data-pslaw-root].pslaw-dark .pslaw-modal.pslaw-expanded .pslaw-suggestions {
+  border-top: 1px solid transparent !important;
+  border-bottom: 1px solid transparent !important;
+}
+
+/* Hide overlay visual when expanded (but keep z-index intact) */
+.pslaw-modal.pslaw-expanded ~ .pslaw-modal-overlay,
+.pslaw-modal.pslaw-expanded + .pslaw-modal-overlay {
+  background: transparent !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Optional: nicer transition into expanded */
+.pslaw-modal.pslaw-expanded { transition: border-radius 0.3s ease, box-shadow 0.3s ease !important; }
