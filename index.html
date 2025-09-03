@@ -884,36 +884,44 @@ visibility:hidden!important;
 
 
 <style id="nav-dropdown-core">
-/* --- NAV / DROPDOWNS: single source of truth --- */
+/* --- NAV / DROPDOWNS (desktop + mobile) --- */
 
-/* Sizing/safety: let dropdowns size to content and never exceed viewport height */
+/* Let lists size to content and never exceed viewport height */
 .navbar-dropdown-list-container{
   width: fit-content !important;
   max-height: 70vh !important;
   overflow-y: auto !important;
 }
 
-/* Desktop behavior: closed lists are invisible & non-interactive */
+/* Base positioning for lists controlled by the dropdown container */
+.navbar-menu-dropdown > .w-dropdown-list{
+  position: absolute; top: 100%; left: 0;
+  z-index: 1000;
+}
+
+/* Desktop: closed = invisible & non-interactive */
 @media (min-width: 992px){
   .navbar-menu-dropdown > .w-dropdown-list{
-    position: absolute; top: 100%; left: 0;
     display: none !important;
-    opacity: 0 !important; visibility: hidden !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
     pointer-events: none !important;
-    z-index: 1000;
   }
-  /* Open on hover/focus OR when script sets .w--open (also keyboard-accessible) */
+  /* Open when hovered/focused, or when JS pins it (.w--open) */
   .navbar-menu-dropdown:hover > .w-dropdown-list,
   .navbar-menu-dropdown:focus-within > .w-dropdown-list,
   .navbar-menu-dropdown.w--open > .w-dropdown-list{
-    display: block !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 }
 
-/* Small fixes you’re using elsewhere; keep them in one place */
+/* Small general tweak you already rely on */
 .text-size-large-1 { line-height: 1.5 !important; font-size: 16px !important; }
 .link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
-  </style>
+</style>
   
   
 </head>
