@@ -286,7 +286,54 @@
   function handleSuggestion(suggestion) {
     const input = document.querySelector('#pslaw-input');
     input.value = suggestion;
-    sendMessage();
+    
+    // Special handling for consultation booking
+    if (suggestion === 'Book A Free Consultation') {
+      sendMessage();
+      // Automatically trigger Calendly check
+      setTimeout(() => {
+        handleCalendlyBooking();
+      }, 2000);
+    } else {
+      sendMessage();
+    }
+  }
+  
+  async function handleCalendlyBooking() {
+    showTypingIndicator();
+    
+    try {
+      const response = await fetch(CONFIG.calendlyEndpoint);
+      const data = await response.json();
+      
+      hideTypingIndicator();
+      
+      if (data.available && data.bookingUrl) {
+        const messagesEl = document.querySelector('#pslaw-messages');
+        const messageEl = document.createElement('div');
+        messageEl.className = 'pslaw-message pslaw-assistant';
+        
+        let html = '<div class="pslaw-message-bubble">';
+        html += '<strong>Schedule Your Free Consultation</strong><br><br>';
+        
+        if (data.eventType) {
+          html += `${data.message}<br><br>`;
+          if (data.instructions) {
+            html += `${data.instructions}<br><br>`;
+          }
+        }
+        
+        html += `<a href="${data.bookingUrl}" target="_blank" style="display: inline-block; padding: 10px 20px; background: var(--pslaw-navy); color: white; text-decoration: none; border-radius: 4px; font-weight: 500;">📅 Open Calendly Scheduler</a>`;
+        html += '</div>';
+        
+        messageEl.innerHTML = html;
+        messagesEl.appendChild(messageEl);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+    } catch (error) {
+      hideTypingIndicator();
+      console.error('Calendly booking error:', error);
+    }
   }
 
   async function sendMessage() {
@@ -528,31 +575,97 @@
     for (const tool of toolCalls) {
       if (tool.function.name === 'book_consultation') {
         // Handle consultation booking
-        const response = await fetch(CONFIG.calendlyEndpoint);
-        const data = await response.json();
+        showTypingIndicator();
         
-        if (data.available && data.slots) {
-          let message = 'Available consultation times:\n';
-          data.slots.forEach(slot => {
-            message += `• ${slot.time}\n`;
-          });
-          addMessage('assistant', message);
-        } else {
-          addMessage('assistant', 'Please call (510) 443-2123 or use our online intake form to schedule a consultation.');
+        try {
+          const response = await fetch(CONFIG.calendlyEndpoint);
+          const data = await response.json();
+          
+          hideTypingIndicator();
+          
+          if (data.available) {
+            let messageHtml = '';
+            
+            if (data.eventType) {
+              messageHtml += `<strong>${data.eventType.name}</strong>`;
+              if (data.eventType.duration) {
+                messageHtml += ` (${data.eventType.duration} minutes)`;
+              }
+              messageHtml += '<br><br>';
+            }
+            
+            if (data.message) {
+              messageHtml += `${data.message}<br>`;
+            }
+            
+            if (data.instructions) {
+              messageHtml += `${data.instructions}<br><br>`;
+            }
+            
+            if (data.bookingUrl) {
+              messageHtml += `<a href="${data.bookingUrl}" target="_blank" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background: var(--pslaw-navy); color: white; text-decoration: none; border-radius: 4px; font-weight: 500;">📅 View Available Times & Book</a>`;
+            }
+            
+            // Add message with HTML content
+            const messagesEl = document.querySelector('#pslaw-messages');
+            const messageEl = document.createElement('div');
+            messageEl.className = 'pslaw-message pslaw-assistant';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'pslaw-message-bubble';
+            bubble.innerHTML = messageHtml;
+            
+            messageEl.appendChild(bubble);
+            messagesEl.appendChild(messageEl);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            
+            // Save to state
+            state.messages.push({ 
+              role: 'assistant', 
+              content: data.message || 'Consultation booking available',
+              timestamp: Date.now() 
+            });
+            saveMessages();
+          } else {
+            addMessage('assistant', data.message || 'Please call (510) 443-2123 or use our online intake form to schedule a consultation.');
+            
+            if (data.fallbackUrl) {
+              // Add a button for the intake form
+              const messagesEl = document.querySelector('#pslaw-messages');
+              const lastMessage = messagesEl.lastElementChild.querySelector('.pslaw-message-bubble');
+              lastMessage.innerHTML += `<br><a href="${data.fallbackUrl}" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: var(--pslaw-primary); color: white; text-decoration: none; border-radius: 4px;">Fill Intake Form</a>`;
+            }
+          }
+        } catch (error) {
+          hideTypingIndicator();
+          console.error('Calendly error:', error);
+          addMessage('assistant', 'I apologize, but I encountered an error accessing the scheduling system. Please call (510) 443-2123 to schedule your consultation.');
         }
         
         dispatchChatEvent('tool', { tool: 'book_consultation' });
       } else if (tool.function.name === 'intake_webhook') {
         // Handle intake webhook
         const args = JSON.parse(tool.function.arguments);
-        await fetch(CONFIG.intakeWebhookEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...args,
-            transcript: state.messages
-          })
-        });
+        
+        try {
+          const response = await fetch(CONFIG.intakeWebhookEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...args,
+              transcript: state.messages
+            })
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+              addMessage('assistant', 'Thank you! Your information has been received. Our team will contact you shortly.');
+            }
+          }
+        } catch (error) {
+          console.error('Intake webhook error:', error);
+        }
         
         dispatchChatEvent('tool', { tool: 'intake_webhook' });
       }
