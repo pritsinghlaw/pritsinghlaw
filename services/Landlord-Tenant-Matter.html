@@ -32,7 +32,7 @@
 .w-nav-button.w--open .menu-icon-line-middle-inner,
 .w-nav-button.w--open .menu-icon-line-bottom{
   opacity: 0;
-  transition: opacity .2s ease;
+  transition: opacity .50s ease;
 }
 
 /* Draw the X using centered pseudo-elements (fixed width) */
@@ -48,7 +48,7 @@
   border-radius: 2px;
   pointer-events: none;
   transform-origin: center;
-  transition: transform .25s ease;
+  transition: transform .75s ease;
 }
 
 /* Cross it */
@@ -59,13 +59,7 @@
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* Accessibility: reduce motion if the user prefers */
-@media (prefers-reduced-motion: reduce){
-  .w-nav-button.w--open .menu-icon::before,
-  .w-nav-button.w--open .menu-icon::after{
-    transition: none;
-  }
-}
+
 </style>
 
 
