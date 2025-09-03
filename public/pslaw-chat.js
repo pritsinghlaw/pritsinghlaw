@@ -152,7 +152,9 @@
     
     modal.innerHTML = `
       <div class="pslaw-modal-header">
-        <h2 id="pslaw-modal-title" class="pslaw-modal-title">Law Offices of Pritpal Singh</h2>
+        <span><img src="/icon.png" width="24" height="auto"/></span><h2 id="pslaw-modal-title" class="pslaw-modal-title">  AI Legal Assistance</h2> 
+        <br>
+         <span class="pslaw-status">Online</span>
         <button class="pslaw-modal-close" aria-label="Close chat">&times;</button>
       </div>
       <div class="pslaw-suggestions">${CONFIG.suggestions.map(s => `<button class="pslaw-chip" data-suggestion="${s}">${s}</button>`).join('')}</div>
@@ -251,7 +253,7 @@
     showTypingIndicator();
     const token = CONFIG.calendlyAccessToken;
 
-    if (!token || token.includes('YOUR_CALENDLY_ACCESS_TOKEN_HERE')) {
+    if (!token || token.includes('eyJraWQiOiIxY2UxZTEzNjE3ZGNmNzY2YjNjZWJjY2Y4ZGM1YmFmYThhNjVlNjg0MDIzZjdjMzJiZTgzNDliMjM4MDEzNWI0IiwidHlwIjoiUEFUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNzU1NTMzNDAxLCJqdGkiOiI5ODFjODM5Zi0yOGEwLTRlNjItYmQzYS1kYTE1MzU4NDhjMDkiLCJ1c2VyX3V1aWQiOiJmNGFiNGM3Yy0wZGY2LTRjMWUtYjE3ZC1kYmU5YmVkZjMwMTYifQ.DofhJDS_WNqrl5A_0ryLmApxTtWNIjCpyWPI14WbdfIkCsT_QAZRgG4GdvbxBXTgopUkjsko8d6iKb9nVSebRQ')) {
         hideTypingIndicator();
         addMessage('assistant', 'The scheduling feature is not configured correctly. Please contact us directly to book an appointment.');
         console.error('Calendly Access Token is missing or is a placeholder.');
