@@ -946,6 +946,41 @@ visibility:hidden!important;
   }
 }
 </style>
+
+
+<style id="dropdown-ghostclick-guard">
+/* Desktop: a closed dropdown must not be hit-testable */
+@media (min-width: 992px){
+  /* CLOSED state */
+  .navbar-menu-dropdown > .w-dropdown-list {
+    position: absolute;
+    top: 100%; left: 0;
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: 1000;
+  }
+
+  /* OPEN state: hover/focus or explicit .w--open */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* If any inline display:block lingers after close, still neuter it */
+  .navbar-menu-dropdown:not(:hover):not(.w--open) > .w-dropdown-list[style*="display: block"]{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+</style>
   
 </head>
 <body>
@@ -1804,6 +1839,47 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- PSLaw Chat Widget 
 <script defer src="/public/pslaw-chat.js"></script>
 --->
+
+
+<script id="dropdown-ghostclick-sanitizer">
+(function(){
+  const DESKTOP = window.matchMedia('(min-width: 992px)');
+
+  function sanitizeAll(){
+    if (!DESKTOP.matches) return;
+    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
+      // Remove any "open" class that might persist
+      dd.classList.remove('w--open');
+
+      // Strip inline styles Webflow or mobile JS may have left behind
+      const list = dd.querySelector('.w-dropdown-list');
+      if (list){
+        list.style.removeProperty('display');
+        list.style.removeProperty('opacity');
+        list.style.removeProperty('visibility');
+        list.style.removeProperty('pointer-events');
+      }
+    });
+  }
+
+  // After each dropdown “area” is exited with the mouse, sanitize
+  document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
+    dd.addEventListener('mouseleave', sanitizeAll);
+  });
+
+  // Prevent click-toggling on desktop (hover handles open/close)
+  document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"] .w-dropdown-toggle')
+    .forEach(tg=>{
+      tg.addEventListener('click', function(e){
+        if (DESKTOP.matches){ e.preventDefault(); e.stopPropagation(); }
+      }, true);
+    });
+
+  // Also sanitize on load and when resizing up to desktop
+  window.addEventListener('load', sanitizeAll);
+  window.addEventListener('resize', sanitizeAll);
+})();
+</script>
 
 </body>
 </html>
