@@ -592,14 +592,14 @@ visibility:hidden!important;
     flex-direction:column;
   }
 
-  /* Subtle glow on hover/focus */
+  
   .link-card-practice-areas:hover .card-background,
   .link-card-practice-areas:focus .card-background,
   .link-card-practice-areas:focus-within .card-background {
     transform: translateY(-4px);
   }
 
-  /* Stronger glow on click */
+  
   .link-card-practice-areas:active .card-background {
     transform: translateY(-2px) scale(.99);
   }
@@ -607,12 +607,6 @@ visibility:hidden!important;
 
 </style>
 
-<style>
-  .tcw-branding {
-    visibility:hidden!important;
-    display:none!important;
-  }
-  </style>
   
   
 
@@ -626,11 +620,7 @@ visibility:hidden!important;
     display: block !important;
 }
 
-/* Fix navigation dropdown */
-.navbar-dropdown-list-container {
-    height: auto !important;
-    left:10px !important;
-}
+
 
   .text-size-large-1 {
     line-height: 1.5 !important;
@@ -927,6 +917,34 @@ visibility:hidden!important;
 }
 
   
+</style>
+
+
+<style id="dropdown-clickthrough-hard-stop">
+/* Desktop: a closed dropdown must not be hit-testable */
+@media (min-width: 992px){
+  /* CLOSED state */
+  .navbar-menu-dropdown > .w-dropdown-list,
+  .navbar-menu-dropdown > .navbar-dropdown-list-container.w-dropdown-list{
+    position: absolute;   /* take out of normal flow */
+    top: 100%; left: 0;
+    display: none !important;       /* fully remove from hit-testing */
+    opacity: 0; visibility: hidden; /* visually hidden (for safety) */
+    pointer-events: none;           /* absolutely no clicks */
+  }
+
+  /* OPEN state: show on hover/focus or when Webflow toggles .w--open */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list,
+  .navbar-menu-dropdown:hover > .navbar-dropdown-list-container.w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .navbar-dropdown-list-container.w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .navbar-dropdown-list-container.w-dropdown-list{
+    display: block !important;
+    opacity: 1; visibility: visible; pointer-events: auto;
+    z-index: 1000;
+  }
+}
 </style>
   
 </head>
