@@ -152,9 +152,31 @@
     
     modal.innerHTML = `
       <div class="pslaw-modal-header">
-        <h2 id="pslaw-modal-title" class="pslaw-modal-title">Law Offices of Pritpal Singh</h2>
-        <button class="pslaw-modal-close" aria-label="Close chat">&times;</button>
+        <span><img src="/icon.png" width="24" height="auto"/></span><h3 id="pslaw-modal-title" class="pslaw-modal-title"> AI Legal Assistant
+        
+         <span class="pslaw-status">Online</span>
+        </h3>
+        
+        
+ <div class="pslaw-header-actions">
+        <button class="pslaw-action-btn pslaw-expand" aria-label="Expand">
+          <!-- expand arrows -->
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+        </button>
+        <button class="pslaw-action-btn pslaw-darkmode" aria-label="Toggle dark mode">
+          <!-- moon icon -->
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button class="pslaw-modal-close" aria-label="Close">×</button>
       </div>
+      
       <div class="pslaw-suggestions">${CONFIG.suggestions.map(s => `<button class="pslaw-chip" data-suggestion="${s}">${s}</button>`).join('')}</div>
       <div class="pslaw-messages" id="pslaw-messages"></div>
       <div class="pslaw-quick-actions">
@@ -167,7 +189,7 @@
         <textarea class="pslaw-input" id="pslaw-input" placeholder="Type your message..." aria-label="Type your message" rows="1"></textarea>
         <button class="pslaw-send-btn" id="pslaw-send" aria-label="Send message"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <div class="pslaw-footer">General information only. No attorney–client relationship is formed through this chat.</div>
+      <div class="pslaw-footer">This chat may be kept in our records for quality assurance and training purposes. No attorney–client relationship is formed through this chat.</div>
     `;
     
     root.appendChild(overlay);
@@ -251,7 +273,7 @@
     showTypingIndicator();
     const token = CONFIG.calendlyAccessToken;
 
-    if (!token || token.includes('YOUR_CALENDLY_ACCESS_TOKEN_HERE')) {
+    if (!token || token.includes('eyJraWQiOiIxY2UxZTEzNjE3ZGNmNzY2YjNjZWJjY2Y4ZGM1YmFmYThhNjVlNjg0MDIzZjdjMzJiZTgzNDliMjM4MDEzNWI0IiwidHlwIjoiUEFUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNzU1NTMzNDAxLCJqdGkiOiI5ODFjODM5Zi0yOGEwLTRlNjItYmQzYS1kYTE1MzU4NDhjMDkiLCJ1c2VyX3V1aWQiOiJmNGFiNGM3Yy0wZGY2LTRjMWUtYjE3ZC1kYmU5YmVkZjMwMTYifQ.DofhJDS_WNqrl5A_0ryLmApxTtWNIjCpyWPI14WbdfIkCsT_QAZRgG4GdvbxBXTgopUkjsko8d6iKb9nVSebRQ')) {
         hideTypingIndicator();
         addMessage('assistant', 'The scheduling feature is not configured correctly. Please contact us directly to book an appointment.');
         console.error('Calendly Access Token is missing or is a placeholder.');
@@ -540,3 +562,68 @@
   };
 
 })();
+
+
+
+//ENHANCED FUNCTIONALITY //
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root      = document.querySelector("[data-pslaw-root]");
+  const modal     = root.querySelector(".pslaw-modal");
+  const overlay   = root.querySelector(".pslaw-modal-overlay");
+  const fab       = root.querySelector("#pslaw-chat-fab");
+  const closeBtn  = root.querySelector(".pslaw-modal-close");
+  const expandBtn = root.querySelector(".pslaw-expand");
+  const darkBtn   = root.querySelector(".pslaw-darkmode");
+  const input     = root.querySelector(".pslaw-input");
+  const sendBtn   = root.querySelector(".pslaw-send-btn");
+  const messages  = root.querySelector("#pslaw-messages");
+
+  function openModal() {
+    modal.classList.add("pslaw-active");
+    overlay.classList.add("pslaw-active");
+  }
+  function closeModal() {
+    modal.classList.remove("pslaw-active", "pslaw-expanded");
+    overlay.classList.remove("pslaw-active");
+    modal.removeAttribute("style"); // in case expanded applied inline styles
+  }
+
+  fab.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
+
+  // Toggle full-screen expand/collapse (app-like)
+  expandBtn.addEventListener("click", () => {
+    modal.classList.toggle("pslaw-expanded");
+    if (modal.classList.contains("pslaw-expanded")) {
+      // in expanded, we let CSS handle layout; no inline style needed
+    } else {
+      modal.removeAttribute("style");
+    }
+  });
+
+  // Toggle dark/light mode
+  darkBtn.addEventListener("click", () => {
+    root.classList.toggle("pslaw-dark");
+  });
+
+  // Demo: send button appends a user bubble
+  sendBtn.addEventListener("click", () => {
+    const text = input.value.trim();
+    if (!text) return;
+    const wrap = document.createElement("div");
+    wrap.className = "pslaw-message pslaw-user";
+    wrap.innerHTML = `<div class="pslaw-message-bubble"></div>`;
+    wrap.querySelector(".pslaw-message-bubble").textContent = text;
+    messages.appendChild(wrap);
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
+  });
+
+  // Auto-grow textarea
+  input.addEventListener("input", () => {
+    input.style.height = "auto";
+    input.style.height = Math.min(input.scrollHeight, 120) + "px";
+  });
+});
