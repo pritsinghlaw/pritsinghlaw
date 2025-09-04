@@ -88,65 +88,13 @@ visibility:hidden!important;
 }
 
   
-/* Animated Background Icons */
-.animated-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
 
-.floating-icon {
-  position: absolute;
-  opacity: 0.1;
-  animation: float 20s infinite linear;
-}
-
-.floating-icon.orange {
-  color: #FF8C00;
-}
-
-.floating-icon.navy {
-  color: #001f54;
-}
-
-.floating-icon:nth-child(1) { animation-delay: 0s; left: 10%; }
-.floating-icon:nth-child(2) { animation-delay: 2s; left: 20%; }
-.floating-icon:nth-child(3) { animation-delay: 4s; left: 30%; }
-.floating-icon:nth-child(4) { animation-delay: 6s; left: 40%; }
-.floating-icon:nth-child(5) { animation-delay: 8s; left: 50%; }
-.floating-icon:nth-child(6) { animation-delay: 10s; left: 60%; }
-.floating-icon:nth-child(7) { animation-delay: 12s; left: 70%; }
-.floating-icon:nth-child(8) { animation-delay: 14s; left: 80%; }
-.floating-icon:nth-child(9) { animation-delay: 16s; left: 90%; }
-.floating-icon:nth-child(10) { animation-delay: 18s; left: 5%; }
-
-@keyframes float {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.1;
-  }
-  90% {
-    opacity: 0.1;
-  }
-  100% {
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0;
-  }
-}
 
 /* Search functionality styles */
 .navbar-search-container {
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 5px;
 }
 
 .search-wrapper {
@@ -412,12 +360,6 @@ visibility:hidden!important;
     display: block !important;
 }
 
-/* Fix navigation dropdown */
-.navbar-dropdown-list-container {
-    display: block !important;
-    height: auto !important;
-    left:10px !important;
-}
 
   .text-size-large-1 {
     line-height: 1.5 !important;
@@ -441,38 +383,6 @@ visibility:hidden!important;
 
 
 
-<!---DROPDOWN MENU STYLESHEET UPDATE--->
-  
-<style>
-/* ---------- GENERIC RESETS ---------- */
-.navbar-dropdown-list-container{
-  width:fit-contant !important;           /* let it span parent */
- 
-}
-
-/* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
-@media (min-width:768px){
-  .menu-item-container{
-    display:grid !important;
-    grid-template-columns:repeat(2,1fr) !important; /* two equal columns */
-    gap:0.75rem 1.25rem !important;                 /* row/col gap */
-  }
-}
-
-  @media (min-width: 992px) { /* Adjust the breakpoint as needed */
-  #w-dropdown-list-0 {
-    width: fit-content !important; /* Set a desired minimum width */
-    
-  }
-}
-
-
-/* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
-.navbar-dropdown-list-container{
-  max-height:70vh !important;       /* never exceed 70 % of screen height   */
-  overflow-y:auto !important;       /* internal scroll if list is very long */
-}
-</style>
 
 
 
@@ -525,42 +435,7 @@ visibility:hidden!important;
 .link-card-practice-areas:hover{transform:translateY(-4px) scale(1.03) !important;}
 </style>
  
-<style>
-/* Mobile dropdown fixes */
-@media (max-width: 991px) {
-    .w-dropdown-list {
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100vw !important;
-        z-index: 9999 !important;
-        display: none !important; /* Hidden by default */
-    }
-    
-    .w-dropdown.w--open .w-dropdown-list {
-        display: block !important;
-    }
-    
-    .navbar-dropdwn-toggle {
-        cursor: pointer;
-        user-select: none;
-    }
-    
-    /* Ensure dropdown links are clickable */
-    .navbar-dropdown-link {
-        display: block !important;
-        padding: 12px 20px !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .navbar-dropdown-link:hover {
-        background-color: #f5f5f5;
-    }
-}
 
-.footer-link: font-weight:500 !important;
-</style>
 
   
 
@@ -731,12 +606,12 @@ visibility:hidden!important;
   </div>
 </nav>
   
-  <div class="navbar-button-wrapper"><!-- NEW call button -->
-  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary btn-pulse w-button">
+  <div class="navbar-button-wrapper"><!-- CALL BUTTON HEADER CTA -->
+  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
  <b>CALL US</b>
   </a>
 
-  <!-- EXISTING portal button, now with a user icon -->
+  <!-- CLIENT PORTAL HEADER CTA -->
   <a href="/coming-soon" target="_blank" class="btn btn-primary w-button"
      style="background-color:#ff4900!important; font-size:9.5px!important;">
   <b>CLIENT PORTAL</b>
@@ -1321,6 +1196,78 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
+
+<script id="dropdown-controller">
+(function(){
+  const DESKTOP = window.matchMedia('(min-width: 992px)');
+  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown.w-dropdown'));
+  if (!dropdowns.length) return;
+
+  // Turn off Webflow's hover logic; we'll manage everything.
+  dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
+
+  const OPEN_DELAY=80, CLOSE_DELAY=150;
+  const timers=new WeakMap(), pinned=new WeakMap();
+
+  const getToggle = dd => dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
+  const getList   = dd => dd.querySelector('.w-dropdown-list');
+  const isOpen    = dd => dd.classList.contains('w--open');
+  const isPinned  = dd => pinned.get(dd)===true;
+
+  function scrubInline(el){
+    if(!el) return;
+    for (const prop of ['display','opacity','visibility','pointer-events','left','top','position']){
+      el.style.removeProperty(prop);
+    }
+  }
+  function setExpanded(dd,open){
+    const t=getToggle(dd); if(t) t.setAttribute('aria-expanded',open?'true':'false');
+  }
+  function clearTimer(dd){ const id=timers.get(dd); if(id){clearTimeout(id); timers.delete(dd);} }
+  function schedule(dd,fn,delay){ clearTimer(dd); timers.set(dd,setTimeout(()=>{fn(dd); timers.delete(dd);},delay)); }
+
+  function show(dd){ dropdowns.forEach(d=>{if(d!==dd) hide(d);}); dd.classList.add('w--open'); scrubInline(getList(dd)); setExpanded(dd,true); }
+  function hide(dd){ dd.classList.remove('w--open'); setExpanded(dd,false); }
+  function unpinAll(){ dropdowns.forEach(d=>pinned.set(d,false)); }
+
+  dropdowns.forEach(dd=>{
+    pinned.set(dd,false);
+    const toggle=getToggle(dd), list=getList(dd);
+
+    // Desktop hover with intent; doesn't override a pinned state.
+    dd.addEventListener('pointerenter', ()=>{ if(!DESKTOP.matches||isPinned(dd)) return; schedule(dd,show,OPEN_DELAY); });
+    dd.addEventListener('pointerleave', ()=>{ if(!DESKTOP.matches||isPinned(dd)) return; schedule(dd,hide,CLOSE_DELAY); });
+
+    // Click handling
+    if (toggle){
+      toggle.addEventListener('click', e=>{
+        e.preventDefault(); e.stopPropagation(); clearTimer(dd);
+        if (DESKTOP.matches){
+          const open=isOpen(dd), pin=isPinned(dd);
+          if (!open){ show(dd); pinned.set(dd,true); }
+          else if (pin){ pinned.set(dd,false); hide(dd); }
+          else { pinned.set(dd,true); show(dd); }
+        } else {
+          const open=isOpen(dd); dropdowns.forEach(hide); if(!open) show(dd); else hide(dd);
+        }
+      });
+    }
+
+    // Keyboard & inside-link behavior
+    dd.addEventListener('focusin', ()=>{ if(DESKTOP.matches && !isPinned(dd)) show(dd); });
+    dd.addEventListener('focusout', e=>{ if(!DESKTOP.matches) return; if (dd.contains(e.relatedTarget)) return; if(!isPinned(dd)) hide(dd); });
+    if (list){ list.addEventListener('click', e=>{ if(e.target.closest('a')){ pinned.set(dd,false); hide(dd); } }); }
+  });
+
+  // Close on outside click / ESC / breakpoint change
+  document.addEventListener('click', e=>{ if (e.target.closest('.navbar-menu-dropdown')) return; unpinAll(); dropdowns.forEach(hide); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ unpinAll(); dropdowns.forEach(hide); }});
+  DESKTOP.addEventListener('change', ()=>{ unpinAll(); dropdowns.forEach(hide); });
+
+  dropdowns.forEach(dd=>scrubInline(getList(dd)));
+})();
+</script>
   
 </body>
 </html>
