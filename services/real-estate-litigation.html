@@ -683,6 +683,36 @@ em, i { font-style: italic; }
 
 
 
+
+<script>
+/* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
+    const dropdownToggles = document.querySelectorAll('.navbar-dropdwn-toggle');
+    
+    
+    // Prevent any interaction with hidden dropdown elements
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const element = mutation.target;
+                if (element.classList.contains('navbar-dropdown-list-container') || 
+                    element.classList.contains('w-dropdown-list')) {
+                    if (element.style.display === 'none' || !element.style.display) {
+                        element.style.pointerEvents = 'none';
+                    }
+                }
+            }
+        });
+    });
+    
+    // Observe all dropdown lists for changes
+    document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
+        observer.observe(list, { attributes: true });
+    });
+});
+</script>
+
   <!-- Webflow JS (needed for the nav) -->
 <script crossorigin="anonymous" src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js"></script>
 <script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js"></script>
