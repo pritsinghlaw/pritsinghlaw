@@ -494,110 +494,112 @@ visibility:hidden!important;
   
 
 
-<style id="nav-pack-v3">
-/* Scope everything to the exported Webflow navbar to avoid side effects */
-.navbar-component .navbar-menu-dropdown { position: relative; }
-
-.navbar-component .w-dropdown-toggle,
-.navbar-component .navbar-dropdwn-toggle {
-  display: inline-flex; align-items: center; gap: .35rem; cursor: pointer;
-}
-
-/* Keep long labels on one line */
-.navbar-component .navbar-dropdown-link { white-space: nowrap; }
-
-/* Base dropdown panel (desktop) — hidden by default to kill ghost clicks */
-.navbar-component .navbar-menu-dropdown > .w-dropdown-list {
-  position: absolute; top: 100%; left: 0;
-  min-width: 260px;
-  background: #fff; border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0,0,0,.12);
-  padding: .5rem;
-  z-index: 9999;
-  display: none !important;          /* hidden */
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;   /* prevents invisible links from being clickable */
-  transform: translateY(6px);
-  transition: opacity .18s ease, transform .18s ease;
-}
-
-/* Open state (hover/focus/click adds .w--open) */
-.navbar-component .navbar-menu-dropdown.w--open > .w-dropdown-list,
-.navbar-component .navbar-menu-dropdown:focus-within > .w-dropdown-list {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  transform: translateY(0);
-}
-
-/* Make internal list scroll if long */
-.navbar-component .navbar-menu-dropdown > .w-dropdown-list {
-  max-height: 70vh; overflow-y: auto;
-  width: fit-content; /* correct the old 'fit-contant' typo */
-}
-
-/* Tablet+ two-column helper for your mega items */
-@media (min-width: 768px) {
-  .navbar-component .menu-item-container {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: .75rem 1.25rem;
+<style>
+  
+  @media (min-width: 992px){
+  /* closed: invisible + non-interactive */
+  .navbar-menu-dropdown > .w-dropdown-list{ 
+    display:none !important; opacity:0; visibility:hidden; pointer-events:none;
+  }
+  /* open (hover/focus OR .w--open): visible + interactive */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display:block !important; opacity:1; visibility:visible; pointer-events:auto;
   }
 }
 
-/* --- Mobile behavior: dropdown lists flow in the opened mobile menu --- */
-@media (max-width: 991px) {
-  .navbar-component .w-nav-menu { overflow-y: auto; }
+  
+</style>
 
-  .navbar-component .navbar-menu-dropdown > .w-dropdown-list {
-    position: static !important;
-    max-height: none !important;
-    box-shadow: none; border-radius: 0;
-    padding: .25rem 0;
-    width: 100% !important;
-    display: none !important;
+
+
+
+
+  
+
+
+
+
+<style id="nav-dropdown-core">
+/* =============================
+   Canonical Nav / Dropdown Core
+   v3.3  — Desktop: hover-only; Mobile/Tablet: click-to-open
+   ============================= */
+#nav-dropdown-core {}
+.navbar-menu-dropdown{ position: relative !important; }
+
+/* Default closed state for lists */
+.navbar-menu-dropdown > .w-dropdown-list{
+  position: absolute !important;
+  top: 100% !important; left: 0 !important;
+  z-index: 9999 !important;
+
+  /* closed: invisible + non-interactive */
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+
+  /* desktop presentation */
+  background: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+  padding: .5rem !important;
+}
+
+/* --- Desktop (≥ 992px): hover/focus opens; click does nothing --- */
+@media (min-width: 992px){
+  /* Allow :hover / :focus-within to reveal the menu on desktop */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    transform: none !important;
   }
-  .navbar-component .navbar-menu-dropdown.w--open > .w-dropdown-list { display: block !important; }
 
-  .navbar-component .navbar-dropdown-link {
-    display: block; padding: 12px 20px; border-bottom: 1px solid #eee;
+  /* Desktop sizing & scroll behavior */
+  .navbar-dropdown-list-container{
+    width: fit-content !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
   }
-  .navbar-component .navbar-dropdown-link:hover { background: #f5f5f5; }
 }
 
-/* Keep mobile overlay from eating clicks on desktop */
-@media (min-width: 992px) {
-  .w-nav-overlay { pointer-events: none !important; }
-}
+/* --- Mobile & Tablet (< 992px): click to open --- */
+@media (max-width: 991px){
+  .navbar-menu{ overflow-y: auto !important; }
 
-/* --- Burger (menu icon) -> X animation --- */
-.navbar-component .menu-icon { position: relative; width: 22px; height: 16px; }
-.navbar-component .menu-icon-line-top,
-.navbar-component .menu-icon-line-middle,
-.navbar-component .menu-icon-line-bottom,
-.navbar-component .menu-icon-line-middle-inner {
-  height: 2px; width: 100%; background: currentColor;
-  display: block;
-  transition: transform .22s ease, opacity .18s ease;
-}
-.navbar-component .menu-icon-line-top { position: absolute; top: 0; left: 0; }
-.navbar-component .menu-icon-line-middle { position: absolute; top: 7px; left: 0; }
-.navbar-component .menu-icon-line-bottom { position: absolute; bottom: 0; left: 0; }
+  .navbar-menu-dropdown > .w-dropdown-list{
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100vw !important; /* match finalindex behavior */
+    z-index: 9999 !important;
 
-/* When the mobile menu is open, Webflow adds .w--open to .w-nav-button */
-.navbar-component .w-nav-button.w--open .menu-icon-line-top {
-  transform: translateY(7px) rotate(45deg);
-}
-.navbar-component .w-nav-button.w--open .menu-icon-line-middle {
-  opacity: 0;
-}
-.navbar-component .w-nav-button.w--open .menu-icon-line-bottom {
-  transform: translateY(-7px) rotate(-45deg);
+    /* visible but hidden until .w--open flips display */
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: .25rem 0 !important;
+    display: none !important; /* only .w--open shows */
+  }
+
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{ display: block !important; }
+
+  /* Tappable dropdown links */
+  .navbar-dropdown-link{
+    display: block !important;
+    padding: 12px 20px !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #eee !important;
+    white-space: nowrap !important;
+  }
+  .navbar-dropdown-link:hover{ background: #f5f5f5 !important; }
 }
 </style>
 
@@ -1074,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- NAV PACK v3 controller -->
+<!-- NAV PACK v3 controller 
 <script id="dropdown-controller-v3">
 (function(){
   const DESKTOP = window.matchMedia('(min-width: 992px)');
@@ -1207,7 +1209,128 @@ document.addEventListener('DOMContentLoaded', function() {
     dropdowns.forEach(hide);
   });
 })();
+</script> 
+
+  --->
+
+
+<script id="dropdown-controller" data-version="3.3">
+/* ===========================================================
+   Canonical Dropdown Controller (v3.3)
+   Desktop: hover/focus only; Mobile/Tablet: click to open/close
+   - Prevents hidden links from being clickable when closed
+   - Neutralizes Webflow dropdown click on desktop
+   - Keeps Webflow's hamburger behavior untouched
+   =========================================================== */
+(function(){
+  function ready(fn){
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  }
+
+  ready(function init(){
+    var DESKTOP = window.matchMedia('(min-width: 992px)');
+    var dropdowns = Array.prototype.slice.call(document.querySelectorAll('.navbar-menu-dropdown'));
+    if (!dropdowns.length) return;
+
+    function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle'); }
+    function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
+
+    function setClosed(list){
+      if (!list) return;
+      list.style.pointerEvents = 'none';  // hidden menus are non-interactive
+      list.style.removeProperty('display'); // allow CSS to control display
+    }
+    function setOpen(list){
+      if (!list) return;
+      list.style.pointerEvents = 'auto';
+      list.style.removeProperty('display');
+    }
+
+    function closeAll(except){
+      dropdowns.forEach(function(d){
+        if (d !== except) {
+          d.classList.remove('w--open');
+          setClosed(getList(d));
+          var t = getToggle(d);
+          if (t) t.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    function toggle(dd){
+      var list = getList(dd);
+      var t    = getToggle(dd);
+      var isOpen = dd.classList.contains('w--open');
+      if (isOpen){
+        dd.classList.remove('w--open');
+        setClosed(list);
+        if (t) t.setAttribute('aria-expanded','false');
+      } else {
+        closeAll(dd);
+        dd.classList.add('w--open');
+        setOpen(list);
+        if (t) t.setAttribute('aria-expanded','true');
+      }
+    }
+
+    // Start in a clean, closed state
+    closeAll();
+
+    // Turn off Webflow's built-in hover handler so CSS/JS are authoritative
+    dropdowns.forEach(function(dd){ dd.setAttribute('data-hover', 'false'); });
+
+    // Bind per dropdown
+    dropdowns.forEach(function(dd){
+      var toggleEl = getToggle(dd);
+      var list     = getList(dd);
+      if (toggleEl){
+        toggleEl.addEventListener('click', function(e){
+          // Stop Webflow's dropdown click early.
+          e.preventDefault();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+          e.stopPropagation();
+
+          if (DESKTOP.matches){
+            // Desktop = hover only; do nothing on click.
+            return;
+          } else {
+            // Mobile/tablet = click toggles
+            toggle(dd);
+          }
+        }, true); // capture phase
+      }
+
+      // Clicking a link inside closes on mobile/tablet
+      if (list){
+        list.addEventListener('click', function(e){
+          if (e.target.closest('a') && !DESKTOP.matches){
+            closeAll();
+          }
+        });
+      }
+    });
+
+    // Click outside closes on mobile/tablet
+    document.addEventListener('click', function(e){
+      if (DESKTOP.matches) return;
+      if (!e.target.closest('.navbar-menu-dropdown')) closeAll();
+    });
+
+    // Escape closes on all breakpoints
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeAll();
+    });
+
+    // Reset open state when crossing the breakpoint
+    DESKTOP.addEventListener('change', function(){ closeAll(); });
+  });
+})();
 </script>
+  
 
 </body>
 </html>
