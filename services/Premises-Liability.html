@@ -612,11 +612,11 @@ em, i { font-style: italic; }
 </div>
 </nav>
 <div class="navbar-button-wrapper"><!-- NEW call button -->
-<a class="btn btn-primary w-button" href="tel:+15104432123" style="font-size:10px!important; background-color:#001f54!important; white-space:nowrap !important; color:#ffffff!important;">
+<a class="btn btn-primary w-button" href="tel:+15104432123" style="font-size:10.5px!important; background-color:#001f54!important; white-space:nowrap !important; color:#ffffff!important;">
 <b>CALL US</b>
 </a>
 <!-- EXISTING portal button, now with a user icon -->
-<a class="btn btn-primary w-button" href="/coming-soon" style="background-color:#ff4900!important; font-size:9.5px!important; white-space:nowrap !important;" target="_blank">
+<a class="btn btn-primary w-button" href="/coming-soon" style="background-color:#ff4900!important; font-size:10px!important; white-space:nowrap !important;" target="_blank">
 <b>CLIENT PORTAL</b>
 </a>
 <div aria-expanded="false" aria-haspopup="menu" aria-label="menu" class="navbar-menu-button w-nav-button" role="button" style="-webkit-user-select: text;" tabindex="0"><div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div></div></div>
@@ -934,7 +934,257 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script src="main.js"></script>
+
+
+
+
+
+ <!---CLIENT INTAKE POPUP CTA--->
   
+  <!-- Modal -->
+  <div id="intake-overlay" class="modal-overlay" aria-hidden="true">
+    <div
+      id="intake-modal"
+      class="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="intake-title"
+      aria-describedby="intake-subtitle"
+      tabindex="-1"
+    >
+      <button class="modal-close" id="close-intake-modal" type="button" aria-label="Close dialog">&times;</button>
+
+      <div class="logo-wrap">
+        <img class="modal-logo" src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh logo" width="250" height="auto" />
+      </div>
+
+      <h2 id="intake-title" class="title">Schedule A Consultation</h2>
+
+      <p id="intake-subtitle" class="subtitle">
+        Choose one of the consultation options below to schedule a consultation with an attorney in minutes.
+        You will receive a confirmation email and/or SMS within an hour after your booking request is received by our legal team.
+        Please note that free 15-minute consultations can only be scheduled once per client and all paid consultations will take priority in the unlikely event of a scheduling conflict.
+      </p>
+
+      <div class="cta-stack">
+        <a
+          class="cta cta-outline"
+          href="https://pritsinghlaw.com/bookings/free"
+          target="_blank"
+          rel="noopener noreferrer"
+        >15-Minute Consultation - FREE</a>
+        <div class="help-text">Consultation will take place via Zoom or telephonically</div>
+
+        <a
+          class="cta cta-solid animated-cta"
+          href="https://pritsinghlaw.com/bookings/paid"
+          target="_blank"
+          rel="noopener noreferrer"
+        >1-Hour Consultation - $500</a>
+        <div class="help-text">Consultation will take place via Zoom or in-person. Document reviews may be included for additional fee</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const openBtn = document.getElementById('open-intake-modal');
+  const overlay = document.getElementById('intake-overlay');
+  const dialog = document.getElementById('intake-modal');
+  const closeBtn = document.getElementById('close-intake-modal');
+  let lastFocused = null;
+
+  const focusableSelectors = [
+    'a[href]',
+    'area[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ];
+
+  function getFocusable(container) {
+    return Array.from(container.querySelectorAll(focusableSelectors.join(',')))
+      .filter(el => el.offsetParent !== null || el === document.activeElement);
+  }
+
+  function openModal() {
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+
+    // Focus first focusable element inside dialog
+    const focusables = getFocusable(dialog);
+    (focusables[0] || dialog).focus();
+
+    // Trap focus
+    document.addEventListener('keydown', trapFocus);
+    document.addEventListener('keydown', onEsc);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+
+    document.removeEventListener('keydown', trapFocus);
+    document.removeEventListener('keydown', onEsc);
+
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+      lastFocused.focus();
+    }
+  }
+
+  function trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    const focusables = getFocusable(dialog);
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function onEsc(e) {
+    if (e.key === 'Escape') closeModal();
+  }
+
+  // Click outside to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+})();
+</script>
+
+
+  
+  
+
+  
+<!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
+
+<script>
+/* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
+    const dropdownToggles = document.querySelectorAll('.navbar-dropdwn-toggle');
+    
+    // Function to close all dropdowns
+    function closeAllDropdowns() {
+        document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
+            list.style.display = 'none';
+            list.style.pointerEvents = 'none'; // Disable clicks on hidden dropdowns
+            list.setAttribute('aria-hidden', 'true');
+        });
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(d => {
+            d.classList.remove('w--open');
+        });
+    }
+    
+    // Function to open a specific dropdown
+    function openDropdown(dropdown) {
+        const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
+        if (dropdownList) {
+            dropdownList.style.display = 'block';
+            dropdownList.style.pointerEvents = 'auto'; // Enable clicks when visible
+            dropdownList.setAttribute('aria-hidden', 'false');
+            dropdown.classList.add('w--open');
+        }
+    }
+    
+    // Initially close all dropdowns to prevent hidden clickable links
+    closeAllDropdowns();
+    
+    // Desktop behavior (hover and click)
+    if (window.matchMedia("(min-width: 992px)").matches) {
+        dropdowns.forEach(dropdown => {
+            let hoverTimeout;
+            
+            // Hover to open
+            dropdown.addEventListener('mouseenter', function() {
+                clearTimeout(hoverTimeout);
+                closeAllDropdowns();
+                openDropdown(this);
+            });
+            
+            // Hover to close with delay
+            dropdown.addEventListener('mouseleave', function() {
+                hoverTimeout = setTimeout(() => {
+                    closeAllDropdowns();
+                }, 200);
+            });
+        });
+    }
+    
+    // Click functionality for all devices
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const dropdown = this.closest('.navbar-menu-dropdown');
+            const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
+            
+            if (dropdownList && dropdownList.style.display === 'block') {
+                closeAllDropdowns();
+            } else {
+                closeAllDropdowns();
+                openDropdown(dropdown);
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.navbar-menu-dropdown')) {
+            closeAllDropdowns();
+        }
+    });
+    
+    // Ensure dropdown links work properly
+    document.querySelectorAll('.navbar-dropdown-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+    
+    // Prevent any interaction with hidden dropdown elements
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const element = mutation.target;
+                if (element.classList.contains('navbar-dropdown-list-container') || 
+                    element.classList.contains('w-dropdown-list')) {
+                    if (element.style.display === 'none' || !element.style.display) {
+                        element.style.pointerEvents = 'none';
+                    }
+                }
+            }
+        });
+    });
+    
+    // Observe all dropdown lists for changes
+    document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
+        observer.observe(list, { attributes: true });
+    });
+});
+</script>
   
 </body>
 </html>
