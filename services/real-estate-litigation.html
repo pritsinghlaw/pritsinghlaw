@@ -448,8 +448,9 @@
 
 
 
-
-<style id="hamburger-open-only-x-fixed">
+<!---
+  
+  <style id="hamburger-open-only-x-fixed">
 .w-nav-button.w--open .menu-icon{
   position: relative; --x-width: 24px; --x-thickness: 2px; color: #000000;
 }
@@ -469,7 +470,35 @@
   .w-nav-button.w--open .menu-icon::before, .w-nav-button.w--open .menu-icon::after{ transition:none; }
 }
 </style>
+--->
 
+<style>
+  /* --- Burger (menu icon) -> X animation --- */
+.navbar-component .menu-icon { position: relative; width: 22px; height: 16px; }
+.navbar-component .menu-icon-line-top,
+.navbar-component .menu-icon-line-middle,
+.navbar-component .menu-icon-line-bottom,
+.navbar-component .menu-icon-line-middle-inner {
+  height: 2px; width: 100%; background: currentColor;
+  display: block;
+  transition: transform .22s ease, opacity .18s ease;
+}
+.navbar-component .menu-icon-line-top { position: absolute; top: 0; left: 0; }
+.navbar-component .menu-icon-line-middle { position: absolute; top: 7px; left: 0; }
+.navbar-component .menu-icon-line-bottom { position: absolute; bottom: 0; left: 0; }
+
+/* When the mobile menu is open, Webflow adds .w--open to .w-nav-button */
+.navbar-component .w-nav-button.w--open .menu-icon-line-top {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-component .w-nav-button.w--open .menu-icon-line-middle {
+  opacity: 0;
+}
+.navbar-component .w-nav-button.w--open .menu-icon-line-bottom {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+</style>
 
 
 
