@@ -444,9 +444,14 @@
 }
 </style>
 
+
+
+
+
+
 <style id="hamburger-open-only-x-fixed">
 .w-nav-button.w--open .menu-icon{
-  position: relative; --x-width: 24px; --x-thickness: 2px; color: currentColor;
+  position: relative; --x-width: 24px; --x-thickness: 2px; color: #000000;
 }
 .w-nav-button.w--open .menu-icon-line-top,
 .w-nav-button.w--open .menu-icon-line-middle,
@@ -455,7 +460,7 @@
 .w-nav-button.w--open .menu-icon::before,
 .w-nav-button.w--open .menu-icon::after{
   content:""; position:absolute; top:50%; left:50%;
-  width:var(--x-width); height:var(--x-thickness); background:currentColor; border-radius:2px;
+  width:var(--x-width); height:var(--x-thickness); background:#000; border-radius:2px;
   transform-origin:center; transition: transform .25s ease; pointer-events:none;
 }
 .w-nav-button.w--open .menu-icon::before{ transform: translate(-50%, -50%) rotate(45deg); }
