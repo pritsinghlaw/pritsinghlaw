@@ -13,59 +13,6 @@
 <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 <!-- Page styles (kept from your styled template) -->
 
-<style id="hamburger-open-only-x-fixed">
-/* OPEN-STATE ONLY: render a fixed-width “X” and hide the three bars.
-   Closed state is untouched and keeps your existing styles. */
-
-/* Tune these to taste */
-.w-nav-button.w--open .menu-icon{
-  position: relative;
-  --x-width: 24px;     /* length of each stroke of the X */
-  --x-thickness: 2px;  /* thickness of the strokes */
-  color: #001f54;      /* X color (set to #fff if overlay is dark) */
-}
-
-/* Hide the default three lines ONLY when open */
-.w-nav-button.w--open .menu-icon-line-top,
-.w-nav-button.w--open .menu-icon-line-middle,
-.w-nav-button.w--open .menu-icon-line-middle-inner,
-.w-nav-button.w--open .menu-icon-line-bottom{
-  opacity: 0;
-  transition: opacity .2s ease;
-}
-
-/* Draw the X using centered pseudo-elements (fixed width) */
-.w-nav-button.w--open .menu-icon::before,
-.w-nav-button.w--open .menu-icon::after{
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--x-width);
-  height: var(--x-thickness);
-  background: currentColor;
-  border-radius: 2px;
-  pointer-events: none;
-  transform-origin: center;
-  transition: transform .25s ease;
-}
-
-/* Cross it */
-.w-nav-button.w--open .menu-icon::before{
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.w-nav-button.w--open .menu-icon::after{
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* Accessibility: reduce motion if the user prefers */
-@media (prefers-reduced-motion: reduce){
-  .w-nav-button.w--open .menu-icon::before,
-  .w-nav-button.w--open .menu-icon::after{
-    transition: none;
-  }
-}
-</style>
 
 
 
@@ -531,6 +478,119 @@ em, i { font-style: italic; }
   transform: translateY(-7px) rotate(-45deg);
 }
 </style>
+
+
+<style>
+
+/* ===== NAV PACK v3 (site-wide dropdown + burger animation) ===== */
+
+/* Scope everything to the exported Webflow navbar to avoid side effects */
+.navbar-component .navbar-menu-dropdown { position: relative; }
+
+.navbar-component .w-dropdown-toggle,
+.navbar-component .navbar-dropdwn-toggle {
+  display: inline-flex; align-items: center; gap: .35rem; cursor: pointer;
+}
+
+/* Keep long labels on one line */
+.navbar-component .navbar-dropdown-link { white-space: nowrap; }
+
+/* Base dropdown panel (desktop) — hidden by default to kill ghost clicks */
+.navbar-component .navbar-menu-dropdown > .w-dropdown-list {
+  position: absolute; top: 100%; left: 0;
+  min-width: 260px;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  padding: .5rem;
+  z-index: 9999;
+  display: none !important;          /* hidden */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;   /* prevents invisible links from being clickable */
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+/* Open state (hover/focus/click adds .w--open) */
+.navbar-component .navbar-menu-dropdown.w--open > .w-dropdown-list,
+.navbar-component .navbar-menu-dropdown:focus-within > .w-dropdown-list {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0);
+}
+
+/* Make internal list scroll if long */
+.navbar-component .navbar-menu-dropdown > .w-dropdown-list {
+  max-height: 70vh; overflow-y: auto;
+  width: fit-content; /* correct the old 'fit-contant' typo */
+}
+
+/* Tablet+ two-column helper for your mega items */
+@media (min-width: 768px) {
+  .navbar-component .menu-item-container {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: .75rem 1.25rem;
+  }
+}
+
+/* --- Mobile behavior: dropdown lists flow in the opened mobile menu --- */
+@media (max-width: 991px) {
+  .navbar-component .w-nav-menu { overflow-y: auto; }
+
+  .navbar-component .navbar-menu-dropdown > .w-dropdown-list {
+    position: static !important;
+    max-height: none !important;
+    box-shadow: none; border-radius: 0;
+    padding: .25rem 0;
+    width: 100% !important;
+    display: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+  .navbar-component .navbar-menu-dropdown.w--open > .w-dropdown-list { display: block !important; }
+
+  .navbar-component .navbar-dropdown-link {
+    display: block; padding: 12px 20px; border-bottom: 1px solid #eee;
+  }
+  .navbar-component .navbar-dropdown-link:hover { background: #f5f5f5; }
+}
+
+/* Keep mobile overlay from eating clicks on desktop */
+@media (min-width: 992px) {
+  .w-nav-overlay { pointer-events: none !important; }
+}
+
+/* --- Burger (menu icon) -> X animation --- */
+.navbar-component .menu-icon { position: relative; width: 22px; height: 16px; }
+.navbar-component .menu-icon-line-top,
+.navbar-component .menu-icon-line-middle,
+.navbar-component .menu-icon-line-bottom,
+.navbar-component .menu-icon-line-middle-inner {
+  height: 2px; width: 100%; background: currentColor;
+  display: block;
+  transition: transform .22s ease, opacity .18s ease;
+}
+.navbar-component .menu-icon-line-top { position: absolute; top: 0; left: 0; }
+.navbar-component .menu-icon-line-middle { position: absolute; top: 7px; left: 0; }
+.navbar-component .menu-icon-line-bottom { position: absolute; bottom: 0; left: 0; }
+
+/* When the mobile menu is open, Webflow adds .w--open to .w-nav-button */
+.navbar-component .w-nav-button.w--open .menu-icon-line-top {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar-component .w-nav-button.w--open .menu-icon-line-middle {
+  opacity: 0;
+}
+.navbar-component .w-nav-button.w--open .menu-icon-line-bottom {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+</style>
+
 
 </head>
 <body>
