@@ -436,7 +436,43 @@ visibility:hidden!important;
 </style>
  
 
+<style id="fonts-like-michael">
+/* Match michael.html fonts: Geologica for display; Open Sans for body/UI */
+:root{
+  --font-display: "Geologica", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Open Sans", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
 
+/* Body text & general UI */
+html, body, p, li, a, input, textarea, select, button {
+  font-family: var(--font-sans) !important;
+  font-weight: 400;
+}
+
+/* Nav + dropdowns + buttons */
+.navbar-link.w-nav-link,
+.navbar-dropdown-link.w-dropdown-link,
+.btn, .w-button,
+.navbar-search-input,
+.footer-link,
+.footer-credit-text {
+  font-family: var(--font-sans) !important;
+  font-weight: 500; /* tweak to 400 if you prefer lighter nav */
+}
+
+/* Headings & “display” text */
+h1, h2, h3, h4, h5, h6,
+.hero__title,
+.section__title,
+.card__title {
+  font-family: var(--font-display) !important;
+  font-weight: 500; /* michael.html loads 500/600 for Geologica */
+}
+
+/* Emphasis */
+b, strong { font-family: var(--font-sans) !important; font-weight: 700; }
+em, i { font-style: italic; }
+</style>
   
 
 <!---  
@@ -580,12 +616,6 @@ visibility:hidden!important;
     </nav>
   </div>
 
-
-  
-  
-  
-
-
   
   <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/contact" class="navbar-link w-nav-link">Contact</a>
 
@@ -604,13 +634,13 @@ visibility:hidden!important;
 </nav>
   
   <div class="navbar-button-wrapper"><!-- CALL BUTTON HEADER CTA -->
-  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
+  <a style="font-size:10.5px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
  <b>CALL US</b>
   </a>
 
   <!-- CLIENT PORTAL HEADER CTA -->
   <a href="/coming-soon" target="_blank" class="btn btn-primary w-button"
-     style="background-color:#ff4900!important; font-size:9.5px!important;">
+     style="background-color:#ff4900!important; font-size:10px!important;">
   <b>CLIENT PORTAL</b>
   </a>
     
