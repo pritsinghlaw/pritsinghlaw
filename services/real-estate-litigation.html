@@ -13,6 +13,9 @@
 <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
 <!-- Page styles (kept from your styled template) -->
 
+
+<!---
+
 <style id="hamburger-open-only-x-fixed">
 /* OPEN-STATE ONLY: render a fixed-width “X” and hide the three bars.
    Closed state is untouched and keeps your existing styles. */
@@ -67,7 +70,7 @@
 }
 </style>
 
-
+--->
 
   <style>
   :root {
@@ -461,6 +464,11 @@
   .w-nav-button.w--open .menu-icon::before, .w-nav-button.w--open .menu-icon::after{ transition:none; }
 }
 </style>
+
+
+
+
+
 <style id="nav-fontweight-unify">
 /* Unify font-weight across main menu and dropdown menu links */
 #nav-fontweight-unify {}
@@ -979,12 +987,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+<script id="dropdown-controller" data-version="2.7">
 
-
-
-<!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
-
-<script>
 /* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
 document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
@@ -1016,88 +1020,315 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initially close all dropdowns to prevent hidden clickable links
     closeAllDropdowns();
     
-    // Desktop behavior (hover and click)
-    if (window.matchMedia("(min-width: 992px)").matches) {
-        dropdowns.forEach(dropdown => {
-            let hoverTimeout;
-            
-            // Hover to open
-            dropdown.addEventListener('mouseenter', function() {
-                clearTimeout(hoverTimeout);
-                closeAllDropdowns();
-                openDropdown(this);
-            });
-            
-            // Hover to close with delay
-            dropdown.addEventListener('mouseleave', function() {
-                hoverTimeout = setTimeout(() => {
-                    closeAllDropdowns();
-                }, 200);
-            });
-        });
-    }
-    
-    // Click functionality for all devices
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const dropdown = this.closest('.navbar-menu-dropdown');
-            const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
-            
-            if (dropdownList && dropdownList.style.display === 'block') {
-                closeAllDropdowns();
-            } else {
-                closeAllDropdowns();
-                openDropdown(dropdown);
-            }
-        });
+
+
+(function(){
+  const DESKTOP = window.matchMedia('(min-width: 992px)');
+  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
+  if (!dropdowns.length) return;
+
+  // Turn off Webflow's built-in hover behavior so we fully control it
+  dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
+
+  // Gentle hover intent
+  const OPEN_DELAY  = 80;
+  const CLOSE_DELAY = 150;
+  const timers = new WeakMap();
+
+  function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle'); }
+  function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
+
+  function scrubInline(el){
+    if (!el) return;
+    el.style.removeProperty('display');
+    el.style.removeProperty('opacity');
+    el.style.removeProperty('visibility');
+    el.style.removeProperty('pointer-events');
+  }
+
+  function setExpanded(dd, open){
+    const t = getToggle(dd);
+    if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function clearTimer(dd){
+    const id = timers.get(dd);
+    if (id){ clearTimeout(id); timers.delete(dd); }
+  }
+
+  function schedule(dd, fn, delay){
+    clearTimer(dd);
+    timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
+  }
+
+  function closeOthers(except){
+    dropdowns.forEach(d => { if (d !== except) hide(d); });
+  }
+
+  function show(dd){
+    closeOthers(dd);
+    dd.classList.add('w--open');            // used by your CSS to show list
+    scrubInline(getList(dd));               // remove any inline Webflow styles
+    setExpanded(dd, true);
+  }
+
+  function hide(dd){
+    dd.classList.remove('w--open');
+    setExpanded(dd, false);
+  }
+
+  dropdowns.forEach(dd => {
+    const toggle = getToggle(dd);
+    const list   = getList(dd);
+
+    // ---------------------------
+    // DESKTOP (hover/focus only)
+    // ---------------------------
+    dd.addEventListener('pointerenter', () => {
+      if (!DESKTOP.matches) return;
+      schedule(dd, show, OPEN_DELAY);
     });
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar-menu-dropdown')) {
-            closeAllDropdowns();
+
+    dd.addEventListener('pointerleave', () => {
+      if (!DESKTOP.matches) return;
+      schedule(dd, hide, CLOSE_DELAY);
+    });
+
+    dd.addEventListener('focusin', () => {
+      if (!DESKTOP.matches) return;
+      show(dd);
+    });
+
+    dd.addEventListener('focusout', (e) => {
+      if (!DESKTOP.matches) return;
+      if (!dd.contains(e.relatedTarget)) hide(dd);
+    });
+
+    // ----------------------------------------------------
+    // Neutralize Webflow's click handler on ALL breakpoints
+    // (capture phase, so we run before Webflow’s listener)
+    // ----------------------------------------------------
+    if (toggle){
+      toggle.addEventListener('click', (e) => {
+        // We prevent Webflow’s default dropdown click behavior everywhere.
+        // On desktop: do nothing (hover only).
+        // On mobile/tablet: we'll handle our own toggle below.
+        e.preventDefault();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        e.stopPropagation();
+
+        if (!DESKTOP.matches){
+          // Mobile/tablet: our click-to-toggle
+          clearTimer(dd);
+          dd.classList.contains('w--open') ? hide(dd) : show(dd);
         }
-    });
-    
-    // Ensure dropdown links work properly
-    document.querySelectorAll('.navbar-dropdown-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    });
-    
-    // Prevent any interaction with hidden dropdown elements
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                const element = mutation.target;
-                if (element.classList.contains('navbar-dropdown-list-container') || 
-                    element.classList.contains('w-dropdown-list')) {
-                    if (element.style.display === 'none' || !element.style.display) {
-                        element.style.pointerEvents = 'none';
-                    }
-                }
-            }
-        });
-    });
-    
-    // Observe all dropdown lists for changes
-    document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
-        observer.observe(list, { attributes: true });
-    });
-});
+      }, true); // capture = true
+    }
+
+    // Clicking any link inside closes (both modes)
+    if (list){
+      list.addEventListener('click', (e) => {
+        if (e.target.closest('a')) hide(dd);
+      });
+    }
+  });
+
+  // Outside click closes all (both modes)
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar-menu-dropdown')) {
+      dropdowns.forEach(hide);
+    }
+  });
+
+  // Escape closes all (both modes)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') dropdowns.forEach(hide);
+  });
+
+  // Reset state when crossing breakpoint
+  DESKTOP.addEventListener('change', () => dropdowns.forEach(hide));
+
+  // Initial cleanup: remove any inline styles Webflow left behind
+  dropdowns.forEach(dd => {
+    scrubInline(getList(dd));
+    hide(dd);
+  });
+})();
 </script>
 
 
 
 
 
-
-
 <script src="main.js"></script>
+
+
+<script id="dropdown-controller" data-version="3.0">
+(function(){
+  // Wait for DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  function init(){
+    const DESKTOP   = window.matchMedia('(min-width: 992px)');
+    const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
+    if (!dropdowns.length) return;
+
+    // Turn off Webflow's built-in hover to prevent double-handling
+    dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
+
+    const OPEN_DELAY  = 80;   // ms
+    const CLOSE_DELAY = 150;  // ms
+    const timers = new WeakMap();
+
+    function getToggle(dd){
+      return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
+    }
+    function getList(dd){
+      // Support both Webflow list and your custom container
+      return dd.querySelector('.w-dropdown-list, .navbar-dropdown-list-container');
+    }
+
+    function scrubInline(el){
+      if (!el) return;
+      ['display','opacity','visibility','pointer-events','height','transform'].forEach(p => {
+        el.style.removeProperty(p);
+      });
+    }
+
+    function setAria(dd, open){
+      const t = getToggle(dd);
+      const l = getList(dd);
+      if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (l) l.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    function clearTimer(dd){
+      const id = timers.get(dd);
+      if (id){ clearTimeout(id); timers.delete(dd); }
+    }
+
+    function schedule(dd, fn, delay){
+      clearTimer(dd);
+      timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
+    }
+
+    function closeOthers(except){
+      dropdowns.forEach(d => { if (d !== except) hide(d); });
+    }
+
+    function show(dd){
+      closeOthers(dd);
+      dd.classList.add('w--open');               // CSS controls visibility
+      const list = getList(dd);
+      if (list){
+        scrubInline(list);                       // remove stale inline styles
+        list.style.pointerEvents = 'auto';       // safety: clickable only when open
+      }
+      setAria(dd, true);
+    }
+
+    function hide(dd){
+      dd.classList.remove('w--open');
+      const list = getList(dd);
+      if (list){
+        scrubInline(list);
+        list.style.pointerEvents = 'none';       // safety: never clickable when closed
+      }
+      setAria(dd, false);
+    }
+
+    // Initial: scrub & close everything
+    dropdowns.forEach(dd => { scrubInline(getList(dd)); hide(dd); });
+
+    // Bind per dropdown
+    dropdowns.forEach(dd => {
+      const toggle = getToggle(dd);
+      const list   = getList(dd);
+
+      // -------- Desktop: hover/focus only (no click to open) --------
+      dd.addEventListener('pointerenter', () => {
+        if (!DESKTOP.matches) return;
+        schedule(dd, show, OPEN_DELAY);
+      });
+      dd.addEventListener('pointerleave', () => {
+        if (!DESKTOP.matches) return;
+        schedule(dd, hide, CLOSE_DELAY);
+      });
+      dd.addEventListener('focusin', () => {
+        if (!DESKTOP.matches) return;
+        show(dd);
+      });
+      dd.addEventListener('focusout', (e) => {
+        if (!DESKTOP.matches) return;
+        if (!dd.contains(e.relatedTarget)) hide(dd);
+      });
+
+      // -------- Neutralize Webflow's click; implement our own mobile toggle --------
+      if (toggle){
+        toggle.addEventListener('click', (e) => {
+          // Stop Webflow / other handlers early (capture-like effect)
+          e.preventDefault();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+          e.stopPropagation();
+
+          if (DESKTOP.matches){
+            // Desktop: clicks do nothing; hover handles open/close
+            return;
+          } else {
+            // Mobile/Tablet: click toggles
+            clearTimer(dd);
+            dd.classList.contains('w--open') ? hide(dd) : show(dd);
+          }
+        }, true);
+      }
+
+      // Clicking any link inside should close dropdowns (both modes)
+      if (list){
+        list.addEventListener('click', (e) => {
+          if (e.target.closest('a')){
+            dropdowns.forEach(hide);
+          }
+        });
+      }
+    });
+
+    // Outside click closes all (both modes)
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar-menu-dropdown')) dropdowns.forEach(hide);
+    });
+
+    // Escape closes all (both modes)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') dropdowns.forEach(hide);
+    });
+
+    // Reset when crossing breakpoint
+    DESKTOP.addEventListener('change', () => dropdowns.forEach(dd => { scrubInline(getList(dd)); hide(dd); }));
+
+    // ---- MutationObserver safety net (from your Universal Fix) ----
+    // If anything re-injects inline styles, ensure hidden lists stay non-interactive.
+    const lists = Array.from(document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list'));
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        if (m.type === 'attributes' && m.attributeName === 'style') {
+          const el = m.target;
+          const owner = el.closest('.navbar-menu-dropdown');
+          const isOpen = owner && owner.classList.contains('w--open');
+          if (!isOpen) {
+            el.style.pointerEvents = 'none';
+          }
+        }
+      });
+    });
+    lists.forEach(l => observer.observe(l, { attributes: true }));
+  }
+})();
+</script>
+
 
 </body>
 </html>
