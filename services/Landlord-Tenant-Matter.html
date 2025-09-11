@@ -881,6 +881,81 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="main.js"></script>
 
+
+
+<script id="nav-dropdown-fix-js">
+(function(){
+  const mq = '(max-width: 991px)';
+  const isMobile = () => window.matchMedia(mq).matches;
+
+  function setHoverMode(){
+    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
+      dd.setAttribute('data-hover', isMobile() ? 'false' : 'true');
+    });
+  }
+
+  function closeAll(){
+    document.querySelectorAll('.navbar-menu-dropdown.w-dropdown').forEach(dd=>{
+      dd.classList.remove('w--open');
+      const t = dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
+      if (t) t.setAttribute('aria-expanded','false');
+    });
+  }
+
+  function bindMobileClicks(){
+    document.querySelectorAll('.navbar-menu-dropdown .w-dropdown-toggle, .navbar-menu-dropdown .navbar-dropdwn-toggle')
+      .forEach(toggle=>{
+        toggle.setAttribute('aria-expanded','false');
+        toggle.addEventListener('click', (e)=>{
+          if (!isMobile()) return;
+          e.preventDefault(); e.stopPropagation();
+          const dd = toggle.closest('.w-dropdown');
+          const open = dd.classList.contains('w--open');
+          closeAll();
+          if (!open){
+            dd.classList.add('w--open');
+            toggle.setAttribute('aria-expanded','true');
+          }
+        });
+      });
+
+    document.addEventListener('click', (e)=>{
+      if (!isMobile()) return;
+      if (!e.target.closest('.navbar-menu-dropdown')) closeAll();
+    }, true);
+  }
+
+  setHoverMode();
+  bindMobileClicks();
+  window.addEventListener('resize', setHoverMode);
+})();
+</script>
+<script id="nav-dropdown-clickthrough">
+(function(){
+  const isDesktop = () => !window.matchMedia('(max-width: 991px)').matches;
+  document.addEventListener('click', function(e){
+    if (!isDesktop()) return;
+
+    const a = e.target.closest('.w-dropdown-list a, .navbar-dropdown-list-container a');
+    if (!a) return;
+
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    e.stopPropagation();
+    const target = (a.getAttribute('target') || '').toLowerCase();
+    if (target === '_blank') {
+      window.open(href, '_blank');
+    } else {
+      window.location.assign(href);
+    }
+  }, true);
+})();
+</script>
+
+
+
 </body>
 </html>
 
