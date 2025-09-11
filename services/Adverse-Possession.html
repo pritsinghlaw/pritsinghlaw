@@ -454,7 +454,28 @@
 </style>
 
 
-
+<style id="toplink-as-anchor">
+/* Make the new top-level anchor look/act like the other nav links */
+.dropdown-toplink{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  flex: 1 1 auto;
+  font-weight: 500 !important;
+  font-family: 'Open Sans', sans-serif !important;
+  white-space: nowrap !important;
+}
+/* Keep the chevron on the right and clickable for toggling */
+.navbar-dropdwn-toggle{
+  display: flex; align-items: center; gap: .35rem;
+}
+.navbar-dropdwn-toggle .dropdown-icon{
+  order: 2; margin-left: .5rem; flex: 0 0 auto; cursor: pointer;
+}
+.navbar-dropdwn-toggle > :not(.dropdown-icon){
+  order: 1; flex: 1 1 auto;
+}
+</style>
 
 
     
@@ -1000,6 +1021,80 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script src="main.js"></script>
+
+
+<script id="make-toplinks-clickable">
+(function(){
+  function wireTopLink(ddEl, href, labelText){
+    if(!ddEl) return;
+    const toggle = ddEl.querySelector('.navbar-dropdwn-toggle, .w-dropdown-toggle');
+    if(!toggle) return;
+
+    // Find the current label element (the non-icon child)
+    const labelEl = Array.from(toggle.children).find(ch => !ch.classList.contains('dropdown-icon'));
+    const iconEl  = toggle.querySelector('.dropdown-icon');
+
+    // Build anchor to replace the label
+    const a = document.createElement('a');
+    a.className = 'dropdown-toplink';
+    a.href = href;
+    a.textContent = labelText;
+
+    // Swap it in
+    if(labelEl){
+      toggle.replaceChild(a, labelEl);
+    }else{
+      toggle.insertBefore(a, iconEl || null);
+    }
+
+    // Desktop: clicking the label should navigate (don’t toggle).
+    // Mobile: first tap opens, second tap navigates.
+    a.addEventListener('click', function(e){
+      const isMobile = window.matchMedia('(max-width: 991px)').matches;
+      const open = ddEl.classList.contains('w--open');
+
+      if(isMobile && !open){
+        // First tap opens the dropdown
+        e.preventDefault();
+        // Trigger Webflow’s own toggle handler
+        toggle.dispatchEvent(new MouseEvent('click', {bubbles:true}));
+        return;
+      }
+
+      // Ensure the dropdown toggle doesn’t hijack the click
+      e.stopPropagation();
+      // allow normal navigation
+    }, true);
+
+    // Make the chevron explicitly toggle (nice on desktop)
+    if(iconEl){
+      iconEl.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        toggle.dispatchEvent(new MouseEvent('click', {bubbles:true}));
+      }, true);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // Find your two dropdowns by their current label text
+    document.querySelectorAll('.navbar-menu-dropdown.w-dropdown').forEach(dd=>{
+      const toggle = dd.querySelector('.navbar-dropdwn-toggle, .w-dropdown-toggle');
+      if(!toggle) return;
+      const labelEl = Array.from(toggle.children).find(ch => !ch.classList.contains('dropdown-icon'));
+      const label = (labelEl?.textContent || '').trim().toLowerCase();
+
+      if(label === 'about'){
+        wireTopLink(dd, '/about', 'About');
+      }else if(label === 'practice areas'){
+        wireTopLink(dd, '/services', 'Practice Areas');
+      }
+    });
+  });
+})();
+</script>
+
+
 
 </body>
 </html>
