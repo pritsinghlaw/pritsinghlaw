@@ -188,7 +188,7 @@ visibility:hidden!important;
 /* Responsive search */
 @media screen and (max-width: 768px) {
   .navbar-search-container {
-    margin-left: 0px;
+    margin-left: 10px;
   }
 
   .search-input {
@@ -218,7 +218,6 @@ visibility:hidden!important;
     transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
     text-decoration: none;
     border: none;
-    white-space: nowrap !important;
 }
 
 /* Primary button: navy blue background */
@@ -242,7 +241,7 @@ visibility:hidden!important;
     background: #ffffff;
     color: #001f54;
     border: 2px solid #001f54;
-    white-space: nowrap !important;
+  white-space: nowrap !important;
 }
 
 .btn-secondary:hover,
@@ -334,7 +333,7 @@ visibility:hidden!important;
 .link-card-practice-areas:hover, .link-card:hover
  .link-card-practice-areas:focus, .link-card:focus  {
   transform:translateY(-4px) scale(1.03) !important;
-  
+  box-shadow:0 0.75rem 1.25rem rgba(0,0,0,.15) !important;
 }   
 
 
@@ -350,8 +349,9 @@ visibility:hidden!important;
     display:flex !important;
     flex-direction:column !important;
     border-radius:12px !important;
-    transition: transform .25s ease !important;
-  
+    transition: box-shadow .25s ease, transform .25s ease !important;
+    /* base (no glow) */
+    box-shadow: 0 0 0 rgba(0,0,0,0) !important;
   }
   .link-card-practice-areas .card-content{
     flex:1 1 auto;
@@ -359,18 +359,24 @@ visibility:hidden!important;
     flex-direction:column;
   }
 
-  
+  /* Subtle glow on hover/focus */
   .link-card-practice-areas:hover .card-background,
   .link-card-practice-areas:focus .card-background,
   .link-card-practice-areas:focus-within .card-background {
     transform: translateY(-4px);
-    
+    box-shadow:
+      0 0 0 .5px rgba(255,140,0,.35),
+      0 0 12px 2px rgba(255,140,0,.25),
+      0 0 28px 8px rgba(0,31,84,.15) !important;
   }
 
-  
+  /* Stronger glow on click */
   .link-card-practice-areas:active .card-background {
     transform: translateY(-2px) scale(.99);
-    
+    box-shadow:
+      0 0 0 1px rgba(255,140,0,.5),
+      0 0 18px 4px rgba(255,140,0,.35),
+      0 0 36px 12px rgba(0,31,84,.20) !important;
   }
 
 
@@ -390,6 +396,12 @@ visibility:hidden!important;
     display: block !important;
 }
 
+/* Fix navigation dropdown */
+.navbar-dropdown-list-container {
+    display: block !important;
+    height: auto !important;
+    left:10px !important;
+}
 
   .text-size-large-1 {
     line-height: 1.5 !important;
@@ -410,6 +422,7 @@ visibility:hidden!important;
 
 
 </style>
+
 
 
 <!---DROPDOWN MENU STYLESHEET UPDATE--->
@@ -702,13 +715,13 @@ visibility:hidden!important;
 </nav>
   
   <div class="navbar-button-wrapper"><!-- NEW call button -->
-  <a style="font-size:10.5px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
+  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
  <b>CALL US</b>
   </a>
 
   <!-- EXISTING portal button, now with a user icon -->
   <a href="/coming-soon" target="_blank" class="btn btn-primary w-button"
-     style="background-color:#ff4900!important; font-size:10px!important;">
+     style="background-color:#ff4900!important; font-size:9.5px!important;">
   <b>CLIENT PORTAL</b>
   </a>
     
