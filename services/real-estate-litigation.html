@@ -560,7 +560,7 @@ em, i { font-style: italic; }
   
 
   <!---SERVICES--->
-  <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" style="max-width:fit-content !important;" class="navbar-menu-dropdown w-dropdown">
+  <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" style="max-width:fit-content !important; class="navbar-menu-dropdown w-dropdown">
     <div class="navbar-dropdwn-toggle w-dropdown-toggle">
       <div class="dropdown-icon w-embed">
         <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -706,24 +706,29 @@ em, i { font-style: italic; }
 
 
 
- 
-
-<!-- Webflow JS (needed for the nav) -->
+  <!-- Webflow JS (needed for the nav) -->
 <script crossorigin="anonymous" src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js"></script>
 <script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js"></script>
-<!-- Optional search helper from your sample -->
-<!-- CONFLICTED NAV JS (commented out by updater) START -->
+
+  
+  
+  
+  
+  
+  
+  <!-- Optional search helper from your sample -->
 <script>
     function performSearch(){
       const i=document.getElementById('searchInput'); const q=(i?.value||'').trim();
       if(q) window.open('https://www.google.com/search?q=site:pritsinghlaw.com '+encodeURIComponent(q),'_blank');
     }
   </script>
-<!-- CONFLICTED NAV JS END -->
 
 
-  <!---
-<!-- CONFLICTED NAV JS (commented out by updater) START -->
+
+
+  <!----NAV DROPDOWN FIX
+  
 <script id="nav-dropdown-fix-js">
 (function(){
   const mq = '(max-width: 991px)';
@@ -775,11 +780,6 @@ em, i { font-style: italic; }
   window.addEventListener('resize', setHoverMode);
 })();
 </script>
-<!-- CONFLICTED NAV JS END -->
---->
-
-  
-<!-- CONFLICTED NAV JS (commented out by updater) START -->
 <script id="nav-dropdown-clickthrough">
 (function(){
   const isDesktop = () => !window.matchMedia('(max-width: 991px)').matches;
@@ -810,8 +810,14 @@ em, i { font-style: italic; }
   }, true); // capture phase to win over other listeners
 })();
 </script>
-<!-- CONFLICTED NAV JS END -->
+---->
 
+
+
+
+
+
+  
 
  <!---CLIENT INTAKE POPUP CTA--->
   
@@ -829,7 +835,7 @@ em, i { font-style: italic; }
       <button class="modal-close" id="close-intake-modal" type="button" aria-label="Close dialog">&times;</button>
 
       <div class="logo-wrap">
-        <img class="modal-logo" src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh logo" width="200" height="auto" />
+        <img class="modal-logo" src="https://pritsinghlaw.com/colornobg.svg" alt="Law Offices of Pritpal Singh logo" width="250" height="auto" />
       </div>
 
       <h2 id="intake-title" class="title">Schedule A Consultation</h2>
@@ -947,8 +953,9 @@ em, i { font-style: italic; }
 </script>
 
 
+
+
 <!---SEARCH FUNCTIONALITY--->
-<!-- CONFLICTED NAV JS (commented out by updater) START -->
 <script>
 function performSearch() {
   const searchInput = document.getElementById('searchInput');
@@ -984,11 +991,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+<script id="dropdown-controller" data-version="2.7">
 
-
-<!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
-<script>
-<script>
 /* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
 document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
@@ -1020,14 +1024,315 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initially close all dropdowns to prevent hidden clickable links
     closeAllDropdowns();
     
-    // Observe all dropdown lists for changes
-    document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
-        observer.observe(list, { attributes: true });
+
+
+(function(){
+  const DESKTOP = window.matchMedia('(min-width: 992px)');
+  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
+  if (!dropdowns.length) return;
+
+  // Turn off Webflow's built-in hover behavior so we fully control it
+  dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
+
+  // Gentle hover intent
+  const OPEN_DELAY  = 80;
+  const CLOSE_DELAY = 150;
+  const timers = new WeakMap();
+
+  function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle'); }
+  function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
+
+  function scrubInline(el){
+    if (!el) return;
+    el.style.removeProperty('display');
+    el.style.removeProperty('opacity');
+    el.style.removeProperty('visibility');
+    el.style.removeProperty('pointer-events');
+  }
+
+  function setExpanded(dd, open){
+    const t = getToggle(dd);
+    if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function clearTimer(dd){
+    const id = timers.get(dd);
+    if (id){ clearTimeout(id); timers.delete(dd); }
+  }
+
+  function schedule(dd, fn, delay){
+    clearTimer(dd);
+    timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
+  }
+
+  function closeOthers(except){
+    dropdowns.forEach(d => { if (d !== except) hide(d); });
+  }
+
+  function show(dd){
+    closeOthers(dd);
+    dd.classList.add('w--open');            // used by your CSS to show list
+    scrubInline(getList(dd));               // remove any inline Webflow styles
+    setExpanded(dd, true);
+  }
+
+  function hide(dd){
+    dd.classList.remove('w--open');
+    setExpanded(dd, false);
+  }
+
+  dropdowns.forEach(dd => {
+    const toggle = getToggle(dd);
+    const list   = getList(dd);
+
+    // ---------------------------
+    // DESKTOP (hover/focus only)
+    // ---------------------------
+    dd.addEventListener('pointerenter', () => {
+      if (!DESKTOP.matches) return;
+      schedule(dd, show, OPEN_DELAY);
     });
-});
+
+    dd.addEventListener('pointerleave', () => {
+      if (!DESKTOP.matches) return;
+      schedule(dd, hide, CLOSE_DELAY);
+    });
+
+    dd.addEventListener('focusin', () => {
+      if (!DESKTOP.matches) return;
+      show(dd);
+    });
+
+    dd.addEventListener('focusout', (e) => {
+      if (!DESKTOP.matches) return;
+      if (!dd.contains(e.relatedTarget)) hide(dd);
+    });
+
+    // ----------------------------------------------------
+    // Neutralize Webflow's click handler on ALL breakpoints
+    // (capture phase, so we run before Webflow’s listener)
+    // ----------------------------------------------------
+    if (toggle){
+      toggle.addEventListener('click', (e) => {
+        // We prevent Webflow’s default dropdown click behavior everywhere.
+        // On desktop: do nothing (hover only).
+        // On mobile/tablet: we'll handle our own toggle below.
+        e.preventDefault();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        e.stopPropagation();
+
+        if (!DESKTOP.matches){
+          // Mobile/tablet: our click-to-toggle
+          clearTimer(dd);
+          dd.classList.contains('w--open') ? hide(dd) : show(dd);
+        }
+      }, true); // capture = true
+    }
+
+    // Clicking any link inside closes (both modes)
+    if (list){
+      list.addEventListener('click', (e) => {
+        if (e.target.closest('a')) hide(dd);
+      });
+    }
+  });
+
+  // Outside click closes all (both modes)
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar-menu-dropdown')) {
+      dropdowns.forEach(hide);
+    }
+  });
+
+  // Escape closes all (both modes)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') dropdowns.forEach(hide);
+  });
+
+  // Reset state when crossing breakpoint
+  DESKTOP.addEventListener('change', () => dropdowns.forEach(hide));
+
+  // Initial cleanup: remove any inline styles Webflow left behind
+  dropdowns.forEach(dd => {
+    scrubInline(getList(dd));
+    hide(dd);
+  });
+})();
 </script>
 
+
+
+
+
 <script src="main.js"></script>
+
+
+<script id="dropdown-controller" data-version="3.0">
+(function(){
+  // Wait for DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  function init(){
+    const DESKTOP   = window.matchMedia('(min-width: 992px)');
+    const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
+    if (!dropdowns.length) return;
+
+    // Turn off Webflow's built-in hover to prevent double-handling
+    dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
+
+    const OPEN_DELAY  = 80;   // ms
+    const CLOSE_DELAY = 150;  // ms
+    const timers = new WeakMap();
+
+    function getToggle(dd){
+      return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
+    }
+    function getList(dd){
+      // Support both Webflow list and your custom container
+      return dd.querySelector('.w-dropdown-list, .navbar-dropdown-list-container');
+    }
+
+    function scrubInline(el){
+      if (!el) return;
+      ['display','opacity','visibility','pointer-events','height','transform'].forEach(p => {
+        el.style.removeProperty(p);
+      });
+    }
+
+    function setAria(dd, open){
+      const t = getToggle(dd);
+      const l = getList(dd);
+      if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (l) l.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    function clearTimer(dd){
+      const id = timers.get(dd);
+      if (id){ clearTimeout(id); timers.delete(dd); }
+    }
+
+    function schedule(dd, fn, delay){
+      clearTimer(dd);
+      timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
+    }
+
+    function closeOthers(except){
+      dropdowns.forEach(d => { if (d !== except) hide(d); });
+    }
+
+    function show(dd){
+      closeOthers(dd);
+      dd.classList.add('w--open');               // CSS controls visibility
+      const list = getList(dd);
+      if (list){
+        scrubInline(list);                       // remove stale inline styles
+        list.style.pointerEvents = 'auto';       // safety: clickable only when open
+      }
+      setAria(dd, true);
+    }
+
+    function hide(dd){
+      dd.classList.remove('w--open');
+      const list = getList(dd);
+      if (list){
+        scrubInline(list);
+        list.style.pointerEvents = 'none';       // safety: never clickable when closed
+      }
+      setAria(dd, false);
+    }
+
+    // Initial: scrub & close everything
+    dropdowns.forEach(dd => { scrubInline(getList(dd)); hide(dd); });
+
+    // Bind per dropdown
+    dropdowns.forEach(dd => {
+      const toggle = getToggle(dd);
+      const list   = getList(dd);
+
+      // -------- Desktop: hover/focus only (no click to open) --------
+      dd.addEventListener('pointerenter', () => {
+        if (!DESKTOP.matches) return;
+        schedule(dd, show, OPEN_DELAY);
+      });
+      dd.addEventListener('pointerleave', () => {
+        if (!DESKTOP.matches) return;
+        schedule(dd, hide, CLOSE_DELAY);
+      });
+      dd.addEventListener('focusin', () => {
+        if (!DESKTOP.matches) return;
+        show(dd);
+      });
+      dd.addEventListener('focusout', (e) => {
+        if (!DESKTOP.matches) return;
+        if (!dd.contains(e.relatedTarget)) hide(dd);
+      });
+
+      // -------- Neutralize Webflow's click; implement our own mobile toggle --------
+      if (toggle){
+        toggle.addEventListener('click', (e) => {
+          // Stop Webflow / other handlers early (capture-like effect)
+          e.preventDefault();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+          e.stopPropagation();
+
+          if (DESKTOP.matches){
+            // Desktop: clicks do nothing; hover handles open/close
+            return;
+          } else {
+            // Mobile/Tablet: click toggles
+            clearTimer(dd);
+            dd.classList.contains('w--open') ? hide(dd) : show(dd);
+          }
+        }, true);
+      }
+
+      // Clicking any link inside should close dropdowns (both modes)
+      if (list){
+        list.addEventListener('click', (e) => {
+          if (e.target.closest('a')){
+            dropdowns.forEach(hide);
+          }
+        });
+      }
+    });
+
+    // Outside click closes all (both modes)
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar-menu-dropdown')) dropdowns.forEach(hide);
+    });
+
+    // Escape closes all (both modes)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') dropdowns.forEach(hide);
+    });
+
+    // Reset when crossing breakpoint
+    DESKTOP.addEventListener('change', () => dropdowns.forEach(dd => { scrubInline(getList(dd)); hide(dd); }));
+
+    // ---- MutationObserver safety net (from your Universal Fix) ----
+    // If anything re-injects inline styles, ensure hidden lists stay non-interactive.
+    const lists = Array.from(document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list'));
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        if (m.type === 'attributes' && m.attributeName === 'style') {
+          const el = m.target;
+          const owner = el.closest('.navbar-menu-dropdown');
+          const isOpen = owner && owner.classList.contains('w--open');
+          if (!isOpen) {
+            el.style.pointerEvents = 'none';
+          }
+        }
+      });
+    });
+    lists.forEach(l => observer.observe(l, { attributes: true }));
+  }
+})();
+</script>
+
 
 </body>
 </html>
