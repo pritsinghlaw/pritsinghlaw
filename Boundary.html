@@ -712,61 +712,7 @@ em, i { font-style: italic; }
 <!-- CONFLICTED NAV JS END -->
 
 
-  <!---
-<!-- CONFLICTED NAV JS (commented out by updater) START -->
-<script id="nav-dropdown-fix-js">
-(function(){
-  const mq = '(max-width: 991px)';
-  const isMobile = () => window.matchMedia(mq).matches;
-
-  function setHoverMode(){
-    // Avoid hover-open on mobile, allow it on desktop (Webflow behavior)
-    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd=>{
-      dd.setAttribute('data-hover', isMobile() ? 'false' : 'true');
-    });
-  }
-
-  function closeAll(){
-    document.querySelectorAll('.navbar-menu-dropdown.w-dropdown').forEach(dd=>{
-      dd.classList.remove('w--open');
-      const t = dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
-      if (t) t.setAttribute('aria-expanded','false');
-    });
-  }
-
-  function bindMobileClicks(){
-    document.querySelectorAll('.navbar-menu-dropdown .w-dropdown-toggle, .navbar-menu-dropdown .navbar-dropdwn-toggle')
-      .forEach(toggle=>{
-        toggle.setAttribute('aria-expanded','false');
-        toggle.addEventListener('click', (e)=>{
-          if (!isMobile()) return; // let Webflow do desktop hover
-          e.preventDefault(); e.stopPropagation();
-          const dd = toggle.closest('.w-dropdown');
-          const open = dd.classList.contains('w--open');
-
-          // close others, then toggle this one
-          closeAll();
-          if (!open){
-            dd.classList.add('w--open');
-            toggle.setAttribute('aria-expanded','true');
-          }
-        });
-      });
-
-    // tap/click outside to close
-    document.addEventListener('click', (e)=>{
-      if (!isMobile()) return;
-      if (!e.target.closest('.navbar-menu-dropdown')) closeAll();
-    }, true);
-  }
-
-  setHoverMode();
-  bindMobileClicks();
-  window.addEventListener('resize', setHoverMode);
-})();
-</script>
-<!-- CONFLICTED NAV JS END -->
---->
+ 
 
   
 <!-- CONFLICTED NAV JS (commented out by updater) START -->
