@@ -573,7 +573,7 @@ em, i { font-style: italic; }
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
         </svg>
       </div>
-      <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">About</div>
+      <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important; white-space:nowrap !important;">About</div>
     </div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
@@ -621,11 +621,11 @@ em, i { font-style: italic; }
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
         </svg>
       </div>
-      <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">Practice Areas</div>
+      <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important; white-space:nowrap !important;">Practice Areas</div>
     </div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
-    <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
+    <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list" style="max-width:fit-content !important;">
       <div class="navbar-dropdown-list-wrapper flex-horizontal">
         <div class="navbar-dropdown-list">
           
@@ -688,13 +688,13 @@ em, i { font-style: italic; }
 </nav>
   
   <div class="navbar-button-wrapper"><!-- NEW call button -->
-  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
+  <a style="font-size:10.5px!important; background-color:#001f54!important; color:#ffffff!important; white-space:nowrap !important;" href="tel:+15104432123" class="btn btn-primary w-button">
  <b>CALL US</b>
   </a>
 
   <!-- EXISTING portal button, now with a user icon -->
   <a href="/coming-soon" target="_blank" class="btn btn-primary w-button"
-     style="background-color:#ff4900!important; font-size:9.5px!important;">
+     style="background-color:#ff4900!important; font-size:10px!important;">
   <b>CLIENT PORTAL</b>
   </a>
     
@@ -1033,26 +1033,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
 <script>
+<script>
 /* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
 document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
     const dropdownToggles = document.querySelectorAll('.navbar-dropdwn-toggle');
     
-   
-    // Prevent any interaction with hidden dropdown elements
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                const element = mutation.target;
-                if (element.classList.contains('navbar-dropdown-list-container') || 
-                    element.classList.contains('w-dropdown-list')) {
-                    if (element.style.display === 'none' || !element.style.display) {
-                        element.style.pointerEvents = 'none';
-                    }
-                }
-            }
+    // Function to close all dropdowns
+    function closeAllDropdowns() {
+        document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
+            list.style.display = 'none';
+            list.style.pointerEvents = 'none'; // Disable clicks on hidden dropdowns
+            list.setAttribute('aria-hidden', 'true');
         });
-    });
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(d => {
+            d.classList.remove('w--open');
+        });
+    }
+    
+    // Function to open a specific dropdown
+    function openDropdown(dropdown) {
+        const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
+        if (dropdownList) {
+            dropdownList.style.display = 'block';
+            dropdownList.style.pointerEvents = 'auto'; // Enable clicks when visible
+            dropdownList.setAttribute('aria-hidden', 'false');
+            dropdown.classList.add('w--open');
+        }
+    }
+    
+    // Initially close all dropdowns to prevent hidden clickable links
+    closeAllDropdowns();
     
     // Observe all dropdown lists for changes
     document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
