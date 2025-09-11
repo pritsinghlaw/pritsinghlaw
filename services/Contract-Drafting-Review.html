@@ -970,6 +970,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script src="main.js"></script>
+
+
+<!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
+<script>
+/* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
+    const dropdownToggles = document.querySelectorAll('.navbar-dropdwn-toggle');
+    
+    // Function to close all dropdowns
+    function closeAllDropdowns() {
+        document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
+            list.style.display = 'none';
+            list.style.pointerEvents = 'none'; // Disable clicks on hidden dropdowns
+            list.setAttribute('aria-hidden', 'true');
+        });
+        document.querySelectorAll('.navbar-menu-dropdown').forEach(d => {
+            d.classList.remove('w--open');
+        });
+    }
+    
+    // Function to open a specific dropdown
+    function openDropdown(dropdown) {
+        const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
+        if (dropdownList) {
+            dropdownList.style.display = 'block';
+            dropdownList.style.pointerEvents = 'auto'; // Enable clicks when visible
+            dropdownList.setAttribute('aria-hidden', 'false');
+            dropdown.classList.add('w--open');
+        }
+    }
+    
+    // Initially close all dropdowns to prevent hidden clickable links
+    closeAllDropdowns();
+    
+    // Observe all dropdown lists for changes
+    document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
+        observer.observe(list, { attributes: true });
+    });
+});
+</script>
+
+
   
 </body>
 </html>
