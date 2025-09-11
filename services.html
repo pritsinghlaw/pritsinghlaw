@@ -1225,152 +1225,77 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<script id="dropdown-controller" data-version="2.4">
+<script id="dropdown-controller">
 (function(){
   const DESKTOP = window.matchMedia('(min-width: 992px)');
-  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
+  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown.w-dropdown'));
   if (!dropdowns.length) return;
 
-  // Disable Webflow hover auto-open
+  // Turn off Webflow's hover logic; we'll manage everything.
   dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
 
-  const OPEN_DELAY  = 80;
-  const CLOSE_DELAY = 150;
+  const OPEN_DELAY=80, CLOSE_DELAY=150;
+  const timers=new WeakMap(), pinned=new WeakMap();
 
-  const timers = new WeakMap();
-  const pinned = new WeakMap(); // dd -> boolean
-
-  function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle'); }
-  function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
+  const getToggle = dd => dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle');
+  const getList   = dd => dd.querySelector('.w-dropdown-list');
+  const isOpen    = dd => dd.classList.contains('w--open');
+  const isPinned  = dd => pinned.get(dd)===true;
 
   function scrubInline(el){
-    if (!el) return;
-    el.style.removeProperty('display');
-    el.style.removeProperty('opacity');
-    el.style.removeProperty('visibility');
-    el.style.removeProperty('pointer-events');
+    if(!el) return;
+    for (const prop of ['display','opacity','visibility','pointer-events','left','top','position']){
+      el.style.removeProperty(prop);
+    }
   }
-
-  function setExpanded(dd, open){
-    const t = getToggle(dd);
-    if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  function setExpanded(dd,open){
+    const t=getToggle(dd); if(t) t.setAttribute('aria-expanded',open?'true':'false');
   }
+  function clearTimer(dd){ const id=timers.get(dd); if(id){clearTimeout(id); timers.delete(dd);} }
+  function schedule(dd,fn,delay){ clearTimer(dd); timers.set(dd,setTimeout(()=>{fn(dd); timers.delete(dd);},delay)); }
 
-  function clearTimer(dd){
-    const id = timers.get(dd);
-    if (id){ clearTimeout(id); timers.delete(dd); }
-  }
+  function show(dd){ dropdowns.forEach(d=>{if(d!==dd) hide(d);}); dd.classList.add('w--open'); scrubInline(getList(dd)); setExpanded(dd,true); }
+  function hide(dd){ dd.classList.remove('w--open'); setExpanded(dd,false); }
+  function unpinAll(){ dropdowns.forEach(d=>pinned.set(d,false)); }
 
-  function schedule(dd, fn, delay){
-    clearTimer(dd);
-    timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
-  }
+  dropdowns.forEach(dd=>{
+    pinned.set(dd,false);
+    const toggle=getToggle(dd), list=getList(dd);
 
-  function isOpen(dd){ return dd.classList.contains('w--open'); }
-  function isPinned(dd){ return pinned.get(dd) === true; }
-
-  function show(dd){
-    // Close others first
-    dropdowns.forEach(d => { if (d !== dd) hide(d, { force:false }); });
-    dd.classList.add('w--open');
-    scrubInline(getList(dd));
-    setExpanded(dd, true);
-  }
-
-  // IMPORTANT: hide respects "pinned" unless force:true
-  function hide(dd, { force=false } = {}){
-    if (DESKTOP.matches && isPinned(dd) && !force) return;
-    dd.classList.remove('w--open');
-    setExpanded(dd, false);
-  }
-
-  function unpinAll(){ dropdowns.forEach(d => pinned.set(d, false)); }
-  function forceCloseAll(){ unpinAll(); dropdowns.forEach(d => hide(d, { force:true })); }
-
-  dropdowns.forEach(dd => {
-    pinned.set(dd, false);
-    const toggle = getToggle(dd);
-    const list   = getList(dd);
-
-    // Hover intent (desktop). Pending timers will NOT close a pinned dropdown.
-    dd.addEventListener('pointerenter', () => {
-      if (!DESKTOP.matches || isPinned(dd)) return;
-      schedule(dd, show, OPEN_DELAY);
-    });
-
-    dd.addEventListener('pointerleave', () => {
-      if (!DESKTOP.matches || isPinned(dd)) return;
-      schedule(dd, d => hide(d, { force:false }), CLOSE_DELAY);
-    });
+    // Desktop hover with intent; doesn't override a pinned state.
+    dd.addEventListener('pointerenter', ()=>{ if(!DESKTOP.matches||isPinned(dd)) return; schedule(dd,show,OPEN_DELAY); });
+    dd.addEventListener('pointerleave', ()=>{ if(!DESKTOP.matches||isPinned(dd)) return; schedule(dd,hide,CLOSE_DELAY); });
 
     // Click handling
     if (toggle){
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        clearTimer(dd);
-
+      toggle.addEventListener('click', e=>{
+        e.preventDefault(); e.stopPropagation(); clearTimer(dd);
         if (DESKTOP.matches){
-          const open = isOpen(dd);
-          const pin  = isPinned(dd);
-
-          if (!open){
-            show(dd);
-            pinned.set(dd, true);           // pin on first click
-          } else if (pin){
-            pinned.set(dd, false);          // unpin + close
-            hide(dd, { force:true });
-          } else {
-            pinned.set(dd, true);           // was hover-open; click to pin
-            show(dd);
-          }
+          const open=isOpen(dd), pin=isPinned(dd);
+          if (!open){ show(dd); pinned.set(dd,true); }
+          else if (pin){ pinned.set(dd,false); hide(dd); }
+          else { pinned.set(dd,true); show(dd); }
         } else {
-          // Mobile/tablet: simple toggle
-          isOpen(dd) ? hide(dd, { force:true }) : show(dd);
+          const open=isOpen(dd); dropdowns.forEach(hide); if(!open) show(dd); else hide(dd);
         }
       });
     }
 
-    // Keyboard (desktop): focus opens unless pinned; leaving closes unless pinned
-    dd.addEventListener('focusin', () => {
-      if (DESKTOP.matches && !isPinned(dd)) show(dd);
-    });
-
-    dd.addEventListener('focusout', (e) => {
-      if (!DESKTOP.matches) return;
-      if (dd.contains(e.relatedTarget)) return;
-      hide(dd, { force:false });
-    });
-
-    // Clicking any link inside closes & unpins
-    if (list){
-      list.addEventListener('click', (e) => {
-        if (e.target.closest('a')){
-          pinned.set(dd, false);
-          hide(dd, { force:true });
-        }
-      });
-    }
+    // Keyboard & inside-link behavior
+    dd.addEventListener('focusin', ()=>{ if(DESKTOP.matches && !isPinned(dd)) show(dd); });
+    dd.addEventListener('focusout', e=>{ if(!DESKTOP.matches) return; if (dd.contains(e.relatedTarget)) return; if(!isPinned(dd)) hide(dd); });
+    if (list){ list.addEventListener('click', e=>{ if(e.target.closest('a')){ pinned.set(dd,false); hide(dd); } }); }
   });
 
-  // Outside click / Escape / breakpoint change = force close
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.navbar-menu-dropdown')) forceCloseAll();
-  });
+  // Close on outside click / ESC / breakpoint change
+  document.addEventListener('click', e=>{ if (e.target.closest('.navbar-menu-dropdown')) return; unpinAll(); dropdowns.forEach(hide); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ unpinAll(); dropdowns.forEach(hide); }});
+  DESKTOP.addEventListener('change', ()=>{ unpinAll(); dropdowns.forEach(hide); });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') forceCloseAll();
-  });
-
-  DESKTOP.addEventListener('change', () => forceCloseAll());
-
-  // Initial cleanup of any Webflow inline styles and states
-  dropdowns.forEach(dd => {
-    scrubInline(getList(dd));
-    hide(dd, { force:true });
-  });
+  dropdowns.forEach(dd=>scrubInline(getList(dd)));
 })();
 </script>
+
 
   
 </body>
