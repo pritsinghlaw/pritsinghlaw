@@ -601,32 +601,50 @@ visibility:hidden!important;
 
   
 
-<!---  
-<script>
-  // Set your password here
-  const PASSWORD = "IronHorse1901!";
-
-  // Show password prompt on page load
-  function checkPassword() {
-    let pass = prompt("This page is password protected. Please enter the password:");
-    if (pass !== PASSWORD) {
-      alert("Incorrect password. Access denied.");
-      window.location.href = "https://www.google.com"; // Or any other redirect
-    }
-    // If correct, do nothing and let the page load
-  }
-
-  // Run password check when DOM is loaded
-  document.addEventListener("DOMContentLoaded", function() {
-    checkPassword();
-  });
-</script>
---->
 
    <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 
 
+<!-- ✅ Fix for invisible clickable dropdown links -->
+<style>
+/* Force dropdown lists to be fully non-interactive when hidden */
+.w-dropdown-list {
+  display: none !important;     /* hide by default */
+  pointer-events: none !important; /* block any ghost clicks */
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
 
+/* When dropdown is open, restore interactivity */
+.w-dropdown.w--open .w-dropdown-list {
+  display: block !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+</style>
+
+<script>
+/* Extra insurance for mobile/tablet: 
+   removes hidden dropdowns from flow so they can't eat clicks */
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.navbar-menu-dropdown').forEach(dropdown => {
+    const list = dropdown.querySelector('.w-dropdown-list');
+    dropdown.addEventListener('mouseenter', () => {
+      if (dropdown.classList.contains('w--open')) {
+        list.style.display = 'block';
+        list.style.pointerEvents = 'auto';
+      }
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      if (!dropdown.classList.contains('w--open')) {
+        list.style.display = 'none';
+        list.style.pointerEvents = 'none';
+      }
+    });
+  });
+});
+</script>
   
 </head>
 <body>
@@ -1122,6 +1140,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+
+
   
 </body>
 </html>
