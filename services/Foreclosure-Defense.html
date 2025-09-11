@@ -321,149 +321,8 @@
 
 
   
-<!-- CONFLICTED NAV CSS (commented out by updater) START -->
-<style id="nav-dropdown-fix">
-/* ---------- Base dropdown ---------- */
-.navbar-menu-dropdown{ position:relative; }
-
-.w-dropdown-toggle,
-.navbar-dropdwn-toggle{
-  display:flex; align-items:center; gap:.35rem; cursor:pointer;
-}
-
-/* Keep long labels on one line */
-.navbar-dropdown-link{ white-space:nowrap; }
-
-/* Desktop dropdown panel */
-.w-dropdown-list,
-.navbar-dropdown-list-container{
-  position:absolute; top:100%; left:0;
-  min-width:260px;
-  background:#fff; border-radius:12px;
-  box-shadow:0 12px 28px rgba(0,0,0,.12);
-  padding:.5rem;
-  z-index:9999 !important;
-  display:none; /* hidden until .w--open */
-}
-
-/* Open state (Webflow toggles .w--open) */
-.w-dropdown.w--open > .w-dropdown-list{ display:block !important; max-width: fit-content !important;
-}
-
-/* Scroll long menus nicely */
-.navbar-dropdown-list-container{
-  max-height:70vh !important; overflow-y:auto !important;
-  width:fit-content !important; /* fixed the typo: fit-content */
-}
-
-/* Two-column grid inside large menus (tablet and up) */
-@media (min-width:768px){
-  .menu-item-container{
-    display:grid; grid-template-columns:repeat(2,1fr);
-    gap:.75rem 1.25rem;
-  }
-}
-
-/* Mobile: make lists flow inside the opened nav, not absolutely positioned */
-@media (max-width:991px){
-  .w-nav-menu{ overflow-y:auto; }
-
-  .w-dropdown-list,
-  .navbar-dropdown-list-container{
-    position:static !important;
-
-    max-height:none !important;
-    box-shadow:none; border-radius:0; padding:.25rem 0;
-    display:none; /* hidden until .w--open */
-  }
-
-  .w-dropdown.w--open > .w-dropdown-list{ display:block; }
-
-  .navbar-dropdown-link{
-    display:block; padding:12px 20px; border-bottom:1px solid #eee;
-  }
-
-  .navbar-dropdown-link:hover{ background:#f5f5f5; }
-}
-</style>
-<!-- CONFLICTED NAV CSS END -->
-<!-- CONFLICTED NAV CSS (commented out by updater) START -->
-<style id="nav-dropdown-fix-z">
-  /* Make sure dropdown panels sit above everything */
-  .w-dropdown-list,
-  .navbar-dropdown-list-container{
-    z-index: 9999 !important; /* higher than buttons/overlay */
-  }
-
-  /* On desktop the mobile overlay shouldn't catch clicks */
-  @media (min-width: 992px){
-    .w-nav-overlay{
-      pointer-events: none !important;
-      /* don't force display:none; Webflow manages visibility —
-         blocking pointer events is enough to prevent click-eating */
-    }
-  }
-</style>
-<!-- CONFLICTED NAV CSS END -->
-<!-- CONFLICTED NAV CSS (commented out by updater) START -->
-<style id="nav-fontweight-unify">
-/* Unify font-weight across main menu and dropdown menu links */
-#nav-fontweight-unify {}
-.navbar-link.w-nav-link,
-.navbar-dropdown-link.w-dropdown-link {
-  font-weight: 500 !important;
-  font-family: 'Open Sans', sans-serif !important;
-}
-</style>
-<!-- CONFLICTED NAV CSS END -->
-
-
-
-
-<!-- CONFLICTED NAV CSS (commented out by updater) START -->
-<style id="fonts-like-michael">
-/* Match michael.html fonts: Geologica for display; Open Sans for body/UI */
-:root{
-  --font-display: "Geologica", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Open Sans", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-}
-
-/* Body text & general UI */
-html, body, p, li, a, input, textarea, select, button {
-  font-family: var(--font-sans) !important;
-  font-weight: 400;
-}
-
-/* Nav + dropdowns + buttons */
-.navbar-link.w-nav-link,
-.navbar-dropdown-link.w-dropdown-link,
-.btn, .w-button,
-.navbar-search-input,
-.footer-link,
-.footer-credit-text {
-  font-family: var(--font-sans) !important;
-  font-weight: 500; /* tweak to 400 if you prefer lighter nav */
-}
-
-/* Headings & “display” text */
-h1, h2, h3, h4, h5, h6,
-.hero__title,
-.section__title,
-.card__title {
-  font-family: var(--font-display) !important;
-  font-weight: 500; /* michael.html loads 500/600 for Geologica */
-}
-
-/* Emphasis */
-b, strong { font-family: var(--font-sans) !important; font-weight: 700; }
-em, i { font-style: italic; }
-</style>
-<!-- CONFLICTED NAV CSS END -->
-
-
-
 <style>
-/* Mobile dropdown fixes (exactly from your sample) */
+/* Mobile dropdown fixes */
 @media (max-width: 991px) {
     .w-dropdown-list {
         position: absolute !important;
@@ -495,8 +354,74 @@ em, i { font-style: italic; }
         background-color: #f5f5f5;
     }
 }
+
+
 </style>
 
+
+<style>
+  
+  @media (min-width: 992px){
+  /* closed: invisible + non-interactive */
+  .navbar-menu-dropdown > .w-dropdown-list{ 
+    display:none !important; opacity:0; visibility:hidden; pointer-events:none;
+  }
+  /* open (hover/focus OR .w--open): visible + interactive */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display:block !important; opacity:1; visibility:visible; pointer-events:auto;
+  }
+}
+
+  
+</style>
+
+
+
+
+<style id="nav-dropdown-core">
+/* --- NAV / DROPDOWNS (desktop + mobile) --- */
+
+/* Let lists size to content and never exceed viewport height */
+.navbar-dropdown-list-container{
+  width: fit-content !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+}
+
+/* Base positioning for lists controlled by the dropdown container */
+.navbar-menu-dropdown > .w-dropdown-list{
+  position: absolute; top: 100%; left: 0;
+  z-index: 9999; /* was 1000 */
+}
+
+/* Desktop: closed = invisible & non-interactive */
+@media (min-width: 992px){
+  .navbar-menu-dropdown > .w-dropdown-list{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  /* Open when hovered/focused, or when JS pins it (.w--open) */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Small general tweak you already rely on */
+.text-size-large-1 { line-height: 1.5 !important; font-size: 16px !important; }
+.link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
+
+
+</style>
+  
 </head>
 <body>
 <!-- NEW HEADER NAV (from your Webflow code)--->
