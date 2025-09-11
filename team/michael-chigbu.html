@@ -945,6 +945,9 @@ visibility:hidden!important;
   
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64785fe0a8b931af3b0da218" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js" type="text/javascript"></script><div></div><div id="compose-ai-general-snackbar-root"></div><div id="Chat-Plugin-Root" class="compose-root-component"></div>
 
+
+
+  <!----OUTDATED FIX
 <script>
 /* --- Complete fix for Webflow mobile dropdown issues --- */
 document.addEventListener('DOMContentLoaded', function() {
@@ -998,6 +1001,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+  --->
 
 
 
@@ -1068,58 +1073,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initially close all dropdowns to prevent hidden clickable links
     closeAllDropdowns();
     
-    // Desktop behavior (hover and click)
-    if (window.matchMedia("(min-width: 992px)").matches) {
-        dropdowns.forEach(dropdown => {
-            let hoverTimeout;
-            
-            // Hover to open
-            dropdown.addEventListener('mouseenter', function() {
-                clearTimeout(hoverTimeout);
-                closeAllDropdowns();
-                openDropdown(this);
-            });
-            
-            // Hover to close with delay
-            dropdown.addEventListener('mouseleave', function() {
-                hoverTimeout = setTimeout(() => {
-                    closeAllDropdowns();
-                }, 200);
-            });
-        });
-    }
     
-    // Click functionality for all devices
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const dropdown = this.closest('.navbar-menu-dropdown');
-            const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
-            
-            if (dropdownList && dropdownList.style.display === 'block') {
-                closeAllDropdowns();
-            } else {
-                closeAllDropdowns();
-                openDropdown(dropdown);
-            }
-        });
-    });
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar-menu-dropdown')) {
-            closeAllDropdowns();
-        }
-    });
-    
-    // Ensure dropdown links work properly
-    document.querySelectorAll('.navbar-dropdown-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    });
     
     // Prevent any interaction with hidden dropdown elements
     const observer = new MutationObserver(function(mutations) {
