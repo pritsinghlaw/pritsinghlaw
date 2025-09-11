@@ -331,12 +331,12 @@
 /* Desktop dropdown panel */
 .w-dropdown-list,
 .navbar-dropdown-list-container{
-  position:absolute; top:100%; left:0;
-  max-width:fit-content;
+  position:absolute; top:100%; left:0 !important;
+  max-width:fit-content !important;
   background:#fff; border-radius:12px;
   box-shadow:0 12px 28px rgba(0,0,0,.12);
   padding:.5rem;
-  z-index:1000;
+  z-index:9999;
   display:none; /* hidden until .w--open */
 }
 
@@ -398,6 +398,7 @@
     }
   }
 </style>
+  
 <style id="nav-fontweight-unify">
 /* Unify font-weight across main menu and dropdown menu links */
 #nav-fontweight-unify {}
