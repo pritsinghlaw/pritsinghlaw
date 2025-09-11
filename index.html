@@ -807,7 +807,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </style>
   
-
+<!---
 <style id="dropdown-desktop-override">
 /* Final authority: desktop menus open ONLY when JS adds .w--open */
 @media (min-width: 992px){
@@ -837,6 +837,29 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 }
 </style>
+--->
+
+
+
+<style id="dropdown-desktop-override">
+@media (min-width: 992px){
+  .navbar-menu-dropdown > .w-dropdown-list{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+</style>
+
+
 
 </head>
 <body>
