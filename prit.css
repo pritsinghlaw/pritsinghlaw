@@ -8557,4 +8557,92 @@ figcaption {
   }
 }
 
+.navbar-menu-dropdown{ position: relative !important; }
+
+.navbar-menu-dropdown > .w-dropdown-list{
+  position: absolute !important;
+  top: 100% !important; left: 0 !important;
+  z-index: 9999 !important;
+
+  /* closed: invisible + non-interactive */
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+
+  /* desktop presentation */
+  background: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+  padding: .5rem !important;
+}
+
+@media (min-width: 992px){
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+
+.navbar-dropdown-list-container{
+  width: fit-content !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+}
+
+@media (max-width: 991px){
+  .navbar-menu{ overflow-y: auto !important; }
+
+  .navbar-menu-dropdown > .w-dropdown-list{
+    position: static !important;
+    top: auto !important; left: auto !important;
+    display: none !important;   /* hidden until .w--open */
+    opacity: 1 !important; visibility: visible !important;
+    pointer-events: auto !important;
+    box-shadow: none !important; border-radius: 0 !important; padding: .25rem 0 !important;
+    width: 100% !important;
+  }
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{ display: block !important; }
+
+  .navbar-dropdown-link{
+    display: block !important;
+    padding: 12px 20px !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #eee !important;
+    white-space: nowrap !important;
+  }
+  .navbar-dropdown-link:hover{ background: #f5f5f5 !important; }
+}
+
+@media (min-width: 992px){
+  .w-nav-overlay{ pointer-events: none !important; }
+}
+</style>
+
+<style id="hamburger-open-only-x-fixed">
+.w-nav-button.w--open .menu-icon{
+  position: relative; --x-width: 24px; --x-thickness: 2px; color: currentColor;
+}
+.w-nav-button.w--open .menu-icon-line-top,
+.w-nav-button.w--open .menu-icon-line-middle,
+.w-nav-button.w--open .menu-icon-line-middle-inner,
+.w-nav-button.w--open .menu-icon-line-bottom{ opacity: 0 !important; transition: opacity .2s; }
+.w-nav-button.w--open .menu-icon::before,
+.w-nav-button.w--open .menu-icon::after{
+  content:""; position:absolute; top:50%; left:50%;
+  width:var(--x-width); height:var(--x-thickness); background:currentColor; border-radius:2px;
+  transform-origin:center; transition: transform .25s ease; pointer-events:none;
+}
+.w-nav-button.w--open .menu-icon::before{ transform: translate(-50%, -50%) rotate(45deg); }
+.w-nav-button.w--open .menu-icon::after{  transform: translate(-50%, -50%) rotate(-45deg); }
+@media (prefers-reduced-motion: reduce){
+  .w-nav-button.w--open .menu-icon::before, .w-nav-button.w--open .menu-icon::after{ transition:none; }
+}
+
+
+
 @import "tailwindcss";
