@@ -1024,17 +1024,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- 🔧 Passive anti-ghost-clicks fix (no nav control) -->
 <script>
 /*
-  What this does (in plain English):
-  - It DOES NOT open/close any menus.
-  - It ONLY watches for Webflow's "w--open" class on each dropdown.
-  - When a dropdown is CLOSED, it:
-      • disables pointer events so links can't be clicked
-      • sets aria-hidden for accessibility
-      • applies the "inert" attribute so items can't be focused via keyboard
-  - When a dropdown is OPEN, it re-enables the above.
-  - No display/visibility manipulation — we don't fight Webflow's layout/animation.
+  Passive anti-ghost-clicks fix for dropdowns:
+  - On desktop: recognizes CSS hover/focus as "open"
+  - On mobile/tablet: recognizes .w--open as "open"
+  - When closed, disables pointer events, sets aria-hidden, and applies inert for accessibility
+  - When open, restores interactivity
 */
-
 (function () {
   // A tiny helper to toggle "inert" safely across browsers
   function setInert(el, shouldBeInert) {
@@ -1061,7 +1056,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Apply correct state immediately
     function applyState() {
-      const isOpen = dropdown.classList.contains("w--open");
+      // This line is the key fix:
+      // Recognize both JS-triggered (.w--open) and CSS-triggered (hover/focus-within) open states
+      const isOpen = dropdown.classList.contains("w--open") ||
+                     dropdown.matches(":hover") ||
+                     dropdown.matches(":focus-within");
       setInert(list, !isOpen);
     }
 
