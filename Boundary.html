@@ -318,6 +318,10 @@
   }
 }
 </style>
+
+
+
+  
 <!-- CONFLICTED NAV CSS (commented out by updater) START -->
 <style id="nav-dropdown-fix">
 /* ---------- Base dropdown ---------- */
@@ -339,16 +343,16 @@
   background:#fff; border-radius:12px;
   box-shadow:0 12px 28px rgba(0,0,0,.12);
   padding:.5rem;
-  z-index:1000;
+  z-index:9999 !important;
   display:none; /* hidden until .w--open */
 }
 
 /* Open state (Webflow toggles .w--open) */
-.w-dropdown.w--open > .w-dropdown-list{ display:block; }
+.w-dropdown.w--open > .w-dropdown-list{ display:block !important; }
 
 /* Scroll long menus nicely */
 .navbar-dropdown-list-container{
-  max-height:70vh; overflow-y:auto;
+  max-height:70vh !important; overflow-y:auto !important;
   width:fit-content !important; /* fixed the typo: fit-content */
 }
 
