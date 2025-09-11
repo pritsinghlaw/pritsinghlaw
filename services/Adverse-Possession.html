@@ -567,6 +567,91 @@ em, i { font-style: italic; }
   }
 }
 </style>
+
+
+
+
+<!-- ✅ UNIFIED MOBILE NAVIGATION FIXES -->
+<style>
+@media (max-width: 991px) {
+    /* Ensure the mobile nav menu is scrollable if content overflows */
+    .w-nav-menu {
+        overflow-y: auto;
+        background-color: #ffffff; /* Set a solid background */
+    }
+
+    /* Style the main links (Home, Contact) for consistency */
+    .navbar-link.w-nav-link {
+        display: block;
+        padding: 12px 20px;
+        border-bottom: 1px solid #eee;
+        color: #333;
+    }
+
+    /* Style the dropdown toggles (About, Practice Areas) to match other links */
+    .navbar-dropdwn-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Pushes icon to the right */
+        padding: 12px 20px;
+        text-decoration: none;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    /* Ensure dropdown text is aligned left */
+    .navbar-dropdwn-toggle > div:not(.dropdown-icon) {
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    /* Keep the dropdown arrow on the right */
+    .dropdown-icon {
+        order: 2;
+    }
+
+    /* CRITICAL: Make dropdown lists expand in-flow, not as an overlay */
+    .w-dropdown-list,
+    .navbar-dropdown-list-container {
+        position: static !important; /* Removes absolute positioning */
+        display: none; /* Hidden by default */
+        width: 100% !important;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        background-color: #f8f8f8; /* Slightly different background for sub-menu */
+    }
+
+    /* Show the list when the dropdown is open */
+    .w-dropdown.w--open > .w-dropdown-list,
+    .w-dropdown.w--open > .navbar-dropdown-list-container {
+        display: block !important;
+    }
+
+    /* Style the links inside the dropdown sub-menu */
+    .navbar-dropdown-link {
+        display: block;
+        padding: 12px 35px; /* Indent sub-menu items */
+        border-bottom: 1px solid #eee;
+        color: #555;
+        white-space: normal;
+    }
+
+    .navbar-dropdown-link:last-child {
+        border-bottom: none;
+    }
+
+    /* Clean up desktop-only elements inside the mobile menu */
+    .menu-item-container.flex-horizontal,
+    .navbar-dropdown-list-wrapper.flex-horizontal {
+        display: block;
+    }
+    </style>
+    
+    
+
 </head>
 <body>
 <!-- NEW HEADER NAV (from your Webflow code)--->
