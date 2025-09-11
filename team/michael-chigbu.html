@@ -448,38 +448,25 @@ visibility:hidden!important;
 
 </style>
   
-<!---
+  
+  
 <style id="dropdown-desktop-override">
-/* Final authority: desktop menus open ONLY when JS adds .w--open */
 @media (min-width: 992px){
-  /* default closed */
   .navbar-menu-dropdown > .w-dropdown-list{
-    display:none !important;
-    opacity:0 !important;
-    visibility:hidden !important;
-    pointer-events:none !important;
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
-
-  /* neutralize earlier :hover / :focus-within open rules */
   .navbar-menu-dropdown:hover > .w-dropdown-list,
   .navbar-menu-dropdown:focus-within > .w-dropdown-list{
-    display:none !important;
-    opacity:0 !important;
-    visibility:hidden !important;
-    pointer-events:none !important;
-  }
-
-  /* open state (JS adds .w--open) */
-  .navbar-menu-dropdown.w--open > .w-dropdown-list{
-    display:block !important;
-    opacity:1 !important;
-    visibility:visible !important;
-    pointer-events:auto !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 }
 </style>
-
---->
 
 
 
