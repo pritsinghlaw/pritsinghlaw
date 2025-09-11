@@ -730,86 +730,13 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
-  
-  
-      <style>
-        /* CSS for the Fixed Contact Button */
-
-        /* The main button container */
-        .fixed-contact-button {
-            position: fixed; /* Keeps the button in the same place on the screen */
-            bottom: 10px;    /* 25 pixels from the bottom */
-            right: 25px;     /* 25 pixels from the right */
-            width: 60px;     /* Width of the button */
-            height: 60px;    /* Height of the button */
-            background-color: #f56624; /* Background color from the icon */
-            border-radius: 15px; /* Creates rounded corners, matching the icon's style */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
-            z-index: 9999; /* Ensures the button is on top of other content */
-            text-decoration: none; /* Removes the underline from the link */
-            transition: transform 0.2s ease-in-out; /* Smooth transition for hover effect */
-            
-            /* Attaches the pulsing animation */
-            animation: pulse 2s infinite;
-        }
-
-        /* The icon image inside the button */
-        .fixed-contact-button img {
-            width: 24px;  /* Sets the icon width as requested */
-            height: 24px; /* Sets the icon height as requested */
-            /* Since your provided image already has the orange background and rounded corners,
-               we can set the size directly. The surrounding button provides a larger click area. */
-            border-radius: 6px; /* Slightly rounds the corners of the image itself */
-        }
-
-        /* Stops the animation and slightly enlarges the button on hover for better user feedback */
-        .fixed-contact-button:hover {
-            animation: none;
-            transform: scale(1.1);
-        }
-
-        /* The @keyframes rule defines the animation */
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            }
-        }
-        
-        /* Optional: Shaking Animation */
-        /* To use this, change 'animation: pulse 2s infinite;' to 'animation: shake 0.82s infinite;' */
-        @keyframes shake {
-          10%, 90% {
-            transform: translate3d(-1px, 0, 0);
-          }
-          20%, 80% {
-            transform: translate3d(2px, 0, 0);
-          }
-          30%, 50%, 70% {
-            transform: translate3d(-4px, 0, 0);
-          }
-          40%, 60% {
-            transform: translate3d(4px, 0, 0);
-          }
-        }
-
-    </style>
+ 
 
 
    
 
-<!---GGG-->
+<!---PASSWORD PROTECTION-->
+  
 <script>
   // Set your password here
   const PASSWORD = "IronHorse1901!";
@@ -1731,9 +1658,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<!-- PSLaw Chat Widget 
-<script defer src="/public/pslaw-chat.js"></script>
---->
+
 
 
 <!---FINAL DROPDOWN MENU FIX--->
