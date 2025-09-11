@@ -406,6 +406,78 @@ visibility:hidden!important;
    <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 
 
+<style id="nav-dropdown-core">
+/* --- NAV / DROPDOWNS (desktop + mobile) --- */
+
+/* Let lists size to content and never exceed viewport height */
+.navbar-dropdown-list-container{
+  width: fit-content !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+}
+
+/* Base positioning for lists controlled by the dropdown container */
+.navbar-menu-dropdown > .w-dropdown-list{
+  position: absolute; top: 100%; left: 0;
+  z-index: 9999; /* was 1000 */
+}
+
+/* Desktop: closed = invisible & non-interactive */
+@media (min-width: 992px){
+  .navbar-menu-dropdown > .w-dropdown-list{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  /* Open when hovered/focused, or when JS pins it (.w--open) */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Small general tweak you already rely on */
+.text-size-large-1 { line-height: 1.5 !important; font-size: 16px !important; }
+.link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
+
+
+</style>
+  
+
+<style id="dropdown-desktop-override">
+/* Final authority: desktop menus open ONLY when JS adds .w--open */
+@media (min-width: 992px){
+  /* default closed */
+  .navbar-menu-dropdown > .w-dropdown-list{
+    display:none !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+
+  /* neutralize earlier :hover / :focus-within open rules */
+  .navbar-menu-dropdown:hover > .w-dropdown-list,
+  .navbar-menu-dropdown:focus-within > .w-dropdown-list{
+    display:none !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+
+  /* open state (JS adds .w--open) */
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display:block !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+  }
+}
+</style>
 
   
 </head>
