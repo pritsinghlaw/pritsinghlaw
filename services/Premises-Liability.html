@@ -419,7 +419,7 @@
   position: relative;
   --x-width: 24px;     /* length of each stroke of the X */
   --x-thickness: 2px;  /* thickness of the strokes */
-  color: #001f54;      /* X color (set to #fff if overlay is dark) */
+  color: #001f54 !important;      /* X color (set to #fff if overlay is dark) */
 }
 
 /* Hide the default three lines ONLY when open */
@@ -503,7 +503,6 @@ h1, h2, h3, h4, h5, h6,
 b, strong { font-family: var(--font-sans) !important; font-weight: 700; }
 em, i { font-style: italic; }
 </style>
---->
 
 
 <style id="hamburger-to-x-live">
@@ -536,7 +535,7 @@ em, i { font-style: italic; }
   left: 50%;
   width: 24px;         /* length of each stroke of the X */
   height: 2px;         /* thickness of the strokes */
-  background: #000;
+  background: #fff;
   border-radius: 2px;
   transform-origin: center;
   pointer-events: none;
