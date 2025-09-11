@@ -378,8 +378,6 @@
 </style>
 
 
-
-
 <style id="nav-dropdown-core">
 /* --- NAV / DROPDOWNS (desktop + mobile) --- */
 
@@ -392,8 +390,8 @@
 
 /* Base positioning for lists controlled by the dropdown container */
 .navbar-menu-dropdown > .w-dropdown-list{
-  position: absolute; top: 100%; left: 0;
-  z-index: 9999; /* was 1000 */
+  position: absolute !important; top: 100% !important; left: 0 !important;
+  z-index: 9999 !important; /* was 1000 */
 }
 
 /* Desktop: closed = invisible & non-interactive */
