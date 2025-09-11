@@ -349,7 +349,7 @@
 /* Scroll long menus nicely */
 .navbar-dropdown-list-container{
   max-height:70vh; overflow-y:auto;
-  width:max-content; /* fixed the typo: fit-content */
+  width:fit-content !important; /* fixed the typo: fit-content */
 }
 
 /* Two-column grid inside large menus (tablet and up) */
@@ -1022,102 +1022,19 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<!-- CONFLICTED NAV JS END -->
-<script src="main.js"></script>
 
 
 
 
 
-  
 <!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
-
-<!-- CONFLICTED NAV JS (commented out by updater) START -->
 <script>
 /* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
 document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
     const dropdownToggles = document.querySelectorAll('.navbar-dropdwn-toggle');
     
-    // Function to close all dropdowns
-    function closeAllDropdowns() {
-        document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
-            list.style.display = 'none';
-            list.style.pointerEvents = 'none'; // Disable clicks on hidden dropdowns
-            list.setAttribute('aria-hidden', 'true');
-        });
-        document.querySelectorAll('.navbar-menu-dropdown').forEach(d => {
-            d.classList.remove('w--open');
-        });
-    }
-    
-    // Function to open a specific dropdown
-    function openDropdown(dropdown) {
-        const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
-        if (dropdownList) {
-            dropdownList.style.display = 'block';
-            dropdownList.style.pointerEvents = 'auto'; // Enable clicks when visible
-            dropdownList.setAttribute('aria-hidden', 'false');
-            dropdown.classList.add('w--open');
-        }
-    }
-    
-    // Initially close all dropdowns to prevent hidden clickable links
-    closeAllDropdowns();
-    
-    // Desktop behavior (hover and click)
-    if (window.matchMedia("(min-width: 992px)").matches) {
-        dropdowns.forEach(dropdown => {
-            let hoverTimeout;
-            
-            // Hover to open
-            dropdown.addEventListener('mouseenter', function() {
-                clearTimeout(hoverTimeout);
-                closeAllDropdowns();
-                openDropdown(this);
-            });
-            
-            // Hover to close with delay
-            dropdown.addEventListener('mouseleave', function() {
-                hoverTimeout = setTimeout(() => {
-                    closeAllDropdowns();
-                }, 200);
-            });
-        });
-    }
-    
-    // Click functionality for all devices
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const dropdown = this.closest('.navbar-menu-dropdown');
-            const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
-            
-            if (dropdownList && dropdownList.style.display === 'block') {
-                closeAllDropdowns();
-            } else {
-                closeAllDropdowns();
-                openDropdown(dropdown);
-            }
-        });
-    });
-    
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar-menu-dropdown')) {
-            closeAllDropdowns();
-        }
-    });
-    
-    // Ensure dropdown links work properly
-    document.querySelectorAll('.navbar-dropdown-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    });
-    
+   
     // Prevent any interaction with hidden dropdown elements
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
@@ -1139,63 +1056,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<!-- CONFLICTED NAV JS END -->
 
-
-
-<script>
-/* --- Complete fix for Webflow mobile dropdown issues --- */
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on mobile/tablet
-    if (window.matchMedia("(max-width: 991px)").matches) {
-        
-        // 1. Disable hover behavior on mobile
-        document.querySelectorAll('.navbar-menu-dropdown[data-hover="true"]')
-                .forEach(el => el.setAttribute('data-hover', 'false'));
-        
-        // 2. Add click handlers for dropdown toggles
-        document.querySelectorAll('.navbar-dropdwn-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const dropdown = this.closest('.navbar-menu-dropdown');
-                const dropdownList = dropdown.querySelector('.w-dropdown-list');
-                
-                // Toggle the dropdown
-                if (dropdownList.style.display === 'block') {
-                    dropdownList.style.display = 'none';
-                    dropdown.classList.remove('w--open');
-                } else {
-                    // Close other dropdowns first
-                    document.querySelectorAll('.w-dropdown-list').forEach(list => {
-                        list.style.display = 'none';
-                    });
-                    document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-                        dd.classList.remove('w--open');
-                    });
-                    
-                    // Open this dropdown
-                    dropdownList.style.display = 'block';
-                    dropdown.classList.add('w--open');
-                }
-            });
-        });
-        
-        // 3. Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.navbar-menu-dropdown')) {
-                document.querySelectorAll('.w-dropdown-list').forEach(list => {
-                    list.style.display = 'none';
-                });
-                document.querySelectorAll('.navbar-menu-dropdown').forEach(dd => {
-                    dd.classList.remove('w--open');
-                });
-            }
-        });
-    }
-});
-</script>
+<script src="main.js"></script>
 
 </body>
 </html>
