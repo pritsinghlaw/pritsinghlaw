@@ -534,6 +534,54 @@ em, i { font-style: italic; }
 .navbar-dropdown-link{ white-space: nowrap !important; }
 </style>
 
+
+<style id="dropdown-repair-2025-01">
+  /* Make panels size to their content and stay within viewport */
+  .navbar-dropdown-list-container{
+    width: max-content !important;   /* shrink to the longest item */
+    max-width: 70vw !important;      /* keep it reasonable on long labels */
+    max-height: 70vh !important;     /* scroll internally if very long */
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+  }
+
+  /* Desktop: closed = invisible & non-interactive (prevents ghost clicks) */
+  @media (min-width: 992px){
+    .navbar-menu-dropdown > .w-dropdown-list{
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+    /* Webflow's overlay clone must not intercept clicks on desktop */
+    .w-nav-overlay{ pointer-events: none !important; }
+  }
+
+  /* Open state (desktop + mobile) — the crucial bit that was commented out */
+  .w-dropdown.w--open > .w-dropdown-list,
+  .navbar-menu-dropdown.w--open > .w-dropdown-list{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 9999 !important;
+  }
+
+  /* Mobile: make lists flow inside the opened menu instead of absolutely positioned */
+  @media (max-width: 991px){
+    .w-dropdown-list{
+      position: static !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+  }
+
+  /* Keep long labels on a single line so width stays tight */
+  .navbar-dropdown-link{ white-space: nowrap !important; }
+</style>
+
+
+  
 </head>
 <body>
 <!-- NEW HEADER NAV (from your Webflow code)--->
@@ -958,45 +1006,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<!--- FIX FOR CLICKABLE GHOST DROPDOWN LINKS --->
-<script>
-<script>
-/* Universal Dropdown Fix - Ensures no hidden links are clickable when closed */
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.navbar-menu-dropdown');
-    const dropdownToggles = document.querySelectorAll('.navbar-dropdwn-toggle');
-    
-    // Function to close all dropdowns
-    function closeAllDropdowns() {
-        document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
-            list.style.display = 'none';
-            list.style.pointerEvents = 'none'; // Disable clicks on hidden dropdowns
-            list.setAttribute('aria-hidden', 'true');
-        });
-        document.querySelectorAll('.navbar-menu-dropdown').forEach(d => {
-            d.classList.remove('w--open');
-        });
-    }
-    
-    // Function to open a specific dropdown
-    function openDropdown(dropdown) {
-        const dropdownList = dropdown.querySelector('.navbar-dropdown-list-container, .w-dropdown-list');
-        if (dropdownList) {
-            dropdownList.style.display = 'block';
-            dropdownList.style.pointerEvents = 'auto'; // Enable clicks when visible
-            dropdownList.setAttribute('aria-hidden', 'false');
-            dropdown.classList.add('w--open');
-        }
-    }
-    
-    // Initially close all dropdowns to prevent hidden clickable links
-    closeAllDropdowns();
-    
-    // Observe all dropdown lists for changes
-    document.querySelectorAll('.navbar-dropdown-list-container, .w-dropdown-list').forEach(list => {
-        observer.observe(list, { attributes: true });
-    });
-});
+<script id="dropdown-ghost-guard">
+  document.addEventListener('DOMContentLoaded', function(){
+    const mq = matchMedia('(min-width: 992px)');
+    const closeAll = () => {
+      document.querySelectorAll('.navbar-menu-dropdown').forEach(d => d.classList.remove('w--open'));
+    };
+    if (mq.matches) closeAll();
+    mq.addEventListener('change', closeAll);
+  });
 </script>
 
 <script src="main.js"></script>
