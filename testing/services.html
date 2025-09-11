@@ -1108,8 +1108,6 @@ em, i { font-style: italic; }
   
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64785fe0a8b931af3b0da218" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js" type="text/javascript"></script><div></div><div id="compose-ai-general-snackbar-root"></div><div id="Chat-Plugin-Root" class="compose-root-component"></div>
 
-<script>
-</script>
 
 
 
@@ -1148,152 +1146,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<script id="dropdown-controller" data-version="2.4">
-(function(){
-  const DESKTOP = window.matchMedia('(min-width: 992px)');
-  const dropdowns = Array.from(document.querySelectorAll('.navbar-menu-dropdown'));
-  if (!dropdowns.length) return;
-
-  // Disable Webflow hover auto-open
-  dropdowns.forEach(dd => dd.setAttribute('data-hover', 'false'));
-
-  const OPEN_DELAY  = 80;
-  const CLOSE_DELAY = 150;
-
-  const timers = new WeakMap();
-  const pinned = new WeakMap(); // dd -> boolean
-
-  function getToggle(dd){ return dd.querySelector('.w-dropdown-toggle, .navbar-dropdwn-toggle'); }
-  function getList(dd){ return dd.querySelector('.w-dropdown-list'); }
-
-  function scrubInline(el){
-    if (!el) return;
-    el.style.removeProperty('display');
-    el.style.removeProperty('opacity');
-    el.style.removeProperty('visibility');
-    el.style.removeProperty('pointer-events');
-  }
-
-  function setExpanded(dd, open){
-    const t = getToggle(dd);
-    if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
-  }
-
-  function clearTimer(dd){
-    const id = timers.get(dd);
-    if (id){ clearTimeout(id); timers.delete(dd); }
-  }
-
-  function schedule(dd, fn, delay){
-    clearTimer(dd);
-    timers.set(dd, setTimeout(() => { fn(dd); timers.delete(dd); }, delay));
-  }
-
-  function isOpen(dd){ return dd.classList.contains('w--open'); }
-  function isPinned(dd){ return pinned.get(dd) === true; }
-
-  function show(dd){
-    // Close others first
-    dropdowns.forEach(d => { if (d !== dd) hide(d, { force:false }); });
-    dd.classList.add('w--open');
-    scrubInline(getList(dd));
-    setExpanded(dd, true);
-  }
-
-  // IMPORTANT: hide respects "pinned" unless force:true
-  function hide(dd, { force=false } = {}){
-    if (DESKTOP.matches && isPinned(dd) && !force) return;
-    dd.classList.remove('w--open');
-    setExpanded(dd, false);
-  }
-
-  function unpinAll(){ dropdowns.forEach(d => pinned.set(d, false)); }
-  function forceCloseAll(){ unpinAll(); dropdowns.forEach(d => hide(d, { force:true })); }
-
-  dropdowns.forEach(dd => {
-    pinned.set(dd, false);
-    const toggle = getToggle(dd);
-    const list   = getList(dd);
-
-    // Hover intent (desktop). Pending timers will NOT close a pinned dropdown.
-    dd.addEventListener('pointerenter', () => {
-      if (!DESKTOP.matches || isPinned(dd)) return;
-      schedule(dd, show, OPEN_DELAY);
-    });
-
-    dd.addEventListener('pointerleave', () => {
-      if (!DESKTOP.matches || isPinned(dd)) return;
-      schedule(dd, d => hide(d, { force:false }), CLOSE_DELAY);
-    });
-
-    // Click handling
-    if (toggle){
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        clearTimer(dd);
-
-        if (DESKTOP.matches){
-          const open = isOpen(dd);
-          const pin  = isPinned(dd);
-
-          if (!open){
-            show(dd);
-            pinned.set(dd, true);           // pin on first click
-          } else if (pin){
-            pinned.set(dd, false);          // unpin + close
-            hide(dd, { force:true });
-          } else {
-            pinned.set(dd, true);           // was hover-open; click to pin
-            show(dd);
-          }
-        } else {
-          // Mobile/tablet: simple toggle
-          isOpen(dd) ? hide(dd, { force:true }) : show(dd);
-        }
-      });
-    }
-
-    // Keyboard (desktop): focus opens unless pinned; leaving closes unless pinned
-    dd.addEventListener('focusin', () => {
-      if (DESKTOP.matches && !isPinned(dd)) show(dd);
-    });
-
-    dd.addEventListener('focusout', (e) => {
-      if (!DESKTOP.matches) return;
-      if (dd.contains(e.relatedTarget)) return;
-      hide(dd, { force:false });
-    });
-
-    // Clicking any link inside closes & unpins
-    if (list){
-      list.addEventListener('click', (e) => {
-        if (e.target.closest('a')){
-          pinned.set(dd, false);
-          hide(dd, { force:true });
-        }
-      });
-    }
-  });
-
-  // Outside click / Escape / breakpoint change = force close
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.navbar-menu-dropdown')) forceCloseAll();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') forceCloseAll();
-  });
-
-  DESKTOP.addEventListener('change', () => forceCloseAll());
-
-  // Initial cleanup of any Webflow inline styles and states
-  dropdowns.forEach(dd => {
-    scrubInline(getList(dd));
-    hide(dd, { force:true });
-  });
-})();
-</script>
 
   
 <script>
@@ -1328,40 +1180,119 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+
+
+
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64785fe0a8b931af3b0da218" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js" type="text/javascript"></script><div></div><div id="compose-ai-general-snackbar-root"></div><div id="Chat-Plugin-Root" class="compose-root-component"></div>
+
+
+
+  
+
+
+
+
+<script>
+function performSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const searchTerm = searchInput.value.trim();
+
+  if (searchTerm) {
+    // For demo purposes, we'll show an alert. In a real implementation, 
+    // this would integrate with your site's search functionality
+    alert('Searching for: ' + searchTerm);
+
+    // You could implement actual search functionality here, such as:
+    // - Filtering content on the page
+    // - Redirecting to a search results page
+    // - Using a search API
+
+    // Example: redirect to Google search for the site
+    // window.open('https://www.google.com/search?q=site:pritsinghlaw.com ' + encodeURIComponent(searchTerm), '_blank');
+  }
+}
+
+// Allow Enter key to trigger search
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+  }
+});
+</script>
+
+
+
+  
 <!-- 🔧 Passive anti-ghost-clicks fix (no nav control) -->
 <script>
 /*
-  - Watches for Webflow's "w--open" on each dropdown.
-  - When closed: disables pointer events, sets aria-hidden, and adds 'inert' so links can't be focused.
-  - When open: re-enables everything.
+  What this does (in plain English):
+  - It DOES NOT open/close any menus.
+  - It ONLY watches for Webflow's "w--open" class on each dropdown.
+  - When a dropdown is CLOSED, it:
+      • disables pointer events so links can't be clicked
+      • sets aria-hidden for accessibility
+      • applies the "inert" attribute so items can't be focused via keyboard
+  - When a dropdown is OPEN, it re-enables the above.
+  - No display/visibility manipulation — we don't fight Webflow's layout/animation.
 */
+
 (function () {
+  // A tiny helper to toggle "inert" safely across browsers
   function setInert(el, shouldBeInert) {
     if (!el) return;
+    // Pointer interactions
     el.style.pointerEvents = shouldBeInert ? "none" : "auto";
+    // Screen readers
     el.setAttribute("aria-hidden", shouldBeInert ? "true" : "false");
+    // Keyboard focus (modern browsers support 'inert')
     if (shouldBeInert) {
       el.setAttribute("inert", "");
     } else {
       el.removeAttribute("inert");
     }
   }
+
   function wireDropdown(dropdown) {
-    const list = dropdown.querySelector(".w-dropdown-list") || dropdown.querySelector(".navbar-dropdown-list-container");
+    // Your dropdown list can be either class depending on the page/styles
+    const list =
+      dropdown.querySelector(".w-dropdown-list") ||
+      dropdown.querySelector(".navbar-dropdown-list-container");
+
     if (!list) return;
+
+    // Apply correct state immediately
     function applyState() {
       const isOpen = dropdown.classList.contains("w--open");
       setInert(list, !isOpen);
     }
+
+    // Observe only CLASS changes (this is what Webflow toggles)
     const mo = new MutationObserver(applyState);
     mo.observe(dropdown, { attributes: true, attributeFilter: ["class"] });
+
+    // First run + keep it fresh on resize (breakpoints can change behavior)
     applyState();
     window.addEventListener("resize", applyState, { passive: true });
   }
+
   document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".navbar-menu-dropdown, .w-dropdown").forEach(wireDropdown);
+    // Support both your custom wrapper and Webflow's native .w-dropdown
+    document
+      .querySelectorAll(".navbar-menu-dropdown, .w-dropdown")
+      .forEach(wireDropdown);
   });
 })();
 </script>
+
+
+
+  
 </body>
 </html>
