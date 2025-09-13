@@ -3,93 +3,48 @@
 <html data-wf-domain="sterlingelysium.webflow.io" data-wf-page="649d51207bcfb13155239b27" data-wf-site="64785fe0a8b931af3b0da218">
 <head>
   <meta charset="utf-8">
-  <title>Client Intake Form - Law Offices of Pritpal Singh</title>
-  <meta name="description" content="Start your client intake. Share a few details about your real estate matter so our team can help quickly.">
-  <meta property="og:title" content="Client Intake Form - Law Offices of Pritpal Singh">
-  <meta property="og:description" content="Tell us about your matter to get matched with the right attorney fast.">
-  <meta property="og:image" content="https://cdn.prod.website-files.com/64785fe0a8b931af3b0da218/649b0c387fa3267cc8c16488_Group%201-min%20(1).webp">
-  <meta property="twitter:title" content="Client Intake Form - Law Offices of Pritpal Singh">
-  <meta property="twitter:description" content="Tell us about your matter to get matched with the right attorney fast.">
+  <title>Get In Touch - Law Offices of Pritpal Singh</title>
+  <meta name="description" content="Send us a general query or share a few details about your real estate matter so our team can help quickly.">
+  <meta property="og:title" content="Get In Touch - Law Offices of Pritpal Singh">
+  <meta property="og:description" content="Send us a general query or share a few details about your real estate matter so our team can help quickly.">
+ 
+  
+  
+  <meta property="og:image" content="/pritcover.png">
+  <meta property="twitter:title" content="Get In Touch - Law Offices of Pritpal Singh">
+  <meta property="twitter:description" content="Send us a general query or share a few details about your real estate matter so our team can help quickly.">
   <meta property="twitter:image" content="/pritcover.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link href="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css" rel="stylesheet" type="text/css">
+
+  <meta property="og:type" content="website">
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="width=device-width, initial-scale=1" name=
+  "viewport">
+  <link href=
+  "https://pritsinghlaw.com/prit.css"
+  rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-  <link rel="canonical" href="https://pritsinghlaw.com/reviews">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-  <script>WebFont.load({google:{families:["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"]}});</script>
-  <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
-  <link href="/icon.png" rel="shortcut icon" type="image/png">
-  <link href="/icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.gstatic.com" rel="preconnect"
+  crossorigin="anonymous">
+  <script src=
+  "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+  type="text/javascript"></script>
+  <script type="text/javascript">
+  WebFont.load({  google: {    families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Geologica:500,600"]  }});
+  </script>
+  <script type="text/javascript">
+  !function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
+  </script>
+     <link href="https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css" rel="stylesheet" type="text/css">
+ <link href=
+  "/icon.png"
+  rel="shortcut icon" type="image/png">
+  <link href=
+  "/icon.png"
+  rel="apple-touch-icon">
 
-  <!-- Styles (same as reviews page, plus tiny tweaks for intake form) -->
-  <style>
-    body {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
-    .header, .hero-width-home-v2 { max-width: 100% !important; overflow: hidden !important; box-sizing: border-box !important; }
-    .link-card-practice-areas { display: inline-block !important; height: fit-content !important; }
-    .w-webflow-badge { display:none!important; visibility:hidden!important; }
-
-    /* Animated background */
-    .animated-background{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden;}
-    .floating-icon{position:absolute; opacity:.1; animation:float 20s infinite linear;}
-    .floating-icon.orange{color:#FF8C00;} .floating-icon.navy{color:#001f54;}
-    .floating-icon:nth-child(1){animation-delay:0s; left:10%;}
-    .floating-icon:nth-child(2){animation-delay:2s; left:20%;}
-    .floating-icon:nth-child(3){animation-delay:4s; left:30%;}
-    .floating-icon:nth-child(4){animation-delay:6s; left:40%;}
-    .floating-icon:nth-child(5){animation-delay:8s; left:50%;}
-    .floating-icon:nth-child(6){animation-delay:10s; left:60%;}
-    .floating-icon:nth-child(7){animation-delay:12s; left:70%;}
-    .floating-icon:nth-child(8){animation-delay:14s; left:80%;}
-    .floating-icon:nth-child(9){animation-delay:16s; left:90%;}
-    .floating-icon:nth-child(10){animation-delay:18s; left:5%;}
-    @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 10%{opacity:.1;} 90%{opacity:.1;} 100%{transform:translateY(-100px) rotate(360deg); opacity:0;} }
-
-    /* Search */
-    .navbar-search-container{display:flex; align-items:center; margin-left:5px;}
-    .search-wrapper{position:relative; display:flex; align-items:center; background:rgba(255,255,255,.1); border-radius:25px; padding:8px 15px; transition:.3s; border:1px solid rgba(0,31,84,.2);}
-    .search-wrapper:hover,.search-wrapper:focus-within{background:rgba(255,255,255,.2); border-color:#FF8C00; box-shadow:0 2px 10px rgba(255,140,0,.2);}
-    .search-input{background:transparent; border:none; outline:none; color:#001f54; font-size:14px; width:200px; padding:5px 0;}
-    .search-input::placeholder{color:rgba(0,31,84,.6);}
-    .search-button{background:none; border:none; color:#001f54; cursor:pointer; padding:5px; display:flex; align-items:center; justify-content:center; transition:color .3s; margin-left:10px;}
-    .search-button:hover{color:#FF8C00;}
-
-    /* Buttons */
-    .btn{display:inline-block; white-space:nowrap !important; font-family:inherit; font-size:1rem; padding:.75rem 1.5rem; border-radius:15px; cursor:pointer; transition:background .3s,color .3s,transform .2s; text-decoration:none; border:none;}
-    .btn-primary,.button{background:#001f54; white-space:nowrap !important; color:#fff; border:none;}
-    .btn-primary:hover,.btn-primary:focus,.button:hover,.button:focus{background:#00306e; transform:translateY(-2px) scale(1.02);}
-    .btn-secondary{background:#fff; color:#001f54; white-space:nowrap !important; border:2px solid #001f54;}
-    .btn-secondary:hover,.btn-secondary:focus{background:#f0f4ff; color:#001f54; transform:translateY(-2px) scale(1.02);}
-    .btn-pulse{animation:pulse 1.5s infinite;} @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
-
-    /* Keep content visible */
-    .section, .padding-section-large, .blog-component, .testimonial-component-without-images, .contact-form-component,
-    .card-background, .link-card-practice-areas { opacity:1!important; transform:none!important; display:block!important; }
-
-    /* Dropdowns: container size/scroll & CLOSED by default on desktop */
-    .navbar-dropdown-list-container{
-      width:fit-content!important;
-      max-height:70vh!important;
-      overflow-y:auto!important;
-      left:10px!important;
-    }
-    @media (min-width: 992px){
-      .navbar-dropdown-list-container{display:none!important;}
-      .w-dropdown.w--open .navbar-dropdown-list-container{display:block!important;}
-      @media (hover: hover) and (pointer: fine){
-        .navbar-menu-dropdown:hover .navbar-dropdown-list-container{display:block!important;}
-      }
-    }
-    /* Mobile/tablet dropdown behavior */
-    @media (max-width: 991px){
-      .w-dropdown-list{position:absolute!important; top:100%!important; left:0!important; width:100vw!important; z-index:9999!important; display:none!important;}
-      .w-dropdown.w--open .w-dropdown-list{display:block!important;}
-      .navbar-dropdown-link{display:block!important; padding:12px 20px!important; text-decoration:none!important; border-bottom:1px solid #eee;}
-      .navbar-dropdown-link:hover{background:#f5f5f5;}
-    }
-
+ <style>
     /* Reviews page stars (kept; unused here) */
     .star-rating { display:flex; gap:.35rem; align-items:center; }
     .star-rating input[type="radio"] { display:none; }
@@ -132,110 +87,518 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
+
+
+
+   <style>
+  body {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+
+ .header, .hero-width-home-v2 {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  z-index:9999!important;
+}
+
+.link-card-practice-areas {
+    display: inline-block !important;
+    height: fit-content !important;
+}
+    
+ .w-webflow-badge {
+display:none!important;
+visibility:hidden!important;
+}
+
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: #001f54;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+#preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#preloader-logo {
+  width: 250px;
+  height: auto;
+  margin-bottom: 30px;
+}
+.loading-text span {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  opacity: 0.2;
+  animation: blink 1s linear infinite;
+}
+.loading-text span:nth-child(1) { animation-delay: 0s; }
+.loading-text span:nth-child(2) { animation-delay: 0.1s; }
+.loading-text span:nth-child(3) { animation-delay: 0.2s; }
+.loading-text span:nth-child(4) { animation-delay: 0.3s; }
+.loading-text span:nth-child(5) { animation-delay: 0.4s; }
+.loading-text span:nth-child(6) { animation-delay: 0.5s; }
+.loading-text span:nth-child(7) { animation-delay: 0.6s; }
+.loading-text span:nth-child(8) { animation-delay: 0.7s; }
+.loading-text span:nth-child(9) { animation-delay: 0.8s; }
+.loading-text span:nth-child(10){ animation-delay: 0.9s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+  
+
+
+/* Search functionality styles */
+.navbar-search-container {
+  display: flex;
+  align-items: center;
+  margin-left: 5px !important;
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 31, 84, 0.2);
+}
+
+.search-wrapper:hover,
+.search-wrapper:focus-within {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #FF8C00;
+  box-shadow: 0 2px 10px rgba(255, 140, 0, 0.2);
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #001f54;
+  font-size: 14px;
+  width: 200px;
+  padding: 5px 0;
+}
+
+.search-input::placeholder {
+  color: rgba(0, 31, 84, 0.6);
+}
+
+.search-button {
+  background: none;
+  border: none;
+  color: #001f54;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  margin-left: 10px;
+}
+
+.search-button:hover {
+  color: #FF8C00;
+}
+
+/* Colored social media icons */
+.colored-social-icon {
+  transition: transform 0.3s ease;
+}
+
+.colored-social-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Responsive search */
+@media screen and (max-width: 768px) {
+  .navbar-search-container {
+    margin-left: 10px;
+  }
+
+  .search-input {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-input {
+    width: 100px;
+  }
+}
+</style>
+
+
+
+
+  <!---POPUP DIALOG CTA--->
+
+    <style>
+  :root {
+    --navy: #0a2a6b;
+    --orange: #ff4900;
+    --overlay: rgba(0, 0, 0, 0.65);
+    --radius: 16px;
+  }
+
+  /* Base reset-ish */
+  * { box-sizing: border-box; }
+  body.no-scroll { overflow: hidden; }
+  img { max-width: 100%; display: block; }
+
+  /* Trigger button demo (style to taste or remove) */
+  .trigger-btn {
+    padding: 0.85rem 1.2rem;
+    border: 1px solid var(--navy);
+    background: white;
+    color: var(--navy);
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    z-index: 9999;
+
+    /* hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Dialog */
+  .modal-dialog {
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    padding: clamp(1rem, 2.5vw, 2rem);
+    position: relative;
+    transform: translateY(10px) scale(0.98);
+    transition: transform 220ms ease, opacity 220ms ease;
+    opacity: 0;
+  }
+  .modal-overlay.open .modal-dialog {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* Close button */
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280; /* slate-500 */
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+  }
+  .modal-close:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* Content */
+  .logo-wrap {
+    display: grid;
+    place-items: center;
+    margin-top: 0.25rem;
+  }
+  .logo {
+    width: min(220px, 55%);
+    height: auto;
+  }
+  .title {
+    text-align: center;
+    font-weight: 800;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    margin: 1rem 0 0.5rem;
+    color: #001f54; 
+  }
+  .subtitle {
+    text-align: center;
+    color: #001f54; 
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    line-height: 1.6;
+    max-width: 62ch;
+    margin: 0 auto 1.25rem;
+  }
+
+  .cta-stack {
+    display: grid;
+    gap: 0.9rem;
+    margin: 1.25rem auto 0.25rem;
+    max-width: 560px;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+    padding: 0.9rem 1.1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    will-change: transform;
+  }
+  .cta:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* First button: navy outline */
+  .cta-outline {
+    background: #fff;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  }
+  .cta-outline:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(10,42,107,0.12); }
+
+  /* Second button: solid orange with animation */
+  .cta-solid {
+    background: #ff4900;
+    color: #fff;
+    border: 2px solid var(--orange);
+    box-shadow: 0 6px 16px rgba(255,73,0,0.25);
+  }
+  .cta-solid:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 10px 26px rgba(255,73,0,0.35); }
+
+  /* Subtext */
+  .help-text {
+    font-size: 0.65rem;
+    color: #6b7280; /* gray-500 */
+    text-align: center;
+    margin-top: -0.5rem;
+  }
+
+  /* Gentle attention animation for the paid CTA */
+  @keyframes gentlePulse {
+    0% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px rgba(255,73,0,0.25); }
+    50% { transform: translateY(-1px) scale(1.015); box-shadow: 0 12px 28px rgba(255,73,0,0.38); }
+    100% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px rgba(255,73,0,0.25); }
+  }
+  .animated-cta {
+    animation: gentlePulse 2200ms ease-in-out infinite;
+    animation-delay: 1.4s;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .modal-overlay, .modal-dialog, .cta, .animated-cta { transition: none !important; animation: none !important; }
+  }
+</style>
+
+
+
+
+  
+ <style>
+
+/* Button Customizations and Animations */
+
+/* Base button styling */
+.btn {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 15px; /* Rounded corners */
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    border: none;
+}
+
+/* Primary button: navy blue background */
+.btn-primary, .button {
+    background: #001f54; /* Navy blue */
+    color: #ffffff;
+    border: none;
+    white-space: nowrap !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.button:hover,
+.button:focus {
+    background: #00306e; /* Slightly lighter navy */
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Secondary button: white background with navy border */
+.btn-secondary {
+    background: #ffffff;
+    color: #001f54;
+    border: 2px solid #001f54;
+  white-space: nowrap !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background: #f0f4ff;
+    color: #001f54;
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Pulse animation for attention-grabbing buttons (e.g., call-to-action) */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-pulse {
+    animation: pulse 1.5s infinite;
+}
+
+/* Fade-in up animation (can be applied to sections or elements) */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Slide-in from left animation */
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-left {
+    opacity: 0;
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+/* Slide-in from right animation */
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-right {
+    opacity: 0;
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Apply fade-in-up animation class when element becomes visible */
+.fade-in-up.animate,
+.slide-in-left.animate,
+.slide-in-right.animate {
+    /* The JS script will add the .animate class on scroll */
+}
+
+/* Hover Effects */
+.link-card-practice-areas, .link-card {
+  transition:transform .25s ease, box-shadow .25s ease !important;
+}
+.link-card-practice-areas:hover, .link-card:hover
+ .link-card-practice-areas:focus, .link-card:focus  {
+  transform:translateY(-4px) scale(1.03) !important;
+  box-shadow:0 0.75rem 1.25rem rgba(0,0,0,.15) !important;
+}   
+
+
+/* ---------- PRACTICE-AREA CARDS: equal heights + glow enhancement ---------- */
+  /* Make grid children stretch to equal height */
+  ._3-column-grid._2-column-tablet { align-items: stretch !important; }
+  ._3-column-grid._2-column-tablet > a.link-card-practice-areas {
+    display:flex !important;
+    height:100% !important;
+  }
+  .link-card-practice-areas .card-background{
+    flex:1 1 auto;
+    display:flex !important;
+    flex-direction:column !important;
+    border-radius:12px !important;
+    transition: box-shadow .25s ease, transform .25s ease !important;
+    /* base (no glow) */
+    box-shadow: 0 0 0 rgba(0,0,0,0) !important;
+  }
+  .link-card-practice-areas .card-content{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Subtle glow on hover/focus */
+  .link-card-practice-areas:hover .card-background,
+  .link-card-practice-areas:focus .card-background,
+  .link-card-practice-areas:focus-within .card-background {
+    transform: translateY(-4px);
+   
+  }
+
+  /* Stronger glow on click */
+  .link-card-practice-areas:active .card-background {
+    transform: translateY(-2px) scale(.99);
+   
+  }
+
+
+</style>
+
+
+
+  
 </head>
 <body>
+  <div class="page-wrapper">
 
-
-<div class="page-wrapper">
-  <!-- NAV (unchanged from reviews layout) -->
-  <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" role="banner" data-duration="400">
-    <div class="container-large">
-      <div class="navbar-container">
-        <a href="/" class="navbar-logo-link w-nav-brand" aria-label="home">
-          <img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet">
-          <img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop">
-        </a>
-
-        <nav role="navigation" class="navbar-menu page-height-tablet w-nav-menu">
-          <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/" class="navbar-link w-nav-link">Home</a>
-
-          <!-- ABOUT -->
-          <div data-hover="true" data-delay="200" class="navbar-menu-dropdown w-dropdown">
-            <div class="navbar-dropdwn-toggle w-dropdown-toggle">
-              <div class="dropdown-icon w-embed">
-                <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/></svg>
-              </div>
-              <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">About</div>
-            </div>
-            <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
-              <div class="navbar-dropdown-list-wrapper flex-horizontal">
-                <div class="navbar-dropdown-list">
-                  <div class="menu-item-container flex-horizontal">
-                    <div class="menu-item-wrapper">
-                      <a href="/about" class="navbar-dropdown-link w-dropdown-link">Company Profile</a>
-                      <a href="/knowledge-base" target="_blank" class="navbar-dropdown-link w-dropdown-link">Knowledge Base</a>
-                      <a href="https://newsroom.pritsinghlaw.com" target="_blank" class="navbar-dropdown-link w-dropdown-link">News & Insights</a>
-                      <br>
-                    </div>
-                  </div>
-                  <div class="menu-title-wrapper"><div class="heading-style-h6 text-color-navy">Our Team</div></div>
-                  <div class="menu-item-container flex-horizontal">
-                    <div class="menu-item-wrapper">
-                      <a href="https://pritsinghlaw.com/team/pritpal-singh" target="_blank" class="navbar-dropdown-link w-dropdown-link">Pritpal Singh, Esq - Lead Attorney</a>
-                      <a href="https://pritsinghlaw.com/team/michael-chigbu" target="_blank" class="navbar-dropdown-link w-dropdown-link">Michael E. Chigbu - Legal Assistant</a>
-                      <a href="https://pritsinghlaw.com/careers" target="_blank" class="navbar-dropdown-link w-dropdown-link">Careers/Vacancies - Work With Us</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
-
-          <!-- PRACTICE AREAS -->
-          <div data-hover="true" data-delay="200" class="navbar-menu-dropdown w-dropdown">
-            <div class="navbar-dropdwn-toggle w-dropdown-toggle">
-              <div class="dropdown-icon w-embed">
-                <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"/></svg>
-              </div>
-              <div style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;">Practice Areas</div>
-            </div>
-            <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
-              <div class="navbar-dropdown-list-wrapper flex-horizontal">
-                <div class="navbar-dropdown-list">
-                  <div class="menu-item-container flex-horizontal">
-                    <div class="menu-item-wrapper">
-                      <a href="/services/real-estate-litigation" class="navbar-dropdown-link w-dropdown-link">Real Estate Litigation</a>
-                      <a href="/services/Landlord-Tenant-Matter" class="navbar-dropdown-link w-dropdown-link">Landlord Tenant Law</a>
-                      <a href="/services/Premises-Liability" class="navbar-dropdown-link w-dropdown-link">Premises Liability</a>
-                      <a href="/services/Boundary-Disputes" class="navbar-dropdown-link w-dropdown-link">Boundary Disputes</a>
-                      <a href="/services/Quiet-Title" class="navbar-dropdown-link w-dropdown-link">Quiet Title Actions</a>
-                      <a href="/services/Contract-Drafting-Review" class="navbar-dropdown-link w-dropdown-link">Contract Drafting &amp; Review</a>
-                      <a href="/services/Purchase-Agreements" class="navbar-dropdown-link w-dropdown-link">Purchase Agreements</a>
-                      <a href="/services/Adverse-Possession" class="navbar-dropdown-link w-dropdown-link">Adverse Possession Claims</a>
-                      <a href="/services" class="navbar-dropdown-link w-dropdown-link"><b>Browse All Practice Areas →</b></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
-
-          <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/contact" class="navbar-link w-nav-link">Contact</a>
-
-          <!-- Search -->
-          <div class="navbar-search-container">
-            <div class="search-wrapper">
-              <input type="text" class="search-input" placeholder="Search..." id="searchInput">
-              <button class="search-button" onclick="performSearch()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21L16.514 16.506M19 10.5C19 15.194 15.194 19 10.5 19S2 15.194 2 10.5 5.806 2 10.5 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-        </nav>
-
-        <div class="navbar-button-wrapper">
-          <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15102259220" class="btn btn-primary btn-pulse w-button"><b>CALL US</b></a>
-          <a href="#" target="_blank" class="btn btn-primary w-button" style="background-color:#ff4900!important; font-size:9.5px!important;"><b>CLIENT PORTAL</b></a>
-          <div class="navbar-menu-button w-nav-button" aria-label="menu" role="button" tabindex="0">
-            <div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="w-nav-overlay" data-wf-ignore=""></div>
-  </div>
-
-  <main class="main-wrapper">
+    
     <!-- HERO -->
     <header class="header">
       <div class="padding-global">
@@ -258,30 +621,7 @@
               </div>
 
               
-              <!-- FEATURED REVIEWS (kept to match layout) 
-              <section aria-labelledby="featured-reviews-heading" class="margin-bottom margin-large">
-                <h2 id="featured-reviews-heading" class="heading-style-h4 text-color-navy">Featured Client Reviews</h2>
-                <div class="featured-reviews-grid">
-                  <article class="featured-review-card">
-                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
-                    <p>“Clear, decisive guidance on a boundary dispute. The team handled everything—from survey review to negotiations—with professionalism and care.”</p>
-                    <div class="featured-review-name">— J. Alvarez</div>
-                    <div class="featured-review-case">Boundary Dispute • Oakland, CA</div>
-                  </article>
-                  <article class="featured-review-card">
-                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
-                    <p>“They resolved a complex landlord-tenant issue quickly. Communication was consistent and strategy was on point.”</p>
-                    <div class="featured-review-name">— R. Chen</div>
-                    <div class="featured-review-case">Landlord/Tenant • Fremont, CA</div>
-                  </article>
-                  <article class="featured-review-card">
-                    <div class="featured-review-stars" aria-hidden="true">★★★★★</div>
-                    <p>“In a stressful quiet title matter, they protected my rights and explained each step. Highly recommend.”</p>
-                    <div class="featured-review-name">— S. Patel</div>
-                    <div class="featured-review-case">Quiet Title • San Jose, CA</div>
-                  </article>
-                </div>
-              </section>--->
+            
 
               <!-- CONTACT FORM (Formspree with redirect) --->
               <div class="form-component w-form" style="margin-top:3rem;">
