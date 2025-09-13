@@ -1206,17 +1206,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<!-- Chatbot Floating Action Button (FAB) -->
-    <button id="chat-fab" class="fixed bottom-8 right-8 z-50 bg-[var(--primary-bg)] w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-opacity-90 transition-opacity">
-        <!-- Provided SVG Icon -->
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z" fill="white"/>
-            <path d="M12 11C13.1 11 14 10.1 14 9C14 7.9 13.1 7 12 7C10.9 7 10 7.9 10 9C10 10.1 10.9 11 12 11Z" fill="white"/>
-            <path d="M16 14C17.1 14 18 13.1 18 12C18 10.9 17.1 10 16 10C14.9 10 14 10.9 14 12C14 13.1 14.9 14 16 14Z" fill="white"/>
-            <path d="M8 14C9.1 14 10 13.1 10 12C10 10.9 9.1 10 8 10C6.9 10 6 10.9 6 12C6 13.1 6.9 14 8 14Z" fill="white"/>
-        </svg>
-    </button>
-
       
   </main>
   
@@ -1857,184 +1846,14 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </noscript>
 
-<!--CHATBASE
+<!--CHATBASE--->
 <script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="hUE8xUVwaAy-FkE8HXTKp";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
--->
 
 
 
 
-   
-
-    <!-- Chatbot Modal -->
-    <div id="chat-modal" class="fixed bottom-28 right-8 w-full max-w-sm h-[70vh] max-h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col transform scale-95 opacity-0 invisible">
-        <!-- Header -->
-        <div class="bg-[var(--primary-bg)] text-white p-4 rounded-t-2xl flex justify-between items-center">
-            <div>
-                <h3 class="text-lg font-semibold">AI Legal Assistant</h3>
-                <p class="text-xs text-gray-300">Powered by Prit Singh Law</p>
-            </div>
-            <button id="close-chat" class="text-white hover:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-
-        <!-- Chat Messages Area -->
-        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50">
-             <!-- Welcome Message -->
-            <div class="flex mb-4">
-                <div class="bg-[var(--secondary-bg)] text-white rounded-lg p-3 max-w-xs text-sm">
-                    <p>Welcome! I am an AI assistant for Prit Singh Law. How can I help you with your real estate law questions today? Please note that I am not a lawyer and this does not constitute legal advice.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
-            <div class="flex items-center">
-                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--primary-bg)]">
-                <button id="send-btn" class="ml-3 bg-[var(--secondary-bg)] text-white p-2 rounded-full hover:bg-opacity-90 disabled:opacity-50">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </button>
-            </div>
-            <p class="text-xs text-center text-gray-400 mt-2">Disclaimer: Interactions are AI-generated.</p>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatFab = document.getElementById('chat-fab');
-            const chatModal = document.getElementById('chat-modal');
-            const closeChatBtn = document.getElementById('close-chat');
-            const chatMessages = document.getElementById('chat-messages');
-            const chatInput = document.getElementById('chat-input');
-            const sendBtn = document.getElementById('send-btn');
-
-            // --- API Configuration ---
-            // IMPORTANT: Replace with your actual OpenAI API Key.
-            const apiKey = "YOUR_OPENAI_API_KEY";
-            const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
-
-            // IMPORTANT: Define the chatbot's persona and instructions here.
-            // This is a crucial step to make the chatbot helpful and relevant to your law firm.
-            const systemInstruction = {
-              parts: [{
-                text: "You are a friendly and professional AI assistant for a real estate law firm named Prit Singh Law. Your purpose is to answer general questions about real estate law in a helpful and informative way, and to guide potential clients on how to contact the firm. You must state clearly that you are not a lawyer and your advice is not a substitute for legal counsel from a qualified attorney. Do not provide specific legal advice for individual situations. If a user asks for specific legal advice, you should politely decline and recommend they schedule a consultation with the firm. The firm's contact information is available on the website pritsinghlaw.com."
-              }]
-            };
-
-            // This array will store the conversation history for context.
-            let conversationHistory = [];
-
-            // --- UI Interaction Logic ---
-            const toggleChat = () => {
-                if (chatModal.classList.contains('invisible')) {
-                    chatModal.classList.remove('invisible', 'opacity-0', 'scale-95');
-                    chatModal.classList.add('opacity-100', 'scale-100');
-                } else {
-                    chatModal.classList.add('opacity-0', 'scale-95');
-                    setTimeout(() => chatModal.classList.add('invisible'), 300);
-                }
-            };
-
-            chatFab.addEventListener('click', toggleChat);
-            closeChatBtn.addEventListener('click', toggleChat);
-
-            const addMessage = (sender, message) => {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('flex', 'mb-4');
-                
-                let content;
-                if (sender === 'user') {
-                    messageDiv.classList.add('justify-end');
-                    content = `<div class="bg-[var(--user-msg-bg)] text-gray-800 rounded-lg p-3 max-w-xs text-sm">${message}</div>`;
-                } else if (sender === 'bot') {
-                    content = `<div class="bg-[var(--secondary-bg)] text-white rounded-lg p-3 max-w-xs text-sm">${message}</div>`;
-                } else if (sender === 'typing') {
-                     content = `<div id="typing-indicator" class="bg-gray-200 rounded-lg p-3 max-w-xs text-sm typing-indicator"><span></span><span></span><span></span></div>`;
-                }
-                
-                messageDiv.innerHTML = content;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
-                return messageDiv;
-            };
-
-            const handleSendMessage = async () => {
-                const userMessage = chatInput.value.trim();
-                if (userMessage === '') return;
-
-                addMessage('user', userMessage);
-                chatInput.value = '';
-                
-                // Add user message to history
-                conversationHistory.push({ role: "user", parts: [{ text: userMessage }] });
-
-                const typingIndicator = addMessage('typing', '');
-
-                try {
-                    if (apiKey === "YOUR_OPENAI_API_KEY" || !apiKey) {
-                         // Fallback response if API key is not set
-                        setTimeout(() => {
-                           typingIndicator.remove();
-                           addMessage('bot', "The AI assistant is currently offline. Please configure the API key.");
-                        }, 1000);
-                        return;
-                    }
-                    
-                    const payload = {
-                        contents: conversationHistory,
-                        systemInstruction: systemInstruction,
-                    };
-                    
-                    // --- API Call ---
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error.message || `API request failed with status ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                    if (botMessage) {
-                        // Add bot message to history
-                        conversationHistory.push({ role: "model", parts: [{ text: botMessage }] });
-                        addMessage('bot', botMessage);
-                    } else {
-                        throw new Error("Received an empty or invalid response from the API.");
-                    }
-
-                } catch (error) {
-                    console.error('Chatbot Error:', error);
-                    addMessage('bot', 'Sorry, I am having trouble connecting. Please try again later.');
-                } finally {
-                    typingIndicator.remove();
-                }
-            };
-
-            sendBtn.addEventListener('click', handleSendMessage);
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleSendMessage();
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>
