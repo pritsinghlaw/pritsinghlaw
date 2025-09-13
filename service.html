@@ -415,7 +415,8 @@ visibility:hidden!important;
 
 
 /* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
-.navbar-dropdown-list-container{
+.navbar-dropdown-list-container, .menu-item-container {
+  width: fit-content !important; 
   max-height:70vh !important;       /* never exceed 70 % of screen height   */
   overflow-y:auto !important;       /* internal scroll if list is very long */
 }
