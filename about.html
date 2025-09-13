@@ -549,7 +549,64 @@ visibility:hidden!important;
 </style>
 
 
+<style id="hamburger-to-x-live">
+/* Make the icon a reliable drawing area */
+.w-nav-button .menu-icon{
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  line-height: 0;
+  /* inherit color so the X matches your icon color */
+  color: currentColor;
+}
 
+/* When the nav is open, hide the three bars */
+.w-nav-button.w--open .menu-icon-line-top,
+.w-nav-button.w--open .menu-icon-line-middle,
+.w-nav-button.w--open .menu-icon-line-middle-inner,
+.w-nav-button.w--open .menu-icon-line-bottom{
+  opacity: 0 !important;
+  transition: opacity .2s ease;
+}
+
+/* Draw the X using centered pseudo-elements */
+.w-nav-button.w--open .menu-icon::before,
+.w-nav-button.w--open .menu-icon::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;         /* length of each stroke of the X */
+  height: 2px;         /* thickness of the strokes */
+  background: currentColor;
+  border-radius: 2px;
+  transform-origin: center;
+  pointer-events: none;
+  transition: transform .25s ease;
+}
+
+/* Cross it */
+.w-nav-button.w--open .menu-icon::before{
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.w-nav-button.w--open .menu-icon::after{
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Nice to have */
+.w-nav-button{ cursor: pointer; }
+@media (prefers-reduced-motion: reduce){
+  .w-nav-button.w--open .menu-icon::before,
+  .w-nav-button.w--open .menu-icon::after{
+    transition: none;
+  }
+}
+
+/* optional: force white X when menu is open */
+.w-nav-button.w--open { color: #000; }
+
+</style>
   
 </head>
 <body>
