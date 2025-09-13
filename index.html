@@ -1550,6 +1550,297 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+
+<!-- =========================================
+  Paste anywhere in your homepage HTML (ideally before </body>)
+  Modal-only auth gate for development
+========================================== -->
+<style>
+  /* Scoped styles to avoid collisions */
+  .auth-backdrop {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease;
+  }
+  .auth-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .auth-modal {
+    width: min(720px, 92vw);
+    background: #061c3c;           /* Deep navy */
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+    padding: clamp(22px, 3.5vw, 34px);
+  }
+  .auth-brand {
+    display:flex; align-items:center; gap:14px; margin-bottom: 14px;
+  }
+  .auth-brand img {
+    width:160px; height:auto; display:block;
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.4));
+  }
+  .auth-modal h1 {
+    font-size: clamp(22px, 3.6vw, 30px);
+    line-height:1.2; font-weight:800; margin: 8px 0 6px;
+  }
+  .auth-lede {
+    color:#cfd8ff; font-size: clamp(15px, 2.2vw, 18px); margin: 0 0 18px;
+  }
+  .auth-label { display:block; font-weight:700; margin: 12px 0 6px; }
+  .auth-input {
+    width:100%; padding:14px; font-size:1rem; color:#fff;
+    background: rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.28);
+    border-radius:10px; outline:none;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    margin-bottom: 14px;
+  }
+  .auth-input::placeholder { color: rgba(255,255,255,0.65); }
+  .auth-input:focus {
+    border-color:#ff4900;
+    box-shadow: 0 0 0 3px rgba(255,73,0,0.35);
+    background: rgba(255,255,255,0.08);
+  }
+  .auth-actions { display:flex; align-items:center; gap:12px; margin-top: 6px; }
+  .auth-submit {
+    background:#ff4900; color:#fff; border:0; padding:12px 18px;
+    font-weight:800; font-size:1rem; border-radius:10px; cursor:pointer;
+    transition: background .18s ease, transform .06s ease;
+  }
+  .auth-submit:hover { background:#e04100; }
+  .auth-submit:active { transform: translateY(1px); }
+  .auth-msg { min-height:1.4em; font-size:0.95rem; color:#cfd8ff; }
+  .auth-msg.success { color:#38f18b; }
+  .auth-msg.error { color:#ff8a7a; }
+
+  /* Optional: prevent background scroll while modal is open */
+  body.auth-locked { overflow: hidden; }
+</style>
+
+<div id="devAuthBackdrop" class="auth-backdrop" aria-hidden="true">
+  <div
+    class="auth-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="authTitle"
+    aria-describedby="authDesc"
+  >
+    <div class="auth-brand" aria-label="Logo">
+      <img src="https://pritsinghlaw.com/whitenobg.svg" alt="Firm logo" />
+    </div>
+
+    <h1 id="authTitle">This website is currently under development. Access is restricted until further notice.</h1>
+    <p id="authDesc" class="auth-lede">Authorized personnel only. Log in to continue.</p>
+
+    <form id="devAuthForm" novalidate>
+      <label class="auth-label" for="devAuthUser">Username</label>
+      <input id="devAuthUser" class="auth-input" type="text" autocomplete="username" placeholder="Enter your username" required />
+
+      <label class="auth-label" for="devAuthPass">Password</label>
+      <input id="devAuthPass" class="auth-input" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+
+      <div class="auth-actions">
+        <button id="devAuthSubmit" class="auth-submit" type="submit">Submit</button>
+        <div id="devAuthMsg" class="auth-msg" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  // --- Config ---
+  const VALID_USERNAME = "admin";
+  const VALID_PASSWORD = "IronHorse1901!";
+  const HOME_URLS = ["https://pritsinghlaw.com/home", "/home"]; // Which URLs count as "homepage"
+  const SUCCESS_NAV_URL = "https://pritsinghlaw.com/home";       // Where to go after success
+  const REAUTH_MINUTES = 60;                                     // Re-prompt window
+  const STORAGE_KEY = "psl_auth_ok_at";                          // localStorage key
+
+  const backdrop = document.getElementById("devAuthBackdrop");
+  const form = document.getElementById("devAuthForm");
+  const user = document.getElementById("devAuthUser");
+  const pass = document.getElementById("devAuthPass");
+  const btn  = document.getElementById("devAuthSubmit");
+  const msg  = document.getElementById("devAuthMsg");
+
+  let pendingNavUrl = null;
+
+  // Utility: absolute URL normalization
+  function toAbs(href){
+    try { return new URL(href, location.href).href; } catch { return href; }
+  }
+  function isHomeUrl(url){
+    const abs = toAbs(url);
+    return HOME_URLS.some(u => toAbs(u) === abs);
+  }
+  function now(){ return Date.now(); }
+  function minutes(ms){ return Math.floor(ms / 60000); }
+  function authValidUntil(){ const ts = Number(localStorage.getItem(STORAGE_KEY) || 0); return ts; }
+  function isAuthFresh(){
+    const ts = authValidUntil();
+    return ts && (now() - ts) < REAUTH_MINUTES * 60 * 1000;
+  }
+  function setAuthFresh(){ localStorage.setItem(STORAGE_KEY, String(now())); }
+
+  // Accessibility: focus trap inside modal
+  function trapFocus(container){
+    const focusables = container.querySelectorAll(
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), ' +
+      'textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if(!focusables.length) return;
+    const first = focusables[0];
+    const last  = focusables[focusables.length - 1];
+
+    function onKey(e){
+      // No Escape dismissal allowed (modal is mandatory)
+      if(e.key === "Tab"){
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    }
+    container.addEventListener("keydown", onKey);
+    return () => container.removeEventListener("keydown", onKey);
+  }
+
+  let untrap = null;
+
+  function openModal(){
+    backdrop.classList.add("open");
+    backdrop.removeAttribute("aria-hidden");
+    document.body.classList.add("auth-locked");
+    user.focus();
+    untrap = trapFocus(backdrop);
+  }
+
+  function closeModal(){
+    // Note: closing is only called after successful auth
+    if(untrap) { untrap(); untrap = null; }
+    backdrop.classList.remove("open");
+    backdrop.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("auth-locked");
+  }
+
+  function setState(state, text){
+    msg.className = "auth-msg " + (state || "");
+    msg.textContent = text || "";
+  }
+
+  function requireAuth(triggeredByClickUrl){
+    pendingNavUrl = triggeredByClickUrl || null;
+    openModal();
+  }
+
+  function handleSuccess(){
+    setAuthFresh();
+    closeModal();
+    const target = pendingNavUrl || SUCCESS_NAV_URL;
+    // Navigate or refresh to ensure consistent landing
+    if (toAbs(location.href) !== toAbs(target)) {
+      location.href = target;
+    } else {
+      // Already on /home -> gentle refresh to finalize state
+      location.replace(target);
+    }
+  }
+
+  // Intercept clicks to homepage links, re-prompt if >= 60 mins since last success
+  document.addEventListener("click", function(e){
+    const a = e.target.closest && e.target.closest("a[href]");
+    if(!a) return;
+
+    // Only left-click, no modifiers
+    if(e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const href = a.getAttribute("href");
+    if(!href) return;
+
+    if(isHomeUrl(href)){
+      if(!isAuthFresh()){
+        e.preventDefault();
+        e.stopPropagation();
+        requireAuth(toAbs(href));
+      }
+      // else: let it proceed normally
+    }
+  }, true);
+
+  // On homepage load, force auth if stale/absent
+  function onReady(){
+    const here = location.href;
+    if(isHomeUrl(here) && !isAuthFresh()){
+      requireAuth(null);
+    }
+  }
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", onReady);
+  } else {
+    onReady();
+  }
+
+  // Form logic
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    setState("", "");
+
+    const u = (user.value || "").trim();
+    const p = pass.value || "";
+
+    if(!u){ setState("error", "Please enter your username."); user.focus(); return; }
+    if(!p){ setState("error", "Please enter your password."); pass.focus(); return; }
+
+    btn.disabled = true;
+    btn.textContent = "Checking…";
+
+    setTimeout(() => {
+      const ok = (u === VALID_USERNAME && p === VALID_PASSWORD);
+      if(ok){
+        setState("success", "Access granted. Redirecting…");
+        handleSuccess();
+      }else{
+        setState("error", "Invalid username or password.");
+        btn.disabled = false;
+        btn.textContent = "Submit";
+        pass.select();
+      }
+    }, 200);
+  });
+
+  // Prevent backdrop clicks from closing the modal
+  backdrop.addEventListener("click", function(e){
+    // If someone clicks outside the panel, refocus inside
+    if(e.target === backdrop){ user.focus(); }
+  });
+})();
+</script>
+
+<noscript>
+  <style>
+    .nojs-overlay{
+      position: fixed; inset: 0; background:#061c3c; color:#fff; z-index: 99999;
+      display:grid; place-items:center; text-align:center; padding: 24px;
+    }
+    .nojs-overlay h2{ margin:0 0 8px; font-weight:800; }
+  </style>
+  <div class="nojs-overlay">
+    <div>
+      <h2>JavaScript Required</h2>
+      <p>This site is under development. Enable JavaScript to proceed.</p>
+    </div>
+  </div>
+</noscript>
+
+
 </body>
 </html>
 
