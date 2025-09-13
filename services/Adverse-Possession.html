@@ -576,14 +576,10 @@ visibility:hidden!important;
   font-weight: 500 !important;
   font-family: 'Open Sans', sans-serif !important;
 }
-
-/* optional: force white X when menu is open */
-.w-nav-button.w--open { color: #fff; }
-
-   
 </style>
+  
 
-<style id="hamburger-to-x-live">
+   <style id="hamburger-to-x-live">
 /* Make the icon a reliable drawing area */
 .w-nav-button .menu-icon{
   position: relative;
@@ -592,7 +588,7 @@ visibility:hidden!important;
   display: inline-block;
   line-height: 0;
   /* inherit color so the X matches your icon color */
-  color: #001f54;
+  color: currentColor;
 }
 
 /* When the nav is open, hide the three bars */
@@ -636,7 +632,14 @@ visibility:hidden!important;
     transition: none;
   }
 }
+
+/* optional: force white X when menu is open */
+.w-nav-button.w--open { color: #000; }
+     
 </style>
+
+
+
 
   
 </head>
@@ -790,16 +793,8 @@ visibility:hidden!important;
   </a>
     
     
-    <div class="navbar-menu-button w-nav-button" id="menuButton" style="-webkit-user-select: text;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
-  <div class="menu-icon">
-    <div class="menu-icon-line-top"></div>
-    <div class="menu-icon-line-middle">
-      <div class="menu-icon-line-middle-inner"></div>
-    </div>
-    <div class="menu-icon-line-bottom"></div>
-  </div>
-</div>
-<div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div>
+    <div class="navbar-menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false"><div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div></div></div></div></div><div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div></div>
+    
   
 
 <!----END OF UPDATED HEADER NAV--->
@@ -1130,13 +1125,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
-
 </script>
           
     
 
 <script src="main.js"></script>
+
+
 
 
 
