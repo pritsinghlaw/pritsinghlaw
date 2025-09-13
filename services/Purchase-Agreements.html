@@ -952,5 +952,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script src="main.js"></script>
+
+
+<!-- 🔧 Passive anti-ghost-clicks (visibility-based, no nav control) -->
+<script>
+(function () {
+  // Is the list actually visible (not display:none / hidden, has dimensions, etc.)?
+  function isVisible(el) {
+    if (!el) return false;
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+    // If it's not position:fixed and has no offsetParent, it's effectively hidden
+    if (el.offsetParent === null && cs.position !== 'fixed') return false;
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0;
+  }
+
+  function setInert(el, off) {
+    // When "off" === true, we disable interactions
+    el.style.pointerEvents = off ? 'none' : 'auto';
+    el.setAttribute('aria-hidden', off ? 'true' : 'false');
+    if (off) el.setAttribute('inert', '');
+    else el.removeAttribute('inert');
+  }
+
+  function wire(dropdown) {
+    const list = dropdown.querySelector('.w-dropdown-list') ||
+                 dropdown.querySelector('.navbar-dropdown-list-container');
+    if (!list) return;
+
+    const refresh = () => setInert(list, !isVisible(list));
+
+    // Re-evaluate when user hovers/focuses or leaves
+    dropdown.addEventListener('pointerenter', refresh, { passive: true });
+    dropdown.addEventListener('pointerleave', refresh, { passive: true });
+    dropdown.addEventListener('focusin',     refresh, { passive: true });
+    dropdown.addEventListener('focusout',    refresh, { passive: true });
+
+    // Re-evaluate on layout changes
+    window.addEventListener('resize', refresh, { passive: true });
+    window.addEventListener('scroll', refresh, { passive: true });
+
+    // Initial state
+    refresh();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.navbar-menu-dropdown, .w-dropdown').forEach(wire);
+  });
+})();
+</script>
+
+
+  
 </body>
 </html>
