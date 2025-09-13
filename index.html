@@ -947,7 +947,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="w-node-_0f073428-b57b-6ea2-8058-59401c6643de-55239b46" data-w-id="0f073428-b57b-6ea2-8058-59401c6643de" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="content-wrapper"><p class="text-size-medium">At the <b>Law Offices of Pritpal Singh</b>, we do more than just litigate cases and help close escrows - we unlock potential. When taking on your case, our entire team gets involved and does its best to meet your goals and expectations.</p><p class="text-size-medium"><br></p><p class="text-size-medium">We’re based in the Bay Area, California. Whether you're buying your first home in San Francisco, developing a mixed-use space in Oakland, or untangling a title dispute in San Jose, we’re your shield in California’s complex real estate terrain.</p><div class="spacer-medium"></div><div class="button-group"><a href="#" id="open-intake-modal" type="button" aria-haspopup="dialog" aria-controls="intake-modal" class="btn button btn-primary btn-pulse w-button"><b>Book A Consultation</b></a>
       
       
-      <a href="#" id="helpModalBtn" class="btn button btn-embed btn-secondary w-button"><b>Contact Support</b></a></div></div></div><div class="spacer-xxl"></div><div class="header-image-wrapper"><img src="/lakemerritt.jpeg" loading="eager" sizes="(max-width: 479px) 92vw, (max-width: 767px) 95vw, (max-width: 991px) 92vw, 94vw" srcset="/lakemerritt.jpeg 500w, /lakemerritt.jpeg 800w, /lakemerritt.jpeg 1080w, /lakemerritt.jpeg 1600w, /lakemerritt.jpeg 2000w, /lakemerritt.jpeg 2560w" alt="A Picture Of Lake Merritt" class="header-image"></div></div></div></div></div></header>
+      <a href="/contact" class="btn btn-secondary w-button"><b>Contact Support</b></a></div></div></div><div class="spacer-xxl"></div><div class="header-image-wrapper"><img src="/lakemerritt.jpeg" loading="eager" sizes="(max-width: 479px) 92vw, (max-width: 767px) 95vw, (max-width: 991px) 92vw, 94vw" srcset="/lakemerritt.jpeg 500w, /lakemerritt.jpeg 800w, /lakemerritt.jpeg 1080w, /lakemerritt.jpeg 1600w, /lakemerritt.jpeg 2000w, /lakemerritt.jpeg 2560w" alt="A Picture Of Lake Merritt" class="header-image"></div></div></div></div></div></header>
     
     
     <section class="section background-color-navy"><div class="padding-global"><div class="container-large"><div class="padding-section-large"><div data-w-id="7bc523dd-87bb-af2d-a1ef-1e163e4f3b83" class="text-align-center"><div data-w-id="7bc523dd-87bb-af2d-a1ef-1e163e4f3b84" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="max-width-large align-center"><div class="eyebrow text-color-white">OUR PROCESS</div><div class="spacer-xs"></div><h2 class="heading-style-h2 text-color-white">What makes us better?</h2><div class="spacer-small"></div><p class="text-size-medium">We outline exactly what legal services you need, what it will take to move forward, and how we’ll align with your timelines, budget, and communication preferences. </p></div></div><div class="spacer-xxl"></div><div data-w-id="3996f924-daf0-bf26-5b2b-305492e8fed8" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="w-layout-grid _3-column-grid _2-column-tablet">
@@ -1204,7 +1204,20 @@ document.addEventListener('DOMContentLoaded', function() {
 </svg></div></a></div></div></div></div></div></div></div></div></div></div></div></section>
   
 
-  
+
+
+<!-- Chatbot Floating Action Button (FAB) -->
+    <button id="chat-fab" class="fixed bottom-8 right-8 z-50 bg-[var(--primary-bg)] w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-opacity-90 transition-opacity">
+        <!-- Provided SVG Icon -->
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z" fill="white"/>
+            <path d="M12 11C13.1 11 14 10.1 14 9C14 7.9 13.1 7 12 7C10.9 7 10 7.9 10 9C10 10.1 10.9 11 12 11Z" fill="white"/>
+            <path d="M16 14C17.1 14 18 13.1 18 12C18 10.9 17.1 10 16 10C14.9 10 14 10.9 14 12C14 13.1 14.9 14 16 14Z" fill="white"/>
+            <path d="M8 14C9.1 14 10 13.1 10 12C10 10.9 9.1 10 8 10C6.9 10 6 10.9 6 12C6 13.1 6.9 14 8 14Z" fill="white"/>
+        </svg>
+    </button>
+
+      
   </main>
   
   
@@ -1844,253 +1857,184 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </noscript>
 
-<!--CHATBASE--->
+<!--CHATBASE
 <script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="hUE8xUVwaAy-FkE8HXTKp";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
+-->
 
 
 
-<!-- Trigger button -->
-<button id="helpModalBtn" class="btn-embed">
-  Open Help
-</button>
 
-<!-- Modal -->
-<div id="helpModal" class="modal" aria-hidden="true" aria-labelledby="helpModalTitle" role="dialog">
-  <div class="modal-backdrop" data-close></div>
+   
 
-  <div class="modal-dialog" role="document" aria-modal="true">
-    <header class="modal-header">
-      <h2 id="helpModalTitle">AI Support Agent</h2>
-      <button class="modal-close" aria-label="Close" data-close>&times;</button>
-    </header>
+    <!-- Chatbot Modal -->
+    <div id="chat-modal" class="fixed bottom-28 right-8 w-full max-w-sm h-[70vh] max-h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col transform scale-95 opacity-0 invisible">
+        <!-- Header -->
+        <div class="bg-[var(--primary-bg)] text-white p-4 rounded-t-2xl flex justify-between items-center">
+            <div>
+                <h3 class="text-lg font-semibold">AI Legal Assistant</h3>
+                <p class="text-xs text-gray-300">Powered by Prit Singh Law</p>
+            </div>
+            <button id="close-chat" class="text-white hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
 
-    <!-- No scrolling on this container; the iframe owns scroll -->
-    <div class="modal-body">
-      <iframe
-        id="helpFrame"
-        title="Help Content"
-        src="https://www.chatbase.co/hUE8xUVwaAy-FkE8HXTKp/help"
-        loading="eager"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+        <!-- Chat Messages Area -->
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50">
+             <!-- Welcome Message -->
+            <div class="flex mb-4">
+                <div class="bg-[var(--secondary-bg)] text-white rounded-lg p-3 max-w-xs text-sm">
+                    <p>Welcome! I am an AI assistant for Prit Singh Law. How can I help you with your real estate law questions today? Please note that I am not a lawyer and this does not constitute legal advice.</p>
+                </div>
+            </div>
+        </div>
 
-      <!-- Fallback UI if embedding is blocked -->
-      <div id="embedFallback" hidden class="fallback">
-        <p>Looks like this feature isn't available at the moment. You can click the link below to open it in a new tab:</p>
-        <a class="fallback-link" target="_blank" rel="noopener"
-           href="https://www.chatbase.co/hUE8xUVwaAy-FkE8HXTKp/help">Open in a new tab</a>
-      </div>
+        <!-- Input Area -->
+        <div class="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
+            <div class="flex items-center">
+                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--primary-bg)]">
+                <button id="send-btn" class="ml-3 bg-[var(--secondary-bg)] text-white p-2 rounded-full hover:bg-opacity-90 disabled:opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </button>
+            </div>
+            <p class="text-xs text-center text-gray-400 mt-2">Disclaimer: Interactions are AI-generated.</p>
+        </div>
     </div>
-  </div>
-</div>
 
-<style>
-  :root {
-    --modal-bg: #0b0b0bcc;               /* dim backdrop */
-    --dialog-bg: #ffffff;                /* modal card */
-    --radius: 14px;
-    --shadow: 0 20px 60px rgba(0,0,0,.25);
-    --header-h: 56px;
-    --pad: 16px;
-    --focus: 2px solid #0ea5e9;          /* accent focus ring */
-  }
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatFab = document.getElementById('chat-fab');
+            const chatModal = document.getElementById('chat-modal');
+            const closeChatBtn = document.getElementById('close-chat');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
 
-  .btn-embed {
-    appearance: none;
-    border: 1px solid #e5e7eb;
-    padding: 10px 16px;
-    border-radius: 10px;
-    background: #111827;
-    color: #fff;
-    cursor: pointer;
-    transition: transform .05s ease, opacity .2s ease;
-  }
-  .btn-embed:active { transform: translateY(1px); }
-  .btn-embed:focus-visible { outline: var(--focus); }
+            // --- API Configuration ---
+            // IMPORTANT: Replace with your actual OpenAI API Key.
+            const apiKey = "YOUR_OPENAI_API_KEY";
+            const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
 
-  /* Modal shell */
-  .modal {
-    position: fixed;
-    inset: 0;
-    display: none; /* toggled to flex when open */
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .modal[aria-hidden="false"] { display: flex; }
+            // IMPORTANT: Define the chatbot's persona and instructions here.
+            // This is a crucial step to make the chatbot helpful and relevant to your law firm.
+            const systemInstruction = {
+              parts: [{
+                text: "You are a friendly and professional AI assistant for a real estate law firm named Prit Singh Law. Your purpose is to answer general questions about real estate law in a helpful and informative way, and to guide potential clients on how to contact the firm. You must state clearly that you are not a lawyer and your advice is not a substitute for legal counsel from a qualified attorney. Do not provide specific legal advice for individual situations. If a user asks for specific legal advice, you should politely decline and recommend they schedule a consultation with the firm. The firm's contact information is available on the website pritsinghlaw.com."
+              }]
+            };
 
-  .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: var(--modal-bg);
-    backdrop-filter: blur(2px);
-  }
+            // This array will store the conversation history for context.
+            let conversationHistory = [];
 
-  .modal-dialog {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: min(1100px, 92vw);
-    height: min(90vh, 920px);
-    background: var(--dialog-bg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden; /* prevent modal container scrolling */
-  }
+            // --- UI Interaction Logic ---
+            const toggleChat = () => {
+                if (chatModal.classList.contains('invisible')) {
+                    chatModal.classList.remove('invisible', 'opacity-0', 'scale-95');
+                    chatModal.classList.add('opacity-100', 'scale-100');
+                } else {
+                    chatModal.classList.add('opacity-0', 'scale-95');
+                    setTimeout(() => chatModal.classList.add('invisible'), 300);
+                }
+            };
 
-  .modal-header {
-    height: var(--header-h);
-    min-height: var(--header-h);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 var(--pad);
-    border-bottom: 1px solid #f1f5f9;
-    background: #ffffff;
-  }
-  .modal-header h2 {
-    font: 600 16px/1.2 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-    margin: 0;
-  }
-  .modal-close {
-    appearance: none;
-    border: none;
-    background: transparent;
-    font-size: 28px;
-    line-height: 1;
-    padding: 4px 8px;
-    cursor: pointer;
-    color: #64748b;
-    border-radius: 8px;
-  }
-  .modal-close:hover { color: #0f172a; }
-  .modal-close:focus-visible { outline: var(--focus); }
+            chatFab.addEventListener('click', toggleChat);
+            closeChatBtn.addEventListener('click', toggleChat);
 
-  .modal-body {
-    /* This owns the remaining vertical space; no scrolling here */
-    flex: 1 1 auto;
-    display: block;
-    overflow: hidden; /* critical: modal itself doesn't scroll */
-    background: #fff;
-  }
+            const addMessage = (sender, message) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('flex', 'mb-4');
+                
+                let content;
+                if (sender === 'user') {
+                    messageDiv.classList.add('justify-end');
+                    content = `<div class="bg-[var(--user-msg-bg)] text-gray-800 rounded-lg p-3 max-w-xs text-sm">${message}</div>`;
+                } else if (sender === 'bot') {
+                    content = `<div class="bg-[var(--secondary-bg)] text-white rounded-lg p-3 max-w-xs text-sm">${message}</div>`;
+                } else if (sender === 'typing') {
+                     content = `<div id="typing-indicator" class="bg-gray-200 rounded-lg p-3 max-w-xs text-sm typing-indicator"><span></span><span></span><span></span></div>`;
+                }
+                
+                messageDiv.innerHTML = content;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
+                return messageDiv;
+            };
 
-  /* The iframe fills the body and handles its own internal scroll */
-  #helpFrame {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: none;
-    /* Prevent double scrollbars from the modal; the iframe content scrolls */
-    overflow: hidden;
-  }
+            const handleSendMessage = async () => {
+                const userMessage = chatInput.value.trim();
+                if (userMessage === '') return;
 
-  /* Fallback panel if iframe can’t load */
-  .fallback {
-    position: absolute;
-    inset: var(--header-h) 0 0 0; /* stay within modal body area */
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 24px;
-    background: #fff;
-  }
-  .fallback-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: #111827;
-    color: #fff;
-    text-decoration: none;
-  }
+                addMessage('user', userMessage);
+                chatInput.value = '';
+                
+                // Add user message to history
+                conversationHistory.push({ role: "user", parts: [{ text: userMessage }] });
 
-  /* Small screens: let it breathe edge-to-edge */
-  @media (max-width: 640px) {
-    .modal-dialog {
-      width: 100vw;
-      height: 100vh;
-      border-radius: 0;
-    }
-    .fallback { inset: var(--header-h) 0 0 0; }
-  }
+                const typingIndicator = addMessage('typing', '');
 
-  /* When modal is open, lock page scroll */
-  body.modal-open {
-    overflow: hidden;
-    touch-action: none;
-  }
-</style>
+                try {
+                    if (apiKey === "YOUR_OPENAI_API_KEY" || !apiKey) {
+                         // Fallback response if API key is not set
+                        setTimeout(() => {
+                           typingIndicator.remove();
+                           addMessage('bot', "The AI assistant is currently offline. Please configure the API key.");
+                        }, 1000);
+                        return;
+                    }
+                    
+                    const payload = {
+                        contents: conversationHistory,
+                        systemInstruction: systemInstruction,
+                    };
+                    
+                    // --- API Call ---
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
 
-<script>
-  (function () {
-    const openBtn = document.getElementById('helpModalBtn');
-    const modal = document.getElementById('helpModal');
-    const backdrop = modal.querySelector('.modal-backdrop');
-    const closeButtons = modal.querySelectorAll('[data-close]');
-    const iframe = document.getElementById('helpFrame');
-    const fallback = document.getElementById('embedFallback');
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error.message || `API request failed with status ${response.status}`);
+                    }
 
-    // Simple focus trap
-    let lastFocused = null;
-    function trapFocus(e) {
-      if (modal.getAttribute('aria-hidden') === 'true') return;
-      const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.key === 'Tab') {
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault(); last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault(); first.focus();
-        }
-      }
-    }
+                    const result = await response.json();
+                    const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    function openModal() {
-      lastFocused = document.activeElement;
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      // Focus the close button for immediate keyboard access
-      const close = modal.querySelector('.modal-close');
-      if (close) close.focus();
+                    if (botMessage) {
+                        // Add bot message to history
+                        conversationHistory.push({ role: "model", parts: [{ text: botMessage }] });
+                        addMessage('bot', botMessage);
+                    } else {
+                        throw new Error("Received an empty or invalid response from the API.");
+                    }
 
-      // Try to detect embed blocking: if onload never fires within timeout, show fallback
-      fallback.hidden = true;
-      let loaded = false;
-      const t = setTimeout(() => {
-        if (!loaded) fallback.hidden = false;
-      }, 3500); // ~3.5s grace
+                } catch (error) {
+                    console.error('Chatbot Error:', error);
+                    addMessage('bot', 'Sorry, I am having trouble connecting. Please try again later.');
+                } finally {
+                    typingIndicator.remove();
+                }
+            };
 
-      iframe.onload = function () {
-        loaded = true;
-        clearTimeout(t);
-        // Some providers still "load" a block page; keep fallback hidden unless we detect XFO explicitly (not possible cross-origin).
-      };
-    }
-
-    function closeModal() {
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-      fallback.hidden = true;
-      if (lastFocused) lastFocused.focus();
-    }
-
-    openBtn.addEventListener('click', openModal);
-    backdrop.addEventListener('click', closeModal);
-    closeButtons.forEach(btn => btn.addEventListener('click', closeModal));
-
-    // ESC to close + focus trap
-    document.addEventListener('keydown', (e) => {
-      if (modal.getAttribute('aria-hidden') === 'false' && e.key === 'Escape') closeModal();
-      trapFocus(e);
-    });
-
-    // Optional: open via hash (#help) support
-    if (location.hash === '#help') openModal();
-  })();
-</script>
+            sendBtn.addEventListener('click', handleSendMessage);
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSendMessage();
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
