@@ -898,8 +898,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function wireDropdown(dropdown) {
     // Your dropdown list can be either class depending on the page/styles
     const list =
-      dropdown.querySelector(".w-dropdown-list .navbar-menu-dropdown, .w-dropdown") ||
-      dropdown.querySelector(".navbar-dropdown-list-container .navbar-menu-dropdown, .w-dropdown");
+      dropdown.querySelector(".w-dropdown-list, .navbar-menu-dropdown, .w-dropdown") ||
+      dropdown.querySelector(".navbar-dropdown-list-container, .navbar-menu-dropdown, .w-dropdown");
 
     if (!list) return;
 
@@ -925,7 +925,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener("DOMContentLoaded", function () {
     // Support both your custom wrapper and Webflow's native .w-dropdown
     document
-      .querySelectorAll(".navbar-menu-dropdown, .w-dropdown")
+      .querySelectorAll(".navbar-menu-dropdown, .w-dropdown, .navbar-dropdown-list-container, .navbar-menu-dropdown, .w-dropdown")
       .forEach(wireDropdown);
   });
 })();
