@@ -1070,5 +1070,47 @@ visibility:hidden!important;
   <script src=
   "https://assets-global.website-files.com/64785fe0a8b931af3b0da218/js/sterlingelysium.e5b357d9e.js"
   type="text/javascript"></script>
+  
+  
+  
+  <script>
+(function () {
+  function setDropdownAccessibility(dropdown) {
+    // Find the dropdown list container
+    const list = dropdown.querySelector('.w-dropdown-list, .navbar-dropdown-list-container');
+    if (!list) return;
+    // Check if open by hover, focus, or .w--open
+    const isOpen = dropdown.classList.contains('w--open') ||
+                   dropdown.matches(':hover') ||
+                   dropdown.matches(':focus-within');
+    // When closed, hide from screen readers, block pointer events, and set inert
+    if (!isOpen) {
+      list.style.pointerEvents = 'none';
+      list.setAttribute('aria-hidden', 'true');
+      list.setAttribute('inert', '');
+    } else {
+      list.style.pointerEvents = 'auto';
+      list.setAttribute('aria-hidden', 'false');
+      list.removeAttribute('inert');
+    }
+  }
+
+  function wireDropdown(dropdown) {
+    setDropdownAccessibility(dropdown);
+    // Observe class changes
+    const mo = new MutationObserver(() => setDropdownAccessibility(dropdown));
+    mo.observe(dropdown, { attributes: true, attributeFilter: ['class'] });
+    // Update on resize
+    window.addEventListener('resize', () => setDropdownAccessibility(dropdown));
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.navbar-menu-dropdown, .w-dropdown')
+      .forEach(wireDropdown);
+  });
+})();
+</script>
+  
+  
 </body>
 </html>
