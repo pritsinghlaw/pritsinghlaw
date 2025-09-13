@@ -1574,7 +1574,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   .auth-modal {
     width: min(720px, 92vw);
-    background: #061c3c;           /* Deep navy */
+    background: #001f54;           /* Deep navy */
     color: #fff;
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 14px;
@@ -1585,12 +1585,13 @@ document.addEventListener('DOMContentLoaded', function() {
     display:flex; align-items:center; gap:14px; margin-bottom: 14px;
   }
   .auth-brand img {
-    width:160px; height:auto; display:block;
+    width:200px; height:auto; display:block;
     filter: drop-shadow(0 2px 10px rgba(0,0,0,0.4));
   }
   .auth-modal h1 {
     font-size: clamp(22px, 3.6vw, 30px);
     line-height:1.2; font-weight:800; margin: 8px 0 6px;
+    color: #fff !important;
   }
   .auth-lede {
     color:#cfd8ff; font-size: clamp(15px, 2.2vw, 18px); margin: 0 0 18px;
@@ -1638,7 +1639,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <img src="https://pritsinghlaw.com/whitenobg.svg" alt="Firm logo" />
     </div>
 
-    <h1 id="authTitle">This website is currently under development. Access is restricted until further notice.</h1>
+    <h1 style="color:#fff" id="authTitle">This website is currently under development. Access is restricted until further notice.</h1>
     <p id="authDesc" class="auth-lede">Authorized personnel only. Log in to continue.</p>
 
     <form id="devAuthForm" novalidate>
@@ -1663,7 +1664,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const VALID_PASSWORD = "IronHorse1901!";
   const HOME_URLS = ["https://pritsinghlaw.com/", "/"]; // Which URLs count as "homepage"
   const SUCCESS_NAV_URL = "https://pritsinghlaw.com/";       // Where to go after success
-  const REAUTH_MINUTES = 60;                                     // Re-prompt window
+  const REAUTH_MINUTES = 30;                                     // Re-prompt window
   const STORAGE_KEY = "psl_auth_ok_at";                          // localStorage key
 
   const backdrop = document.getElementById("devAuthBackdrop");
@@ -1684,11 +1685,11 @@ document.addEventListener('DOMContentLoaded', function() {
     return HOME_URLS.some(u => toAbs(u) === abs);
   }
   function now(){ return Date.now(); }
-  function minutes(ms){ return Math.floor(ms / 60000); }
+  function minutes(ms){ return Math.floor(ms / 30000); }
   function authValidUntil(){ const ts = Number(localStorage.getItem(STORAGE_KEY) || 0); return ts; }
   function isAuthFresh(){
     const ts = authValidUntil();
-    return ts && (now() - ts) < REAUTH_MINUTES * 60 * 1000;
+    return ts && (now() - ts) < REAUTH_MINUTES * 30 * 1000;
   }
   function setAuthFresh(){ localStorage.setItem(STORAGE_KEY, String(now())); }
 
