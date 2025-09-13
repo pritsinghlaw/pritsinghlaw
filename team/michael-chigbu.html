@@ -898,8 +898,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function wireDropdown(dropdown) {
     // Your dropdown list can be either class depending on the page/styles
     const list =
-      dropdown.querySelector(".w-dropdown-list") ||
-      dropdown.querySelector(".navbar-dropdown-list-container");
+      dropdown.querySelector(".w-dropdown-list .navbar-menu-dropdown, .w-dropdown") ||
+      dropdown.querySelector(".navbar-dropdown-list-container .navbar-menu-dropdown, .w-dropdown");
 
     if (!list) return;
 
