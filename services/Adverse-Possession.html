@@ -46,7 +46,7 @@
     body{background:var(--white);color:var(--navy);font-family:'Geologica',sans-serif;margin:0}
     .hero{background:var(--navy);color:#fff;padding:3rem 0 2rem;text-align:center}
     .hero__title{font-size:2.75rem;margin-bottom:.75rem;font-weight:700}
-    .hero__subtitle{font-size:1.2rem;max-width:680px;margin:0 auto 1.5rem}
+    .hero__subtitle{font-size:1.2rem;font-family:'Open Sans',sans-serif;font-weight:500;max-width:680px;margin:0 auto 1.5rem}
     .btn{display:inline-block;font:inherit;font-size:1rem;padding:.75rem 1.5rem;border-radius:15px;cursor:pointer;transition:.2s;text-decoration:none;border:none;background:#001f54;color:#fff}
     .btn:hover{background:#00306e;transform:translateY(-2px) scale(1.02)}
     .btn--secondary{background:#fff;color:#001f54;border:2px solid #001f54}
@@ -55,11 +55,11 @@
     section.section{padding:2.5rem 0}
     .section__title{color:var(--navy);font-size:2rem;margin-bottom:.6em;position:relative}
     .section__title:after{content:"";display:block;width:36px;height:3px;background:var(--accent);margin-top:10px;border-radius:2px}
-    .section--intro p{font-size:1.15rem;margin-bottom:1rem;line-height:1.5}
+    .section--intro p{font-size:1.15rem;font-family:'Open Sans',sans-serif;font-weight:500;margin-bottom:1rem;line-height:1.5}
     .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem;margin-top:2rem}
     .card{background:var(--gray);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem 1.3rem 1.1rem;display:flex;flex-direction:column}
     .card__title{color:var(--accent);font-size:1.23rem;font-weight:700;margin:0 0 .65em}
-    .card__text{color:#23395d;flex-grow:1;font-size:1.05rem;margin:0 0 1em}
+    .card__text{color:#23395d;flex-grow:1;font-size:1.05rem;font-family:'Open Sans',sans-serif;font-weight:500;margin:0 0 1em}
     .section--why-us{background:var(--gray);border-radius:8px}
     .footer-main{background:var(--navy);color:#fff;padding:2.5rem 0 1.75rem;text-align:center;margin-top:2.25rem}
     .footer-main .footer__title{margin-bottom:.5em;font-weight:700;font-size:1.5rem}
@@ -572,7 +572,7 @@ visibility:hidden!important;
    
   }
 
-.navbar-dropdown-link, .w-dropdown-link {
+.navbar-dropdown-link, .w-dropdown-link, .hero__subtitle, p  {
   font-weight: 500 !important;
   font-family: 'Open Sans', sans-serif !important;
 }
