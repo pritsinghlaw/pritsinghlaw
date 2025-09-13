@@ -390,7 +390,36 @@ visibility:hidden!important;
 </style>
 
 
+<style>
+/* ---------- GENERIC RESETS ---------- */
+.navbar-dropdown-list-container{
+  width:fit-content !important;           /* let it span parent */
  
+}
+
+/* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
+@media (min-width:768px){
+  .menu-item-container{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important; /* two equal columns */
+    gap:0.75rem 1.25rem !important;                 /* row/col gap */
+  }
+}
+
+  @media (min-width: 992px) { /* Adjust the breakpoint as needed */
+  #w-dropdown-list-0 {
+    width: fit-content !important; /* Set a desired minimum width */
+    
+  }
+}
+
+
+/* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
+.navbar-dropdown-list-container{
+  max-height:70vh !important;       /* never exceed 70 % of screen height   */
+  overflow-y:auto !important;       /* internal scroll if list is very long */
+}
+</style> 
 
 
 
