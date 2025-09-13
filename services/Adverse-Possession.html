@@ -1100,6 +1100,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+
+
+
+// Hamburger to X animation handler on mobile
+document.addEventListener('DOMContentLoaded', function () {
+  const menuButton = document.querySelector('.navbar-menu-button');
+  const menuIcon = menuButton.querySelector('.menu-icon');
+  const menu = document.getElementById('w-nav-overlay-0');
+
+  menuButton.addEventListener('click', function () {
+    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', !isOpen);
+
+    // Toggle the menu icon animation
+    menuIcon.classList.toggle('open');
+
+    // Toggle the menu visibility
+    menu.style.display = isOpen ? 'none' : 'block';
+  });
+});
+
+
 </script>
           
     
