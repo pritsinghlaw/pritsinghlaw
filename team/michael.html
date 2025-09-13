@@ -376,6 +376,9 @@ visibility:hidden!important;
 </head>
 <body>
   <div class="page-wrapper">
+   
+    
+    
     <div data-animation="default" class="navbar-component w-nav"
     data-easing2="ease" fs-scrolldisable-element="smart-nav"
     data-easing="ease" data-collapse="medium" data-w-id=
@@ -384,10 +387,10 @@ visibility:hidden!important;
       <div class="container-large">
         <div class="navbar-container">
           <a href="/" class=
-          "navbar-logo-link w-nav-brand"><img src="https://cdn.prod.website-files.com/64785fe0a8b931af3b0da218/64898e315b9e52441c502653_Full%20Logo.svg"
+          "navbar-logo-link w-nav-brand"><img src="/colornobg.svg" width="200" height="auto"
           loading="lazy" alt="Company logo" class=
           "navbar-logo hide-tablet"><img src=
-          "https://cdn.prod.website-files.com/64785fe0a8b931af3b0da218/6489810145fb2b2b67380c00_Logo.svg"
+          "/icon.png"
           loading="lazy" alt="Company logo" class=
           "navbar-logo hide-desktop"></a>
           <nav role="navigation" id=
@@ -396,7 +399,7 @@ visibility:hidden!important;
 
 
             
-            <a href="/home/home-v1" class=
+            <a href="/" class=
             "navbar-link w-nav-link">Home</a>
             
         
@@ -404,7 +407,7 @@ visibility:hidden!important;
 
 
  <!---SERVICES--->
-  <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" class="navbar-menu-dropdown w-dropdown" style="width:fit-content; z-index:901!important;">
+  <div data-hover="true" data-delay="200" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d1b" class="navbar-menu-dropdown w-dropdown" style="width:fit-content;">
     <div class="navbar-dropdwn-toggle w-dropdown-toggle">
       <div class="dropdown-icon w-embed">
         <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -415,9 +418,9 @@ visibility:hidden!important;
     </div>
 
    <!-- ✅ 2-column wrapper gets the new grid rules -->
-    <nav class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
-      <div class="navbar-dropdown-list-wrapper flex-horizontal">
-        <div class="navbar-dropdown-list">
+    <nav style="width:fit-content;" class="navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
+      <div style="width:fit-content;" class="navbar-dropdown-list-wrapper flex-horizontal">
+        <div style="width:fit-content;" class="navbar-dropdown-list">
           
           
           <!--- <div class="menu-title-wrapper">
@@ -478,6 +481,9 @@ visibility:hidden!important;
                   About
                 </div>
               </div>
+             
+              
+              
               <nav class=
               "navbar-dropdown-list-container text-size-large-1 shadow-navbar w-dropdown-list">
                 <div class=
@@ -860,66 +866,6 @@ visibility:hidden!important;
 
 
 
- <!-- 🔧 Passive anti-ghost-clicks fix (no nav control) -->
-<script>
-/*
-  Passive anti-ghost-clicks fix for dropdowns:
-  - On desktop: recognizes CSS hover/focus as "open"
-  - On mobile/tablet: recognizes .w--open as "open"
-  - When closed, disables pointer events, sets aria-hidden, and applies inert for accessibility
-  - When open, restores interactivity
-*/
-(function () {
-  // A tiny helper to toggle "inert" safely across browsers
-  function setInert(el, shouldBeInert) {
-    if (!el) return;
-    // Pointer interactions
-    el.style.pointerEvents = shouldBeInert ? "none" : "auto";
-    // Screen readers
-    el.setAttribute("aria-hidden", shouldBeInert ? "true" : "false");
-    // Keyboard focus (modern browsers support 'inert')
-    if (shouldBeInert) {
-      el.setAttribute("inert", "");
-    } else {
-      el.removeAttribute("inert");
-    }
-  }
-
-  function wireDropdown(dropdown) {
-    // Your dropdown list can be either class depending on the page/styles
-    const list =
-      dropdown.querySelector(".w-dropdown-list") ||
-      dropdown.querySelector(".navbar-dropdown-list-container");
-
-    if (!list) return;
-
-    // Apply correct state immediately
-    function applyState() {
-      // This line is the key fix:
-      // Recognize both JS-triggered (.w--open) and CSS-triggered (hover/focus-within) open states
-      const isOpen = dropdown.classList.contains("w--open") ||
-                     dropdown.matches(":hover") ||
-                     dropdown.matches(":focus-within");
-      setInert(list, !isOpen);
-    }
-
-    // Observe only CLASS changes (this is what Webflow toggles)
-    const mo = new MutationObserver(applyState);
-    mo.observe(dropdown, { attributes: true, attributeFilter: ["class"] });
-
-    // First run + keep it fresh on resize (breakpoints can change behavior)
-    applyState();
-    window.addEventListener("resize", applyState, { passive: true });
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    // Support both your custom wrapper and Webflow's native .w-dropdown
-    document
-      .querySelectorAll(".navbar-menu-dropdown, .w-dropdown")
-      .forEach(wireDropdown);
-  });
-})();
-</script>
   
 </body>
 </html>
