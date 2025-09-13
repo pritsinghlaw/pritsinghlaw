@@ -15,29 +15,15 @@
   "In California, real estate law is critical not only to the security and prosperity of individual clients, but also to the broader societal fabric. Real estate transactions and property matters often represent significant investments and milestones in the lives of individuals, families and businesses."
   property="og:description">
   <meta content=
-  "https://cdn.prod.website-files.com/64785fe0a8b931af3b0da218/649b0c387fa3267cc8c16488_Group%201-min%20(1).webp"
-  property="og:image">
-  <meta content=
-  "About - California-based Real Estate Lawyer | Law Offices of Pritpal Singh"
-  property="twitter:title">
-  <meta content=
-  "In California, Real estate law is critical not only to the security and prosperity of individual clients, but also to the broader societal fabric. Real estate transactions and property matters often represent significant investments and milestones in the lives of individuals, families and businesses."
-  property="twitter:description">
-  
-  
-  
-  
-  
-  
-  <meta content=
   "/pritcover.png"
   property="twitter:image">
+   <meta content="/pritcover.png" property="og:image">
   <meta property="og:type" content="website">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name=
   "viewport">
   <link href=
-  "https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css"
+  "https://pritsinghlaw.com/prit.css"
   rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect"
@@ -58,14 +44,17 @@
   <link href=
   "/icon.png"
   rel="apple-touch-icon">
+
+
   
-  <style>
+   <style>
   body {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 
  .header, .hero-width-home-v2 {
   max-width: 100% !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
+  z-index:9999!important;
 }
 
 .link-card-practice-areas {
@@ -206,6 +195,185 @@ visibility:hidden!important;
   }
 }
 </style>
+
+
+
+
+  <!---POPUP DIALOG CTA--->
+
+    <style>
+  :root {
+    --navy: #0a2a6b;
+    --orange: #ff4900;
+    --overlay: rgba(0, 0, 0, 0.65);
+    --radius: 16px;
+  }
+
+  /* Base reset-ish */
+  * { box-sizing: border-box; }
+  body.no-scroll { overflow: hidden; }
+  img { max-width: 100%; display: block; }
+
+  /* Trigger button demo (style to taste or remove) */
+  .trigger-btn {
+    padding: 0.85rem 1.2rem;
+    border: 1px solid var(--navy);
+    background: white;
+    color: var(--navy);
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    z-index: 9999;
+
+    /* hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Dialog */
+  .modal-dialog {
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    padding: clamp(1rem, 2.5vw, 2rem);
+    position: relative;
+    transform: translateY(10px) scale(0.98);
+    transition: transform 220ms ease, opacity 220ms ease;
+    opacity: 0;
+  }
+  .modal-overlay.open .modal-dialog {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* Close button */
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280; /* slate-500 */
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+  }
+  .modal-close:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* Content */
+  .logo-wrap {
+    display: grid;
+    place-items: center;
+    margin-top: 0.25rem;
+  }
+  .logo {
+    width: min(220px, 55%);
+    height: auto;
+  }
+  .title {
+    text-align: center;
+    font-weight: 800;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    margin: 1rem 0 0.5rem;
+    color: #001f54; 
+  }
+  .subtitle {
+    text-align: center;
+    color: #001f54; 
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    line-height: 1.6;
+    max-width: 62ch;
+    margin: 0 auto 1.25rem;
+  }
+
+  .cta-stack {
+    display: grid;
+    gap: 0.9rem;
+    margin: 1.25rem auto 0.25rem;
+    max-width: 560px;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+    padding: 0.9rem 1.1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    will-change: transform;
+  }
+  .cta:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+  /* First button: navy outline */
+  .cta-outline {
+    background: #fff;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  }
+  .cta-outline:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(10,42,107,0.12); }
+
+  /* Second button: solid orange with animation */
+  .cta-solid {
+    background: #ff4900;
+    color: #fff;
+    border: 2px solid var(--orange);
+    box-shadow: 0 6px 16px rgba(255,73,0,0.25);
+  }
+  .cta-solid:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 10px 26px rgba(255,73,0,0.35); }
+
+  /* Subtext */
+  .help-text {
+    font-size: 0.65rem;
+    color: #6b7280; /* gray-500 */
+    text-align: center;
+    margin-top: -0.5rem;
+  }
+
+  /* Gentle attention animation for the paid CTA */
+  @keyframes gentlePulse {
+    0% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px rgba(255,73,0,0.25); }
+    50% { transform: translateY(-1px) scale(1.015); box-shadow: 0 12px 28px rgba(255,73,0,0.38); }
+    100% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px rgba(255,73,0,0.25); }
+  }
+  .animated-cta {
+    animation: gentlePulse 2200ms ease-in-out infinite;
+    animation-delay: 1.4s;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .modal-overlay, .modal-dialog, .cta, .animated-cta { transition: none !important; animation: none !important; }
+  }
+</style>
+
+
+
+
   
  <style>
 
@@ -368,201 +536,44 @@ visibility:hidden!important;
   .link-card-practice-areas:focus .card-background,
   .link-card-practice-areas:focus-within .card-background {
     transform: translateY(-4px);
-    box-shadow:
-      0 0 0 .5px rgba(255,140,0,.35),
-      0 0 12px 2px rgba(255,140,0,.25),
-      0 0 28px 8px rgba(0,31,84,.15) !important;
+   
   }
 
   /* Stronger glow on click */
   .link-card-practice-areas:active .card-background {
     transform: translateY(-2px) scale(.99);
-    box-shadow:
-      0 0 0 1px rgba(255,140,0,.5),
-      0 0 18px 4px rgba(255,140,0,.35),
-      0 0 36px 12px rgba(0,31,84,.20) !important;
+   
   }
 
 
 </style>
 
 
-  
-  
-
-<style>
-/* Ensure all content is visible */
-.section, .padding-section-large, .blog-component, 
-.testimonial-component-without-images, .contact-form-component,
-.card-background, .link-card-practice-areas {
-    opacity: 1 !important;
-    transform: none !important;
-    display: block !important;
-}
-
-/* Fix navigation dropdown */
-.navbar-dropdown-list-container {
-    height: auto !important;
-    left:10px !important;
-}
-
-  .text-size-large-1 {
-    line-height: 1.5 !important;
-    font-size: 16px !important;
-    )
-
-/* Ensure practice area cards are visible */
-.link-card-practice-areas {
-    display: inline-block !important;
-    border: none!important;
-    border-radius:10px !important;
-}
-
-/* Fix image opacity */
-.header-image, .image-contact-us, .image-about-us, .blog-image {
-    opacity: 1 !important;
-}
-
-
-</style>
-
-
-
-<!---DROPDOWN MENU STYLESHEET UPDATE--->
-  
-<style>
-/* ---------- GENERIC RESETS ---------- */
-.navbar-dropdown-list-container{
-  width:fit-content !important;           /* let it span parent */
- 
-}
-
-/* ---------- TWO-COLUMN GRID (TABLET & UP) ---------- */
-@media (min-width:768px){
-  .menu-item-container{
-    display:grid !important;
-    grid-template-columns:repeat(2,1fr) !important; /* two equal columns */
-    gap:0.75rem 1.25rem !important;                 /* row/col gap */
-  }
-}
-
-  @media (min-width: 992px) { /* Adjust the breakpoint as needed */
-  #w-dropdown-list-0 {
-    width: fit-content !important; /* Set a desired minimum width */
-    
-  }
-}
-
-
-/* ---------- FIT TO VIEWPORT ON ALL DEVICES ---------- */
-.navbar-dropdown-list-container{
-  max-height:70vh !important;       /* never exceed 70 % of screen height   */
-  overflow-y:auto !important;       /* internal scroll if list is very long */
-}
-</style>
-
-
-
-
- <!-- — NAV / HERO / CARD TWEAKS — -->
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-SzlrxWNL6+qg1P5+5N1R6N1M4bKCvRLVGVN4uP6Y5XUyxUK85+CbERgqZFsxF0i5fLkW2G4qURy1ovw6aToF3g=="
-      crossorigin="anonymous" referrerpolicy="no-referrer">
-
-  
-<style>
-/* ---------- NAVIGATION ---------- */
-/* 1) Give dropdown 100 vw, stop overflow & shrink font on phones */
-.navbar-dropdown-list-container{
-  width:fit-content!important; 
-                                               /* full screen width */
-  max-height:none!important;                        /* no internal scroll */
-}
-@media (max-width:767px){                           /* phones only */
-  .navbar-dropdown-link{font-size:.875rem;}         /* slightly smaller text */
-}
-/* 2) Prevent long labels from wrapping */
-.navbar-dropdown-link{white-space:nowrap;}
-
-/* ---------- BUTTONS ---------- */
-.navbar-button-wrapper{display:flex;gap:.75rem;}
-.call-btn{
-  background:#15803d;           /* emerald */
-  color:#fff!important; padding:.75rem 1.25rem;
-  border-radius:15px; display:flex;align-items:center;gap:.5rem;
-  font-weight:600; transition:background .25s;
-}
-.call-btn:hover{background:#176e35;}
-/* CLIENT PORTAL gets a user icon */
-.btn-primary .fa-user{margin-right:.5rem;}
-
-/* ---------- HERO SPACING ---------- */
-.header-component{padding-top:1.25rem !important;}      /* was huge; now tighter */
-
-/* ---------- PRACTICE-AREA CARDS ---------- */
-.link-card-practice-areas {
-  flex:1 1 260px !important;                                   /* equal basis */
-  display:flex; flex-direction:column !important;
-}
-.link-card-practice-areas .card-background{
-  flex:1; display:flex; flex-direction:column !important;      /* equal height */
-}
-/* smooth hover already present; ensure shadow always identical height */
-.link-card-practice-areas:hover{transform:translateY(-4px) scale(1.03) !important;}
-</style>
- 
-<style>
-/* Mobile dropdown fixes */
-@media (max-width: 991px) {
-    .w-dropdown-list {
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100vw !important;
-        z-index: 9999 !important;
-        display: none !important; /* Hidden by default */
-    }
-    
-    .w-dropdown.w--open .w-dropdown-list {
-        display: block !important;
-    }
-    
-    .navbar-dropdwn-toggle {
-        cursor: pointer;
-        user-select: none;
-    }
-    
-    /* Ensure dropdown links are clickable */
-    .navbar-dropdown-link {
-        display: block !important;
-        padding: 12px 20px !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .navbar-dropdown-link:hover {
-        background-color: #f5f5f5;
-    }
-}
-
-
-</style>
-
- 
-
-   <script src="https://pritsinghlaw.com/website-performance-optimizer.js" defer></script>
 
   
 </head>
 <body>
-
-  
   <div class="page-wrapper">
 
+
+ <!-- Preloader Start -->
+<div id="preloader">
+  <div id="preloader-content">
+    <img class="fade-in-up" src="/whitenobg.svg" alt="Law Offices of Pritpal Singh Logo" id="preloader-logo" />
+    <div class="loading-text">
+      <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
+    </div>
+  </div>
+</div>
+<!-- Preloader End -->
+    
+
+
+   
     
     
-    <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
+    
+     <div data-animation="default" class="navbar-component w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="b62916c8-25c1-48a4-c0e8-4b5699b25d10" role="banner" data-duration="400"><div class="container-large"><div class="navbar-container"><a href="/" class="navbar-logo-link w-nav-brand" aria-label="home"><img src="/colornobg.svg" width="200" height="auto" loading="lazy" alt="Pritpal Singh logo" class="navbar-logo hide-tablet"><img src="/icon.png" width="80" height="auto" loading="lazy" alt="Law Offices of Pritpal Singh logo" class="navbar-logo hide-desktop"></a>
   
 <nav role="navigation" id="w-node-b62916c8-25c1-48a4-c0e8-4b5699b25d14-99b25d10" class="navbar-menu page-height-tablet w-nav-menu">
   <a style="font-weight: 500 !important; font-family: 'Open Sans', sans-serif !important;" href="/" class="navbar-link w-nav-link">Home</a>
@@ -693,19 +704,20 @@ visibility:hidden!important;
 </nav>
   
   <div class="navbar-button-wrapper"><!-- NEW call button -->
-  <a style="font-size:10px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary btn-pulse w-button">
+  <a style="font-size:10.5px!important; background-color:#001f54!important; color:#ffffff!important;" href="tel:+15104432123" class="btn btn-primary w-button">
  <b>CALL US</b>
   </a>
 
   <!-- EXISTING portal button, now with a user icon -->
   <a href="/coming-soon" target="_blank" class="btn btn-primary w-button"
-     style="background-color:#ff4900!important; font-size:9.5px!important;">
+     style="background-color:#ff4900!important; font-size:10px!important;">
   <b>CLIENT PORTAL</b>
   </a>
     
     
-    <div class="navbar-menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false"><div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div></div></div></div></div><div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div></div><main class="main-wrapper">
-
+    <div class="navbar-menu-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false"><div class="menu-icon"><div class="menu-icon-line-top"></div><div class="menu-icon-line-middle"><div class="menu-icon-line-middle-inner"></div></div><div class="menu-icon-line-bottom"></div></div></div></div></div></div><div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div></div>
+    
+    <main class="main-wrapper">
 
 
 
