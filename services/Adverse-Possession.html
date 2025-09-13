@@ -1137,6 +1137,28 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const menuButton = document.getElementById('menuButton'); // The menu button
+  const menuIcon = menuButton.querySelector('.menu-icon'); // The menu icon
+  const menuOverlay = document.getElementById('w-nav-overlay-0'); // The menu overlay
+
+  menuButton.addEventListener('click', function () {
+    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+
+    // Toggle the aria-expanded attribute
+    menuButton.setAttribute('aria-expanded', !isOpen);
+
+    // Toggle the "open" class for the menu icon
+    menuIcon.classList.toggle('open');
+
+    // Toggle the visibility of the menu overlay
+    if (isOpen) {
+      menuOverlay.style.display = 'none';
+    } else {
+      menuOverlay.style.display = 'block';
+    }
+  });
+});
 
 </script>
           
