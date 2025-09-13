@@ -580,7 +580,7 @@ visibility:hidden!important;
    
 </style>
 
-<style id="menu-icon-animation">
+<style>
 /* Style for the hamburger menu icon */
 .menu-icon {
   position: relative;
@@ -1110,63 +1110,34 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-// Hamburger to X animation handler on mobile
-
-    document.addEventListener('DOMContentLoaded', function () {
-  const menuButton = document.getElementById('menuButton'); // Target the menu button using the ID
-  const menuIcon = menuButton.querySelector('.menu-icon');
-  const menuOverlay = document.getElementById('w-nav-overlay-0'); // Target the menu overlay
-
-  menuButton.addEventListener('click', function () {
-    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-
-    // Toggle aria-expanded attribute
-    menuButton.setAttribute('aria-expanded', !isExpanded);
-
-    // Toggle the "open" class for the animation
-    menuIcon.classList.toggle('open');
-
-    // Toggle the visibility of the menu overlay
-    if (isExpanded) {
-      menuOverlay.style.display = 'none';
-    } else {
-      menuOverlay.style.display = 'block';
-    }
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  const menuButton = document.getElementById('menuButton'); // The menu button
-  const menuIcon = menuButton.querySelector('.menu-icon'); // The menu icon
-  const menuOverlay = document.getElementById('w-nav-overlay-0'); // The menu overlay
-
-  menuButton.addEventListener('click', function () {
-    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-
-    // Toggle the aria-expanded attribute
-    menuButton.setAttribute('aria-expanded', !isOpen);
-
-    // Toggle the "open" class for the menu icon
-    menuIcon.classList.toggle('open');
-
-    // Toggle the visibility of the menu overlay
-    if (isOpen) {
-      menuOverlay.style.display = 'none';
-    } else {
-      menuOverlay.style.display = 'block';
-    }
-  });
-});
-
 </script>
           
     
 
 <script src="main.js"></script>
 
+<script>
 
+document.addEventListener('DOMContentLoaded', function () {
+  const menuButton = document.getElementById('menuButton'); // Targeting the menu button
+  const menuIcon = menuButton.querySelector('.menu-icon'); // Targeting the menu icon
+  const menuOverlay = document.getElementById('w-nav-overlay-0'); // Targeting the menu overlay
+
+  menuButton.addEventListener('click', function () {
+    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+
+    // Update aria-expanded for accessibility
+    menuButton.setAttribute('aria-expanded', !isOpen);
+
+    // Toggle the "open" class for animation
+    menuIcon.classList.toggle('open');
+
+    // Show or hide the menu overlay
+    menuOverlay.style.display = isOpen ? 'none' : 'block';
+  });
+});
+
+</script>
 
 
 
