@@ -1154,5 +1154,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.matchMedia("(min-width: 992px)").matches) {
+    document.querySelectorAll('.navbar-dropdwn-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const dropdown = this.closest('.navbar-menu-dropdown');
+        const isPinned = dropdown.classList.contains('w--open');
+        // Toggle pinning
+        if (isPinned) {
+          dropdown.classList.remove('w--open');
+        } else {
+          // Optionally close other pinned dropdowns:
+          document.querySelectorAll('.navbar-menu-dropdown.w--open').forEach(dd => {
+            dd.classList.remove('w--open');
+          });
+          dropdown.classList.add('w--open');
+        }
+      });
+    });
+
+    // Optional: clicking outside closes pinned dropdowns
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.navbar-menu-dropdown')) {
+        document.querySelectorAll('.navbar-menu-dropdown.w--open').forEach(dd => {
+          dd.classList.remove('w--open');
+        });
+      }
+    });
+  }
+});
+</script>
+
+
 </body>
 </html>
