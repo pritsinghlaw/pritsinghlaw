@@ -1957,8 +1957,8 @@ document.addEventListener('DOMContentLoaded', function() {
     applyConsent(payload);
     return payload;
   }
-
-  // Activate any deferred scripts: <script type="text/plain" data-category="analytics">…</script>
+</script>
+  <script type="text/plain" data-category="analytics">
   function enableDeferredScripts(category) {
     document.querySelectorAll(`script[type="text/plain"][data-category="${category}"]:not([data-activated])`)
       .forEach(node => {
