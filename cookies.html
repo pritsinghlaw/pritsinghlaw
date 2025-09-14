@@ -828,7 +828,7 @@ visibility:hidden!important;
               </p>
              <br> <h4>5. Third-Party Cookies</h4><br>
               <p>
-                We may use third-party service providers, such as Google Analytics, to help us understand site usage. These third parties may set their own cookies subject to their privacy and cookie policies.
+                We may use third-party service providers, such as Google Analytics, to help us understand site usage. These third parties may set their own cookies subject to their privacy and cookie policies. To manage your cookie preferences, <a href="#" onclick="pslCookieConsent.open();return false;">click here</a>.
               </p>
              <br> <h4>6. Updates to This Policy</h4><br>
               <p>
@@ -1114,5 +1114,178 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+
+
+<!-- Cookie Consent (Prit Singh Law) -->
+<style>
+  .psl-cookie-banner {
+    position: fixed; z-index: 2147483647; inset: auto 16px 16px 16px;
+    max-width: 720px; margin: 0 auto; border: 1px solid rgba(0,0,0,.08);
+    border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    background: #ffffff; color: #111827; font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  }
+  .psl-cookie-inner { padding: 16px; display: grid; gap: 12px; }
+  .psl-cookie-title { font-weight: 600; font-size: 15px; }
+  .psl-cookie-desc a { color: #0b68ff; text-decoration: underline; }
+  .psl-cookie-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+  .psl-cookie-toggles { display: flex; gap: 16px; align-items: center; }
+  .psl-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+  .psl-toggle input { width: 16px; height: 16px; accent-color: #0b68ff; }
+  .psl-cookie-actions { display: flex; gap: 8px; }
+  .psl-btn {
+    appearance: none; border: 1px solid rgba(0,0,0,.1); background: #f3f4f6; color: #111827;
+    padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;
+  }
+  .psl-btn.primary { background: #0b68ff; color: #fff; border-color: #0b68ff; }
+  .psl-btn:focus { outline: 2px solid #0b68ff; outline-offset: 2px; }
+  @media (max-width: 520px) {
+    .psl-cookie-controls { gap: 12px; }
+    .psl-cookie-actions { flex: 1 1 100%; }
+  }
+  .psl-cookie-hidden { display: none !important; }
+</style>
+
+<div id="psl-cookie-banner"
+     class="psl-cookie-banner psl-cookie-hidden"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="psl-cookie-title"
+     aria-describedby="psl-cookie-desc">
+  <div class="psl-cookie-inner">
+    <div class="psl-cookie-title" id="psl-cookie-title">Cookies on pritsinghlaw.com</div>
+    <div class="psl-cookie-desc" id="psl-cookie-desc">
+      We use essential cookies to make this site work and optional analytics cookies to help us improve it.
+      Read our <a href="/cookies" target="_blank" rel="noopener">Cookie Policy</a> and
+      <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+    </div>
+
+    <div class="psl-cookie-controls">
+      <div class="psl-cookie-toggles" aria-label="Cookie preferences">
+        <label class="psl-toggle" title="Always on">
+          <input type="checkbox" checked disabled aria-disabled="true" />
+          Essential
+        </label>
+        <label class="psl-toggle">
+          <input type="checkbox" id="psl-consent-analytics" />
+          Analytics (optional)
+        </label>
+      </div>
+
+      <div class="psl-cookie-actions">
+        <button type="button" class="psl-btn" id="psl-reject">Reject analytics</button>
+        <button type="button" class="psl-btn" id="psl-save">Save choices</button>
+        <button type="button" class="psl-btn primary" id="psl-accept">Accept all</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const STORAGE_KEY = 'psl.cookieConsent.v1';
+  const CONSENT_MONTHS = 12;
+
+  const $banner = document.getElementById('psl-cookie-banner');
+  const $analytics = document.getElementById('psl-consent-analytics');
+  const $accept = document.getElementById('psl-accept');
+  const $reject = document.getElementById('psl-reject');
+  const $save   = document.getElementById('psl-save');
+
+  function monthsFromNow(m) {
+    const d = new Date();
+    d.setMonth(d.getMonth() + m);
+    return d.toISOString();
+  }
+
+  function getConsent() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data.expires || new Date(data.expires) < new Date()) return null;
+      return data;
+    } catch { return null; }
+  }
+
+  function setConsent(opts) {
+    const payload = {
+      essential: true,
+      analytics: !!opts.analytics,
+      updatedAt: new Date().toISOString(),
+      expires: monthsFromNow(CONSENT_MONTHS)
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    applyConsent(payload);
+    return payload;
+  }
+
+  // Activate any deferred scripts: <script type="text/plain" data-category="analytics">…</script>
+  function enableDeferredScripts(category) {
+    document.querySelectorAll(`script[type="text/plain"][data-category="${category}"]:not([data-activated])`)
+      .forEach(node => {
+        const s = document.createElement('script');
+        // copy attributes except type and data-*
+        [...node.attributes].forEach(attr => {
+          if (attr.name === 'type' || attr.name.startsWith('data-')) return;
+          s.setAttribute(attr.name, attr.value);
+        });
+        if (node.textContent) s.textContent = node.textContent;
+        s.dataset.activated = 'true';
+        node.after(s);
+        node.dataset.activated = 'true';
+      });
+  }
+
+  // Example GA4 consent hook (only runs if gtag is present on page)
+  function updateGtagConsent(analyticsAllowed) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', { analytics_storage: analyticsAllowed ? 'granted' : 'denied' });
+    }
+  }
+
+  function applyConsent(consent) {
+    const allowAnalytics = !!(consent && consent.analytics);
+    if (allowAnalytics) {
+      enableDeferredScripts('analytics');
+    }
+    updateGtagConsent(allowAnalytics);
+    document.documentElement.setAttribute('data-consent-analytics', allowAnalytics ? 'true' : 'false');
+  }
+
+  function openBanner() {
+    $banner.classList.remove('psl-cookie-hidden');
+    $banner.setAttribute('aria-hidden', 'false');
+  }
+  function closeBanner() {
+    $banner.classList.add('psl-cookie-hidden');
+    $banner.setAttribute('aria-hidden', 'true');
+  }
+
+  // Public API (so you can add a "Manage Cookies" link anywhere)
+  window.pslCookieConsent = {
+    open: openBanner,
+    reset: function() { localStorage.removeItem(STORAGE_KEY); openBanner(); }
+  };
+
+  // Wire up buttons
+  $accept.addEventListener('click', () => { setConsent({ analytics: true }); closeBanner(); });
+  $reject.addEventListener('click', () => { setConsent({ analytics: false }); closeBanner(); });
+  $save.addEventListener('click',   () => { setConsent({ analytics: $analytics.checked }); closeBanner(); });
+
+  // Initial state
+  const existing = getConsent();
+  if (existing) {
+    $analytics.checked = !!existing.analytics;
+    applyConsent(existing);
+  } else {
+    // Default: analytics OFF until user decides
+    $analytics.checked = false;
+    openBanner();
+  }
+})();
+</script>
+<!-- End Cookie Consent -->
+
 </body>
 </html>
