@@ -184,7 +184,11 @@ class WebsiteOptimizer {
         const criticalResources = [
             // Add your critical resources here
             '/style.css',
+            '/prit.css',
             '/js/main.js',
+            '/payments.css',
+            'https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css',
+            'https://assets-global.website-files.com/64785fe0a8b931af3b0da218/css/sterlingelysium.79c73a7ef.css',
             // Web fonts
             'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
         ];
